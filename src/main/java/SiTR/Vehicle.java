@@ -78,8 +78,10 @@ public class Vehicle {
             return Double.POSITIVE_INFINITY;
         }
 
-        double posDistance = this.getPosition() + frontVehicle.getPosition();
+        // distance between two vehicles is the absolute value of the position difference
+        double posDistance = Math.abs(this.getPosition() - frontVehicle.getPosition());
 
+        // we substract from this distance, the distance from the vehicles center and vehicles extremities
         return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
     }
 }
