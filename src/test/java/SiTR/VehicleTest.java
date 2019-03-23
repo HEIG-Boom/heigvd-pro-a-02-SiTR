@@ -22,7 +22,12 @@ public class VehicleTest extends TestCase {
     }
 
     public void testLength() {
-        Vehicle vehicle = new Vehicle(1.6);
+        Vehicle vehicle = new Vehicle(1.6, 145.2);
         assertEquals(vehicle.getLength(), 1.6);
+    }
+
+    public void testMaxSpeed() {
+        Vehicle vehicle = new Vehicle(1.6, 145.2);
+        assertEquals(vehicle.getMaxSpeed(), 145.2);
     }
 }
