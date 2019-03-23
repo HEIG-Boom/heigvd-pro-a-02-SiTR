@@ -1,12 +1,13 @@
 package SiTR;
 
 public class Vehicle {
+    private int xPos;
 
     public void setPosition(int x) {
-
+        xPos = x;
     }
 
     public int getPosition() {
-        return 10;
+        return xPos;
     }
 }
