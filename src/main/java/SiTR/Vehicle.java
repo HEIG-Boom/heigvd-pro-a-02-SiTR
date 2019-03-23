@@ -39,7 +39,7 @@ public class Vehicle {
      * @param length length [m] of the vehicle
      */
     public Vehicle(double length) {
-        this.length = 1.6;
+        this.length = length;
     }
 
 }
