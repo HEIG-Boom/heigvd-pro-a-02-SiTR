@@ -20,4 +20,26 @@ public class Vehicle {
      * @return the current speed
      */
     @Getter @Setter private double speed;
+
+    /**
+     * Length of the vehicle in [m]
+     * @return the current length
+     */
+    @Getter private double length;
+
+    /**
+     * Constructor
+     */
+    public Vehicle() {
+
+    }
+
+    /**
+     * Constructor
+     * @param length length [m] of the vehicle
+     */
+    public Vehicle(double length) {
+        this.length = 1.6;
+    }
+
 }

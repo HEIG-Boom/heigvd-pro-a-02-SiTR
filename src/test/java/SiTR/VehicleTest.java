@@ -20,4 +20,9 @@ public class VehicleTest extends TestCase {
         vehicle.setSpeed(63.5);
         assertEquals(vehicle.getSpeed(), 63.5);
     }
+
+    public void testLength() {
+        Vehicle vehicle = new Vehicle(1.6);
+        assertEquals(vehicle.getLength(), 1.6);
+    }
 }
