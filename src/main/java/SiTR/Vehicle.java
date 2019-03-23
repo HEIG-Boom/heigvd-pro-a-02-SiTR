@@ -49,6 +49,13 @@ public class Vehicle {
     @Getter private final double length;
 
     /**
+     * Object in front of this vehicle
+     * @param new front object
+     * @return the current front object
+     */
+    @Getter @Setter private Object frontObject;
+
+    /**
      * Constructor
      * @param length length [m] of the vehicle
      * @param maxSpeed max speed [m/s] of the vehicle

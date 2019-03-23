@@ -36,4 +36,13 @@ public class VehicleTest extends TestCase {
         vehicle.setSpeed(250);
         assertEquals(vehicle.getSpeed(), 145.2);
     }
+
+    public void testFrontObject() {
+        Vehicle vehicle = new Vehicle(1.6, 145.2);
+        Vehicle vehicle2 = new Vehicle(1.6, 145.2);
+
+        vehicle.setFrontObject(vehicle2);
+        assertEquals(vehicle.getFrontObject(), vehicle2);
+        assertNull(vehicle2.getFrontObject());
+    }
 }
