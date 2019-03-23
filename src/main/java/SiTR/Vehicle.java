@@ -13,4 +13,11 @@ public class Vehicle {
      * @return the current x position
      */
     @Getter @Setter private int position;
+
+    /**
+     * Speed in [m/s] of the vehicle
+     * @param new value for the speed
+     * @return the current speed
+     */
+    @Getter @Setter private double speed;
 }
