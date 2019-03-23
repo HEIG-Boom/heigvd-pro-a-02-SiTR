@@ -23,10 +23,10 @@ public class Vehicle {
 
     /**
      * Max speed in [m/s] of the vehicle
-     * @param new value fot the max speed
-     * @return the current max speed
+     * @param new value for the max speed
+     * @return the max speed
      */
-    @Getter private double maxSpeed;
+    @Getter private final double maxSpeed;
 
     /**
      * Length of the vehicle in [m]
@@ -37,8 +37,8 @@ public class Vehicle {
     /**
      * Constructor
      */
-    public Vehicle() {
-
+    public Vehicle(double maxSpeed) {
+        this.maxSpeed = 145.2;
     }
 
     /**
@@ -47,8 +47,8 @@ public class Vehicle {
      * @param maxSpeed max speed [m/s] of the vehicle
      */
     public Vehicle(double length, double maxSpeed) {
+        this(maxSpeed);
         this.length = length;
-        this.maxSpeed = 145.2;
     }
 
 }

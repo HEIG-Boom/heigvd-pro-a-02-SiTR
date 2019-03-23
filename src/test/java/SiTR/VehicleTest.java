@@ -10,13 +10,13 @@ import junit.framework.TestSuite;
 public class VehicleTest extends TestCase {
 
     public void testPosition() {
-        Vehicle vehicle = new Vehicle();
+        Vehicle vehicle = new Vehicle(145.2);
         vehicle.setPosition(10);
         assertEquals(vehicle.getPosition(), 10);
     }
 
     public void testSpeed() {
-        Vehicle vehicle = new Vehicle();
+        Vehicle vehicle = new Vehicle(145.2);
         vehicle.setSpeed(63.5);
         assertEquals(vehicle.getSpeed(), 63.5);
     }
