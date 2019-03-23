@@ -38,7 +38,7 @@ public class Vehicle {
      * Constructor
      */
     public Vehicle(double maxSpeed) {
-        this.maxSpeed = 145.2;
+        this.maxSpeed = maxSpeed;
     }
 
     /**
