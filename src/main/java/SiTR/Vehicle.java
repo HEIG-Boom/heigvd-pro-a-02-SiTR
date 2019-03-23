@@ -65,13 +65,21 @@ public class Vehicle {
         this.maxSpeed = maxSpeed;
     }
 
+    /**
+     * Front distance [m] between this vehicle and its front vehicle
+     *
+     * Note: length is calculated between vehicles extremities
+     * @return front distance
+     */
     public double frontDistance() {
-        Object frontObject = this.getFrontVehicle();
+        Vehicle frontVehicle = this.getFrontVehicle();
 
-        if(frontObject == null) {
+        if(frontVehicle == null) {
             return Double.POSITIVE_INFINITY;
         }
 
-        return 168.35;
+        double posDistance = this.getPosition() + frontVehicle.getPosition();
+
+        return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
     }
 }
