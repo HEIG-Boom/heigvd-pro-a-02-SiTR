@@ -36,6 +36,7 @@ public class Vehicle {
 
     /**
      * Constructor
+     * @param maxSpeed max speed [m/s] of the vehicle
      */
     public Vehicle(double maxSpeed) {
         this.maxSpeed = maxSpeed;
