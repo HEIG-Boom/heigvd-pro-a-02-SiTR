@@ -11,8 +11,8 @@ public class VehicleTest extends TestCase {
 
     public void testPosition() {
         Vehicle vehicle = new Vehicle(1.6, 145.2);
-        vehicle.setPosition(10);
-        assertEquals(vehicle.getPosition(), 10);
+        vehicle.setPosition(10.5);
+        assertEquals(vehicle.getPosition(), 10.5);
     }
 
     public void testSpeed() {

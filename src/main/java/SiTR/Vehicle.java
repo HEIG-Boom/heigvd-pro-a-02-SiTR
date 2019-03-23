@@ -8,11 +8,11 @@ import lombok.Setter;
  */
 public class Vehicle {
     /**
-     * X position of the vehicle
+     * X position of the vehicle [m]
      * @param new value for the x position
      * @return the current x position
      */
-    @Getter @Setter private int position;
+    @Getter @Setter private double position;
 
     /**
      * Speed in [m/s] of the vehicle
