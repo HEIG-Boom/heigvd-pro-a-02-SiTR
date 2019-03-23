@@ -1,22 +1,16 @@
 package SiTR;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Vehicle class represents the simulation vehicles
  */
 public class Vehicle {
-    private int xPos; // x coordinate
-
     /**
-     * @param x x coordinate to set
+     * X position of the vehicle
+     * @param new value for the x position
+     * @return the current x position
      */
-    public void setPosition(int x) {
-        xPos = x;
-    }
-
-    /**
-     * @return x coordinate of the vehicle
-     */
-    public int getPosition() {
-        return xPos;
-    }
+    @Getter @Setter private int position;
 }
