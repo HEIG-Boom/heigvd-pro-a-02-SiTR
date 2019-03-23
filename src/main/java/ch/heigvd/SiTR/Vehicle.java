@@ -1,4 +1,4 @@
-package SiTR;
+package ch.heigvd.SiTR;
 
 import lombok.Getter;
 import lombok.Setter;
