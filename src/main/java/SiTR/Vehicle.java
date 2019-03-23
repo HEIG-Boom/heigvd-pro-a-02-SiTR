@@ -19,7 +19,21 @@ public class Vehicle {
      * @param new value for the speed
      * @return the current speed
      */
-    @Getter @Setter private double speed;
+    @Getter private double speed;
+
+    /**
+     * new value for the speed
+     *
+     * Note: if speed exceed max speed then set speed to max speed
+     * @param speed
+     */
+    public void setSpeed(double speed) {
+        if(speed > maxSpeed) {
+            speed = maxSpeed;
+        }
+
+        this.speed = speed;
+    }
 
     /**
      * Max speed in [m/s] of the vehicle

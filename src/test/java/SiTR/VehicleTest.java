@@ -30,4 +30,10 @@ public class VehicleTest extends TestCase {
         Vehicle vehicle = new Vehicle(1.6, 145.2);
         assertEquals(vehicle.getMaxSpeed(), 145.2);
     }
+
+    public void testSpeedShouldNotExceedMaxSpeed() {
+        Vehicle vehicle = new Vehicle(1.6, 145.2);
+        vehicle.setSpeed(250);
+        assertEquals(vehicle.getSpeed(), 145.2);
+    }
 }
