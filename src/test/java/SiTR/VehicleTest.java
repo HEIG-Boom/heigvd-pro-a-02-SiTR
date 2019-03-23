@@ -45,4 +45,18 @@ public class VehicleTest extends TestCase {
         assertEquals(vehicle.getFrontObject(), vehicle2);
         assertNull(vehicle2.getFrontObject());
     }
+
+    public void testFrontDistance() {
+        Vehicle vehicle = new Vehicle(1.6, 145.2);
+        vehicle.setPosition(50);
+        Vehicle vehicle2 = new Vehicle(1.7, 145.2);
+        vehicle2.setPosition(120);
+        vehicle.setFrontObject(vehicle2);
+        assertEquals(vehicle.frontDistance(), 168.35);
+    }
+
+    public void frontDistanceShouldBeInfiniteIfThereIsntFrontObject() {
+        Vehicle vehicle = new Vehicle(1.6, 145.2);
+        assertEquals(vehicle.frontDistance(), Double.POSITIVE_INFINITY);
+    }
 }

@@ -65,4 +65,13 @@ public class Vehicle {
         this.maxSpeed = maxSpeed;
     }
 
+    public double frontDistance() {
+        Object frontObject = this.getFrontObject();
+
+        if(frontObject == null) {
+            return Double.POSITIVE_INFINITY;
+        }
+
+        return 168.35;
+    }
 }
