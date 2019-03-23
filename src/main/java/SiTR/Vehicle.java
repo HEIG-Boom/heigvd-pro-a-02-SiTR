@@ -49,11 +49,11 @@ public class Vehicle {
     @Getter private final double length;
 
     /**
-     * Object in front of this vehicle
-     * @param new front object
-     * @return the current front object
+     * Vehicle in front of this vehicle
+     * @param new front vehicle
+     * @return the current front vehicle
      */
-    @Getter @Setter private Object frontObject;
+    @Getter @Setter private Vehicle frontVehicle;
 
     /**
      * Constructor
@@ -66,7 +66,7 @@ public class Vehicle {
     }
 
     public double frontDistance() {
-        Object frontObject = this.getFrontObject();
+        Object frontObject = this.getFrontVehicle();
 
         if(frontObject == null) {
             return Double.POSITIVE_INFINITY;

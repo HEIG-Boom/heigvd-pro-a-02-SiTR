@@ -41,9 +41,9 @@ public class VehicleTest extends TestCase {
         Vehicle vehicle = new Vehicle(1.6, 145.2);
         Vehicle vehicle2 = new Vehicle(1.6, 145.2);
 
-        vehicle.setFrontObject(vehicle2);
-        assertEquals(vehicle.getFrontObject(), vehicle2);
-        assertNull(vehicle2.getFrontObject());
+        vehicle.setFrontVehicle(vehicle2);
+        assertEquals(vehicle.getFrontVehicle(), vehicle2);
+        assertNull(vehicle2.getFrontVehicle());
     }
 
     public void testFrontDistance() {
@@ -51,7 +51,7 @@ public class VehicleTest extends TestCase {
         vehicle.setPosition(50);
         Vehicle vehicle2 = new Vehicle(1.7, 145.2);
         vehicle2.setPosition(120);
-        vehicle.setFrontObject(vehicle2);
+        vehicle.setFrontVehicle(vehicle2);
         assertEquals(vehicle.frontDistance(), 168.35);
     }
 
