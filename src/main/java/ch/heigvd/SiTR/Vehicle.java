@@ -30,6 +30,8 @@ public class Vehicle {
     public void setSpeed(double speed) {
         if(speed > maxSpeed) {
             speed = maxSpeed;
+        } else if(speed < -maxSpeed) {
+            speed = -maxSpeed;
         }
 
         this.speed = speed;
