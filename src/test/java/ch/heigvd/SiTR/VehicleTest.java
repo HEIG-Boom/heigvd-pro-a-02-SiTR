@@ -37,7 +37,7 @@ public class VehicleTest extends TestCase {
         assertEquals(vehicle.getSpeed(), 145.2);
     }
 
-    public void testFrontObject() {
+    public void testFrontVehicle() {
         Vehicle vehicle = new Vehicle(1.6, 145.2);
         Vehicle vehicle2 = new Vehicle(1.6, 145.2);
 
@@ -55,7 +55,7 @@ public class VehicleTest extends TestCase {
         assertEquals(vehicle.frontDistance(), 68.35);
     }
 
-    public void frontDistanceShouldBeInfiniteIfThereIsntFrontObject() {
+    public void frontDistanceShouldBeInfiniteIfThereIsntFrontVehicle() {
         Vehicle vehicle = new Vehicle(1.6, 145.2);
         assertEquals(vehicle.frontDistance(), Double.POSITIVE_INFINITY);
     }
