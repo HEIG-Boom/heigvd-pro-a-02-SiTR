@@ -1,5 +1,7 @@
 package ch.heigvd.SiTR;
 
+import ch.heigvd.SiTR.Viewer.SettingsWindow;
+
 /**
  * Hello world!
  *
