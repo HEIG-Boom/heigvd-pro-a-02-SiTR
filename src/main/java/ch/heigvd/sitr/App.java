@@ -1,6 +1,4 @@
-package ch.heigvd.SiTR;
-
-import ch.heigvd.SiTR.Viewer.SettingsWindow;
+package ch.heigvd.sitr;
 
 /**
  * Hello world!

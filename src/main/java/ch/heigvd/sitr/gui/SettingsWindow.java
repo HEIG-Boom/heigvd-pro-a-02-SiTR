@@ -1,4 +1,4 @@
-package ch.heigvd.SiTR.Viewer;
+package ch.heigvd.sitr.gui;
 
 import javax.swing.*;
 
