@@ -14,6 +14,13 @@ public class VehicleControllerTest {
     public void desiredVelocity() {
         VehicleController vehicleController = new VehicleController();
         vehicleController.setDesiredVelocity(35.5);
-        assertEquals(vehicleController.getDesiredVelocity(), 35.5);
+        assertEquals(35.5, vehicleController.getDesiredVelocity());
+    }
+
+    @Test
+    public void minimumSpacing() {
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setMinimumSpacing(2.5);
+        assertEquals(2.5, vehicleController.getMinimumSpacing());
     }
 }

@@ -9,10 +9,15 @@ import lombok.Setter;
 public class VehicleController {
     /**
      * Desired velocity (v0) of the vehicle [m/s]
-     * @param new value for the v0
+     * @param new value for v0
      * @return the current v0
      */
     @Getter @Setter private double desiredVelocity;
 
-
+    /**
+     * Minimum spacing (s0) of the vehicle [m]
+     * @param new value for s0
+     * @return the current s0
+     */
+    @Getter @Setter private double minimumSpacing;
 }
