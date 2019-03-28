@@ -34,4 +34,11 @@ public class VehicleController {
      * @returm the current a
      */
     @Getter @Setter private double maxAcceleration;
+
+    /**
+     * Comfortable braking deceleration (b) of the vehicle controller [m/s^2]
+     * @param new value for b
+     * @return the current b
+     */
+    @Getter @Setter private double comfortableBrakingDeceleration;
 }

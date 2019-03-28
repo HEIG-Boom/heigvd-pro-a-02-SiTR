@@ -37,4 +37,11 @@ public class VehicleControllerTest {
         vehicleController.setMaxAcceleration(0.73);
         assertEquals(0.73, vehicleController.getMaxAcceleration());
     }
+
+    @Test
+    public void comfortableBrakingDeceleration() {
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setComfortableBrakingDeceleration(1.67);
+        assertEquals(1.67, vehicleController.getComfortableBrakingDeceleration());
+    }
 }
