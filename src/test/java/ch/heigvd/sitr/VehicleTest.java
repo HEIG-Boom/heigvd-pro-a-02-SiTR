@@ -93,5 +93,11 @@ public class VehicleTest {
         vehicle.setFrontVehicle(frontVehicle);
         assertEquals(-20.0, vehicle.relSpeed());
     }
-    
+
+    @Test
+    public void relSpeedWithNoFrontVehicle() {
+        Vehicle vehicle = new Vehicle(null, 1.6, 145.2);
+        vehicle.setSpeed(80);
+        assertEquals(0.0, vehicle.relSpeed());
+    }
 }
