@@ -1,120 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ch.heigvd.sitr.gui.SettingsWindow">
-  <grid id="27dc6" binding="SettingsPanel" layout-manager="GridLayoutManager" row-count="10" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="SettingsPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="623" height="551"/>
+      <xy x="20" y="20" width="708" height="521"/>
     </constraints>
     <properties/>
-    <border type="none"/>
+    <border type="empty">
+      <size top="10" left="10" bottom="10" right="10"/>
+    </border>
     <children>
-      <component id="57e11" class="javax.swing.JLabel" binding="ChoiceScenario">
+      <component id="35c62" class="javax.swing.JLabel" binding="acronym">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <font size="14"/>
-          <text value="Scénario : "/>
+          <font name="Copperplate Gothic Bold" size="26" style="1"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <text value="SiTR"/>
         </properties>
       </component>
-      <component id="c3769" class="javax.swing.JLabel" binding="Titre">
+      <component id="af9a7" class="javax.swing.JLabel" binding="title">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="50" bottom="0" right="50" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <font name="Bernard MT Condensed" size="26" style="2"/>
-          <text value="SiTR "/>
-        </properties>
-      </component>
-      <component id="42877" class="javax.swing.JLabel" binding="SousTitre">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font size="20"/>
+          <font size="18"/>
           <text value="Simulation de Trafic Routier"/>
         </properties>
       </component>
-      <component id="6008d" class="javax.swing.JLabel" binding="ChoiceParameter">
+      <component id="3613e" class="javax.swing.JLabel" binding="subtitle1">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="30" left="0" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <font size="16"/>
+          <horizontalAlignment value="0"/>
           <text value="Choix des paramètres du scénario"/>
         </properties>
       </component>
-      <component id="fde5f" class="javax.swing.JComboBox" binding="ListScenario">
+      <component id="cf6c6" class="javax.swing.JSeparator" binding="separator1">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties/>
       </component>
-      <component id="af9e7" class="javax.swing.JLabel" binding="ChoiceControlor">
+      <component id="b574" class="javax.swing.JLabel" binding="scenarioLabel">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="0" right="30" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <font size="14"/>
-          <text value="Choix des controleurs"/>
+          <text value="Scénario :"/>
         </properties>
       </component>
-      <component id="816e6" class="javax.swing.JComboBox" binding="ListOneControlor">
+      <component id="1504d" class="javax.swing.JSeparator" binding="separator2">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties/>
       </component>
-      <component id="537df" class="javax.swing.JComboBox" binding="ListTwoControlor">
+      <component id="e2fac" class="javax.swing.JComboBox" binding="controlerSelector1">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="153dd" class="javax.swing.JComboBox" binding="ListThreeControlor">
-        <constraints>
-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="c28d0" class="javax.swing.JSpinner" binding="SpinOneControlor">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="be888" class="javax.swing.JSpinner" binding="SpinTwoControlor">
-        <constraints>
-          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="f8247" class="javax.swing.JLabel" binding="ChoiceDestinatio">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="5" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
         </constraints>
         <properties>
-          <text value="Comportement des véhicules lorsqu'ils arrivent à destination:"/>
+          <model>
+            <item value="aggressif"/>
+            <item value="passif"/>
+            <item value="autonome"/>
+          </model>
         </properties>
       </component>
-      <component id="f6d0b" class="javax.swing.JComboBox" binding="ListEndDestination">
+      <component id="b0086" class="javax.swing.JSpinner" binding="controlerCount1">
         <constraints>
-          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="50"/>
         </constraints>
         <properties/>
       </component>
-      <component id="c4725" class="javax.swing.JSpinner" binding="SpinThreeControlor">
+      <component id="fdb3" class="javax.swing.JComboBox" binding="controlerSelector2">
         <constraints>
-          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="9d4f4" class="javax.swing.JButton" binding="Validate">
-        <constraints>
-          <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="5" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
         </constraints>
         <properties>
-          <text value="Begin this Scenario"/>
+          <model>
+            <item value="aggressif"/>
+            <item value="passif"/>
+            <item value="autonome"/>
+          </model>
+        </properties>
+      </component>
+      <component id="36a6b" class="javax.swing.JComboBox" binding="controlerSelector3">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipadx="150"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="aggressif"/>
+            <item value="passif"/>
+            <item value="autonome"/>
+          </model>
+        </properties>
+      </component>
+      <component id="58842" class="javax.swing.JSpinner" binding="controlerCount2">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="50"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="93dfb" class="javax.swing.JSpinner" binding="controlerCount3">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="50"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="342f1" class="javax.swing.JComboBox" binding="scenarioSelector">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="Croisement"/>
+            <item value="Quartier"/>
+            <item value="Ville"/>
+            <item value="Planete"/>
+          </model>
+        </properties>
+      </component>
+      <component id="1f97a" class="javax.swing.JSeparator" binding="separator3">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="93022" class="javax.swing.JLabel" binding="subtitle2">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <text value="Comportement des véhicules lorsqu'ils arrivent à destination :"/>
+        </properties>
+      </component>
+      <component id="fd928" class="javax.swing.JComboBox" binding="behaviorSelector">
+        <constraints>
+          <grid row="11" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipadx="50"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="retourne au départ"/>
+            <item value="refait le trajet"/>
+            <item value="choisi un nouveau trajet"/>
+          </model>
+        </properties>
+      </component>
+      <component id="bd19e" class="javax.swing.JSeparator" binding="sparator4">
+        <constraints>
+          <grid row="12" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="cf1" class="javax.swing.JButton" binding="startButton">
+        <constraints>
+          <grid row="13" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipadx="50"/>
+        </constraints>
+        <properties>
+          <text value="Lancer"/>
         </properties>
       </component>
     </children>
