@@ -4,7 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Vehicle class represents the simulation vehicles
+ * Vehicle Controller represents the vehicle controller
+ *
+ * It's based on the Intelligent Driver Model (IDM).
+ *
+ * See :
+ * - the wikipedia article : https://en.wikipedia.org/wiki/Intelligent_driver_model
+ * - Congested Traffic States in Empirical Observations and Microscopic Simulations : https://arxiv.org/pdf/cond-mat/0002177.pdf
  */
 public class VehicleController {
     /**
