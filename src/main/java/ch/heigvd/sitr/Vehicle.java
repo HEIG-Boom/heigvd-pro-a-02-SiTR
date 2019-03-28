@@ -58,11 +58,19 @@ public class Vehicle {
     @Getter @Setter private Vehicle frontVehicle;
 
     /**
+     * Vehicle controller of this vehicle
+     * @return the vehicle controller
+     */
+    @Getter private VehicleController vehicleController;
+
+    /**
      * Constructor
+     * @param vehicleController controller of the vehicle
      * @param length length [m] of the vehicle
      * @param maxSpeed max speed [m/s] of the vehicle
      */
-    public Vehicle(double length, double maxSpeed) {
+    public Vehicle(VehicleController vehicleController, double length, double maxSpeed) {
+        this.vehicleController = vehicleController;
         this.length = length;
         this.maxSpeed = maxSpeed;
     }
