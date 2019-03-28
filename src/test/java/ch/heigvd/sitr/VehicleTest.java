@@ -83,4 +83,15 @@ public class VehicleTest {
         Vehicle vehicle = new Vehicle(vehicleController, 1.6, 145.2);
         assertEquals(vehicleController, vehicle.getVehicleController());
     }
+
+    @Test
+    public void relSpeed() {
+        Vehicle vehicle = new Vehicle(null, 1.6, 145.2);
+        vehicle.setSpeed(80);
+        Vehicle frontVehicle = new Vehicle(null, 1.6, 145.2);
+        frontVehicle.setSpeed(100);
+        vehicle.setFrontVehicle(frontVehicle);
+        assertEquals(-20.0, vehicle.relSpeed());
+    }
+    
 }
