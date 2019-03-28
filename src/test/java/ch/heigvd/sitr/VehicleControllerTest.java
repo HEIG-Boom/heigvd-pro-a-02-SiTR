@@ -23,4 +23,11 @@ public class VehicleControllerTest {
         vehicleController.setMinimumSpacing(2.5);
         assertEquals(2.5, vehicleController.getMinimumSpacing());
     }
+
+    @Test
+    public void desiredTimeHeadway() {
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setDesiredTimeHeadway(1.5);
+        assertEquals(1.5, vehicleController.getDesiredTimeHeadway());
+    }
 }
