@@ -1,4 +1,4 @@
-package ch.heigvd.SiTR;
+package ch.heigvd.sitr;
 
 /**
  * Hello world!

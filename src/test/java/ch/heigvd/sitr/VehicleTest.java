@@ -1,11 +1,10 @@
-package ch.heigvd.SiTR;
+package ch.heigvd.sitr;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
-
 
 /**
  * Unit test for Vehicle.
