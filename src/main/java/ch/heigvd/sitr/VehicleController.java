@@ -27,4 +27,11 @@ public class VehicleController {
      * @return the current T
      */
     @Getter @Setter private double desiredTimeHeadway;
+
+    /**
+     * Max acceleration (a) of the vehicle controller [m/s^2]
+     * @param new value for a
+     * @returm the current a
+     */
+    @Getter @Setter private double maxAcceleration;
 }
