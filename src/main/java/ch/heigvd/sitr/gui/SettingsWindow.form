@@ -64,62 +64,16 @@
         </constraints>
         <properties/>
       </component>
-      <component id="e2fac" class="javax.swing.JComboBox" binding="controlerSelector1">
+      <component id="58842" class="javax.swing.JSpinner" binding="controlerCount2" custom-create="true">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag top="0" left="0" bottom="5" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="aggressif"/>
-            <item value="passif"/>
-            <item value="autonome"/>
-          </model>
-        </properties>
-      </component>
-      <component id="b0086" class="javax.swing.JSpinner" binding="controlerCount1">
-        <constraints>
-          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="50"/>
         </constraints>
         <properties/>
       </component>
-      <component id="fdb3" class="javax.swing.JComboBox" binding="controlerSelector2">
+      <component id="93dfb" class="javax.swing.JSpinner" binding="controlerCount3" custom-create="true">
         <constraints>
-          <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-          <gridbag top="0" left="0" bottom="5" right="0" weightx="0.0" weighty="0.0" ipadx="150"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="aggressif"/>
-            <item value="passif"/>
-            <item value="autonome"/>
-          </model>
-        </properties>
-      </component>
-      <component id="36a6b" class="javax.swing.JComboBox" binding="controlerSelector3">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0" ipadx="150"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="aggressif"/>
-            <item value="passif"/>
-            <item value="autonome"/>
-          </model>
-        </properties>
-      </component>
-      <component id="58842" class="javax.swing.JSpinner" binding="controlerCount2">
-        <constraints>
-          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="50"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="93dfb" class="javax.swing.JSpinner" binding="controlerCount3">
-        <constraints>
-          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="8" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="50"/>
         </constraints>
         <properties/>
@@ -183,6 +137,44 @@
         </constraints>
         <properties>
           <text value="Lancer"/>
+        </properties>
+      </component>
+      <component id="b0086" class="javax.swing.JSpinner" binding="controlerCount1" custom-create="true">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0" ipadx="50"/>
+        </constraints>
+        <properties>
+          <editor value=""/>
+        </properties>
+      </component>
+      <component id="16dbe" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <horizontalAlignment value="11"/>
+          <horizontalTextPosition value="4"/>
+          <text value="Agressif :"/>
+        </properties>
+      </component>
+      <component id="ab0db" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Passif :"/>
+        </properties>
+      </component>
+      <component id="cc5ec" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Autonome :"/>
         </properties>
       </component>
     </children>
