@@ -1,6 +1,7 @@
 package ch.heigvd.sitr.gui;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 
 public class SettingsWindow {
     private JPanel SettingsPanel;
@@ -14,11 +15,8 @@ public class SettingsWindow {
     private JComboBox scenarioSelector;
     private JSeparator separator2;
 
-    private JComboBox controlerSelector1;
     private JSpinner controlerCount1;
-    private JComboBox controlerSelector2;
     private JSpinner controlerCount2;
-    private JComboBox controlerSelector3;
     private JSpinner controlerCount3;
     private JSeparator separator3;
 
@@ -35,5 +33,14 @@ public class SettingsWindow {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void createUIComponents() {
+        SpinnerModel model1 = new SpinnerNumberModel(0, 0, 1000, 1);
+        SpinnerModel model2 = new SpinnerNumberModel(0, 0, 1000, 1);
+        SpinnerModel model3 = new SpinnerNumberModel(0, 0, 1000, 1);
+        controlerCount1 = new JSpinner(model1);
+        controlerCount2 = new JSpinner(model2);
+        controlerCount3 = new JSpinner(model3);
     }
 }
