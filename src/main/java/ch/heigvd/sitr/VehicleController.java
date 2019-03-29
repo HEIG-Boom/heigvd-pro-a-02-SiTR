@@ -111,7 +111,7 @@ public class VehicleController {
      * v (speed) [m/s]
      * v0 (desired velocity) [m/s]
      *
-     * @param vehicle
+     * @param vehicle the vehicle
      * @return the desired acceleration
      */
     public double desiredAcceleration(Vehicle vehicle) {
@@ -119,9 +119,19 @@ public class VehicleController {
     }
 
     /**
+     * Calculate the acceleration
+     * a * [1 - (v / v0)^delta - (s*(v, deltaV) / s)^2]
      *
-     * @param vehicle
-     * @return
+     * Variables :
+     * a (max acceleration) [m/s^2]
+     * v (speed) [m/s]
+     * v0 (desired velocity) [m/s]
+     * deltaV (relative speed) [m/s]
+     * s (front distance) [m]
+     * delta
+     *
+     * @param vehicle the vehicle
+     * @return the acceleration
      */
     public double acceleration(Vehicle vehicle) {
         return desiredAcceleration(vehicle) - maxAcceleration * Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
