@@ -19,6 +19,11 @@ import static java.lang.Math.sqrt;
  */
 public class VehicleController {
     /**
+     * Delta exponent, traditionnaly set at 4
+     */
+    static final double delta = 4;
+
+    /**
      * Desired velocity (v0) of the vehicle controller [m/s]
      * @param new value for v0
      * @return the current v0
@@ -70,7 +75,7 @@ public class VehicleController {
     }
 
     /**
-     * Calculate desired dynamical distance s*
+     * Calculate the desired dynamical distance s*
      * s*(v, deltaV) = s0 + max(0, (v*T + (v * deltaV)/(2*sqrt(a * b)))
      *
      * Variables :
@@ -97,7 +102,18 @@ public class VehicleController {
         return safeDistance(vehicle) + dynamicalTerm;
     }
 
+    /**
+     * Calculate the desired acceleration
+     * (v / v0) ^ delta
+     *
+     * Variables :
+     * v (speed) [m/s]
+     * v0 (desired velocity) [m/s]
+     *
+     * @param vehicle
+     * @return the desired acceleration
+     */
     public double desiredAcceleration(Vehicle vehicle) {
-        return Math.pow(22.22 / 33.33, 4);
+        return Math.pow(22.22 / 33.33, delta);
     }
 }
