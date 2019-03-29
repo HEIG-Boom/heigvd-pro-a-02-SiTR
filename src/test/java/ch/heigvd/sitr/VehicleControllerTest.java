@@ -267,4 +267,36 @@ public class VehicleControllerTest {
 
         assertEquals(0.23719631730028704, vehicleController.acceleration(vehicle));
     }
+
+    @Test
+    /**
+     * acceleration is : a * [1 - (v / v0)^delta - (s*(v, deltaV) / s)^2]
+     *
+     * where : s*(v, deltaV) is the desired dynamical distance
+     *
+     * Variables :
+     * a (max acceleration)    : 0.3 [m/s^2]
+     * v (speed)               : 22.22 [m/s]
+     * v0 (desired velocity)   : 33.33 [m/s]
+     * deltaV (relative speed) : 0 [m/s]
+     * s (front distance)      : infinity [m]
+     * delta
+     *
+     * => 0.3 * [1 - (22.22 / 33.33)^4 - (s*(22.22, 0) / infinity)^2] = 0.24074074074074073 [m/s^2]
+     */
+    public void accelerationWithoutFrontVehicle() {
+        // define controller
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setDesiredVelocity(33.33);
+        vehicleController.setMinimumSpacing(2);
+        vehicleController.setDesiredTimeHeadway(1.5);
+        vehicleController.setMaxAcceleration(0.3);
+        vehicleController.setComfortableBrakingDeceleration(3);
+
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
+        vehicle.setPosition(80);
+
+        assertEquals(0.24074074074074073, vehicleController.acceleration(vehicle));
+    }
 }
