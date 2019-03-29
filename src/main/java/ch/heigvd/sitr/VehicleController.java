@@ -11,6 +11,7 @@ import lombok.Setter;
  * See :
  * - the wikipedia article : https://en.wikipedia.org/wiki/Intelligent_driver_model
  * - Congested Traffic States in Empirical Observations and Microscopic Simulations : https://arxiv.org/pdf/cond-mat/0002177.pdf
+ * - Concise explanation : http://www.mtreiber.de/trafficSimulationDe_html5_2016_06_29/IDM.html
  */
 public class VehicleController {
     /**
@@ -47,4 +48,23 @@ public class VehicleController {
      * @return the current b
      */
     @Getter @Setter private double comfortableBrakingDeceleration;
+
+    /**
+     * Calculate desired dynamical distance s*
+     * s*(v, deltaV) = s0 + max(0, (v*T + (v * deltaV)/(2*sqrt(a * b)))
+     *
+     * Variables :
+     * s0 (minimumSpacing) [m]
+     * v (speed) [m/s]
+     * T (desired time headway) [s]
+     * deltaV (relative speed) [m/s]
+     * a (max acceleration) [m/s^2]
+     * b (comfortable braking deceleration) [m/s^2]
+     *
+     * @param vehicle the vehicule
+     * @return the desired dynamical distance [m]
+     */
+    public double desiredDynamicalDistance(Vehicle vehicle) {
+        return 2.0;
+    }
 }
