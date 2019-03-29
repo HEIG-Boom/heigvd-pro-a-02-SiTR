@@ -67,6 +67,13 @@ public class VehicleController {
      * @return the desired dynamical distance [m]
      */
     public double desiredDynamicalDistance(Vehicle vehicle) {
-        return minimumSpacing + Math.max(0, vehicle.getSpeed() * desiredTimeHeadway + (vehicle.getSpeed() * vehicle.relSpeed())/(2*sqrt(maxAcceleration * comfortableBrakingDeceleration)));
+        double equilibrumTerm = minimumSpacing + vehicle.getSpeed() * desiredTimeHeadway;
+        double dynamicalTerm = (vehicle.getSpeed() * vehicle.relSpeed()) / (2*sqrt(maxAcceleration * comfortableBrakingDeceleration));
+
+        if((equilibrumTerm - minimumSpacing) + dynamicalTerm < 0) {
+            return minimumSpacing;
+        }
+
+        return equilibrumTerm + dynamicalTerm;
     }
 }
