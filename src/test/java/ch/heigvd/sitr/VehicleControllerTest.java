@@ -208,7 +208,7 @@ public class VehicleControllerTest {
      * s (front distance)      : 20 [m]
      * delta
      *
-     * => 0.3 * [1 - (22.22 / 33.33)^4 - (67.88649178547615 / 20)^2] = -3.2156910844639 [m/s^2]
+     * => 0.3 * [1 - (22.22 / 33.33)^4 - (s*(22.22, 2.78) / 20)^2] = -3.842945253121075 [m/s^2]
      */
     public void accelerationSlowerFrontVehicle() {
         // define controller
@@ -228,6 +228,6 @@ public class VehicleControllerTest {
         vehicle.setPosition(80);
         vehicle.setFrontVehicle(frontVehicle);
 
-        assertEquals(-3.2156910844639, vehicleController.acceleration(vehicle));
+        assertEquals(-3.842945253121075, vehicleController.acceleration(vehicle));
     }
 }
