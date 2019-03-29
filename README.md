@@ -10,17 +10,17 @@ and interesting part of a road network.
 
 Development team:
 
-| Name                                 | Email                                | Github     |
-|--------------------------------------|--------------------------------------|------------|
-| Loris Gilliand  (project lead)       | loris.gilliand@heig-vd.ch            | texx94     |
-| Alexandre Monteiro Marques           | alexandre.monteiromarques@heig-vd.ch | X_Brast    |
-| Eric Noël (deputy project lead)      | eric.noel@heig-vd.ch                 | Eric-Noel  |
-| Mateo Tutic                          | mateo.tutic@heig-vd.ch               | mtutic     |
-| Luc Wachter                          | luc.wachter@heig-vd.ch               | Laykel     |
-| Simon Walther                        | simon.walther@heig-vd.ch             | Waltharnak |
+| Name                                 | Email                                | Github      |
+|--------------------------------------|--------------------------------------|-------------|
+| Loris Gilliand  (project lead)       | loris.gilliand@heig-vd.ch            | texx94      |
+| Alexandre Monteiro Marques           | alexandre.monteiromarques@heig-vd.ch | X-Brast     |
+| Eric Noël (deputy project lead)      | eric.noel@heig-vd.ch                 | Eric-Noel   |
+| Mateo Tutic                          | mateo.tutic@heig-vd.ch               | mtutic      |
+| Luc Wachter                          | luc.wachter@heig-vd.ch               | Laykel      |
+| Simon Walther                        | simon.walther@heig-vd.ch             | Waltharnack |
 
 ## Dependencies
-This software requires Java 8 or above and the following libraries:
+This software requires Java 8 or above and the following tools and libraries:
 
 - Apache Maven v. 3.5.4
 - jUnit v. 4.11
