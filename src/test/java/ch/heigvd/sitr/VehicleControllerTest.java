@@ -87,7 +87,7 @@ public class VehicleControllerTest {
      * s0 (minimumSpacing): 2 [m]
      * v (speed) : 80 [m/s]
      * T (desired time headway) : 1.5 [s]
-     * deltaV (relative speed) : -20.0 [m/s]
+     * deltaV (relative speed) : 10.0 [m/s]
      * a (max acceleration) : 0.3 [m/s^2]
      * b (comfortable braking deceleration) : 3 [m/s^2]
      *
