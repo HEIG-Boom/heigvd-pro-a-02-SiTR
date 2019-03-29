@@ -146,4 +146,26 @@ public class VehicleControllerTest {
 
         assertEquals(122.0, vehicleController.desiredDynamicalDistance(vehicle));
     }
+
+    @Test
+    /**
+     * safe distance is : s0 + v*T
+     *
+     * Variables :
+     * s0 (minimum spacing): 3 [m]
+     * v (speed) : 80 [m/s]
+     * T (desired time headway) : 1.1 [s]
+     *
+     * => 3 + 80 * 1.1 = 91 [m]
+     */
+    public void safeDistance() {
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setMinimumSpacing(3);
+        vehicleController.setDesiredTimeHeadway(1.1);
+
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 120);
+        vehicle.setSpeed(80);
+
+        assertEquals(91.0, vehicleController.safeDistance(vehicle));
+    }
 }

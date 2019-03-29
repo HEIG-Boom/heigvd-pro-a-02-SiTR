@@ -51,6 +51,10 @@ public class VehicleController {
      */
     @Getter @Setter private double comfortableBrakingDeceleration;
 
+    public double safeDistance(Vehicle vehicle) {
+        return 3 + 80 * 1.1;
+    }
+
     /**
      * Calculate desired dynamical distance s*
      * s*(v, deltaV) = s0 + max(0, (v*T + (v * deltaV)/(2*sqrt(a * b)))
