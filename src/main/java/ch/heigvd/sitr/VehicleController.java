@@ -117,4 +117,8 @@ public class VehicleController {
     public double desiredAcceleration(Vehicle vehicle) {
         return maxAcceleration * (1 - Math.pow(vehicle.getSpeed() / desiredVelocity, delta));
     }
+
+    public double acceleration(Vehicle vehicle) {
+        return 0.3 * (1 - Math.pow((22.22 / 33.33), 4) - Math.pow((67.88649178547615 / 20), 2));
+    }
 }
