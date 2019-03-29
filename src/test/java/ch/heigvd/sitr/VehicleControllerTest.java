@@ -13,8 +13,8 @@ public class VehicleControllerTest {
     @Test
     public void desiredVelocity() {
         VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(35.5);
-        assertEquals(35.5, vehicleController.getDesiredVelocity());
+        vehicleController.setDesiredVelocity(22.22);
+        assertEquals(22.22, vehicleController.getDesiredVelocity());
     }
 
     @Test
@@ -50,30 +50,30 @@ public class VehicleControllerTest {
      * s*(v, deltaV) = s0 + max(0, (v*T + (v * deltaV)/(2*sqrt(a * b)))
      *
      * Variables :
-     * s0 (minimumSpacing): 2 [m]
-     * v (speed) : 80 [m/s]
-     * T (desired time headway) : 1.5 [s]
-     * deltaV (relative speed) : -20.0 [m/s]
-     * a (max acceleration) : 0.3 [m/s^2]
-     * b (comfortable braking deceleration) : 3 [m/s^2]
+     * s0 (minimumSpacing)                   : 2 [m]
+     * v (speed)                             : 22.22 [m/s]
+     * T (desired time headway)              : 1.5 [s]
+     * deltaV (relative speed)               : -5.55 [m/s]
+     * a (max acceleration)                  : 0.3 [m/s^2]
+     * b (comfortable braking deceleration)  : 3 [m/s^2]
      *
-     * => s*(80, -20) = 2 + max(0, 80 * 1.5 + (80 * -20)/(2*sqrt(0.3 * 3)))
-     *                = 2 [m] = s0
+     * => s*(22.22, -5.55) = 2 + max(0, 22.22 * 1.5 + (22.22 * -5.55)/(2*sqrt(0.3 * 3)))
+     *                     = 2 [m] = s0
      */
     public void desiredDynamicalDistanceWithFasterFrontVehicle() {
         // define controller
         VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(120);
+        vehicleController.setDesiredVelocity(33.33);
         vehicleController.setMinimumSpacing(2);
         vehicleController.setDesiredTimeHeadway(1.5);
         vehicleController.setMaxAcceleration(0.3);
         vehicleController.setComfortableBrakingDeceleration(3);
 
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 120);
-        frontVehicle.setSpeed(100);
+        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle.setSpeed(27.77);
 
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 120);
-        vehicle.setSpeed(80);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
         vehicle.setFrontVehicle(frontVehicle);
 
         assertEquals(2.0, vehicleController.desiredDynamicalDistance(vehicle));
@@ -84,33 +84,33 @@ public class VehicleControllerTest {
      * s*(v, deltaV) = s0 + max(0, (v*T + (v * deltaV)/(2*sqrt(a * b)))
      *
      * Variables :
-     * s0 (minimumSpacing): 2 [m]
-     * v (speed) : 80 [m/s]
-     * T (desired time headway) : 1.5 [s]
-     * deltaV (relative speed) : 10.0 [m/s]
-     * a (max acceleration) : 0.3 [m/s^2]
-     * b (comfortable braking deceleration) : 3 [m/s^2]
+     * s0 (minimumSpacing)                   : 2 [m]
+     * v (speed)                             : 22.22 [m/s]
+     * T (desired time headway)              : 1.5 [s]
+     * deltaV (relative speed)               : 2.78 [m/s]
+     * a (max acceleration)                  : 0.3 [m/s^2]
+     * b (comfortable braking deceleration)  : 3 [m/s^2]
      *
-     * => s*(80, -20) = 2 + max(0, 80 * 1.5 + (80 * 10)/(2*sqrt(0.3 * 3)))
-     *                = 543.6370213557839 [m]
+     * => s*(22.22, 2.78) = 2 + max(0, 22.22 * 1.5 + (22.22 * 2.78)/(2*sqrt(0.3 * 3)))
+     *                    = 67.88 [m]
      */
     public void desiredDynamicalDistanceWithSlowerFrontVehicle() {
         // define controller
         VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(120);
+        vehicleController.setDesiredVelocity(33.33);
         vehicleController.setMinimumSpacing(2);
         vehicleController.setDesiredTimeHeadway(1.5);
         vehicleController.setMaxAcceleration(0.3);
         vehicleController.setComfortableBrakingDeceleration(3);
 
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 120);
-        frontVehicle.setSpeed(70);
+        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle.setSpeed(19.44);
 
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 120);
-        vehicle.setSpeed(80);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
         vehicle.setFrontVehicle(frontVehicle);
 
-        assertEquals(543.6370213557839, vehicleController.desiredDynamicalDistance(vehicle));
+        assertEquals(67.88649178547615, vehicleController.desiredDynamicalDistance(vehicle));
     }
 
     @Test
@@ -118,33 +118,33 @@ public class VehicleControllerTest {
      * s*(v, deltaV) = s0 + max(0, (v*T + (v * deltaV)/(2*sqrt(a * b)))
      *
      * Variables :
-     * s0 (minimumSpacing): 2 [m]
-     * v (speed) : 80 [m/s]
-     * T (desired time headway) : 1.5 [s]
-     * deltaV (relative speed) : -20.0 [m/s]
-     * a (max acceleration) : 0.3 [m/s^2]
-     * b (comfortable braking deceleration) : 3 [m/s^2]
+     * s0 (minimumSpacing)                   : 2 [m]
+     * v (speed)                             : 22.22 [m/s]
+     * T (desired time headway)              : 1.5 [s]
+     * deltaV (relative speed)               : 0 [m/s]
+     * a (max acceleration)                  : 0.3 [m/s^2]
+     * b (comfortable braking deceleration)  : 3 [m/s^2]
      *
-     * => s*(80, 0) = 2 + max(0, 80 * 1.5 + (80 * 0)/(2*sqrt(0.3 * 3)))
-     *              = 122 [m]
+     * => s*(22.22, 0) = 2 + max(0, 22.22 * 1.5 + (22.22 * 0)/(2 * sqrt(0.3 * 3)))
+     *                 = 35.33 [m]
      */
     public void desiredDynamicalDistanceWithSameSpeedFrontVehicle() {
         // define controller
         VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(120);
+        vehicleController.setDesiredVelocity(33.33);
         vehicleController.setMinimumSpacing(2);
         vehicleController.setDesiredTimeHeadway(1.5);
         vehicleController.setMaxAcceleration(0.3);
         vehicleController.setComfortableBrakingDeceleration(3);
 
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 120);
-        frontVehicle.setSpeed(80);
+        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle.setSpeed(22.22);
 
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 120);
-        vehicle.setSpeed(80);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
         vehicle.setFrontVehicle(frontVehicle);
 
-        assertEquals(122.0, vehicleController.desiredDynamicalDistance(vehicle));
+        assertEquals(35.33, vehicleController.desiredDynamicalDistance(vehicle));
     }
 
     @Test
@@ -152,20 +152,20 @@ public class VehicleControllerTest {
      * safe distance is : s0 + v*T
      *
      * Variables :
-     * s0 (minimum spacing): 3 [m]
-     * v (speed) : 80 [m/s]
-     * T (desired time headway) : 1.1 [s]
+     * s0 (minimum spacing)      : 3 [m]
+     * v (speed)                 : 22.22 [m/s]
+     * T (desired time headway)  : 1.1 [s]
      *
-     * => 3 + 80 * 1.1 = 91 [m]
+     * => 3 + 22.22 * 1.1 = 27.442 [m]
      */
     public void safeDistance() {
         VehicleController vehicleController = new VehicleController();
         vehicleController.setMinimumSpacing(3);
         vehicleController.setDesiredTimeHeadway(1.1);
 
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 120);
-        vehicle.setSpeed(80);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
 
-        assertEquals(91.0, vehicleController.safeDistance(vehicle));
+        assertEquals(27.442, vehicleController.safeDistance(vehicle));
     }
 }

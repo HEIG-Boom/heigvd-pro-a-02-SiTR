@@ -88,7 +88,7 @@ public class VehicleController {
         double dynamicalTerm = (vehicle.getSpeed() * vehicle.relSpeed()) /
                                (2 * sqrt(maxAcceleration * comfortableBrakingDeceleration));
 
-        if((safeDistance(vehicle) - minimumSpacing) + dynamicalTerm < 0) {
+        if(safeDistance(vehicle) - minimumSpacing + dynamicalTerm < 0) {
             return minimumSpacing;
         }
 
