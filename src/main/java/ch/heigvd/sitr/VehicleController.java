@@ -51,6 +51,18 @@ public class VehicleController {
      */
     @Getter @Setter private double comfortableBrakingDeceleration;
 
+    /**
+     * Calculate the safe distance
+     * s0 + v*T
+     *
+     * Variables :
+     * s0 (minimum spacing) [m]
+     * v (speed) [m/s]
+     * T (desired time headway) [s]
+     *
+     * @param vehicle
+     * @return the safe distance [m]
+     */
     public double safeDistance(Vehicle vehicle) {
         return 3 + 80 * 1.1;
     }
