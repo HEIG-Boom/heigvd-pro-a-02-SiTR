@@ -104,9 +104,10 @@ public class VehicleController {
 
     /**
      * Calculate the desired acceleration
-     * (v / v0) ^ delta
+     * a * [1 - (v / v0) ^ delta]
      *
      * Variables :
+     * a (max acceleration) [m/s^2]
      * v (speed) [m/s]
      * v0 (desired velocity) [m/s]
      *
@@ -114,6 +115,6 @@ public class VehicleController {
      * @return the desired acceleration
      */
     public double desiredAcceleration(Vehicle vehicle) {
-        return Math.pow(vehicle.getSpeed() / desiredVelocity, delta);
+        return maxAcceleration * (1 - Math.pow(vehicle.getSpeed() / desiredVelocity, delta));
     }
 }

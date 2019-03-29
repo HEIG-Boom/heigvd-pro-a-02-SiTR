@@ -172,23 +172,25 @@ public class VehicleControllerTest {
 
     @Test
     /**
-     * desired acceleration is : (v / v0) ^ delta
+     * desired acceleration is : a * [1 - (v / v0) ^ delta]
      *
      * Variables :
+     * a (max acceleration)   : 0.3 [m/s^2]
      * v (speed)              : 22.22 [m/s]
      * v0 (desired velocity)  : 33.33 [m/s]
      * delta                  : 4
      *
-     * => (22.22 / 33.33) ^ 4 = 0.197530864198 [m/s^2]
+     * => 0.3 * [1 - (22.22 / 33.33) ^ 4] = 0.2407407 [m/s^2]
      */
     public void desiredAcceleration() {
         // define controller
         VehicleController vehicleController = new VehicleController();
+        vehicleController.setMaxAcceleration(0.3);
         vehicleController.setDesiredVelocity(33.33);
 
         Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
 
-        assertEquals(0.19753086419753083, vehicleController.desiredAcceleration(vehicle));
+        assertEquals(0.24074074074074073, vehicleController.desiredAcceleration(vehicle));
     }
 }
