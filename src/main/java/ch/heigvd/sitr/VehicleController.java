@@ -114,6 +114,6 @@ public class VehicleController {
      * @return the desired acceleration
      */
     public double desiredAcceleration(Vehicle vehicle) {
-        return Math.pow(22.22 / 33.33, delta);
+        return Math.pow(vehicle.getSpeed() / desiredVelocity, delta);
     }
 }
