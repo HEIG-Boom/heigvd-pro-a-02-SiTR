@@ -3,6 +3,7 @@ package ch.heigvd.sitr;
 import lombok.Getter;
 import lombok.Setter;
 
+import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 /**
@@ -14,6 +15,7 @@ import static java.lang.Math.sqrt;
  * - the wikipedia article : https://en.wikipedia.org/wiki/Intelligent_driver_model
  * - Congested Traffic States in Empirical Observations and Microscopic Simulations : https://arxiv.org/pdf/cond-mat/0002177.pdf
  * - Concise explanation : http://www.mtreiber.de/trafficSimulationDe_html5_2016_06_29/IDM.html
+ * - Traffic Flow Dynamics : Data, Models and Simulation, by Martin Treiber and Arne Kesting, chap 11
  */
 public class VehicleController {
     /**
@@ -93,5 +95,9 @@ public class VehicleController {
         }
 
         return safeDistance(vehicle) + dynamicalTerm;
+    }
+
+    public double desiredAcceleration(Vehicle vehicle) {
+        return Math.pow(22.22 / 33.33, 4);
     }
 }

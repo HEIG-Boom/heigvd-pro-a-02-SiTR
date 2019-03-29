@@ -159,6 +159,7 @@ public class VehicleControllerTest {
      * => 3 + 22.22 * 1.1 = 27.442 [m]
      */
     public void safeDistance() {
+        // define controller
         VehicleController vehicleController = new VehicleController();
         vehicleController.setMinimumSpacing(3);
         vehicleController.setDesiredTimeHeadway(1.1);
@@ -167,5 +168,27 @@ public class VehicleControllerTest {
         vehicle.setSpeed(22.22);
 
         assertEquals(27.442, vehicleController.safeDistance(vehicle));
+    }
+
+    @Test
+    /**
+     * desired acceleration is : (v / v0) ^ delta
+     *
+     * Variables :
+     * v (speed)              : 22.22 [m/s]
+     * v0 (desired velocity)  : 33.33 [m/s]
+     * delta                  : 4
+     *
+     * => (22.22 / 33.33) ^ 4 = 0.197530864198 [m/s^2]
+     */
+    public void desiredAcceleration() {
+        // define controller
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setDesiredVelocity(33.33);
+
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
+
+        assertEquals(0.19753086419753083, vehicleController.desiredAcceleration(vehicle));
     }
 }
