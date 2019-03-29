@@ -67,6 +67,6 @@ public class VehicleController {
      * @return the desired dynamical distance [m]
      */
     public double desiredDynamicalDistance(Vehicle vehicle) {
-        return 2 + Math.max(0, vehicle.getSpeed() * desiredTimeHeadway + (vehicle.getSpeed() * vehicle.relSpeed())/(2*sqrt(maxAcceleration * comfortableBrakingDeceleration)));
+        return minimumSpacing + Math.max(0, vehicle.getSpeed() * desiredTimeHeadway + (vehicle.getSpeed() * vehicle.relSpeed())/(2*sqrt(maxAcceleration * comfortableBrakingDeceleration)));
     }
 }
