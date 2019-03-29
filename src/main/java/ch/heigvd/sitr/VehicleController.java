@@ -64,7 +64,7 @@ public class VehicleController {
      * @return the safe distance [m]
      */
     public double safeDistance(Vehicle vehicle) {
-        return 3 + 80 * 1.1;
+        return minimumSpacing + vehicle.getSpeed() * desiredTimeHeadway;
     }
 
     /**
