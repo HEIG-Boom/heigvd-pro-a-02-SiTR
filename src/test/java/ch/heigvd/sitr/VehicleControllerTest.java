@@ -59,7 +59,7 @@ public class VehicleControllerTest {
      * a (max acceleration) : 0.3 [m/s^2]
      * b (comfortable braking deceleration) : 3 [m/s^2]
      *
-     * => s*(80, -20) = 2 + max(0, 80 * 1.5 + (80 * -20)/(2*sqrt(0.3 * 3))
+     * => s*(80, -20) = 2 + max(0, 80 * 1.5 + (80 * -20)/(2*sqrt(0.3 * 3)))
      *                = 2 [m] = s0
      */
     public void desiredDynamicalDistanceWithFasterFrontVehicle() {

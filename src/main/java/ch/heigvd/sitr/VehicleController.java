@@ -3,6 +3,8 @@ package ch.heigvd.sitr;
 import lombok.Getter;
 import lombok.Setter;
 
+import static java.lang.Math.sqrt;
+
 /**
  * Vehicle Controller represents the vehicle controller
  *
@@ -65,6 +67,6 @@ public class VehicleController {
      * @return the desired dynamical distance [m]
      */
     public double desiredDynamicalDistance(Vehicle vehicle) {
-        return 2.0;
+        return 2 + Math.max(0, 80 * 1.5 + (80 * -20)/(2*sqrt(0.3 * 3)));
     }
 }
