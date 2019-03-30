@@ -125,17 +125,32 @@ public class VehicleTest {
      *
      * Variables :
      * speed           : 22.22 [m/s]
-     * acceleration    : 0.15 [m/s^2]
-     * time difference : 60 [s]
+     * acceleration    : 0.23719631730028704 [m/s^2]
+     * time difference : 10 [s]
      *
-     * => new speed = 22.22 + 0.15 * 60 = 31.22 [m/s]
+     * => new speed = 22.22 + 0.23719631730028704 * 10 = 24.59196317300287 [m/s]
      */
     public void updateSpeed() {
-        Vehicle vehicle = new Vehicle(null, 1.6, 33.33);
-        vehicle.setSpeed(22.22);
-        vehicle.updateSpeed(0.15, 60);
+        // define controller
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setDesiredVelocity(33.33);
+        vehicleController.setMinimumSpacing(2);
+        vehicleController.setDesiredTimeHeadway(1.5);
+        vehicleController.setMaxAcceleration(0.3);
+        vehicleController.setComfortableBrakingDeceleration(3);
 
-        assertEquals(31.22, vehicle.getSpeed());
+        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle.setSpeed(27.77);
+        frontVehicle.setPosition(100);
+
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
+        vehicle.setPosition(80);
+        vehicle.setFrontVehicle(frontVehicle);
+
+        vehicle.updateSpeed(10);
+
+        assertEquals(24.59196317300287, vehicle.getSpeed());
     }
 
     @Test
@@ -146,17 +161,32 @@ public class VehicleTest {
      *
      * Variables :
      * speed           : 22.22 [m/s]
-     * acceleration    : 0.15 [m/s^2]
+     * acceleration    : 0.23719631730028704 [m/s^2]
      * time difference : 60 [s]
      *
-     * => new speed = 22.22 + 0.25 * 60 = 37.22 [m/s],
+     * => new speed = 22.22 + 0.23719631730028704 * 60 = 36.451779038 [m/s],
      *    max speed = 33.33
      * => new speed = 33.33
      */
     public void updateSpeedExceedingMaxSpeed() {
-        Vehicle vehicle = new Vehicle(null, 1.6, 33.33);
+        // define controller
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setDesiredVelocity(33.33);
+        vehicleController.setMinimumSpacing(2);
+        vehicleController.setDesiredTimeHeadway(1.5);
+        vehicleController.setMaxAcceleration(0.3);
+        vehicleController.setComfortableBrakingDeceleration(3);
+
+        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle.setSpeed(27.77);
+        frontVehicle.setPosition(100);
+
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
-        vehicle.updateSpeed(0.25, 60);
+        vehicle.setPosition(80);
+        vehicle.setFrontVehicle(frontVehicle);
+
+        vehicle.updateSpeed(60);
 
         assertEquals(33.33, vehicle.getSpeed());
     }

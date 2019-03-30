@@ -129,10 +129,9 @@ public class Vehicle {
     /**
      * Change speed [m/s] of the vehicle according to an acceleration and a time difference
      *
-     * @param acceleration acceleration of the vehicle [m/s^2]
      * @param deltaT time difference [s]
      */
-    public void updateSpeed(double acceleration, double deltaT) {
-        setSpeed(getSpeed() + speedDifference(acceleration, deltaT));
+    public void updateSpeed(double deltaT) {
+        setSpeed(getSpeed() + speedDifference(getVehicleController().acceleration(this), deltaT));
     }
 }
