@@ -104,7 +104,12 @@ public class Vehicle {
         return (frontVehicle != null) ? speed - frontVehicle.getSpeed() : 0;
     }
 
-
+    /**
+     * Change speed [m/s] of the vehicle according to an acceleration and a time difference
+     *
+     * @param acceleration acceleration of the vehicle [m/s^2]
+     * @param deltaT time difference [s]
+     */
     public void updateSpeed(double acceleration, double deltaT) {
         setSpeed(getSpeed() + acceleration * deltaT);
     }
