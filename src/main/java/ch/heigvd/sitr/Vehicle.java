@@ -76,14 +76,25 @@ public class Vehicle {
     }
 
     /**
-     * calcul the speed difference with acceleration and time difference
+     * Calcul the speed difference with acceleration and time difference
      *
      * @param acceleration acceleratiom [m/s^2]
      * @param deltaT time difference [s]
-     * @return speed difference
+     * @return speed difference [m/s]
      */
     public static double speedDifference(double acceleration, double deltaT) {
         return acceleration * deltaT;
+    }
+
+    /**
+     * Calcul the positiom difference with speed and time difference
+     *
+     * @param speed speed [m/s]
+     * @param deltaT time difference [s]
+     * @return position difference [m]
+     */
+    public static double positionDifference(double speed, double deltaT) {
+        return speed * deltaT;
     }
 
     /**

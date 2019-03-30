@@ -160,4 +160,20 @@ public class VehicleTest {
 
         assertEquals(33.33, vehicle.getSpeed());
     }
+
+    @Test
+    /**
+     * calcul position difference
+     *
+     * position difference [m] = speed [m/s] * time difference [s]
+     *
+     * Variables :
+     * speed            : 22.22 [m/s]
+     * time difference  : 30 [s]
+     *
+     * => position difference = 22.22 * 20 = 444.4 [m]
+     */
+    public void positionDifference() {
+        assertEquals(444.4, Vehicle.positionDifference(22.22, 20));
+    }
 }
