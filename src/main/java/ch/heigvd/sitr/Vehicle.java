@@ -122,6 +122,6 @@ public class Vehicle {
      * @param deltaT time difference [s]
      */
     public void updateSpeed(double acceleration, double deltaT) {
-        setSpeed(getSpeed() + acceleration * deltaT);
+        setSpeed(getSpeed() + speedDifference(acceleration, deltaT));
     }
 }
