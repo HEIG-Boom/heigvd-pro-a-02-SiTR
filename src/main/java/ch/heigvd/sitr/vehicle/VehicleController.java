@@ -1,9 +1,8 @@
-package ch.heigvd.sitr;
+package ch.heigvd.sitr.vehicle;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 /**
