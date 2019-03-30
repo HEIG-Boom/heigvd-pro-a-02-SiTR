@@ -95,7 +95,6 @@ public class Vehicle {
         return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
     }
 
-
     /**
      * Relative speed of this vehicle compared to front Vehicle
      * Note : if there is no front vehicle, relative speed is equal to 0
@@ -103,5 +102,10 @@ public class Vehicle {
      */
     public double relSpeed() {
         return (frontVehicle != null) ? speed - frontVehicle.getSpeed() : 0;
+    }
+
+
+    public void updateSpeed(double acceleration, double deltaT) {
+        setSpeed(getSpeed() + acceleration * deltaT);
     }
 }

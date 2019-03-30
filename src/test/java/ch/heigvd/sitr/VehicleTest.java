@@ -100,4 +100,48 @@ public class VehicleTest {
         vehicle.setSpeed(22.22);
         assertEquals(0.0, vehicle.relSpeed());
     }
+
+    @Test
+    /**
+     * update speed with acceleration and time difference
+     *
+     * new speed = speed + acceleration * time difference
+     *
+     * Variables :
+     * speed           : 22.22 [m/s]
+     * acceleration    : 0.15 [m/s^2]
+     * time difference : 60 [s]
+     *
+     * => new speed = 22.22 + 0.15 * 60 = 31.22 [m/s]
+     */
+    public void updateSpeed() {
+        Vehicle vehicle = new Vehicle(null, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
+        vehicle.updateSpeed(0.15, 60);
+
+        assertEquals(31.22, vehicle.getSpeed());
+    }
+
+    @Test
+    /**
+     * update speed with acceleration and time difference
+     *
+     * new speed = speed + acceleration * time difference
+     *
+     * Variables :
+     * speed           : 22.22 [m/s]
+     * acceleration    : 0.15 [m/s^2]
+     * time difference : 60 [s]
+     *
+     * => new speed = 22.22 + 0.25 * 60 = 37.22 [m/s],
+     *    max speed = 33.33
+     * => new speed = 33.33
+     */
+    public void updateSpeedExceedingMaxSpeed() {
+        Vehicle vehicle = new Vehicle(null, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
+        vehicle.updateSpeed(0.25, 60);
+
+        assertEquals(33.33, vehicle.getSpeed());
+    }
 }
