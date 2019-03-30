@@ -83,7 +83,7 @@ public class Vehicle {
      * @return speed difference
      */
     public static double speedDifference(double acceleration, double deltaT) {
-        return 9.0;
+        return acceleration * deltaT;
     }
 
     /**
