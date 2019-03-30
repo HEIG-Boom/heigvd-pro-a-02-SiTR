@@ -206,4 +206,43 @@ public class VehicleTest {
     public void positionDifference() {
         assertEquals(444.4, Vehicle.positionDifference(22.22, 20));
     }
+
+    @Test
+    /**
+     * Update position with speed, acceleration and time difference
+     *
+     * new position = position + new speed * time difference
+     *
+     * Variables :
+     * position        : 50 [m]
+     * speed           : 22.22 [s]
+     * new speed       : 24.59196317300287 [m/s]
+     * time difference : 10 [s]
+     *
+     * => new position = 50 + 24.59196317300287 * 10 = 295,91963173 [m]
+     */
+    public void updatePosition() {
+        // define controller
+        VehicleController vehicleController = new VehicleController();
+        vehicleController.setDesiredVelocity(33.33);
+        vehicleController.setMinimumSpacing(2);
+        vehicleController.setDesiredTimeHeadway(1.5);
+        vehicleController.setMaxAcceleration(0.3);
+        vehicleController.setComfortableBrakingDeceleration(3);
+
+        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle.setSpeed(27.77);
+        frontVehicle.setPosition(100);
+
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setSpeed(22.22);
+        vehicle.setPosition(80);
+        vehicle.setFrontVehicle(frontVehicle);
+        vehicle.setPosition(50);
+
+        vehicle.updatePosition(10);
+
+        assertEquals(296.22284806492166, vehicle.getPosition());
+
+    }
 }

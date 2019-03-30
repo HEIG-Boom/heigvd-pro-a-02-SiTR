@@ -127,11 +127,25 @@ public class Vehicle {
     }
 
     /**
-     * Change speed [m/s] of the vehicle according to an acceleration and a time difference
+     * Change speed [m/s] of the vehicle according to its acceleration and a time difference
      *
      * @param deltaT time difference [s]
      */
     public void updateSpeed(double deltaT) {
         setSpeed(getSpeed() + speedDifference(getVehicleController().acceleration(this), deltaT));
+    }
+
+    /**
+     * Change position [m] of this vehicle according to its acceleration, speed and a time difference
+     *
+     * Note : it updates the vehicle speed
+     *
+     * @param deltaT the time difference [s]
+     */
+    public void updatePosition(double deltaT) {
+        // first update speed according to the vehicle acceleration
+        updateSpeed(deltaT);
+
+        setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
     }
 }
