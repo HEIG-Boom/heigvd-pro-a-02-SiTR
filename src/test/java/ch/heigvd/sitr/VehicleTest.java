@@ -103,6 +103,22 @@ public class VehicleTest {
 
     @Test
     /**
+     * cacul speed difference with acceleration and time difference
+     *
+     * deltaV = a * deltaT
+     *
+     * Variables :
+     * a (acceleration)         : 0.15 [m/s^2]
+     * deltaT (time difference) : 60 [s]
+     *
+     * => deltaV = 0.15 * 60 = 9 [m/s]
+     */
+    public void speedDifference() {
+        assertEquals(9.0, Vehicle.speedDifference(0.15, 60));
+    }
+
+    @Test
+    /**
      * update speed with acceleration and time difference
      *
      * new speed = speed + acceleration * time difference

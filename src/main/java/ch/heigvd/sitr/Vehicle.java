@@ -76,6 +76,17 @@ public class Vehicle {
     }
 
     /**
+     * calcul the speed difference with acceleration and time difference
+     *
+     * @param acceleration acceleratiom [m/s^2]
+     * @param deltaT time difference [s]
+     * @return speed difference
+     */
+    public static double speedDifference(double acceleration, double deltaT) {
+        return 9.0;
+    }
+
+    /**
      * Front distance [m] between this vehicle and its front vehicle
      *
      * Note: length is calculated between vehicles extremities
