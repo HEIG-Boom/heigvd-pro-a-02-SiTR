@@ -76,6 +76,28 @@ public class Vehicle {
     }
 
     /**
+     * Calcul the speed difference with acceleration and time difference
+     *
+     * @param acceleration acceleratiom [m/s^2]
+     * @param deltaT time difference [s]
+     * @return speed difference [m/s]
+     */
+    public static double speedDifference(double acceleration, double deltaT) {
+        return acceleration * deltaT;
+    }
+
+    /**
+     * Calcul the positiom difference with speed and time difference
+     *
+     * @param speed speed [m/s]
+     * @param deltaT time difference [s]
+     * @return position difference [m]
+     */
+    public static double positionDifference(double speed, double deltaT) {
+        return speed * deltaT;
+    }
+
+    /**
      * Front distance [m] between this vehicle and its front vehicle
      *
      * Note: length is calculated between vehicles extremities
@@ -93,5 +115,37 @@ public class Vehicle {
 
         // we substract from this distance, the distance from the vehicles center and vehicles extremities
         return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
+    }
+
+    /**
+     * Relative speed of this vehicle compared to front Vehicle
+     * Note : if there is no front vehicle, relative speed is equal to 0
+     * @return the relative speed
+     */
+    public double relSpeed() {
+        return (frontVehicle != null) ? speed - frontVehicle.getSpeed() : 0;
+    }
+
+    /**
+     * Change speed [m/s] of the vehicle according to its acceleration and a time difference
+     *
+     * @param deltaT time difference [s]
+     */
+    public void updateSpeed(double deltaT) {
+        setSpeed(getSpeed() + speedDifference(getVehicleController().acceleration(this), deltaT));
+    }
+
+    /**
+     * Change position [m] of this vehicle according to its acceleration, speed and a time difference
+     *
+     * Note : it updates the vehicle speed
+     *
+     * @param deltaT the time difference [s]
+     */
+    public void updatePosition(double deltaT) {
+        // first update speed according to the vehicle acceleration
+        updateSpeed(deltaT);
+
+        setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
     }
 }
