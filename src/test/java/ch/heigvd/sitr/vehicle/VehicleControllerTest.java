@@ -1,4 +1,4 @@
-package ch.heigvd.sitr;
+package ch.heigvd.sitr.vehicle;
 
 import org.junit.Test;
 

@@ -1,7 +1,5 @@
-package ch.heigvd.sitr;
+package ch.heigvd.sitr.vehicle;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;

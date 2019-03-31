@@ -12,7 +12,7 @@ Development team:
 
 | Name                                 | Email                                | Github      |
 |--------------------------------------|--------------------------------------|-------------|
-| Loris Gilliand  (project lead)       | loris.gilliand@heig-vd.ch            | texx94      |
+| Loris Gilliand (project lead)        | loris.gilliand@heig-vd.ch            | texx94      |
 | Alexandre Monteiro Marques           | alexandre.monteiromarques@heig-vd.ch | X-Brast     |
 | Eric Noël (deputy project lead)      | eric.noel@heig-vd.ch                 | Eric-Noel   |
 | Mateo Tutic                          | mateo.tutic@heig-vd.ch               | mtutic      |
