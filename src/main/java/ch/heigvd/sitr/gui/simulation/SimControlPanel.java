@@ -1,4 +1,4 @@
-package ch.heigvd.sitr.gui;
+package ch.heigvd.sitr.gui.simulation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +11,7 @@ public class SimControlPanel extends JPanel {
     private final int MAX_SPEED = 150;
 
     private JLabel speedValue;
-    private JLabel waitingTimeValue;
-    private JLabel accidentCounterValue;
-    private JLabel occupationValue;
     private int speedPercent = 100;
-
 
     public SimControlPanel() {
         GridBagConstraints gbc;
@@ -153,7 +149,7 @@ public class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(occupationLabel,gbc);
 
-        occupationValue = new JLabel("abc");
+        final JLabel occupationValue = new JLabel("abc");
         occupationValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -161,14 +157,5 @@ public class SimControlPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(occupationValue,gbc);
-    }
-
-    public static void main(String[] args) {
-        JFrame f = new JFrame("SimControlPanel");
-        f.setContentPane(new SimControlPanel());
-        f.setResizable(false);
-        f.pack();
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setVisible(true);
     }
 }
