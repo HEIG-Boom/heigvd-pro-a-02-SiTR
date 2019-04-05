@@ -4,9 +4,14 @@ import ch.heigvd.sitr.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Map;
 
-public class SimulationWindow {
+public class SimulationWindow implements Displayer {
     private static SimulationWindow instance;
+
+    private BufferedImage mapImage;
+    private MapPanel mapPanel;
 
     public static SimulationWindow getInstance() {
         if(instance == null){
@@ -24,7 +29,8 @@ public class SimulationWindow {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 2;
-        panel.add(new MapPanel(), gbc);
+        mapPanel = new MapPanel();
+        panel.add(mapPanel, gbc);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -39,5 +45,28 @@ public class SimulationWindow {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+
+        mapImage = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
+    }
+
+    @Override
+    public int getMapWidth() {
+        return MapPanel.WIDTH;
+    }
+
+    @Override
+    public int getMapHeight() {
+        return MapPanel.HEIGHT;
+    }
+
+    @Override
+    public Graphics2D getSimulationPane() {
+        return (Graphics2D) mapImage.getGraphics();
+    }
+
+    @Override
+    public void repaint() {
+        mapPanel.getGraphics().drawImage(mapImage,0,0, null);
+        mapImage = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
     }
 }
