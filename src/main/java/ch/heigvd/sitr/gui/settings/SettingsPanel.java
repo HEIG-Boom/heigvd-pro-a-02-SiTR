@@ -100,6 +100,7 @@ public class SettingsPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 6;
+        gbc.insets = new Insets(0, 0, 10, 0);
         gbc.anchor = GridBagConstraints.EAST;
         this.add(label1, gbc);
 
@@ -109,7 +110,7 @@ public class SettingsPanel extends JPanel {
         gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.ipadx = 50;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.insets = new Insets(0, 10, 10, 0);
         this.add(controllerCount1, gbc);
 
         final JLabel label2 = new JLabel();
@@ -117,6 +118,7 @@ public class SettingsPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 7;
+        gbc.insets = new Insets(0, 0, 10, 0);
         gbc.anchor = GridBagConstraints.EAST;
         this.add(label2, gbc);
 
@@ -126,7 +128,7 @@ public class SettingsPanel extends JPanel {
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.ipadx = 50;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.insets = new Insets(0, 10, 10, 0);
         this.add(controllerCount2, gbc);
 
         final JLabel label3 = new JLabel();
@@ -134,6 +136,7 @@ public class SettingsPanel extends JPanel {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 8;
+        gbc.insets = new Insets(0, 0, 10, 0);
         gbc.anchor = GridBagConstraints.EAST;
         this.add(label3, gbc);
 
@@ -143,7 +146,7 @@ public class SettingsPanel extends JPanel {
         gbc.gridy = 8;
         gbc.gridwidth = 2;
         gbc.ipadx = 50;
-        gbc.insets = new Insets(0, 10, 0, 0);
+        gbc.insets = new Insets(0, 10, 10, 0);
         this.add(controllerCount3, gbc);
         /********************************************************************/
 

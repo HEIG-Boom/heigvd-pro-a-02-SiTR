@@ -112,6 +112,7 @@ public class SimControlPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 3;
+        gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(waitingTimeLabel,gbc);
 
@@ -121,6 +122,7 @@ public class SimControlPanel extends JPanel {
         gbc.gridx = 3;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(waitingTimeValue,gbc);
 
@@ -129,6 +131,7 @@ public class SimControlPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(accidentCounterLabel,gbc);
 
@@ -138,6 +141,7 @@ public class SimControlPanel extends JPanel {
         gbc.gridx = 3;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(accidentCounterValue,gbc);
 
@@ -146,6 +150,7 @@ public class SimControlPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(occupationLabel,gbc);
 
@@ -155,6 +160,7 @@ public class SimControlPanel extends JPanel {
         gbc.gridx = 3;
         gbc.gridy = 6;
         gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(occupationValue,gbc);
     }
