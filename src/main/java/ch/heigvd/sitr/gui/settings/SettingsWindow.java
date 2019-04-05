@@ -27,8 +27,4 @@ public class SettingsWindow {
     public void closeWindow() {
         frame.dispose();
     }
-
-    public static void main(String[] args) {
-        SettingsWindow.getInstance();
-    }
 }
