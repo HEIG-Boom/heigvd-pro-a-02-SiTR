@@ -5,9 +5,9 @@
 
 package ch.heigvd.sitr.vehicle;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for Vehicle controller.
