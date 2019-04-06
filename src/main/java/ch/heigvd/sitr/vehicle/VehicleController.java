@@ -48,11 +48,13 @@ public class VehicleController {
     // Comfortable braking deceleration (b) of the vehicle controller [m/s^2]
     @Getter @Setter private double comfortableBrakingDeceleration;
 
-    /**
-     * Vehicle constructor without parameters
-     */
-    public VehicleController() {
-
+    public VehicleController(double desiredVelocity, double minimumSpacing, double desiredTimeHeadway,
+                             double maxAcceleration, double comfortableBrakingDeceleration) {
+        this.desiredVelocity = desiredVelocity;
+        this.minimumSpacing = minimumSpacing;
+        this.desiredTimeHeadway = desiredTimeHeadway;
+        this.maxAcceleration = maxAcceleration;
+        this.comfortableBrakingDeceleration = comfortableBrakingDeceleration;
     }
 
     /**
