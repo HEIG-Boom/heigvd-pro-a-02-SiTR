@@ -39,7 +39,7 @@ public class VehicleControllerTest {
 
     @Test
     public void constructorFromFileConfiguration() {
-        VehicleController vehicleController = new VehicleController("/config/vehicleController/careful.xml");
+        VehicleController vehicleController = new VehicleController("config/vehicleController/careful.xml");
         assertEquals(33.33, vehicleController.getDesiredVelocity());
         assertEquals(2, vehicleController.getMinimumSpacing());
         assertEquals(1.5, vehicleController.getDesiredTimeHeadway());

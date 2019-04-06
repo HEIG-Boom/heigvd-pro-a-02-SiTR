@@ -7,8 +7,14 @@ package ch.heigvd.sitr.vehicle;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 
-import static java.lang.Math.min;
+import java.io.File;
+import java.io.IOException;
+
 import static java.lang.Math.sqrt;
 
 /**
@@ -54,11 +60,23 @@ public class VehicleController {
      * @param configPath the path to the configuration file
      */
     public VehicleController(String configPath) {
-        desiredVelocity = 33.33;
-        minimumSpacing = 2;
-        desiredTimeHeadway = 1.5;
-        maxAcceleration = 1.0;
-        comfortableBrakingDeceleration = 2.2;
+        SAXBuilder saxBuilder = new SAXBuilder();
+        File config = new File(configPath);
+
+        try {
+            Document document = (Document) saxBuilder.build(config);
+            Element root = document.getRootElement();
+
+            desiredVelocity = Double.parseDouble(root.getChildText("desiredVelocity"));
+            minimumSpacing = Double.parseDouble(root.getChildText("minimumSpacing"));
+            desiredTimeHeadway = Double.parseDouble(root.getChildText("desiredTimeHeadway"));
+            maxAcceleration = Double.parseDouble(root.getChildText("maxAcceleration"));
+            comfortableBrakingDeceleration = Double.parseDouble(root.getChildText("comfortableBrakingDeceleration"));
+        } catch (IOException io) {
+            System.out.println(io.getMessage());
+        }  catch (JDOMException jdomex) {
+            System.out.println(jdomex.getMessage());
+        }
     }
 
     /**
