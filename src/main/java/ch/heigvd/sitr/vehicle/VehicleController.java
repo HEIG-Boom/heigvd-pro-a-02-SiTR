@@ -1,3 +1,8 @@
+/*
+ * Filename: VehicleController.java
+ * Creation date: 28.03.2019
+ */
+
 package ch.heigvd.sitr.vehicle;
 
 import lombok.Getter;
@@ -15,46 +20,25 @@ import static java.lang.Math.sqrt;
  * - Congested Traffic States in Empirical Observations and Microscopic Simulations : https://arxiv.org/pdf/cond-mat/0002177.pdf
  * - Concise explanation : http://www.mtreiber.de/trafficSimulationDe_html5_2016_06_29/IDM.html
  * - Traffic Flow Dynamics : Data, Models and Simulation, by Martin Treiber and Arne Kesting, chap 11
+ * @author Simon Walther
  */
 public class VehicleController {
-    /**
-     * Delta exponent, traditionnaly set at 4
-     */
+    // Delta exponent, traditionnaly set at 4
     static final double delta = 4;
 
-    /**
-     * Desired velocity (v0) of the vehicle controller [m/s]
-     * @param new value for v0
-     * @return the current v0
-     */
+    // Desired velocity (v0) of the vehicle controller [m/s]
     @Getter @Setter private double desiredVelocity;
 
-    /**
-     * Minimum spacing (s0) of the vehicle controller [m]
-     * @param new value for s0
-     * @return the current s0
-     */
+    // Minimum spacing (s0) of the vehicle controller [m]
     @Getter @Setter private double minimumSpacing;
 
-    /**
-     * Desired time headway (T) of the vehicle controller [s]
-     * @param new value for T
-     * @return the current T
-     */
+    // Desired time headway (T) of the vehicle controller [s]
     @Getter @Setter private double desiredTimeHeadway;
 
-    /**
-     * Max acceleration (a) of the vehicle controller [m/s^2]
-     * @param new value for a
-     * @returm the current a
-     */
+    // Max acceleration (a) of the vehicle controller [m/s^2]
     @Getter @Setter private double maxAcceleration;
 
-    /**
-     * Comfortable braking deceleration (b) of the vehicle controller [m/s^2]
-     * @param new value for b
-     * @return the current b
-     */
+    // Comfortable braking deceleration (b) of the vehicle controller [m/s^2]
     @Getter @Setter private double comfortableBrakingDeceleration;
 
     /**

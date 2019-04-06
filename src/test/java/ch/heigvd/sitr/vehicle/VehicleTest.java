@@ -1,3 +1,8 @@
+/*
+ * Filename: VehicleTest.java
+ * Creation date: 23.03.2019
+ */
+
 package ch.heigvd.sitr.vehicle;
 
 import org.junit.Test;
@@ -6,6 +11,7 @@ import static junit.framework.TestCase.*;
 
 /**
  * Unit test for Vehicle.
+ * @author Simon Walther
  */
 public class VehicleTest {
 
@@ -99,7 +105,6 @@ public class VehicleTest {
         assertEquals(0.0, vehicle.relSpeed());
     }
 
-    @Test
     /**
      * cacul speed difference with acceleration and time difference
      *
@@ -111,11 +116,11 @@ public class VehicleTest {
      *
      * => deltaV = 0.15 * 60 = 9 [m/s]
      */
+    @Test
     public void speedDifference() {
         assertEquals(9.0, Vehicle.speedDifference(0.15, 60));
     }
 
-    @Test
     /**
      * update speed with acceleration and time difference
      *
@@ -128,6 +133,7 @@ public class VehicleTest {
      *
      * => new speed = 22.22 + 0.23719631730028704 * 10 = 24.59196317300287 [m/s]
      */
+    @Test
     public void updateSpeed() {
         // define controller
         VehicleController vehicleController = new VehicleController();
@@ -151,7 +157,6 @@ public class VehicleTest {
         assertEquals(24.59196317300287, vehicle.getSpeed());
     }
 
-    @Test
     /**
      * update speed with acceleration and time difference
      *
@@ -166,6 +171,7 @@ public class VehicleTest {
      *    max speed = 33.33
      * => new speed = 33.33
      */
+    @Test
     public void updateSpeedExceedingMaxSpeed() {
         // define controller
         VehicleController vehicleController = new VehicleController();
@@ -189,7 +195,6 @@ public class VehicleTest {
         assertEquals(33.33, vehicle.getSpeed());
     }
 
-    @Test
     /**
      * calcul position difference
      *
@@ -201,11 +206,11 @@ public class VehicleTest {
      *
      * => position difference = 22.22 * 20 = 444.4 [m]
      */
+    @Test
     public void positionDifference() {
         assertEquals(444.4, Vehicle.positionDifference(22.22, 20));
     }
 
-    @Test
     /**
      * Update position with speed, acceleration and time difference
      *
@@ -219,6 +224,7 @@ public class VehicleTest {
      *
      * => new position = 50 + 24.59196317300287 * 10 = 295,91963173 [m]
      */
+    @Test
     public void updatePosition() {
         // define controller
         VehicleController vehicleController = new VehicleController();
