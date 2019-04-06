@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,6 +15,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Simon Walther
  */
 public class VehicleControllerTest {
+    VehicleController vehicleController = null;
+    Vehicle vehicle = null;
+    Vehicle frontVehicle = null;
+
+    @BeforeEach
+    public void createDummyVehicleController() {
+        vehicleController = new VehicleController();
+        vehicleController.setDesiredVelocity(33.33);
+        vehicleController.setMinimumSpacing(2);
+        vehicleController.setDesiredTimeHeadway(1.5);
+        vehicleController.setMaxAcceleration(0.3);
+        vehicleController.setComfortableBrakingDeceleration(3);
+    }
+
+    @BeforeEach
+    public void createDummyVehicle() {
+        frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        vehicle.setFrontVehicle(frontVehicle);
+    }
 
     @Test
     public void desiredVelocity() {
@@ -66,21 +87,8 @@ public class VehicleControllerTest {
      */
     @Test
     public void desiredDynamicalDistanceWithFasterFrontVehicle() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
-
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
-        frontVehicle.setSpeed(27.77);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
-        vehicle.setFrontVehicle(frontVehicle);
-
+        frontVehicle.setSpeed(27.77);
         assertEquals(2.0, vehicleController.desiredDynamicalDistance(vehicle));
     }
 
@@ -100,21 +108,8 @@ public class VehicleControllerTest {
      */
     @Test
     public void desiredDynamicalDistanceWithSlowerFrontVehicle() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
-
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
-        frontVehicle.setSpeed(19.44);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
-        vehicle.setFrontVehicle(frontVehicle);
-
+        frontVehicle.setSpeed(19.44);
         assertEquals(67.88649178547615, vehicleController.desiredDynamicalDistance(vehicle));
     }
 
@@ -134,21 +129,9 @@ public class VehicleControllerTest {
      */
     @Test
     public void desiredDynamicalDistanceWithSameSpeedFrontVehicle() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
-
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
         frontVehicle.setSpeed(22.22);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
         vehicle.setFrontVehicle(frontVehicle);
-
         assertEquals(35.33, vehicleController.desiredDynamicalDistance(vehicle));
     }
 
@@ -156,23 +139,16 @@ public class VehicleControllerTest {
      * safe distance is : s0 + v*T
      *
      * Variables :
-     * s0 (minimum spacing)      : 3 [m]
+     * s0 (minimum spacing)      : 2 [m]
      * v (speed)                 : 22.22 [m/s]
-     * T (desired time headway)  : 1.1 [s]
+     * T (desired time headway)  : 1.5 [s]
      *
-     * => 3 + 22.22 * 1.1 = 27.442 [m]
+     * => 2 + 22.22 * 1.5 = 36.33 [m]
      */
     @Test
     public void safeDistance() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setMinimumSpacing(3);
-        vehicleController.setDesiredTimeHeadway(1.1);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
-
-        assertEquals(27.442, vehicleController.safeDistance(vehicle));
+        assertEquals(35.33, vehicleController.safeDistance(vehicle));
     }
 
     /**
@@ -188,15 +164,8 @@ public class VehicleControllerTest {
      */
     @Test
     public void desiredAcceleration() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setDesiredVelocity(33.33);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
-
-        assertEquals(0.24074074074074073, vehicleController.desiredAcceleration(vehicle));
+        assertEquals(0.241, vehicleController.desiredAcceleration(vehicle), 0.001);
     }
 
     /**
@@ -216,24 +185,11 @@ public class VehicleControllerTest {
      */
     @Test
     public void accelerationSlowerFrontVehicle() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
-
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
-        frontVehicle.setSpeed(19.44);
-        frontVehicle.setPosition(100);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
         vehicle.setPosition(80);
-        vehicle.setFrontVehicle(frontVehicle);
-
-        assertEquals(-3.842945253121075, vehicleController.acceleration(vehicle));
+        frontVehicle.setSpeed(19.44);
+        frontVehicle.setPosition(100);
+        assertEquals(-3.843, vehicleController.acceleration(vehicle), 0.001);
     }
 
     /**
@@ -253,24 +209,12 @@ public class VehicleControllerTest {
      */
     @Test
     public void accelerationFasterFrontVehicle() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
-
-        Vehicle frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
-        frontVehicle.setSpeed(27.77);
-        frontVehicle.setPosition(100);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
         vehicle.setSpeed(22.22);
         vehicle.setPosition(80);
         vehicle.setFrontVehicle(frontVehicle);
-
-        assertEquals(0.23719631730028704, vehicleController.acceleration(vehicle));
+        frontVehicle.setSpeed(27.77);
+        frontVehicle.setPosition(100);
+        assertEquals(0.237, vehicleController.acceleration(vehicle), 0.001);
     }
 
     /**
@@ -290,18 +234,8 @@ public class VehicleControllerTest {
      */
     @Test
     public void accelerationWithoutFrontVehicle() {
-        // define controller
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
-
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33);
-        vehicle.setSpeed(22.22);
-        vehicle.setPosition(80);
-
-        assertEquals(0.24074074074074073, vehicleController.acceleration(vehicle));
+        frontVehicle.setSpeed(22.22);
+        frontVehicle.setPosition(80);
+        assertEquals(0.241, vehicleController.acceleration(frontVehicle), 0.001);
     }
 }
