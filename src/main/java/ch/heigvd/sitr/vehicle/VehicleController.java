@@ -8,6 +8,7 @@ package ch.heigvd.sitr.vehicle;
 import lombok.Getter;
 import lombok.Setter;
 
+import static java.lang.Math.min;
 import static java.lang.Math.sqrt;
 
 /**
@@ -40,6 +41,25 @@ public class VehicleController {
 
     // Comfortable braking deceleration (b) of the vehicle controller [m/s^2]
     @Getter @Setter private double comfortableBrakingDeceleration;
+
+    /**
+     * Vehicle constructor without parameters
+     */
+    public VehicleController() {
+
+    }
+
+    /**
+     * Create vehicle controller with configuration taken from an XML configration file
+     * @param configPath the path to the configuration file
+     */
+    public VehicleController(String configPath) {
+        desiredVelocity = 33.33;
+        minimumSpacing = 2;
+        desiredTimeHeadway = 1.5;
+        maxAcceleration = 1.0;
+        comfortableBrakingDeceleration = 2.2;
+    }
 
     /**
      * Calculate the safe distance

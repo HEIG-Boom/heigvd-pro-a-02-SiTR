@@ -38,6 +38,16 @@ public class VehicleControllerTest {
     }
 
     @Test
+    public void constructorFromFileConfiguration() {
+        VehicleController vehicleController = new VehicleController("/config/vehicleController/careful.xml");
+        assertEquals(33.33, vehicleController.getDesiredVelocity());
+        assertEquals(2, vehicleController.getMinimumSpacing());
+        assertEquals(1.5, vehicleController.getDesiredTimeHeadway());
+        assertEquals(1, vehicleController.getMaxAcceleration());
+        assertEquals(2.2, vehicleController.getComfortableBrakingDeceleration());
+    }
+
+    @Test
     public void desiredVelocity() {
         VehicleController vehicleController = new VehicleController();
         vehicleController.setDesiredVelocity(22.22);
