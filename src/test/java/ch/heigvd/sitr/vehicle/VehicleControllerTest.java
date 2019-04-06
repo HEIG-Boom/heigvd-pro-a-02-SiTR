@@ -33,13 +33,24 @@ public class VehicleControllerTest {
     }
 
     @Test
+    public void constructor() {
+        VehicleController controller = new VehicleController(33.33, 2, 1.5, 0.3, 3);
+        assertEquals(33.33, controller.getDesiredVelocity());
+        assertEquals(2, controller.getMinimumSpacing());
+        assertEquals(1.5, controller.getDesiredTimeHeadway());
+        assertEquals(0.3, controller.getMaxAcceleration());
+        assertEquals(3, controller.getComfortableBrakingDeceleration());
+
+    }
+
+    @Test
     public void constructorFromFileConfiguration() {
-        VehicleController vehicleController = new VehicleController("config/vehicleController/careful.xml");
-        assertEquals(33.33, vehicleController.getDesiredVelocity());
-        assertEquals(2, vehicleController.getMinimumSpacing());
-        assertEquals(1.5, vehicleController.getDesiredTimeHeadway());
-        assertEquals(1, vehicleController.getMaxAcceleration());
-        assertEquals(2.2, vehicleController.getComfortableBrakingDeceleration());
+        VehicleController controller = new VehicleController("config/vehicleController/careful.xml");
+        assertEquals(33.33, controller.getDesiredVelocity());
+        assertEquals(2, controller.getMinimumSpacing());
+        assertEquals(1.5, controller.getDesiredTimeHeadway());
+        assertEquals(1, controller.getMaxAcceleration());
+        assertEquals(2.2, controller.getComfortableBrakingDeceleration());
     }
 
     @Test
