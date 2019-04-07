@@ -21,12 +21,7 @@ public class VehicleControllerTest {
 
     @BeforeEach
     public void createDummyVehicleController() {
-        vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
+        vehicleController = new VehicleController(33.33, 2, 1.5, 0.3, 3);
     }
 
     @BeforeEach
@@ -38,38 +33,49 @@ public class VehicleControllerTest {
     }
 
     @Test
+    public void constructor() {
+        VehicleController controller = new VehicleController(33.33, 2, 1.5, 0.3, 3);
+        assertEquals(33.33, controller.getDesiredVelocity());
+        assertEquals(2, controller.getMinimumSpacing());
+        assertEquals(1.5, controller.getDesiredTimeHeadway());
+        assertEquals(0.3, controller.getMaxAcceleration());
+        assertEquals(3, controller.getComfortableBrakingDeceleration());
+
+    }
+
+    @Test
+    public void constructorFromFileConfiguration() {
+        VehicleController controller = new VehicleController("config/vehicleController/careful.xml");
+        assertEquals(33.33, controller.getDesiredVelocity());
+        assertEquals(2, controller.getMinimumSpacing());
+        assertEquals(1.5, controller.getDesiredTimeHeadway());
+        assertEquals(1, controller.getMaxAcceleration());
+        assertEquals(2.2, controller.getComfortableBrakingDeceleration());
+    }
+
+    @Test
     public void desiredVelocity() {
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(22.22);
-        assertEquals(22.22, vehicleController.getDesiredVelocity());
+        assertEquals(33.33, vehicleController.getDesiredVelocity());
     }
 
     @Test
     public void minimumSpacing() {
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setMinimumSpacing(2.5);
-        assertEquals(2.5, vehicleController.getMinimumSpacing());
+        assertEquals(2, vehicleController.getMinimumSpacing());
     }
 
     @Test
     public void desiredTimeHeadway() {
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setDesiredTimeHeadway(1.5);
         assertEquals(1.5, vehicleController.getDesiredTimeHeadway());
     }
 
     @Test
     public void maxAcceleration() {
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setMaxAcceleration(0.73);
-        assertEquals(0.73, vehicleController.getMaxAcceleration());
+        assertEquals(0.3, vehicleController.getMaxAcceleration());
     }
 
     @Test
     public void comfortableBrakingDeceleration() {
-        VehicleController vehicleController = new VehicleController();
-        vehicleController.setComfortableBrakingDeceleration(1.67);
-        assertEquals(1.67, vehicleController.getComfortableBrakingDeceleration());
+        assertEquals(3, vehicleController.getComfortableBrakingDeceleration());
     }
 
     /**

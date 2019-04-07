@@ -22,12 +22,7 @@ public class VehicleTest {
 
     @BeforeEach
     public void createDummyVehicleController() {
-        vehicleController = new VehicleController();
-        vehicleController.setDesiredVelocity(33.33);
-        vehicleController.setMinimumSpacing(2);
-        vehicleController.setDesiredTimeHeadway(1.5);
-        vehicleController.setMaxAcceleration(0.3);
-        vehicleController.setComfortableBrakingDeceleration(3);
+        vehicleController = new VehicleController(33.33, 2, 1.5, 0.3, 3);
     }
 
     @BeforeEach

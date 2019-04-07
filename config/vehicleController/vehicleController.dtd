@@ -1,0 +1,6 @@
+<!ELEMENT controller (desiredVelocity, minimumSpacing, desiredTimeHeadway, maxAcceleration, comfortableBrakingDeceleration)>
+<!ELEMENT desiredVelocity (#PCDATA)>
+<!ELEMENT minimumSpacing (#PCDATA)>
+<!ELEMENT desiredTimeHeadway (#PCDATA)>
+<!ELEMENT maxAcceleration (#PCDATA)>
+<!ELEMENT comfortableBrakingDeceleration (#PCDATA)>

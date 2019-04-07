@@ -7,6 +7,13 @@ package ch.heigvd.sitr.vehicle;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+
+import java.io.File;
+import java.io.IOException;
 
 import static java.lang.Math.sqrt;
 
@@ -40,6 +47,39 @@ public class VehicleController {
 
     // Comfortable braking deceleration (b) of the vehicle controller [m/s^2]
     @Getter @Setter private double comfortableBrakingDeceleration;
+
+    public VehicleController(double desiredVelocity, double minimumSpacing, double desiredTimeHeadway,
+                             double maxAcceleration, double comfortableBrakingDeceleration) {
+        this.desiredVelocity = desiredVelocity;
+        this.minimumSpacing = minimumSpacing;
+        this.desiredTimeHeadway = desiredTimeHeadway;
+        this.maxAcceleration = maxAcceleration;
+        this.comfortableBrakingDeceleration = comfortableBrakingDeceleration;
+    }
+
+    /**
+     * Create vehicle controller with configuration taken from an XML configration file
+     * @param configPath the path to the configuration file
+     */
+    public VehicleController(String configPath) {
+        SAXBuilder saxBuilder = new SAXBuilder();
+        File config = new File(configPath);
+
+        try {
+            Document document = (Document) saxBuilder.build(config);
+            Element root = document.getRootElement();
+
+            desiredVelocity = Double.parseDouble(root.getChildText("desiredVelocity"));
+            minimumSpacing = Double.parseDouble(root.getChildText("minimumSpacing"));
+            desiredTimeHeadway = Double.parseDouble(root.getChildText("desiredTimeHeadway"));
+            maxAcceleration = Double.parseDouble(root.getChildText("maxAcceleration"));
+            comfortableBrakingDeceleration = Double.parseDouble(root.getChildText("comfortableBrakingDeceleration"));
+        } catch (IOException io) {
+            System.out.println(io.getMessage());
+        }  catch (JDOMException jdomex) {
+            System.out.println(jdomex.getMessage());
+        }
+    }
 
     /**
      * Calculate the safe distance
