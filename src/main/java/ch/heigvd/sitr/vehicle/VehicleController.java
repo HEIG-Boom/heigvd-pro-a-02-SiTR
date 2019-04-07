@@ -155,6 +155,7 @@ public class VehicleController {
      * @return the acceleration
      */
     public double acceleration(Vehicle vehicle) {
-        return desiredAcceleration(vehicle) - maxAcceleration * Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
+        return desiredAcceleration(vehicle) - maxAcceleration *
+               Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
     }
 }

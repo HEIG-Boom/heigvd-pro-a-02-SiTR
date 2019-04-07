@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Unit test for Vehicle controller.
+ * Unit tests for Vehicle controller.
  * @author Simon Walther
  */
 public class VehicleControllerTest {
@@ -40,7 +40,6 @@ public class VehicleControllerTest {
         assertEquals(1.5, controller.getDesiredTimeHeadway());
         assertEquals(0.3, controller.getMaxAcceleration());
         assertEquals(3, controller.getComfortableBrakingDeceleration());
-
     }
 
     @Test

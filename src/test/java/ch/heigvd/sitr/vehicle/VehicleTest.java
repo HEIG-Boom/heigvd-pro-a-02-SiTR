@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
- * Unit test for Vehicle.
+ * Unit tests for Vehicle.
  * @author Simon Walther
  */
 public class VehicleTest {
@@ -105,7 +105,7 @@ public class VehicleTest {
     }
 
     /**
-     * cacul speed difference with acceleration and time difference
+     * Calculate speed difference with acceleration and time difference
      *
      * deltaV = a * deltaT
      *
@@ -121,7 +121,7 @@ public class VehicleTest {
     }
 
     /**
-     * update speed with acceleration and time difference
+     * Update speed with acceleration and time difference
      *
      * new speed = speed + acceleration * time difference
      *
@@ -147,7 +147,7 @@ public class VehicleTest {
     }
 
     /**
-     * update speed with acceleration and time difference
+     * Update speed with acceleration and time difference
      *
      * new speed = speed + acceleration * time difference
      *
@@ -174,7 +174,7 @@ public class VehicleTest {
     }
 
     /**
-     * calcul position difference
+     * Calculate position difference
      *
      * position difference [m] = speed [m/s] * time difference [s]
      *
@@ -214,6 +214,5 @@ public class VehicleTest {
         vehicle.updatePosition(10);
 
         assertEquals(296.223, vehicle.getPosition(), 0.001);
-
     }
 }
