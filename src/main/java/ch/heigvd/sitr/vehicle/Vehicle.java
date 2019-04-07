@@ -1,3 +1,8 @@
+/*
+ * Filename: Vehicle.java
+ * Creation date: 23.03.2019
+ */
+
 package ch.heigvd.sitr.vehicle;
 
 import lombok.Getter;
@@ -5,20 +10,13 @@ import lombok.Setter;
 
 /**
  * Vehicle class represents the simulation vehicles
+ * @author Simon Walther
  */
 public class Vehicle {
-    /**
-     * X position of the vehicle [m]
-     * @param new value for the x position
-     * @return the current x position
-     */
+    // position of the vehicle relative to the lane [m]
     @Getter @Setter private double position;
 
-    /**
-     * Speed in [m/s] of the vehicle
-     * @param new value for the speed
-     * @return the current speed
-     */
+    // Speed in [m/s] of the vehicle
     @Getter private double speed;
 
     /**
@@ -37,30 +35,16 @@ public class Vehicle {
         this.speed = speed;
     }
 
-    /**
-     * Max speed in [m/s] of the vehicle
-     * @param new value for the max speed
-     * @return the max speed
-     */
+    // Max speed in [m/s] of the vehicle
     @Getter private final double maxSpeed;
 
-    /**
-     * Length of the vehicle in [m]
-     * @return the current length
-     */
+    // Length of the vehicle in [m]
     @Getter private final double length;
 
-    /**
-     * Vehicle in front of this vehicle
-     * @param new front vehicle
-     * @return the current front vehicle
-     */
+    // Vehicle in front of this vehicle
     @Getter @Setter private Vehicle frontVehicle;
 
-    /**
-     * Vehicle controller of this vehicle
-     * @return the vehicle controller
-     */
+    // Vehicle controller of this vehicle
     @Getter private VehicleController vehicleController;
 
     /**
