@@ -13,17 +13,17 @@ import lombok.Setter;
  * @author Simon Walther
  */
 public class Vehicle {
-    // position of the vehicle relative to the lane [m]
+    // Position of the vehicle relative to the lane's start [m]
     @Getter @Setter private double position;
 
     // Speed in [m/s] of the vehicle
     @Getter private double speed;
 
     /**
-     * new value for the speed
+     * New value for the speed
      *
      * Note: if speed exceed max speed then set speed to max speed
-     * @param speed
+     * @param speed The new speed of the vehicle [m/s]
      */
     public void setSpeed(double speed) {
         if(speed > maxSpeed) {
@@ -49,6 +49,7 @@ public class Vehicle {
 
     /**
      * Constructor
+     *
      * @param vehicleController controller of the vehicle
      * @param length length [m] of the vehicle
      * @param maxSpeed max speed [m/s] of the vehicle
@@ -60,9 +61,9 @@ public class Vehicle {
     }
 
     /**
-     * Calcul the speed difference with acceleration and time difference
+     * Calculate the speed difference with acceleration and time difference
      *
-     * @param acceleration acceleratiom [m/s^2]
+     * @param acceleration acceleration [m/s^2]
      * @param deltaT time difference [s]
      * @return speed difference [m/s]
      */
@@ -71,7 +72,7 @@ public class Vehicle {
     }
 
     /**
-     * Calcul the positiom difference with speed and time difference
+     * Calculate the position difference with speed and time difference
      *
      * @param speed speed [m/s]
      * @param deltaT time difference [s]
@@ -94,15 +95,16 @@ public class Vehicle {
             return Double.POSITIVE_INFINITY;
         }
 
-        // distance between two vehicles is the absolute value of the position difference
+        // Distance between two vehicles is the absolute value of the position difference
         double posDistance = Math.abs(this.getPosition() - frontVehicle.getPosition());
 
-        // we substract from this distance, the distance from the vehicles center and vehicles extremities
+        // We subtract from this distance, the distance from the vehicles center and vehicles extremities
         return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
     }
 
     /**
      * Relative speed of this vehicle compared to front Vehicle
+     *
      * Note : if there is no front vehicle, relative speed is equal to 0
      * @return the relative speed
      */
@@ -122,12 +124,11 @@ public class Vehicle {
     /**
      * Change position [m] of this vehicle according to its acceleration, speed and a time difference
      *
-     * Note : it updates the vehicle speed
-     *
+     * Note : it updates the vehicle's speed
      * @param deltaT the time difference [s]
      */
     public void updatePosition(double deltaT) {
-        // first update speed according to the vehicle acceleration
+        // First update speed according to the vehicle acceleration
         updateSpeed(deltaT);
 
         setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
