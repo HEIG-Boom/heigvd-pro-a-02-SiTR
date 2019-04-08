@@ -1,3 +1,8 @@
+/*
+ * Filename: SettingsPanel.java
+ * Creation date: 26.03.2019
+ */
+
 package ch.heigvd.sitr.gui.settings;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
@@ -9,6 +14,8 @@ import java.awt.event.ActionListener;
 
 /**
  * Settings Panel class represents the first window's panel. Offers settings options for the simulation
+ *
+ * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 class SettingsPanel extends JPanel {
     /**

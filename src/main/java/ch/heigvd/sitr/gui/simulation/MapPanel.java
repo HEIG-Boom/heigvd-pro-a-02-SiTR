@@ -1,3 +1,8 @@
+/*
+ * Filename: MapPanel.java
+ * Creation date: 01.04.2019
+ */
+
 package ch.heigvd.sitr.gui.simulation;
 
 import javax.swing.*;
@@ -5,6 +10,8 @@ import java.awt.*;
 
 /**
  * Map panel represent the drawing area for the map of the simulation
+ *
+ * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 class MapPanel extends JPanel {
     // color of the background

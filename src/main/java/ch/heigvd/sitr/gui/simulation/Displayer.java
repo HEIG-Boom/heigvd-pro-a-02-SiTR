@@ -1,9 +1,16 @@
+/*
+ * Filename: Displayer.java
+ * Creation date: 01.04.2019
+ */
+
 package ch.heigvd.sitr.gui.simulation;
 
 import java.awt.Graphics2D;
 
 /**
  * Interface Displayer implements some methode for GUI representation
+ *
+ * @author Luc Wachter, Loris Gilliand
  */
 public interface Displayer {
     /**

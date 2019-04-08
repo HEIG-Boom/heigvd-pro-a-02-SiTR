@@ -1,9 +1,16 @@
+/*
+ * Filename: SettingsWindow.java
+ * Creation date: 26.03.2019
+ */
+
 package ch.heigvd.sitr.gui.settings;
 
 import javax.swing.*;
 
 /**
  * Settings window class represents the first window that permit to set the simulation
+ *
+ * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 public class SettingsWindow {
     // the only one instance of the class

@@ -1,3 +1,8 @@
+/*
+ * Filename: SimulationWindow.java
+ * Creation date: 28.03.2019
+ */
+
 package ch.heigvd.sitr.gui.simulation;
 
 import ch.heigvd.sitr.Vehicle;
@@ -9,6 +14,8 @@ import java.awt.image.BufferedImage;
 /**
  * Simulation window class represent the main frame of the simulation. It contains a map panel, a simulation control
  * panel and a car control panel.
+ *
+ * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 public class SimulationWindow implements Displayer {
     // the only one instance of the class

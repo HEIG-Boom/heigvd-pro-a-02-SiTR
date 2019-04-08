@@ -1,3 +1,8 @@
+/*
+ * Filename: CarControlPanel.java
+ * Creation date: 01.04.2019
+ */
+
 package ch.heigvd.sitr.gui.simulation;
 
 import ch.heigvd.sitr.Vehicle;
@@ -7,6 +12,8 @@ import java.awt.*;
 
 /**
  * Car control panel class represents a car with his stats and his available action.
+ *
+ * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 class CarControlPanel extends JPanel {
 
