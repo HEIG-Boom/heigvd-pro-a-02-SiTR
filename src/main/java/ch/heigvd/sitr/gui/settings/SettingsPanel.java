@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.gui.settings;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.model.ScenarioType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,13 +81,14 @@ class SettingsPanel extends JPanel {
 
         final JComboBox scenarioSelector = new JComboBox();
 
-        /********************************************************************/
-        // appelle toString() de l'objet
-        scenarioSelector.addItem("Croisement");
-        scenarioSelector.addItem("Quartier");
-        scenarioSelector.addItem("Ville");
-        scenarioSelector.addItem("Planete");
-        /********************************************************************/
+        /* Adding scenario to scenario selector */
+
+        for (ScenarioType st : ScenarioType.values()) {
+            // call toString for each object
+            scenarioSelector.addItem(st);
+        }
+
+        /*--------------------------------------*/
 
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
