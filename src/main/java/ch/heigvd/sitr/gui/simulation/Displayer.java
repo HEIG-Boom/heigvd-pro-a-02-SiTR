@@ -1,22 +1,35 @@
+/*
+ * Filename: Displayer.java
+ * Creation date: 01.04.2019
+ */
+
 package ch.heigvd.sitr.gui.simulation;
 
 import java.awt.Graphics2D;
 
+/**
+ * Interface Displayer implements some methode for GUI representation
+ *
+ * @author Luc Wachter, Loris Gilliand
+ */
 public interface Displayer {
     /**
      * Gets the width of the panel
+     *
      * @return the width of the panel
      */
     int getMapWidth();
 
     /**
      * Gets the height of the panel
+     *
      * @return the height of the panel
      */
     int getMapHeight();
 
     /**
      * Gets an image object (as a Graphics2D) representing the panel's drawing area
+     *
      * @return a graphics area on which to draw, of the panel's size
      */
     Graphics2D getSimulationPane();

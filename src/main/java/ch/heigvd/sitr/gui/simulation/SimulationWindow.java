@@ -1,3 +1,8 @@
+/*
+ * Filename: SimulationWindow.java
+ * Creation date: 28.03.2019
+ */
+
 package ch.heigvd.sitr.gui.simulation;
 
 import ch.heigvd.sitr.vehicle.Vehicle;
@@ -5,21 +10,37 @@ import ch.heigvd.sitr.vehicle.Vehicle;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 
+/**
+ * Simulation window class represent the main frame of the simulation. It contains a map panel, a simulation control
+ * panel and a car control panel.
+ *
+ * @author Alexandre Monteiro Marques, Loris Gilliand
+ */
 public class SimulationWindow implements Displayer {
+    // the only one instance of the class
     private static SimulationWindow instance;
 
     private BufferedImage mapImage;
+
     private MapPanel mapPanel;
 
+    /**
+     * static method of implementation as singleton
+     *
+     * @return the only one instance of the class
+     */
     public static SimulationWindow getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new SimulationWindow();
         }
         return instance;
     }
 
+    /**
+     * private constructor of the window
+     * Create a frame and add a map panel, a simulation control panel and a car control panel
+     */
     private SimulationWindow() {
         JFrame frame = new JFrame("SiTR");
 
@@ -39,7 +60,7 @@ public class SimulationWindow implements Displayer {
         gbc.gridx = 1;
         gbc.gridy = 1;
         panel.add(new CarControlPanel(new Vehicle(null,2.0, 2.0)),gbc);
-
+      
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -66,7 +87,7 @@ public class SimulationWindow implements Displayer {
 
     @Override
     public void repaint() {
-        mapPanel.getGraphics().drawImage(mapImage,0,0, null);
+        mapPanel.getGraphics().drawImage(mapImage, 0, 0, null);
         mapImage = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
     }
 }
