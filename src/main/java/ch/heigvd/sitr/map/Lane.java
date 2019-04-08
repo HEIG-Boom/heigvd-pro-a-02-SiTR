@@ -2,14 +2,13 @@ package ch.heigvd.sitr.map;
 
 import ch.heigvd.sitr.vehicle.Vehicle;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Lane implements Iterable<Vehicle> {
 
-    private Road road;
+    private RoadSegment road;
     @Getter
     private int nbVehicle;
     @Getter
@@ -31,7 +30,7 @@ public class Lane implements Iterable<Vehicle> {
 
     private LinkedList<Vehicle> listVehicle = new LinkedList<>();
 
-    Lane(Road road, int xCoordinatesBegin, int yCoordinatesBegin, int xCoordinatesEnd, int yCoordinatesEnd,
+    Lane(RoadSegment road, int xCoordinatesBegin, int yCoordinatesBegin, int xCoordinatesEnd, int yCoordinatesEnd,
          int length, float width, int speedLimit, int lineId) {
         this.road = road;
         this.length = length;
