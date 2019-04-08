@@ -8,8 +8,6 @@ package ch.heigvd.sitr.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.LinkedList;
-
 /**
  * Unit tests for Simulation class
  *
