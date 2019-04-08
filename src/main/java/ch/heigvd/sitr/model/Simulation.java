@@ -17,7 +17,7 @@ public class Simulation {
     // the scale of m/px
     @Getter
     @Setter
-    public static double scale;
+    public double scale;
 
     public Simulation(double scale) {
         this.scale = scale;
