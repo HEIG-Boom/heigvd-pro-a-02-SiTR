@@ -23,17 +23,21 @@ Development team:
 This software requires Java 8 or above and the following tools and libraries:
 
 - Apache Maven v. 3.5.4
-- jUnit v. 4.11
+- jUnit v. 5.4
 - Lombok v. 1.18.2
 
 ## Build and install
-1. Since the project uses Apache Maven, running `mvn package` should suffice to run tests and create the jar file (when applicable).
+Thanks to Apache Maven, running `mvn package` should suffice to run tests and create the jar file in `target/sitr-1
+.0-SNAPSHOT-launcher.jar`.
 
 ## Run
-- To do when we have something to run.
+- The program can be run using the previously mentioned jar file using `java -jar sitr-1
+.0-SNAPSHOT-launcher.jar`.
+- It can also be run through an IDE (or the `java` command), by running the `main` entry point situated in `ch.heigvd
+.sitr.App` after compilation.
 
 ## Documentation
-Class diagrams, mockups and style guidelines in the wiki.
+Class diagrams, mock-ups, design decisions and style guidelines in the wiki.
 
 User manual: to do.
 
