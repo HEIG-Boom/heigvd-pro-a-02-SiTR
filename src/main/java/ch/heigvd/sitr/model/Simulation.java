@@ -19,6 +19,11 @@ public class Simulation {
     @Setter
     public double scale;
 
+    /**
+     * Constructor
+     *
+     * @param scale the scale of m/px
+     */
     public Simulation(double scale) {
         this.scale = scale;
     }
@@ -33,7 +38,23 @@ public class Simulation {
         return kph / 3.6;
     }
 
+    /**
+     * Convert m to px
+     *
+     * @param m m to convert
+     * @return distance in px
+     */
     public double mToPx(double m) {
         return scale * m;
+    }
+
+    /**
+     * Convert px to m
+     *
+     * @param px px to convert
+     * @return distance in m
+     */
+    public double pxToM(double px) {
+        return px / scale;
     }
 }
