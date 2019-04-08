@@ -1,11 +1,20 @@
+/*
+ * Filename : ScenarioTypeTest.java
+ * Creation date : 08.04.2019
+ */
+
 package ch.heigvd.sitr.model;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.LinkedList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Unit tests for the ScenarioType enum
+ *
+ * @author Luc Wachter
+ */
 class ScenarioTypeTest {
     /**
      * Test simple getters on the enum
@@ -21,10 +30,10 @@ class ScenarioTypeTest {
     }
 
     /**
-     * Does the getScenarioNames method return a correct List of available controllers?
+     * Does the getScenarioNames method return a correct List of available scenarios?
      */
     @Test
-    public void shouldEnableToGetControllerNames() {
+    public void shouldEnableToGetScenarioNames() {
         // Test manually
         LinkedList<String> controllerNames = new LinkedList<>();
         controllerNames.add("Simple road");
