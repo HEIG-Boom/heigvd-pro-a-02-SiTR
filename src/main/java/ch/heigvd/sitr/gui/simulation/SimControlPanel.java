@@ -5,6 +5,8 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
+import ch.heigvd.sitr.gui.settings.SettingsWindow;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -178,5 +180,35 @@ class SimControlPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(occupationValue, gbc);
+
+        final JButton newSim = new JButton("Nouvelle simulation");
+        newSim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SimulationWindow.getInstance().closeWindow();
+                SettingsWindow.getInstance().showWindow();
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 0, 30);
+        this.add(newSim, gbc);
+
+        final JButton quit = new JButton("Quitter");
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SimulationWindow.getInstance().closeWindow();
+                System.exit(0);
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 0, 0, 0);
+        this.add(quit, gbc);
     }
 }

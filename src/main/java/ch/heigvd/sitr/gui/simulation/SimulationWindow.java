@@ -21,6 +21,7 @@ public class SimulationWindow implements Displayer {
     // the only one instance of the class
     private static SimulationWindow instance;
 
+    private JFrame frame;
     private BufferedImage mapImage;
 
     private MapPanel mapPanel;
@@ -42,7 +43,7 @@ public class SimulationWindow implements Displayer {
      * Create a frame and add a map panel, a simulation control panel and a car control panel
      */
     private SimulationWindow() {
-        JFrame frame = new JFrame("SiTR");
+        frame = new JFrame("SiTR");
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -59,8 +60,8 @@ public class SimulationWindow implements Displayer {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        panel.add(new CarControlPanel(new Vehicle(null,2.0, 2.0)),gbc);
-      
+        panel.add(new CarControlPanel(new Vehicle(null, 2.0, 2.0)), gbc);
+
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -89,5 +90,13 @@ public class SimulationWindow implements Displayer {
     public void repaint() {
         mapPanel.getGraphics().drawImage(mapImage, 0, 0, null);
         mapImage = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
+    }
+
+    /**
+     * Method to close the simulation window
+     */
+    public void closeWindow() {
+        frame.dispose();
+        instance = null;
     }
 }
