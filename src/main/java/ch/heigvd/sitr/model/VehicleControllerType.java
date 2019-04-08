@@ -7,8 +7,11 @@ package ch.heigvd.sitr.model;
 
 import lombok.Getter;
 
+import java.util.LinkedList;
+
 /**
  * Enum for controller types, provides controller names and paths to data files
+ *
  * @author Luc Wachter
  */
 public enum VehicleControllerType {
@@ -22,9 +25,11 @@ public enum VehicleControllerType {
     private static final String BASE_PATH = "config/vehicleController/";
 
     // Name of the controller (to display in GUI and such)
-    @Getter private final String name;
+    @Getter
+    private final String name;
     // Path to the controller's data file
-    @Getter private final String configPath;
+    @Getter
+    private final String configPath;
 
     /**
      * Constructor defining name and path to the controller's data file
@@ -36,5 +41,20 @@ public enum VehicleControllerType {
         this.name = name;
         // Construct path to data file from base path and filename
         configPath = BASE_PATH + configFile;
+    }
+
+    /**
+     * Returns list of names of all vehicle controllers
+     *
+     * @return a list of Strings representing the names of the controllers
+     */
+    public static LinkedList<String> getControllerNames() {
+        LinkedList<String> controllerNames = new LinkedList<>();
+
+        for (VehicleControllerType vct : VehicleControllerType.values()) {
+            controllerNames.add(vct.getName());
+        }
+
+        return controllerNames;
     }
 }
