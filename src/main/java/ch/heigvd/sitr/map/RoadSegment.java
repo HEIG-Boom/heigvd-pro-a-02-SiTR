@@ -5,7 +5,7 @@ import lombok.Getter;
 
 import java.util.LinkedList;
 
-public class Road {
+public class RoadSegment {
 
     private int roadId;
     @Getter
@@ -22,8 +22,8 @@ public class Road {
     private int yCoordinatesEnd;
     private LinkedList<Lane> laneList;
 
-    Road(int xCoordinatesBegin, int yCoordinatesBegin, int xCoordinatesEnd, int yCoordinatesEnd,
-         int lenght, float width, int nbLaneLeft, int nbLaneRight, int speedLimit, int roadId) {
+    RoadSegment(int xCoordinatesBegin, int yCoordinatesBegin, int xCoordinatesEnd, int yCoordinatesEnd,
+                int lenght, float width, int nbLaneLeft, int nbLaneRight, int speedLimit, int roadId) {
 
         this.xCoordinatesBegin = xCoordinatesBegin;
         this.yCoordinatesBegin = yCoordinatesBegin;
