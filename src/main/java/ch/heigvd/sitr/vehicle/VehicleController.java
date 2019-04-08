@@ -22,7 +22,7 @@ import static java.lang.Math.sqrt;
  *
  * It's based on the Intelligent Driver Model (IDM).
  *
- * See :
+ * For more information, see :
  * - the wikipedia article : https://en.wikipedia.org/wiki/Intelligent_driver_model
  * - Congested Traffic States in Empirical Observations and Microscopic Simulations : https://arxiv.org/pdf/cond-mat/0002177.pdf
  * - Concise explanation : http://www.mtreiber.de/trafficSimulationDe_html5_2016_06_29/IDM.html
@@ -30,7 +30,7 @@ import static java.lang.Math.sqrt;
  * @author Simon Walther
  */
 public class VehicleController {
-    // Delta exponent, traditionnaly set at 4
+    // Delta exponent, traditionally set at 4
     static final double delta = 4;
 
     // Desired velocity (v0) of the vehicle controller [m/s]
@@ -58,7 +58,7 @@ public class VehicleController {
     }
 
     /**
-     * Create vehicle controller with configuration taken from an XML configration file
+     * Create vehicle controller with configuration taken from an XML configuration file
      * @param configPath the path to the configuration file
      */
     public VehicleController(String configPath) {
@@ -74,10 +74,8 @@ public class VehicleController {
             desiredTimeHeadway = Double.parseDouble(root.getChildText("desiredTimeHeadway"));
             maxAcceleration = Double.parseDouble(root.getChildText("maxAcceleration"));
             comfortableBrakingDeceleration = Double.parseDouble(root.getChildText("comfortableBrakingDeceleration"));
-        } catch (IOException io) {
+        } catch (IOException | JDOMException io) {
             System.out.println(io.getMessage());
-        }  catch (JDOMException jdomex) {
-            System.out.println(jdomex.getMessage());
         }
     }
 
@@ -90,7 +88,7 @@ public class VehicleController {
      * v (speed) [m/s]
      * T (desired time headway) [s]
      *
-     * @param vehicle
+     * @param vehicle Vehicle for which to calculate safe distance
      * @return the safe distance [m]
      */
     public double safeDistance(Vehicle vehicle) {
@@ -111,7 +109,7 @@ public class VehicleController {
      *
      * Note : s0 + v*T is the safe distance
      *
-     * @param vehicle the vehicule
+     * @param vehicle Vehicle for which to calculate the desired dynamical distance
      * @return the desired dynamical distance [m]
      */
     public double desiredDynamicalDistance(Vehicle vehicle) {
@@ -134,7 +132,7 @@ public class VehicleController {
      * v (speed) [m/s]
      * v0 (desired velocity) [m/s]
      *
-     * @param vehicle the vehicle
+     * @param vehicle Vehicle for which to calculate the desired acceleration
      * @return the desired acceleration
      */
     public double desiredAcceleration(Vehicle vehicle) {
@@ -153,10 +151,11 @@ public class VehicleController {
      * s (front distance) [m]
      * delta
      *
-     * @param vehicle the vehicle
+     * @param vehicle Vehicle for which to calculate the acceleration
      * @return the acceleration
      */
     public double acceleration(Vehicle vehicle) {
-        return desiredAcceleration(vehicle) - maxAcceleration * Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
+        return desiredAcceleration(vehicle) - maxAcceleration *
+               Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
     }
 }
