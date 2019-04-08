@@ -32,4 +32,10 @@ class SimulationTest {
         Simulation simulation = new Simulation(0.5);
         assertEquals(0.5, simulation.getScale());
     }
+
+    @Test
+    public void mToPx() {
+        Simulation simulation = new Simulation(0.5);
+        assertEquals(50, simulation.mToPx(100));
+    }
 }

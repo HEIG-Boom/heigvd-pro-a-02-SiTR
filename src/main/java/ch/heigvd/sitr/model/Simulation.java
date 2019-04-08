@@ -33,5 +33,7 @@ public class Simulation {
         return kph / 3.6;
     }
 
-
+    public double mToPx(double m) {
+        return scale * m;
+    }
 }
