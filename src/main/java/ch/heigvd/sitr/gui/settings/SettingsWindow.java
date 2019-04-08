@@ -49,6 +49,14 @@ public class SettingsWindow {
      * Method to close the settings window
      */
     public void closeWindow() {
-        frame.dispose();
+        frame.setVisible(false);
+    }
+
+    /**
+     * Method to show the settings window.
+     * Used to create a new simulation when clicking on the corresponding button in simulation window
+     */
+    public void showWindow() {
+        frame.setVisible(true);
     }
 }
