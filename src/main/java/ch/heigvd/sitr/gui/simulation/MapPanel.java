@@ -3,13 +3,21 @@ package ch.heigvd.sitr.gui.simulation;
 import javax.swing.*;
 import java.awt.*;
 
-public class MapPanel extends JPanel {
-
+/**
+ * Map panel represent the drawing area for the map of the simulation
+ */
+class MapPanel extends JPanel {
+    // color of the background
     private static final String backgroundColor = "0x006400";
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 800;
 
-    public MapPanel() {
+    // dimensions of the map
+    static final int WIDTH = 800;
+    static final int HEIGHT = 800;
+
+    /**
+     * Package-private constructor of the map panel
+     */
+    MapPanel() {
         Dimension d = new Dimension(WIDTH, HEIGHT);
         this.setMinimumSize(d);
         this.setMaximumSize(d);

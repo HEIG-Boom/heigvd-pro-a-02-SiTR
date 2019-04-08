@@ -7,9 +7,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SettingsPanel extends JPanel {
-    final JButton startButton;
-    public SettingsPanel() {
+/**
+ * Settings Panel class represents the first window's panel. Offers settings options for the simulation
+ */
+class SettingsPanel extends JPanel {
+    /**
+     * Package-Private Constructor of the panel. Constructs all components for the settings window
+     */
+    SettingsPanel() {
         GridBagConstraints gbc;
 
         this.setLayout(new GridBagLayout());
@@ -25,7 +30,7 @@ public class SettingsPanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(acronym,gbc);
+        this.add(acronym, gbc);
 
         final JLabel title = new JLabel();
         title.setFont(new Font("default", Font.PLAIN, 18));
@@ -196,7 +201,7 @@ public class SettingsPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 0);
         this.add(separator4, gbc);
 
-        startButton = new JButton("Lancer");
+        final JButton startButton = new JButton("Lancer");
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
