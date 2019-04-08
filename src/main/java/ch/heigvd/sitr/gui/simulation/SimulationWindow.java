@@ -1,6 +1,6 @@
 package ch.heigvd.sitr.gui.simulation;
 
-import ch.heigvd.sitr.Vehicle;
+import ch.heigvd.sitr.vehicle.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,8 +52,8 @@ public class SimulationWindow implements Displayer {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        panel.add(new CarControlPanel(new Vehicle(2, 2)), gbc);
-
+        panel.add(new CarControlPanel(new Vehicle(null,2.0, 2.0)),gbc);
+      
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);

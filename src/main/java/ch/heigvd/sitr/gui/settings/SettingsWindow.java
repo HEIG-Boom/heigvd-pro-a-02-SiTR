@@ -44,13 +44,4 @@ public class SettingsWindow {
     public void closeWindow() {
         frame.dispose();
     }
-
-    /**
-     * Entry point of the program
-     *
-     * @param args user's parameters
-     */
-    public static void main(String[] args) {
-        SettingsWindow.getInstance();
-    }
 }

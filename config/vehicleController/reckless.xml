@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE controller SYSTEM "vehicleController.dtd">
+<controller>
+    <desiredVelocity>22.22</desiredVelocity>
+    <minimumSpacing>1.5</minimumSpacing>
+    <desiredTimeHeadway>0.6</desiredTimeHeadway>
+    <maxAcceleration>2.5</maxAcceleration>
+    <comfortableBrakingDeceleration>3</comfortableBrakingDeceleration>
+</controller>

@@ -1,6 +1,6 @@
 package ch.heigvd.sitr.gui.simulation;
 
-import ch.heigvd.sitr.Vehicle;
+import ch.heigvd.sitr.vehicle.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
