@@ -7,6 +7,7 @@ package ch.heigvd.sitr.gui.settings;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.model.ScenarioType;
+import ch.heigvd.sitr.model.VehicleBehaviourType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,8 +31,8 @@ class SettingsPanel extends JPanel {
 
         final JLabel acronym = new JLabel();
         acronym.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 26));
-        acronym.setHorizontalAlignment(0);
-        acronym.setHorizontalTextPosition(0);
+        acronym.setHorizontalAlignment(JLabel.CENTER);
+        acronym.setHorizontalTextPosition(JLabel.CENTER);
         acronym.setText("SiTR");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -51,7 +52,7 @@ class SettingsPanel extends JPanel {
         this.add(title, gbc);
 
         final JLabel subtitle1 = new JLabel();
-        subtitle1.setHorizontalAlignment(0);
+        subtitle1.setHorizontalAlignment(JLabel.CENTER);
         subtitle1.setText("Choix des paramètres du scénario");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -81,7 +82,7 @@ class SettingsPanel extends JPanel {
 
         final JComboBox scenarioSelector = new JComboBox();
 
-        /* Adding scenario to scenario selector */
+        /* Adding scenario to the scenario selector */
 
         for (ScenarioType st : ScenarioType.values()) {
             // call toString for each object
@@ -108,8 +109,6 @@ class SettingsPanel extends JPanel {
 
         /********************************************************************/
         final JLabel label1 = new JLabel();
-        label1.setHorizontalAlignment(11);
-        label1.setHorizontalTextPosition(4);
         label1.setText("Agressif :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -174,8 +173,8 @@ class SettingsPanel extends JPanel {
         this.add(separator3, gbc);
 
         final JLabel subtitle2 = new JLabel();
-        subtitle2.setHorizontalAlignment(0);
-        subtitle2.setHorizontalTextPosition(0);
+        subtitle2.setHorizontalAlignment(JLabel.CENTER);
+        subtitle2.setHorizontalTextPosition(JLabel.CENTER);
         subtitle2.setText("Comportement des véhicules lorsqu'ils arrivent à destination :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -187,12 +186,14 @@ class SettingsPanel extends JPanel {
 
         final JComboBox behaviorSelector = new JComboBox();
 
-        /********************************************************************/
-        // appelle toString() de l'objet
-        behaviorSelector.addItem("retourne au départ");
-        behaviorSelector.addItem("refait le trajet");
-        behaviorSelector.addItem("choisi un nouveau trajet");
-        /********************************************************************/
+        /* Adding behavior to the behavior selector */
+
+        for (VehicleBehaviourType vb : VehicleBehaviourType.values()) {
+            // call toString for each object
+            behaviorSelector.addItem(vb);
+        }
+
+        /*--------------------------------------*/
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
