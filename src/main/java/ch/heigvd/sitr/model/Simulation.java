@@ -37,24 +37,4 @@ public class Simulation {
         // km/h => m/s : x / 3.6
         return kph / 3.6;
     }
-
-    /**
-     * Convert m to px
-     *
-     * @param m m to convert
-     * @return distance in px
-     */
-    public double mToPx(double m) {
-        return scale * m;
-    }
-
-    /**
-     * Convert px to m
-     *
-     * @param px px to convert
-     * @return distance in m
-     */
-    public double pxToM(double px) {
-        return px / scale;
-    }
 }
