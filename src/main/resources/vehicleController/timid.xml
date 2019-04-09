@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE controller SYSTEM "vehicleController.dtd">
 <controller>
     <desiredVelocity>22.22</desiredVelocity>
     <minimumSpacing>2</minimumSpacing>

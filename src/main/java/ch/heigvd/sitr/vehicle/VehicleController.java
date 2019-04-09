@@ -12,8 +12,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 import static java.lang.Math.sqrt;
 
@@ -62,11 +61,11 @@ public class VehicleController {
      * @param configPath the path to the configuration file
      */
     public VehicleController(String configPath) {
+        InputStream in = Vehicle.class.getResourceAsStream("/" + configPath);
         SAXBuilder saxBuilder = new SAXBuilder();
-        File config = new File(configPath);
 
         try {
-            Document document = (Document) saxBuilder.build(config);
+            Document document = (Document) saxBuilder.build(in);
             Element root = document.getRootElement();
 
             desiredVelocity = Double.parseDouble(root.getChildText("desiredVelocity"));

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<controller>
+    <desiredVelocity>22.22</desiredVelocity>
+    <minimumSpacing>2</minimumSpacing>
+    <desiredTimeHeadway>2</desiredTimeHeadway>
+    <maxAcceleration>0.8</maxAcceleration>
+    <comfortableBrakingDeceleration>2</comfortableBrakingDeceleration>
+</controller>
