@@ -5,28 +5,12 @@
 
 package ch.heigvd.sitr.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Simulation class handles all global simulation settings and values
  *
- * @author Luc Wachter, Simon Walther
+ * @author Luc Wachter
  */
 public class Simulation {
-    // the scale of m/px
-    @Getter
-    @Setter
-    public double scale;
-
-    /**
-     * Constructor
-     *
-     * @param scale the scale of m/px
-     */
-    public Simulation(double scale) {
-        this.scale = scale;
-    }
 
     public static double mpsToKph(double mps) {
         // m/s => km/h : x * 3.6
