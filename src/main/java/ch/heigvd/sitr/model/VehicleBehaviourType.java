@@ -7,8 +7,6 @@ package ch.heigvd.sitr.model;
 
 import lombok.Getter;
 
-import java.util.LinkedList;
-
 /**
  * Enum for vehicle behaviour types, provides their names
  * It describes what a vehicle should do when
@@ -16,9 +14,9 @@ import java.util.LinkedList;
  * @author Luc Wachter
  */
 public enum VehicleBehaviourType {
-    REVERSE_PATH("Go from destination to start"),
-    START_AGAIN("Go from start to destination again"),
-    STOP("Stop there");
+    REVERSE_PATH("Aller de la destination au départ"),
+    START_AGAIN("Recommencer un trajet identique"),
+    STOP("S'arrêter là");
 
     // Name of the behaviour (to display in GUI and such)
     @Getter
@@ -34,17 +32,12 @@ public enum VehicleBehaviourType {
     }
 
     /**
-     * Returns list of names of all vehicle behaviours
+     * Override to return a more friendly behaviour name
      *
-     * @return a list of Strings representing the names of the behaviours
+     * @return the String representation of the behaviour
      */
-    public static LinkedList<String> getVehicleBehaviourNames() {
-        LinkedList<String> behaviourNames = new LinkedList<>();
-
-        for (VehicleBehaviourType vbt : VehicleBehaviourType.values()) {
-            behaviourNames.add(vbt.getName());
-        }
-
-        return behaviourNames;
+    @Override
+    public String toString() {
+        return name;
     }
 }

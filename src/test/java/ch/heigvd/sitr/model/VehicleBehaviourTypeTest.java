@@ -6,9 +6,8 @@
 package ch.heigvd.sitr.model;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.LinkedList;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the VehicleBehaviourType enum
@@ -21,21 +20,13 @@ class VehicleBehaviourTypeTest {
      */
     @Test
     public void nameGetterShouldWork() {
-        assertEquals("Go from destination to start", VehicleBehaviourType.REVERSE_PATH.getName());
-        assertEquals("Stop there", VehicleBehaviourType.STOP.getName());
+        assertEquals("Aller de la destination au départ", VehicleBehaviourType.REVERSE_PATH.getName());
+        assertEquals("S'arrêter là", VehicleBehaviourType.STOP.getName());
     }
 
-    /**
-     * Does the getVehicleBehaviourNames method return a correct List of available behaviours?
-     */
     @Test
-    public void shouldEnableToGetBehaviourNames() {
-        // Test manually
-        LinkedList<String> behaviourNames = new LinkedList<>();
-        behaviourNames.add("Go from destination to start");
-        behaviourNames.add("Go from start to destination again");
-        behaviourNames.add("Stop there");
-
-        assertEquals(behaviourNames, VehicleBehaviourType.getVehicleBehaviourNames());
+    public void toStringShouldEnableToGetBehaviourNames() {
+        assertEquals("Aller de la destination au départ", VehicleBehaviourType.REVERSE_PATH.toString());
+        assertEquals("S'arrêter là", VehicleBehaviourType.STOP.toString());
     }
 }
