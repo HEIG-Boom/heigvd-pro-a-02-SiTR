@@ -8,7 +8,9 @@ import java.util.LinkedList;
 
 public class LaneSegment implements Iterable<Vehicle> {
 
-    private RoadSegment road;
+    private RoadSegment roadSegment;
+    private LaneSegment sinkLaneSegment;
+    private LaneSegment sourceLaneSegment;
     @Getter
     private int nbVehicle;
     @Getter
@@ -16,7 +18,7 @@ public class LaneSegment implements Iterable<Vehicle> {
     @Getter
     private float width;
     @Getter
-    private int laneId;
+    private int laneSegmentId;
     @Getter
     private int speedLimit;
     @Getter
@@ -30,14 +32,13 @@ public class LaneSegment implements Iterable<Vehicle> {
 
     private LinkedList<Vehicle> listVehicle = new LinkedList<>();
 
-    LaneSegment(RoadSegment road, int xCoordinatesBegin, int yCoordinatesBegin, int xCoordinatesEnd, int yCoordinatesEnd,
-                int length, float width, int speedLimit, int lineId) {
-        this.road = road;
+    LaneSegment(RoadSegment roadSegment, int xCoordinatesBegin, int yCoordinatesBegin, int xCoordinatesEnd, int yCoordinatesEnd,
+                int length, float width, int speedLimit, int laneSegmentId) {
+        this.roadSegment = roadSegment;
         this.length = length;
         this.width = width;
-        this.laneId = lineId;
+        this.laneSegmentId = laneSegmentId;
         this.speedLimit = speedLimit;
-        nbVehicle = 0;
         listVehicle = new LinkedList<>();
         this.xCoordinatesBegin = xCoordinatesBegin;
         this.yCoordinatesBegin = yCoordinatesBegin;
@@ -46,21 +47,21 @@ public class LaneSegment implements Iterable<Vehicle> {
     }
 
     public boolean checkIfLaneOnLeft() {
-        return road.checkIfLaneOnLeft(laneId);
+        return roadSegment.checkIfLaneOnLeft(laneSegmentId);
     }
 
     public LaneSegment getLaneOnLeft(int laneId) {
-        return road.getLaneOnLeft(laneId);
+        return roadSegment.getLaneOnLeft(laneId);
     }
 
     public LaneSegment getLaneOnRight(int laneId) {
-        return road.getLaneOnRight(laneId);
+        return roadSegment.getLaneOnRight(laneId);
     }
 
     /*Ne fonctionne que pour une ligne droite*/
     public boolean checkIfChangeLaneIsSafe(double position, LaneSegment lane) {
-        if (lane.laneId != laneId) {
-            return road.checkIfChangeLaneIsSafe(position, lane);
+        if (lane.laneSegmentId != laneSegmentId) {
+            return roadSegment.checkIfChangeLaneIsSafe(position, lane);
         }
         Vehicle vehicle = listVehicle.getFirst();
         for (int i = 1; position > vehicle.getPosition() && i < listVehicle.size(); i++) {
@@ -88,10 +89,12 @@ public class LaneSegment implements Iterable<Vehicle> {
         }
         i--;
         listVehicle.add(i, vehicle);
+        nbVehicle++;
     }
 
     public void removeVehicle(Vehicle vehicle) {
         listVehicle.remove(vehicle);
+        nbVehicle --;
     }
 
     @Override
