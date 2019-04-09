@@ -25,5 +25,4 @@ class SimulationTest {
         assertEquals(1.0, Simulation.kphToMps(3.6));
         assertEquals(20.0, Simulation.kphToMps(72));
     }
-
 }
