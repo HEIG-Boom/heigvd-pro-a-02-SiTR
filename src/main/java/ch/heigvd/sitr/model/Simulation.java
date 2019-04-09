@@ -11,7 +11,6 @@ package ch.heigvd.sitr.model;
  * @author Luc Wachter
  */
 public class Simulation {
-
     public static double mpsToKph(double mps) {
         // m/s => km/h : x * 3.6
         return mps * 3.6;
