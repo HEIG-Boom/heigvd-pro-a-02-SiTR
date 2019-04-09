@@ -6,9 +6,8 @@
 package ch.heigvd.sitr.model;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.LinkedList;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the ScenarioType enum
@@ -21,7 +20,7 @@ class ScenarioTypeTest {
      */
     @Test
     public void nameGetterShouldWork() {
-        assertEquals("Simple road", ScenarioType.SIMPLE_ROAD.getName());
+        assertEquals("Route simple", ScenarioType.SIMPLE_ROAD.getName());
     }
 
     @Test
@@ -29,15 +28,8 @@ class ScenarioTypeTest {
         assertEquals("config/mapData/placeholder", ScenarioType.SIMPLE_ROAD.getConfigPath());
     }
 
-    /**
-     * Does the getScenarioNames method return a correct List of available scenarios?
-     */
     @Test
-    public void shouldEnableToGetScenarioNames() {
-        // Test manually
-        LinkedList<String> controllerNames = new LinkedList<>();
-        controllerNames.add("Simple road");
-
-        assertEquals(controllerNames, ScenarioType.getScenarioNames());
+    public void toStringShouldEnableToGetScenarioNames() {
+        assertEquals("Route simple", ScenarioType.SIMPLE_ROAD.toString());
     }
 }
