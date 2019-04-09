@@ -71,7 +71,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>Application</mainClass>
+              <mainClass>ch.heigvd.sitr.App</mainClass>
             </manifest>
           </archive>
         </configuration>
