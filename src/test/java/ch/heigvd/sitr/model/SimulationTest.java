@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for Simulation class
  *
- * @author Luc Wachter, Simon Walther
+ * @author Luc Wachter
  */
 class SimulationTest {
     @Test
@@ -25,23 +25,5 @@ class SimulationTest {
     public void shouldReturnCorrectAmountOfMps() {
         assertEquals(1.0, Simulation.kphToMps(3.6));
         assertEquals(20.0, Simulation.kphToMps(72));
-    }
-
-    @Test
-    public void scale() {
-        Simulation simulation = new Simulation(0.5);
-        assertEquals(0.5, simulation.getScale());
-    }
-
-    @Test
-    public void mToPx() {
-        Simulation simulation = new Simulation(0.5);
-        assertEquals(50, simulation.mToPx(100));
-    }
-
-    @Test
-    public void pxToM() {
-        Simulation simulation = new Simulation(0.5);
-        assertEquals(100, simulation.pxToM(50));
     }
 }
