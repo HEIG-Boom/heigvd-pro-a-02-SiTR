@@ -8,7 +8,7 @@ package ch.heigvd.sitr;
 import ch.heigvd.sitr.gui.settings.SettingsWindow;
 
 /**
- * Main entrypoint for SiTR
+ * Main entry point for SiTR
  *
  * @author Luc Wachter
  */

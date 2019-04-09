@@ -13,7 +13,7 @@ import lombok.Getter;
  * @author Luc Wachter
  */
 public enum ScenarioType {
-    SIMPLE_ROAD("Route simple", "placeholder");
+    SIMPLE_ROAD("Route simple", "placeholder"); // TODO replace placeholder
 
     // Base folder containing data files for the scenario (map)
     private static final String BASE_PATH = "config/mapData/";
