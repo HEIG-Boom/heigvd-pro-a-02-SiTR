@@ -23,7 +23,6 @@ public enum VehicleControllerType {
     private static final String BASE_PATH = "config/vehicleController/";
 
     // Name of the controller (to display in GUI and such)
-    @Getter
     private final String name;
     // Path to the controller's data file
     @Getter

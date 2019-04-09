@@ -15,19 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Luc Wachter
  */
 class ScenarioTypeTest {
-    /**
-     * Test simple getters on the enum
-     */
-    @Test
-    public void nameGetterShouldWork() {
-        assertEquals("Route simple", ScenarioType.SIMPLE_ROAD.getName());
-    }
-
     @Test
     public void configPathGetterShouldWork() {
         assertEquals("config/mapData/placeholder", ScenarioType.SIMPLE_ROAD.getConfigPath());
     }
 
+    /**
+     * Test enum's toString
+     */
     @Test
     public void toStringShouldEnableToGetScenarioNames() {
         assertEquals("Route simple", ScenarioType.SIMPLE_ROAD.toString());

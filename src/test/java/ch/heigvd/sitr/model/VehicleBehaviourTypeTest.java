@@ -16,14 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class VehicleBehaviourTypeTest {
     /**
-     * Test simple getters on the enum
+     * Test enum's toString
      */
-    @Test
-    public void nameGetterShouldWork() {
-        assertEquals("Aller de la destination au départ", VehicleBehaviourType.REVERSE_PATH.getName());
-        assertEquals("S'arrêter là", VehicleBehaviourType.STOP.getName());
-    }
-
     @Test
     public void toStringShouldEnableToGetBehaviourNames() {
         assertEquals("Aller de la destination au départ", VehicleBehaviourType.REVERSE_PATH.toString());

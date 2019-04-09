@@ -19,7 +19,6 @@ public enum VehicleBehaviourType {
     STOP("S'arrêter là");
 
     // Name of the behaviour (to display in GUI and such)
-    @Getter
     private final String name;
 
     /**

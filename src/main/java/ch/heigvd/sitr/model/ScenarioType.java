@@ -19,7 +19,6 @@ public enum ScenarioType {
     private static final String BASE_PATH = "config/mapData/";
 
     // Name of the scenario (to display in GUI and such)
-    @Getter
     private final String name;
     // Path to the scenario's data file
     @Getter

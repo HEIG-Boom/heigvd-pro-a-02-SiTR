@@ -15,21 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Luc Wachter
  */
 class VehicleControllerTypeTest {
-    /**
-     * Test simple getters on the enum
-     */
-    @Test
-    public void nameGetterShouldWork() {
-        assertEquals("Téméraire", VehicleControllerType.RECKLESS.getName());
-        assertEquals("Autonome", VehicleControllerType.AUTONOMOUS.getName());
-    }
-
     @Test
     public void configPathGetterShouldWork() {
         assertEquals("config/vehicleController/careful.xml", VehicleControllerType.CAREFUL.getConfigPath());
         assertEquals("config/vehicleController/reckless.xml", VehicleControllerType.RECKLESS.getConfigPath());
     }
 
+    /**
+     * Test enum's toString
+     */
     @Test
     public void toStringShouldEnableToGetControllerNames() {
         assertEquals("Téméraire", VehicleControllerType.RECKLESS.toString());
