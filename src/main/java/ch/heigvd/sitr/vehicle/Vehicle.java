@@ -58,12 +58,13 @@ public class Vehicle {
      * @param vehicleController controller of the vehicle
      * @param length length [m] of the vehicle
      * @param maxSpeed max speed [m/s] of the vehicle
+     * @param firstPath the first itinerary path of the vehicle
      */
-    public Vehicle(VehicleController vehicleController, double length, double maxSpeed, ItineraryStop itineraryStop) {
+    public Vehicle(VehicleController vehicleController, double length, double maxSpeed, ItineraryStop firstPath) {
         this.vehicleController = vehicleController;
         this.length = length;
         this.maxSpeed = maxSpeed;
-        this.itinerary.add(itineraryStop);
+        this.itinerary.add(firstPath);
     }
 
     /**
