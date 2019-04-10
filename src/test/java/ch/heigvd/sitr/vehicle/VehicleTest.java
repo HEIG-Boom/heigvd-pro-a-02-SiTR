@@ -8,6 +8,8 @@ package ch.heigvd.sitr.vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.geom.Point2D;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -16,9 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Simon Walther
  */
 public class VehicleTest {
-    Vehicle vehicle = null;
-    Vehicle frontVehicle = null;
-    VehicleController vehicleController = null;
+    Vehicle vehicle;
+    Vehicle frontVehicle;
+    VehicleController vehicleController;
 
     @BeforeEach
     public void createDummyVehicleController() {
@@ -33,6 +35,14 @@ public class VehicleTest {
     }
 
     @Test
+    public void constructor() {
+        Vehicle vehicle = new Vehicle(vehicleController,1.6, 33.33);
+        assertEquals(1.6, vehicle.getLength());
+        assertEquals(33.33, vehicle.getMaxSpeed());
+        assertEquals(vehicleController, vehicle.getVehicleController());
+    }
+
+    @Test
     public void position() {
         vehicle.setPosition(10.5);
         assertEquals(10.5, vehicle.getPosition());
@@ -42,16 +52,6 @@ public class VehicleTest {
     public void speed() {
         vehicle.setSpeed(25.5);
         assertEquals(25.5, vehicle.getSpeed());
-    }
-
-    @Test
-    public void length() {
-        assertEquals(1.6, vehicle.getLength());
-    }
-
-    @Test
-    public void maxSpeed() {
-        assertEquals(33.33, vehicle.getMaxSpeed());
     }
 
     @Test
@@ -83,11 +83,6 @@ public class VehicleTest {
     @Test
     public void frontDistanceShouldBeInfiniteIfThereIsntFrontVehicle() {
         assertEquals(Double.POSITIVE_INFINITY, frontVehicle.frontDistance());
-    }
-
-    @Test
-    public void vehicleController() {
-        assertEquals(vehicleController, vehicle.getVehicleController());
     }
 
     @Test
