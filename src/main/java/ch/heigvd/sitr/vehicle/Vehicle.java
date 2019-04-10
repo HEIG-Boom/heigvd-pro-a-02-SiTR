@@ -175,8 +175,12 @@ public class Vehicle {
 
     /**
      * Move vehicle to the next path of its itinerary
+     *
+     * Note: if exceed max path step, path step does not change
      */
     public void nextPath() {
-        this.pathStep++;
+        if((pathStep + 1) < this.itinerarySize()) {
+            this.pathStep++;
+        }
     }
 }

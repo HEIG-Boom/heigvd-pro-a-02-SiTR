@@ -88,6 +88,20 @@ public class VehicleTest {
     }
 
     @Test
+    public void pathStepShouldNotExceedItinerarySize() {
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+
+        vehicle.nextPath();
+        vehicle.nextPath();
+
+        // move to an inexistant path
+        vehicle.nextPath();
+        assertEquals(2, vehicle.getPathStep());
+    }
+
+    @Test
     public void position() {
         vehicle.setPosition(10.5);
         assertEquals(10.5, vehicle.getPosition());
