@@ -55,6 +55,17 @@ public class VehicleTest {
     }
 
     @Test
+    public void addMultipleItineraryPaths() {
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+
+        assertEquals(5, vehicle.itinerarySize());
+    }
+
+    @Test
     public void position() {
         vehicle.setPosition(10.5);
         assertEquals(10.5, vehicle.getPosition());

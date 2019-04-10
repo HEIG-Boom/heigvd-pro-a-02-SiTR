@@ -68,7 +68,7 @@ public class Vehicle {
         this.vehicleController = vehicleController;
         this.length = length;
         this.maxSpeed = maxSpeed;
-        this.itinerary.add(firstPath);
+        this.addToItinerary(firstPath);
     }
 
     /**
@@ -151,5 +151,22 @@ public class Vehicle {
      */
     public ItineraryPath currentPath() {
         return this.itinerary.get(pathStep);
+    }
+
+    /**
+     * Add itinerary path to the itinerary
+     * @param itineraryPath the itinerary path
+     */
+    public void addToItinerary(ItineraryPath itineraryPath) {
+        if(itineraryPath != null) {
+            this.itinerary.add(itineraryPath);
+        }
+    }
+    /**
+     * Get the itinerary size of the vehicle
+     * @return the itinerary size
+     */
+    public int itinerarySize() {
+        return this.itinerary.size();
     }
 }
