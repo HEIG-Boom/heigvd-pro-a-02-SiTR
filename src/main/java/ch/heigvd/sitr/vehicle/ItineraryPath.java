@@ -1,5 +1,5 @@
 /*
- * Filename: ItineraryStop.java
+ * Filename: ItineraryPath.java
  * Creation date: 10.04.2019
  */
 
@@ -10,10 +10,10 @@ import lombok.Getter;
 import java.awt.geom.Point2D;
 
 /**
- * ItineraryStop class represents the a stop in an vehicle's itinerary
+ * ItineraryPath class represents the a stop in an vehicle's itinerary
  * @author Simon Walther
  */
-public class ItineraryStop {
+public class ItineraryPath {
     // the point of origin of the itinerary [px]
     @Getter
     private Point2D.Double origin;
@@ -27,7 +27,7 @@ public class ItineraryStop {
      * @param origin the point of origin
      * @param destination the point of destination
      */
-    public ItineraryStop(Point2D.Double origin, Point2D.Double destination) {
+    public ItineraryPath(Point2D.Double origin, Point2D.Double destination) {
         // ensure that origin is not empty
         if(origin == null) {
             throw new IllegalArgumentException("Itinerary stop must have an origin");

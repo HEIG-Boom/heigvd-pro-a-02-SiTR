@@ -21,6 +21,7 @@ public class VehicleTest {
     Vehicle vehicle;
     Vehicle frontVehicle;
     VehicleController vehicleController;
+    ItineraryPath itineraryPath;
 
     @BeforeEach
     public void createDummyVehicleController() {
@@ -34,12 +35,23 @@ public class VehicleTest {
         vehicle.setFrontVehicle(frontVehicle);
     }
 
+    @BeforeEach
+    public void createDummyItinerary() {
+        itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+    }
+
     @Test
     public void constructor() {
-        Vehicle vehicle = new Vehicle(vehicleController,1.6, 33.33, new ItineraryStop(new Point2D.Double(50, 50), new Point2D.Double(100, 100)));
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33, itineraryPath);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(33.33, vehicle.getMaxSpeed());
         assertEquals(vehicleController, vehicle.getVehicleController());
+        assertEquals(itineraryPath, vehicle.currentPath());
+    }
+
+    @Test
+    public void initialPathStepShouldBeAt0() {
+        assertEquals(0, vehicle.getPathStep());
     }
 
     @Test

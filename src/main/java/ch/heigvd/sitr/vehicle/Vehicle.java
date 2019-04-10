@@ -16,7 +16,11 @@ import java.util.LinkedList;
  */
 public class Vehicle {
     // Itinerary of the vehicle
-    private LinkedList<ItineraryStop> itinerary = new LinkedList<ItineraryStop>();
+    private LinkedList<ItineraryPath> itinerary = new LinkedList<ItineraryPath>();
+
+    // Current path step
+    @Getter
+    private int pathStep;
 
     // Position of the vehicle relative to the lane's start [m]
     @Getter @Setter private double position;
@@ -60,7 +64,7 @@ public class Vehicle {
      * @param maxSpeed max speed [m/s] of the vehicle
      * @param firstPath the first itinerary path of the vehicle
      */
-    public Vehicle(VehicleController vehicleController, double length, double maxSpeed, ItineraryStop firstPath) {
+    public Vehicle(VehicleController vehicleController, double length, double maxSpeed, ItineraryPath firstPath) {
         this.vehicleController = vehicleController;
         this.length = length;
         this.maxSpeed = maxSpeed;
@@ -139,5 +143,13 @@ public class Vehicle {
         updateSpeed(deltaT);
 
         setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
+    }
+
+    /**
+     * Get the current path of the vehicle
+     * @return the current path
+     */
+    public ItineraryPath currentPath() {
+        return this.itinerary.get(pathStep);
     }
 }

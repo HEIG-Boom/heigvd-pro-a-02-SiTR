@@ -1,5 +1,5 @@
 /*
- * Filename: ItineraryStopTest.java
+ * Filename: ItineraryPathTest.java
  * Creation date: 10.04.2019
  */
 
@@ -12,37 +12,37 @@ import java.awt.geom.Point2D;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for Itinerary stop.
+ * Unit tests for Itinerary path.
  *
  * @author Simon Walther
  */
-public class ItineraryStopTest {
+public class ItineraryPathTest {
 
     @Test
     public void constructor() {
-        ItineraryStop itineraryStop = new ItineraryStop(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
-        assertEquals(new Point2D.Double(50, 50), itineraryStop.getOrigin());
-        assertEquals(new Point2D.Double(100, 100), itineraryStop.getDestination());
+        ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+        assertEquals(new Point2D.Double(50, 50), itineraryPath.getOrigin());
+        assertEquals(new Point2D.Double(100, 100), itineraryPath.getDestination());
     }
 
     @Test
     public void emptyOriginShouldThrowException() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItineraryStop itineraryStop = new ItineraryStop(null, new Point2D.Double(100, 100));
+            ItineraryPath itineraryPath = new ItineraryPath(null, new Point2D.Double(100, 100));
         });
     }
 
     @Test
     public void emptyDestinationShouldThrowException() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItineraryStop itineraryStop = new ItineraryStop(new Point2D.Double(50, 50), null);
+            ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), null);
         });
     }
 
     @Test
     public void validConstructorShouldNotThrowException() {
         assertDoesNotThrow(() -> {
-            ItineraryStop itineraryStop = new ItineraryStop(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+            ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
         });
     }
 }
