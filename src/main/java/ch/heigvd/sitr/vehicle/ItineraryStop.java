@@ -14,21 +14,6 @@ import java.awt.geom.Point2D;
  * @author Simon Walther
  */
 public class ItineraryStop {
-
-    // Bound for all x ordinates
-    @Getter
-    private static double maxX;
-
-    // Bound for all y abscissas
-    @Getter
-    private static double maxY;
-
-    // initialize static attributes
-    static {
-        maxX = 0;
-        maxY = 0;
-    }
-
     // the point of origin of the itinerary [px]
     @Getter
     private Point2D.Double origin;
