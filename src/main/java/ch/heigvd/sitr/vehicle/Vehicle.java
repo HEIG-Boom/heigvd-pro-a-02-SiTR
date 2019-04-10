@@ -5,14 +5,16 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Vehicle class represents the simulation vehicles
+ *
  * @author Simon Walther
  */
-public class Vehicle {
+public class Vehicle implements Renderable {
     // Position of the vehicle relative to the lane's start [m]
     @Getter @Setter private double position;
 
@@ -46,6 +48,9 @@ public class Vehicle {
 
     // Vehicle controller of this vehicle
     @Getter private VehicleController vehicleController;
+
+    // Vehicle renderer
+    @Getter private VehicleRenderer renderer;
 
     /**
      * Constructor
@@ -132,5 +137,13 @@ public class Vehicle {
         updateSpeed(deltaT);
 
         setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
+    }
+
+    /**
+     * Method that calls the renderer in order to draw the Vehicle on the simulation pane
+     */
+    @Override
+    public void draw() {
+        renderer.display(SimulationWindow.getInstance().getSimulationPane(), this);
     }
 }
