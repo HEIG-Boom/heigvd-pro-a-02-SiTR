@@ -44,4 +44,10 @@ public class ItineraryStopTest {
             ItineraryStop itineraryStop = new ItineraryStop(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
         });
     }
+
+    @Test
+    public void itineraryStopsShouldHaveBounds() {
+        assertNotNull(ItineraryStop.getMaxX());
+        assertNotNull(ItineraryStop.getMaxY());
+    }
 }
