@@ -23,5 +23,6 @@ public class ItineraryTest {
     public void emptyItinerary() {
         Itinerary itinerary = new Itinerary();
         assertEquals(0, itinerary.size());
+        assertNull(itinerary.pop());
     }
 }
