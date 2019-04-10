@@ -8,11 +8,16 @@ package ch.heigvd.sitr.vehicle;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedList;
+
 /**
  * Vehicle class represents the simulation vehicles
  * @author Simon Walther
  */
 public class Vehicle {
+    // Itinerary of the vehicle
+    private LinkedList<ItineraryStop> itinerary = new LinkedList<ItineraryStop>();
+
     // Position of the vehicle relative to the lane's start [m]
     @Getter @Setter private double position;
 
@@ -54,10 +59,11 @@ public class Vehicle {
      * @param length length [m] of the vehicle
      * @param maxSpeed max speed [m/s] of the vehicle
      */
-    public Vehicle(VehicleController vehicleController, double length, double maxSpeed) {
+    public Vehicle(VehicleController vehicleController, double length, double maxSpeed, ItineraryStop itineraryStop) {
         this.vehicleController = vehicleController;
         this.length = length;
         this.maxSpeed = maxSpeed;
+        this.itinerary.add(itineraryStop);
     }
 
     /**
