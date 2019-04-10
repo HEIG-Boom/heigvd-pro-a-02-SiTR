@@ -16,21 +16,25 @@ import lombok.Setter;
  */
 public class Vehicle implements Renderable {
     // Position of the vehicle relative to the lane's start [m]
-    @Getter @Setter private double position;
+    @Getter
+    @Setter
+    private double position;
 
     // Speed in [m/s] of the vehicle
-    @Getter private double speed;
+    @Getter
+    private double speed;
 
     /**
      * New value for the speed
-     *
+     * <p>
      * Note: if speed exceed max speed then set speed to max speed
+     *
      * @param speed The new speed of the vehicle [m/s]
      */
     public void setSpeed(double speed) {
-        if(speed > maxSpeed) {
+        if (speed > maxSpeed) {
             speed = maxSpeed;
-        } else if(speed < -maxSpeed) {
+        } else if (speed < -maxSpeed) {
             speed = -maxSpeed;
         }
 
@@ -38,26 +42,32 @@ public class Vehicle implements Renderable {
     }
 
     // Max speed in [m/s] of the vehicle
-    @Getter private final double maxSpeed;
+    @Getter
+    private final double maxSpeed;
 
     // Length of the vehicle in [m]
-    @Getter private final double length;
+    @Getter
+    private final double length;
 
     // Vehicle in front of this vehicle
-    @Getter @Setter private Vehicle frontVehicle;
+    @Getter
+    @Setter
+    private Vehicle frontVehicle;
 
     // Vehicle controller of this vehicle
-    @Getter private VehicleController vehicleController;
+    @Getter
+    private VehicleController vehicleController;
 
     // Vehicle renderer
-    @Getter private VehicleRenderer renderer;
+    @Getter
+    private VehicleRenderer renderer;
 
     /**
      * Constructor
      *
      * @param vehicleController controller of the vehicle
-     * @param length length [m] of the vehicle
-     * @param maxSpeed max speed [m/s] of the vehicle
+     * @param length            length [m] of the vehicle
+     * @param maxSpeed          max speed [m/s] of the vehicle
      */
     public Vehicle(VehicleController vehicleController, double length, double maxSpeed) {
         this.vehicleController = vehicleController;
@@ -69,7 +79,7 @@ public class Vehicle implements Renderable {
      * Calculate the speed difference with acceleration and time difference
      *
      * @param acceleration acceleration [m/s^2]
-     * @param deltaT time difference [s]
+     * @param deltaT       time difference [s]
      * @return speed difference [m/s]
      */
     public static double speedDifference(double acceleration, double deltaT) {
@@ -79,7 +89,7 @@ public class Vehicle implements Renderable {
     /**
      * Calculate the position difference with speed and time difference
      *
-     * @param speed speed [m/s]
+     * @param speed  speed [m/s]
      * @param deltaT time difference [s]
      * @return position difference [m]
      */
@@ -89,14 +99,15 @@ public class Vehicle implements Renderable {
 
     /**
      * Front distance [m] between this vehicle and its front vehicle
-     *
+     * <p>
      * Note: length is calculated between vehicles extremities
+     *
      * @return front distance
      */
     public double frontDistance() {
         Vehicle frontVehicle = this.getFrontVehicle();
 
-        if(frontVehicle == null) {
+        if (frontVehicle == null) {
             return Double.POSITIVE_INFINITY;
         }
 
@@ -109,8 +120,9 @@ public class Vehicle implements Renderable {
 
     /**
      * Relative speed of this vehicle compared to front Vehicle
-     *
+     * <p>
      * Note : if there is no front vehicle, relative speed is equal to 0
+     *
      * @return the relative speed
      */
     public double relSpeed() {
@@ -128,8 +140,9 @@ public class Vehicle implements Renderable {
 
     /**
      * Change position [m] of this vehicle according to its acceleration, speed and a time difference
-     *
+     * <p>
      * Note : it updates the vehicle's speed
+     *
      * @param deltaT the time difference [s]
      */
     public void updatePosition(double deltaT) {
