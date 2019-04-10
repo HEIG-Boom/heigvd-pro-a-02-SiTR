@@ -176,7 +176,7 @@ public class Vehicle {
     /**
      * Move vehicle to the next path of its itinerary
      */
-    public void moveToNextPath() {
+    public void nextPath() {
         this.pathStep++;
     }
 }

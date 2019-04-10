@@ -66,7 +66,7 @@ public class VehicleTest {
     }
 
     @Test
-    public void moveToNextPath() {
+    public void nextPath() {
         ItineraryPath path1 = new ItineraryPath(new Point2D.Double(10, 10), new Point2D.Double(20, 20));
         ItineraryPath path2 = new ItineraryPath(new Point2D.Double(20, 20), new Point2D.Double(30, 30));
         ItineraryPath path3 = new ItineraryPath(new Point2D.Double(30, 30), new Point2D.Double(40, 40));
@@ -78,11 +78,11 @@ public class VehicleTest {
         assertEquals(0, vehicle.getPathStep());
         assertEquals(path1, vehicle.currentPath());
 
-        vehicle.moveToNextPath();
+        vehicle.nextPath();
         assertEquals(1, vehicle.getPathStep());
         assertEquals(path2, vehicle.currentPath());
 
-        vehicle.moveToNextPath();
+        vehicle.nextPath();
         assertEquals(2, vehicle.getPathStep());
         assertEquals(path3, vehicle.currentPath());
     }
