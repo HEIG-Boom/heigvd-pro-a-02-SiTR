@@ -155,6 +155,9 @@ public class Vehicle {
 
     /**
      * Add itinerary path to the itinerary
+     *
+     * Note: does not add it if null
+     *
      * @param itineraryPath the itinerary path
      */
     public void addToItinerary(ItineraryPath itineraryPath) {
@@ -168,5 +171,12 @@ public class Vehicle {
      */
     public int itinerarySize() {
         return this.itinerary.size();
+    }
+
+    /**
+     * Move vehicle to the next path of its itinerary
+     */
+    public void moveToNextPath() {
+        this.pathStep++;
     }
 }
