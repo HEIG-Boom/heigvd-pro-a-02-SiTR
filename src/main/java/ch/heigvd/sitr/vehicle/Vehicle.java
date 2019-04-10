@@ -24,23 +24,6 @@ public class Vehicle implements Renderable {
     @Getter
     private double speed;
 
-    /**
-     * New value for the speed
-     * <p>
-     * Note: if speed exceed max speed then set speed to max speed
-     *
-     * @param speed The new speed of the vehicle [m/s]
-     */
-    public void setSpeed(double speed) {
-        if (speed > maxSpeed) {
-            speed = maxSpeed;
-        } else if (speed < -maxSpeed) {
-            speed = -maxSpeed;
-        }
-
-        this.speed = speed;
-    }
-
     // Max speed in [m/s] of the vehicle
     @Getter
     private final double maxSpeed;
@@ -58,10 +41,6 @@ public class Vehicle implements Renderable {
     @Getter
     private VehicleController vehicleController;
 
-    // Vehicle renderer
-    @Getter
-    private VehicleRenderer renderer;
-
     /**
      * Constructor
      *
@@ -73,6 +52,23 @@ public class Vehicle implements Renderable {
         this.vehicleController = vehicleController;
         this.length = length;
         this.maxSpeed = maxSpeed;
+    }
+
+    /**
+     * New value for the speed
+     * <p>
+     * Note: if speed exceed max speed then set speed to max speed
+     *
+     * @param speed The new speed of the vehicle [m/s]
+     */
+    public void setSpeed(double speed) {
+        if (speed > maxSpeed) {
+            speed = maxSpeed;
+        } else if (speed < -maxSpeed) {
+            speed = -maxSpeed;
+        }
+
+        this.speed = speed;
     }
 
     /**
@@ -157,6 +153,6 @@ public class Vehicle implements Renderable {
      */
     @Override
     public void draw() {
-        renderer.display(SimulationWindow.getInstance().getSimulationPane(), this);
+        VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this);
     }
 }
