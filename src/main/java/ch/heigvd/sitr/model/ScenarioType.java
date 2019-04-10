@@ -7,21 +7,18 @@ package ch.heigvd.sitr.model;
 
 import lombok.Getter;
 
-import java.util.LinkedList;
-
 /**
  * Enum listing scenarios, provides scenario names and paths to data files
  *
  * @author Luc Wachter
  */
 public enum ScenarioType {
-    SIMPLE_ROAD("Simple road", "placeholder");
+    SIMPLE_ROAD("Route simple", "placeholder"); // TODO replace placeholder
 
     // Base folder containing data files for the scenario (map)
     private static final String BASE_PATH = "config/mapData/";
 
     // Name of the scenario (to display in GUI and such)
-    @Getter
     private final String name;
     // Path to the scenario's data file
     @Getter
@@ -30,7 +27,7 @@ public enum ScenarioType {
     /**
      * Constructor defining name and path to the scenario's data file
      *
-     * @param name The name of the scenario
+     * @param name       The name of the scenario
      * @param configFile The name of the scenario's data file (with extension)
      */
     ScenarioType(String name, String configFile) {
@@ -40,17 +37,12 @@ public enum ScenarioType {
     }
 
     /**
-     * Returns list of names of all scenarios
+     * Override to return a more friendly scenario name
      *
-     * @return a list of Strings representing the names of the scenarios
+     * @return the String representation of the scenario
      */
-    public static LinkedList<String> getScenarioNames() {
-        LinkedList<String> scenarioNames = new LinkedList<>();
-
-        for (ScenarioType st : ScenarioType.values()) {
-            scenarioNames.add(st.getName());
-        }
-
-        return scenarioNames;
+    @Override
+    public String toString() {
+        return name;
     }
 }

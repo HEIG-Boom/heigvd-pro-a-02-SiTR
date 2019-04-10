@@ -6,9 +6,8 @@
 package ch.heigvd.sitr.model;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.LinkedList;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the VehicleControllerType enum
@@ -16,15 +15,6 @@ import java.util.LinkedList;
  * @author Luc Wachter
  */
 class VehicleControllerTypeTest {
-    /**
-     * Test simple getters on the enum
-     */
-    @Test
-    public void nameGetterShouldWork() {
-        assertEquals("Reckless", VehicleControllerType.RECKLESS.getName());
-        assertEquals("Autonomous", VehicleControllerType.AUTONOMOUS.getName());
-    }
-
     @Test
     public void configPathGetterShouldWork() {
         assertEquals("config/vehicleController/careful.xml", VehicleControllerType.CAREFUL.getConfigPath());
@@ -32,17 +22,11 @@ class VehicleControllerTypeTest {
     }
 
     /**
-     * Does the getControllerNames method return a correct List of available controllers?
+     * Test enum's toString
      */
     @Test
-    public void shouldEnableToGetControllerNames() {
-        // Test manually
-        LinkedList<String> controllerNames = new LinkedList<>();
-        controllerNames.add("Timid");
-        controllerNames.add("Careful");
-        controllerNames.add("Reckless");
-        controllerNames.add("Autonomous");
-
-        assertEquals(controllerNames, VehicleControllerType.getControllerNames());
+    public void toStringShouldEnableToGetControllerNames() {
+        assertEquals("Téméraire", VehicleControllerType.RECKLESS.toString());
+        assertEquals("Autonome", VehicleControllerType.AUTONOMOUS.toString());
     }
 }

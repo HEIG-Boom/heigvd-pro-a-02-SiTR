@@ -7,25 +7,22 @@ package ch.heigvd.sitr.model;
 
 import lombok.Getter;
 
-import java.util.LinkedList;
-
 /**
  * Enum for controller types, provides controller names and paths to data files
  *
  * @author Luc Wachter
  */
 public enum VehicleControllerType {
-    TIMID("Timid", "timid.xml"),
-    CAREFUL("Careful", "careful.xml"),
-    RECKLESS("Reckless", "reckless.xml"),
+    TIMID("Timide", "timid.xml"),
+    CAREFUL("Prudent", "careful.xml"),
+    RECKLESS("Téméraire", "reckless.xml"),
     // Autonomous vehicles can alter the properties afterwards
-    AUTONOMOUS("Autonomous", "autonomous.xml");
+    AUTONOMOUS("Autonome", "autonomous.xml");
 
     // Base folder containing config files for controllers
     private static final String BASE_PATH = "config/vehicleController/";
 
     // Name of the controller (to display in GUI and such)
-    @Getter
     private final String name;
     // Path to the controller's data file
     @Getter
@@ -34,7 +31,7 @@ public enum VehicleControllerType {
     /**
      * Constructor defining name and path to the controller's data file
      *
-     * @param name The name of the controller
+     * @param name       The name of the controller
      * @param configFile The name of the controller's data file (with extension)
      */
     VehicleControllerType(String name, String configFile) {
@@ -44,17 +41,12 @@ public enum VehicleControllerType {
     }
 
     /**
-     * Returns list of names of all vehicle controllers
+     * Override to return a more friendly controller name
      *
-     * @return a list of Strings representing the names of the controllers
+     * @return the String representation of the vehicle controller
      */
-    public static LinkedList<String> getControllerNames() {
-        LinkedList<String> controllerNames = new LinkedList<>();
-
-        for (VehicleControllerType vct : VehicleControllerType.values()) {
-            controllerNames.add(vct.getName());
-        }
-
-        return controllerNames;
+    @Override
+    public String toString() {
+        return name;
     }
 }
