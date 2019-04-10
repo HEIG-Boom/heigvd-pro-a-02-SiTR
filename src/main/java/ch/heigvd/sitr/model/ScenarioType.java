@@ -16,7 +16,7 @@ public enum ScenarioType {
     SIMPLE_ROAD("Route simple", "placeholder"); // TODO replace placeholder
 
     // Base folder containing data files for the scenario (map)
-    private static final String BASE_PATH = "mapData/";
+    private static final String BASE_PATH = "config/mapData/";
 
     // Name of the scenario (to display in GUI and such)
     private final String name;
