@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for Itinerary stop.
@@ -36,6 +35,13 @@ public class ItineraryStopTest {
     public void emptyDestinationShouldThrowException() {
         assertThrows(IllegalArgumentException.class, () -> {
             ItineraryStop itineraryStop = new ItineraryStop(new Point2D.Double(50, 50), null);
+        });
+    }
+
+    @Test
+    public void validConstructorShouldNotThrowException() {
+        assertDoesNotThrow(() -> {
+            ItineraryStop itineraryStop = new ItineraryStop(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
         });
     }
 }
