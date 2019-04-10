@@ -29,12 +29,18 @@ public class ItineraryStop {
      * @param destination the point of destination
      */
     public ItineraryStop(Point2D.Double origin, Point2D.Double destination) {
-        // ensure not empty origin
+        // ensure that origin is not empty
         if(origin == null) {
-            throw new IllegalArgumentException("Itinerary must have an origin");
+            throw new IllegalArgumentException("Itinerary stop must have an origin");
         }
 
         this.origin = origin;
+
+        // ensure that destination is not empty
+        if(destination == null) {
+            throw new IllegalArgumentException("Itinerary stop must have a destination");
+        }
+
         this.destination = destination;
     }
 }

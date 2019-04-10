@@ -31,4 +31,11 @@ public class ItineraryStopTest {
             ItineraryStop itineraryStop = new ItineraryStop(null, new Point2D.Double(100, 100));
         });
     }
+
+    @Test
+    public void emptyDestinationShouldThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            ItineraryStop itineraryStop = new ItineraryStop(new Point2D.Double(50, 50), null);
+        });
+    }
 }
