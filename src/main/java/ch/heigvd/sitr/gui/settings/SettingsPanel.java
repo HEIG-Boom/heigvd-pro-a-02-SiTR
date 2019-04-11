@@ -7,6 +7,7 @@ package ch.heigvd.sitr.gui.settings;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.model.ScenarioType;
+import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.model.VehicleBehaviourType;
 import ch.heigvd.sitr.model.VehicleControllerType;
 
@@ -187,7 +188,8 @@ class SettingsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SettingsWindow.getInstance().closeWindow();
-                SimulationWindow.getInstance();
+//                SimulationWindow.getInstance();
+                new Simulation().loop();
             }
         });
         gbc = new GridBagConstraints();

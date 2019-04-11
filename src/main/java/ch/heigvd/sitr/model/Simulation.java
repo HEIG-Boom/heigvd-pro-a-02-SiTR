@@ -32,4 +32,24 @@ public class Simulation {
         // km/h => m/s : x / 3.6
         return kph / 3.6;
     }
+
+    /**
+     * Main display loop, runs in a fixed rate timer loop
+     */
+    public void loop() {
+        // Schedule a task to run immediately, and then
+        // every UPDATE_RATE per second
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                for (Vehicle vehicle : vehicles) {
+                    vehicle.update(0.5);
+                    vehicle.draw();
+                }
+
+                // Callback to paintComponent()
+                window.repaint();
+            }
+        }, 0, UPDATE_RATE);
+    }
 }

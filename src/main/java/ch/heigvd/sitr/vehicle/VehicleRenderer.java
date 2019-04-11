@@ -36,7 +36,7 @@ public class VehicleRenderer {
 //        g.fill(vehicle.getShape());
         // TODO store drawing information in Vehicle
         g.setColor(Color.BLUE);
-        g.drawRect(20, 20, 100, 30);
+        g.fillRect((int) vehicle.getPosition(), 20, 18, 8);
     }
 
     /**
