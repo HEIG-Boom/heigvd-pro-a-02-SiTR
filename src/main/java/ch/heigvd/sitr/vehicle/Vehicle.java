@@ -41,6 +41,10 @@ public class Vehicle implements Renderable {
     @Getter
     private final double length;
 
+    // Width of the vehicle in [m]
+    @Getter
+    private final double width;
+
     // Vehicle in front of this vehicle
     @Getter
     @Setter
@@ -55,11 +59,13 @@ public class Vehicle implements Renderable {
      *
      * @param vehicleController controller of the vehicle
      * @param length            length [m] of the vehicle
+     * @param width             width [m] of the vehicle
      * @param maxSpeed          max speed [m/s] of the vehicle
      * @param firstPath         the first itinerary path of the vehicle
      */
-    public Vehicle(VehicleController vehicleController, double length, double maxSpeed, ItineraryPath firstPath) {
+    public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed, ItineraryPath firstPath) {
         this.vehicleController = vehicleController;
+        this.width = width;
         this.length = length;
         this.maxSpeed = maxSpeed;
         this.addToItinerary(firstPath);

@@ -30,8 +30,8 @@ public class VehicleTest {
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.7, 33.33, null);
-        vehicle = new Vehicle(vehicleController, 1.6, 33.33, null);
+        frontVehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, null);
+        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, null);
         vehicle.setFrontVehicle(frontVehicle);
     }
 
@@ -42,7 +42,7 @@ public class VehicleTest {
 
     @Test
     public void constructor() {
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33, itineraryPath);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, itineraryPath);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(33.33, vehicle.getMaxSpeed());
         assertEquals(vehicleController, vehicle.getVehicleController());
