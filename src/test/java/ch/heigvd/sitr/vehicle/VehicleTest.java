@@ -245,15 +245,14 @@ public class VehicleTest {
     /**
      * Update position with speed, acceleration and time difference
      *
-     * new position = position + new speed * time difference
+     * new position = position + speed * time difference
      *
      * Variables :
      * position        : 50 [m]
      * speed           : 22.22 [s]
-     * new speed       : 24.59196317300287 [m/s]
      * time difference : 10 [s]
      *
-     * => new position = 50 + 24.59196317300287 * 10 = 295,91963173 [m]
+     * => new position = 50 + 22.22 * 10 = 272.2 [m]
      */
     @Test
     public void updatePosition() {
@@ -265,6 +264,33 @@ public class VehicleTest {
         vehicle.setFrontVehicle(frontVehicle);
         vehicle.setPosition(50);
         vehicle.updatePosition(10);
+
+        assertEquals(272.2, vehicle.getPosition(), 0.001);
+    }
+
+    /**
+     * Update position with speed, acceleration and time difference
+     *
+     * new position = position + new speed * time difference
+     *
+     * Variables :
+     * position        : 50 [m]
+     * speed           : 22.22 [s]
+     * new speed       : 24.59196317300287 [m/s]
+     * time difference : 10 [s]
+     *
+     * => new position = 50 + 24.59196317300287 * 10 = 295,91963173 [m]
+     */
+    @Test
+    public void update() {
+        frontVehicle.setSpeed(27.77);
+        frontVehicle.setPosition(100);
+
+        vehicle.setSpeed(22.22);
+        vehicle.setPosition(80);
+        vehicle.setFrontVehicle(frontVehicle);
+        vehicle.setPosition(50);
+        vehicle.update(10);
 
         assertEquals(296.223, vehicle.getPosition(), 0.001);
     }
