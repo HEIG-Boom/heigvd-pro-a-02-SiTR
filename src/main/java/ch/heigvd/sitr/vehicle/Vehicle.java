@@ -136,16 +136,18 @@ public class Vehicle implements Renderable {
 
     /**
      * Change position [m] of this vehicle according to its acceleration, speed and a time difference
-     * <p>
-     * Note : it updates the vehicle's speed
      *
      * @param deltaT the time difference [s]
      */
     public void updatePosition(double deltaT) {
+        setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
+    }
+
+    public void update(double deltaT) {
         // First update speed according to the vehicle acceleration
         updateSpeed(deltaT);
-
-        setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
+        // Then update position, taking into account the new speed
+        updatePosition(deltaT);
     }
 
     /**
