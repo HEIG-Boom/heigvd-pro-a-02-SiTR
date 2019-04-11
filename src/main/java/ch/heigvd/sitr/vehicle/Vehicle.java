@@ -101,8 +101,6 @@ public class Vehicle implements Renderable {
      * @return front distance
      */
     public double frontDistance() {
-        Vehicle frontVehicle = this.getFrontVehicle();
-
         if (frontVehicle == null) {
             return Double.POSITIVE_INFINITY;
         }
@@ -130,7 +128,7 @@ public class Vehicle implements Renderable {
      *
      * @param deltaT time difference [s]
      */
-    public void updateSpeed(double deltaT) {
+    void updateSpeed(double deltaT) {
         setSpeed(getSpeed() + speedDifference(getVehicleController().acceleration(this), deltaT));
     }
 
@@ -139,7 +137,7 @@ public class Vehicle implements Renderable {
      *
      * @param deltaT the time difference [s]
      */
-    public void updatePosition(double deltaT) {
+    void updatePosition(double deltaT) {
         setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
     }
 
