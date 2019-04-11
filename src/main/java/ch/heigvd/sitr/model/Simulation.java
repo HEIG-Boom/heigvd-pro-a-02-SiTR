@@ -43,8 +43,8 @@ public class Simulation {
         this.scale = scale;
 
         // Manual hard coded tests
-        VehicleController vehicleController = new VehicleController("vehicleController/timid.xml");
-        VehicleController vehicleController2 = new VehicleController("vehicleController/careful.xml");
+        VehicleController vehicleController = new VehicleController("timid.xml");
+        VehicleController vehicleController2 = new VehicleController("careful.xml");
 
         Vehicle wall = new Vehicle(vehicleController, 1, 1, 0, null);
         Vehicle v1 = new Vehicle(vehicleController, 1.7, 1, 33.33, null);

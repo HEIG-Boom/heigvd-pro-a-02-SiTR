@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests for Vehicle controller.
@@ -43,7 +44,7 @@ public class VehicleControllerTest {
 
     @Test
     public void constructorFromFileConfiguration() {
-        VehicleController controller = new VehicleController("vehicleController/careful.xml");
+        VehicleController controller = new VehicleController("careful.xml");
         assertEquals(33.33, controller.getDesiredVelocity());
         assertEquals(2, controller.getMinimumSpacing());
         assertEquals(1.5, controller.getDesiredTimeHeadway());
@@ -52,28 +53,19 @@ public class VehicleControllerTest {
     }
 
     @Test
-    public void desiredVelocity() {
-        assertEquals(33.33, vehicleController.getDesiredVelocity());
+    public void twoVehicleControllersWithSameValuesShouldBeEquals() {
+        VehicleController controller = new VehicleController("careful.xml");
+        VehicleController controller2 = new VehicleController("careful.xml");
+
+        assertTrue(controller.equals(controller2));
     }
 
     @Test
-    public void minimumSpacing() {
-        assertEquals(2, vehicleController.getMinimumSpacing());
-    }
+    public void twoVehicleControllersWithSameValuesShouldHaveTheSameHashCode() {
+        VehicleController controller = new VehicleController("careful.xml");
+        VehicleController controller2 = new VehicleController("careful.xml");
 
-    @Test
-    public void desiredTimeHeadway() {
-        assertEquals(1.5, vehicleController.getDesiredTimeHeadway());
-    }
-
-    @Test
-    public void maxAcceleration() {
-        assertEquals(0.3, vehicleController.getMaxAcceleration());
-    }
-
-    @Test
-    public void comfortableBrakingDeceleration() {
-        assertEquals(3, vehicleController.getComfortableBrakingDeceleration());
+        assertTrue(controller.hashCode() == controller2.hashCode());
     }
 
     /**
