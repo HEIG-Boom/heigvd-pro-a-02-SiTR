@@ -46,14 +46,20 @@ public class Simulation {
         VehicleController vehicleController = new VehicleController("vehicleController/timid.xml");
         VehicleController vehicleController2 = new VehicleController("vehicleController/careful.xml");
 
-        Vehicle v = new Vehicle(vehicleController, 1.7, 1, 33.33, null);
-        v.setPosition(120);
-        vehicles.add(v);
-
+        Vehicle wall = new Vehicle(vehicleController, 1, 1, 0, null);
+        Vehicle v1 = new Vehicle(vehicleController, 1.7, 1, 33.33, null);
         Vehicle v2 = new Vehicle(vehicleController2, 1.7, 1, 33.33, null);
+
+        v1.setPosition(40);
+        v1.setFrontVehicle(wall);
+        vehicles.add(v1);
+
         v2.setPosition(0);
-        v2.setFrontVehicle(v);
+        v2.setFrontVehicle(v1);
         vehicles.add(v2);
+
+        wall.setPosition(100);
+        vehicles.add(wall);
     }
 
     /**
