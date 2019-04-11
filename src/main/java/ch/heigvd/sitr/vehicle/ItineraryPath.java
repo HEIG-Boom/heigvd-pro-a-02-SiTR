@@ -27,7 +27,7 @@ public class ItineraryPath {
      * @param origin the point of origin
      * @param destination the point of destination
      */
-    public ItineraryPath(Point2D.Double origin, Point2D.Double destination) {
+    public ItineraryPath(Point2D.Double origin, Point2D.Double destination) throws IllegalArgumentException {
         // ensure that origin is not empty
         if(origin == null) {
             throw new IllegalArgumentException("Itinerary stop must have an origin");

@@ -15,7 +15,7 @@ import java.util.LinkedList;
  * @author Simon Walther
  */
 public class Vehicle {
-    // Itinerary of the vehicle
+    // Itinerary of the vehicle, subdivided in multiple paths
     private LinkedList<ItineraryPath> itinerary = new LinkedList<ItineraryPath>();
 
     // Current path step
