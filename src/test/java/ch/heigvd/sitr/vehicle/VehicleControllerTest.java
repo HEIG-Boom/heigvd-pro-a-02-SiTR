@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Simon Walther
  */
 public class VehicleControllerTest {
-    VehicleController vehicleController = null;
-    Vehicle vehicle = null;
-    Vehicle frontVehicle = null;
+    VehicleController vehicleController;
+    Vehicle vehicle;
+    Vehicle frontVehicle;
 
     @BeforeEach
     public void createDummyVehicleController() {
@@ -26,8 +26,8 @@ public class VehicleControllerTest {
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.6, 33.33);
-        vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle = new Vehicle(vehicleController, 1.6, 33.33, null);
+        vehicle = new Vehicle(vehicleController, 1.6, 33.33, null);
         vehicle.setFrontVehicle(frontVehicle);
     }
 
