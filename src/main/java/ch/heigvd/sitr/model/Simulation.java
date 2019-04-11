@@ -54,15 +54,15 @@ public class Simulation {
         v2.setPosition(0);
         v2.setFrontVehicle(v);
         vehicles.add(v2);
-
-        // Launch main window
-        window = SimulationWindow.getInstance();
     }
 
     /**
      * Main display loop, runs in a fixed rate timer loop
      */
     public void loop() {
+        // Launch main window
+        window = SimulationWindow.getInstance();
+
         // Schedule a task to run immediately, and then
         // every UPDATE_RATE per second
         new Timer().scheduleAtFixedRate(new TimerTask() {
