@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -47,6 +48,16 @@ public class VehicleTest {
         assertEquals(33.33, vehicle.getMaxSpeed());
         assertEquals(vehicleController, vehicle.getVehicleController());
         assertEquals(itineraryPath, vehicle.currentPath());
+    }
+
+    @Test
+    public void constructorWithConfigFile() {
+        VehicleController controller = new VehicleController("careful.xml");
+        Vehicle vehicle = new Vehicle("regular.xml", controller);
+        assertEquals(1.6, vehicle.getLength());
+        assertEquals(1, vehicle.getWidth());
+        assertEquals(33.33, vehicle.getMaxSpeed());
+        assertEquals(controller, vehicle.getVehicleController());
     }
 
     @Test

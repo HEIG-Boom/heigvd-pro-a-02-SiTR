@@ -13,6 +13,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import java.io.*;
+import java.util.Objects;
 
 import static java.lang.Math.sqrt;
 
@@ -29,6 +30,8 @@ import static java.lang.Math.sqrt;
  * @author Simon Walther
  */
 public class VehicleController {
+    private static final String BASE_CONFIG_PATH = "/vehicleController/";
+
     // Delta exponent, traditionally set at 4
     static final double delta = 4;
 
@@ -61,7 +64,7 @@ public class VehicleController {
      * @param configPath the path to the configuration file
      */
     public VehicleController(String configPath) {
-        InputStream in = Vehicle.class.getResourceAsStream("/" + configPath);
+        InputStream in = VehicleController.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
         SAXBuilder saxBuilder = new SAXBuilder();
 
         try {
@@ -156,5 +159,31 @@ public class VehicleController {
     public double acceleration(Vehicle vehicle) {
         return desiredAcceleration(vehicle) - maxAcceleration *
                Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
+    }
+
+    /**
+     * Compare this with another object and determine if they're equals
+     * @param o the other object
+     * @return if they are equals
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VehicleController that = (VehicleController) o;
+        return Double.compare(that.desiredVelocity, desiredVelocity) == 0 &&
+                Double.compare(that.minimumSpacing, minimumSpacing) == 0 &&
+                Double.compare(that.desiredTimeHeadway, desiredTimeHeadway) == 0 &&
+                Double.compare(that.maxAcceleration, maxAcceleration) == 0 &&
+                Double.compare(that.comfortableBrakingDeceleration, comfortableBrakingDeceleration) == 0;
+    }
+
+    /**
+     * hash code of this object
+     * @return the hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(desiredVelocity, minimumSpacing, desiredTimeHeadway, maxAcceleration, comfortableBrakingDeceleration);
     }
 }

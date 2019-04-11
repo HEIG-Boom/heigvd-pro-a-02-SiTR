@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<vehicle>
+    <length>1.6</length>
+    <width>1</width>
+    <maxSpeed>33.33</maxSpeed>
+</vehicle>

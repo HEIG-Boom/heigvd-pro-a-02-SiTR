@@ -8,7 +8,13 @@ package ch.heigvd.sitr.vehicle;
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import lombok.Getter;
 import lombok.Setter;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 
 /**
@@ -17,6 +23,8 @@ import java.util.LinkedList;
  * @author Simon Walther
  */
 public class Vehicle implements Renderable {
+    private static final String BASE_CONFIG_PATH = "/vehicle/";
+
     // Itinerary of the vehicle, subdivided in multiple paths
     private LinkedList<ItineraryPath> itinerary = new LinkedList<ItineraryPath>();
 
@@ -69,6 +77,40 @@ public class Vehicle implements Renderable {
         this.length = length;
         this.maxSpeed = maxSpeed;
         this.addToItinerary(firstPath);
+    }
+
+    /**
+     * Create vehicle with configuration taken from an XML configuration file
+     *
+     * @param configPath        the path to the configuration file
+     * @param vehicleController the vehicle controller
+     */
+    public Vehicle(String configPath, VehicleController vehicleController) {
+        this.vehicleController = vehicleController;
+
+        InputStream in = Vehicle.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
+        SAXBuilder saxBuilder = new SAXBuilder();
+
+        // non-final temporary variables to ensure final
+        // variables are initialized
+        double length = 0;
+        double width = 0;
+        double maxSpeed = 0;
+
+        try {
+            Document document = (Document) saxBuilder.build(in);
+            Element root = document.getRootElement();
+
+            length = Double.parseDouble(root.getChildText("length"));
+            width = Double.parseDouble(root.getChildText("width"));
+            maxSpeed = Double.parseDouble(root.getChildText("maxSpeed"));
+        } catch (IOException | JDOMException io) {
+            System.out.println(io.getMessage());
+        }
+
+        this.length = length;
+        this.width = width;
+        this.maxSpeed = maxSpeed;
     }
 
     /**
@@ -198,6 +240,7 @@ public class Vehicle implements Renderable {
 
     /**
      * Get the current path of the vehicle
+     *
      * @return the current path
      */
     public ItineraryPath currentPath() {
@@ -206,18 +249,20 @@ public class Vehicle implements Renderable {
 
     /**
      * Add itinerary path to the itinerary
-     *
+     * <p>
      * Note: does not add it if null
      *
      * @param itineraryPath the itinerary path
      */
     public void addToItinerary(ItineraryPath itineraryPath) {
-        if(itineraryPath != null) {
+        if (itineraryPath != null) {
             this.itinerary.add(itineraryPath);
         }
     }
+
     /**
      * Get the itinerary size of the vehicle
+     *
      * @return the itinerary size
      */
     public int itinerarySize() {
@@ -226,11 +271,11 @@ public class Vehicle implements Renderable {
 
     /**
      * Move vehicle to the next path of its itinerary
-     *
+     * <p>
      * Note: if exceed max path step, path step does not change
      */
     public void nextPath() {
-        if((pathStep + 1) < this.itinerarySize()) {
+        if ((pathStep + 1) < this.itinerarySize()) {
             this.pathStep++;
         }
     }
