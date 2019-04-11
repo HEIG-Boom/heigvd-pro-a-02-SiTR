@@ -141,6 +141,11 @@ public class Vehicle implements Renderable {
         setPosition(getPosition() + positionDifference(getSpeed(), deltaT));
     }
 
+    /**
+     * Update vehicle speed and position
+     *
+     * @param deltaT the time difference [s]
+     */
     public void update(double deltaT) {
         // First update speed according to the vehicle acceleration
         updateSpeed(deltaT);
@@ -154,5 +159,21 @@ public class Vehicle implements Renderable {
     @Override
     public void draw() {
         VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this);
+    }
+
+    /**
+     * Debug toString
+     *
+     * @return A debug representation of a Vehicle
+     */
+    @Override
+    public String toString() {
+        String ret = "";
+        ret += "Pos: " + position;
+        ret += " a: " + ((vehicleController != null) ? vehicleController.acceleration(this) : "");
+        ret += " v: " + speed;
+        ret += " frontDistance: " + frontDistance();
+
+        return ret;
     }
 }

@@ -43,7 +43,7 @@ public class Simulation {
         Vehicle v2 = new Vehicle(vehicleController2, 1.7, 33.33);
         v2.setPosition(0);
         v2.setFrontVehicle(v);
-        vehicles.add(new Vehicle(vehicleController2, 1.7, 33.33));
+        vehicles.add(v2);
         window = SimulationWindow.getInstance();
     }
 
@@ -81,6 +81,7 @@ public class Simulation {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.update(0.5);
                     vehicle.draw();
+                    System.out.println(vehicle);
                 }
 
                 // Callback to paintComponent()
