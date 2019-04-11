@@ -5,6 +5,8 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.model.Simulation;
+
 import java.awt.*;
 
 /**
@@ -26,8 +28,9 @@ public class VehicleRenderer {
      *
      * @param g       The Graphics on which to draw the vehicle
      * @param vehicle The vehicle to draw on the image
+     * @param scale   The ratio px/m
      */
-    public void display(Graphics2D g, Vehicle vehicle) {
+    public void display(Graphics2D g, Vehicle vehicle, double scale) {
         // Add some antialiasing for our eyes
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
@@ -36,7 +39,7 @@ public class VehicleRenderer {
         // TODO store drawing information in Vehicle (x, y, length, width, color)
 //        g.setColor(vehicle.getVehicleController().getColor());
         g.setColor(Color.BLUE);
-        g.fillRect((int) vehicle.getPosition(), 20, 8, 4);
+        g.fillRect((int) Simulation.mToPx(scale, vehicle.getPosition()), 20, Simulation.mToPx(scale, vehicle.getLength()), Simulation.mToPx(scale, vehicle.getWidth()));
     }
 
     /**

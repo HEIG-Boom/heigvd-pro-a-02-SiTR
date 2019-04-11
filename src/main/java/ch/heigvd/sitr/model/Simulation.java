@@ -9,6 +9,7 @@ import ch.heigvd.sitr.gui.simulation.Displayer;
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
+import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.Timer;
@@ -29,31 +30,45 @@ public class Simulation {
     // Rate at which the redrawing will happen in milliseconds
     private static final int UPDATE_RATE = 40;
 
+    // the ratio px/m
+    @Getter
+    private double scale;
+
     /**
      * Constructor
+     *
+     * @param scale the ratio px/m
      */
-    public Simulation() {
+    public Simulation(double scale) {
+        this.scale = scale;
+
         // Manual hard coded tests
         VehicleController vehicleController = new VehicleController("vehicleController/timid.xml");
         VehicleController vehicleController2 = new VehicleController("vehicleController/careful.xml");
 
-        Vehicle v = new Vehicle(vehicleController, 1.7, 33.33, null);
-        v.setPosition(120);
-        vehicles.add(v);
+        Vehicle wall = new Vehicle(vehicleController, 1, 1, 0, null);
+        Vehicle v1 = new Vehicle(vehicleController, 1.7, 1, 33.33, null);
+        Vehicle v2 = new Vehicle(vehicleController2, 1.7, 1, 33.33, null);
 
-        Vehicle v2 = new Vehicle(vehicleController2, 1.7, 33.33, null);
+        v1.setPosition(40);
+        v1.setFrontVehicle(wall);
+        vehicles.add(v1);
+
         v2.setPosition(0);
-        v2.setFrontVehicle(v);
+        v2.setFrontVehicle(v1);
         vehicles.add(v2);
 
-        // Launch main window
-        window = SimulationWindow.getInstance();
+        wall.setPosition(100);
+        vehicles.add(wall);
     }
 
     /**
      * Main display loop, runs in a fixed rate timer loop
      */
     public void loop() {
+        // Launch main window
+        window = SimulationWindow.getInstance();
+
         // Schedule a task to run immediately, and then
         // every UPDATE_RATE per second
         new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -61,7 +76,7 @@ public class Simulation {
             public void run() {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.update(0.5);
-                    vehicle.draw();
+                    vehicle.draw(scale);
                     // DEBUG
                     System.out.println(vehicle);
                 }
@@ -92,5 +107,43 @@ public class Simulation {
     public static double kphToMps(double kph) {
         // km/h => m/s : x / 3.6
         return kph / 3.6;
+    }
+
+    /**
+     * Convert m to px
+     * @param scale the ratio px/m
+     * @param m the number of m
+     * @return the number of px
+     */
+    public static int mToPx(double scale, double m) {
+        return (int)Math.round(m * scale);
+    }
+
+    /**
+     * Convert px to m
+     * @param scale the ratio px/m
+     * @param px the number of px
+     * @return the number of px
+     */
+    public static double pxToM(double scale, int px) {
+        return px / scale;
+    }
+
+    /**
+     * Convert m to px
+     * @param m the number of m
+     * @return the number of px
+     */
+    public int mToPx(double m) {
+        return Simulation.mToPx(scale, m);
+    }
+
+    /**
+     * Convert px to m
+     * @param px the number of px
+     * @return the number of px
+     */
+    public double pxToM(int px) {
+        return Simulation.pxToM(scale, px);
     }
 }
