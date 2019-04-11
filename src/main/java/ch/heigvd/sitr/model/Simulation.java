@@ -108,7 +108,16 @@ public class Simulation {
      * @param m the number of m
      * @return the number of px
      */
-    public double mToPx(double m) {
-        return scale * m;
+    public int mToPx(double m) {
+        return (int)Math.round(m * scale);
+    }
+
+    /**
+     * Convert px to m
+     * @param px the number of px
+     * @return the number of px
+     */
+    public double pxToM(int px) {
+        return px / scale;
     }
 }
