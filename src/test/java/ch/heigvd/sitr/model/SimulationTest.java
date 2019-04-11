@@ -31,4 +31,10 @@ class SimulationTest {
         Simulation simulation = new Simulation(8);
         assertEquals(8, simulation.getScale());
     }
+
+    @Test
+    public void shouldBeAbleToConvertMinPx() {
+        Simulation simulation = new Simulation(4);
+        assertEquals(simulation.mToPx(10), 40);
+    }
 }

@@ -102,4 +102,13 @@ public class Simulation {
         // km/h => m/s : x / 3.6
         return kph / 3.6;
     }
+
+    /**
+     * Convert m to px
+     * @param m the number of m
+     * @return the number of px
+     */
+    public double mToPx(double m) {
+        return scale * m;
+    }
 }
