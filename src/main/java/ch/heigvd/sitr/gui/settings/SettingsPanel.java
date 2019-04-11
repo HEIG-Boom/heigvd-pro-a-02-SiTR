@@ -189,7 +189,7 @@ class SettingsPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 SettingsWindow.getInstance().closeWindow();
 //                SimulationWindow.getInstance();
-                new Simulation().loop();
+                new Simulation(8).loop();
             }
         });
         gbc = new GridBagConstraints();

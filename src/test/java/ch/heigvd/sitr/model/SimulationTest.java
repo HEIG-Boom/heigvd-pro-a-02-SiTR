@@ -25,4 +25,10 @@ class SimulationTest {
         assertEquals(1.0, Simulation.kphToMps(3.6));
         assertEquals(20.0, Simulation.kphToMps(72));
     }
+
+    @Test
+    public void shouldHaveScale() {
+        Simulation simulation = new Simulation(8);
+        assertEquals(8, simulation.getScale());
+    }
 }

@@ -9,6 +9,7 @@ import ch.heigvd.sitr.gui.simulation.Displayer;
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
+import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.Timer;
@@ -29,10 +30,18 @@ public class Simulation {
     // Rate at which the redrawing will happen in milliseconds
     private static final int UPDATE_RATE = 40;
 
+    // the ratio px/m
+    @Getter
+    private double scale;
+
     /**
      * Constructor
+     *
+     * @param scale the ratio px/m
      */
-    public Simulation() {
+    public Simulation(double scale) {
+        this.scale = scale;
+
         // Manual hard coded tests
         VehicleController vehicleController = new VehicleController("vehicleController/timid.xml");
         VehicleController vehicleController2 = new VehicleController("vehicleController/careful.xml");
