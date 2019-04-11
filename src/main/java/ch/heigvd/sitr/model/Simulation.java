@@ -27,24 +27,49 @@ public class Simulation {
     private LinkedList<Vehicle> vehicles = new LinkedList<>();
 
     // Rate at which the redrawing will happen in milliseconds
-    private static final int UPDATE_RATE = 80;
+    private static final int UPDATE_RATE = 40;
 
     /**
      * Constructor
      */
     public Simulation() {
+        // Manual hard coded tests
         VehicleController vehicleController = new VehicleController("vehicleController/timid.xml");
         VehicleController vehicleController2 = new VehicleController("vehicleController/careful.xml");
 
         Vehicle v = new Vehicle(vehicleController, 1.7, 33.33);
-        v.setPosition(40);
+        v.setPosition(120);
         vehicles.add(v);
 
         Vehicle v2 = new Vehicle(vehicleController2, 1.7, 33.33);
         v2.setPosition(0);
         v2.setFrontVehicle(v);
         vehicles.add(v2);
+
+        // Launch main window
         window = SimulationWindow.getInstance();
+    }
+
+    /**
+     * Main display loop, runs in a fixed rate timer loop
+     */
+    public void loop() {
+        // Schedule a task to run immediately, and then
+        // every UPDATE_RATE per second
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                for (Vehicle vehicle : vehicles) {
+                    vehicle.update(0.5);
+                    vehicle.draw();
+                    // DEBUG
+                    System.out.println(vehicle);
+                }
+
+                // Callback to paintComponent()
+                window.repaint();
+            }
+        }, 0, UPDATE_RATE);
     }
 
     /**
@@ -67,26 +92,5 @@ public class Simulation {
     public static double kphToMps(double kph) {
         // km/h => m/s : x / 3.6
         return kph / 3.6;
-    }
-
-    /**
-     * Main display loop, runs in a fixed rate timer loop
-     */
-    public void loop() {
-        // Schedule a task to run immediately, and then
-        // every UPDATE_RATE per second
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                for (Vehicle vehicle : vehicles) {
-                    vehicle.update(0.5);
-                    vehicle.draw();
-                    System.out.println(vehicle);
-                }
-
-                // Callback to paintComponent()
-                window.repaint();
-            }
-        }, 0, UPDATE_RATE);
     }
 }

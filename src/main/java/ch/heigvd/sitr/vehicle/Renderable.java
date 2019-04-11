@@ -11,10 +11,7 @@ package ch.heigvd.sitr.vehicle;
  * @author Luc Wachter
  */
 public interface Renderable {
-    /**
-     * Getter for the object's renderer
-     */
-//    VehicleRenderer getRenderer(); // TODO generalize renderer?
+//    VehicleRenderer getRenderer();
 
 //    Color getColor();
 

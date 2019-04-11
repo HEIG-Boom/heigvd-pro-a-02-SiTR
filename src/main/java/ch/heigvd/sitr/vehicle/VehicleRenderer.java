@@ -31,12 +31,12 @@ public class VehicleRenderer {
         // Add some antialiasing for our eyes
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Hard coded tests
+        // TODO store drawing information in Vehicle (x, y, length, width, color)
 //        g.setColor(vehicle.getVehicleController().getColor());
-//        g.draw(vehicle.getShape());
-//        g.fill(vehicle.getShape());
-        // TODO store drawing information in Vehicle
         g.setColor(Color.BLUE);
-        g.fillRect((int) vehicle.getPosition(), 20, 18, 8);
+        g.fillRect((int) vehicle.getPosition(), 20, 8, 4);
     }
 
     /**
