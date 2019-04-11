@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ScenarioTypeTest {
     @Test
     public void configPathGetterShouldWork() {
-        assertEquals("config/mapData/placeholder", ScenarioType.SIMPLE_ROAD.getConfigPath());
+        assertEquals("mapData/placeholder", ScenarioType.SIMPLE_ROAD.getConfigPath());
     }
 
     /**
