@@ -52,9 +52,8 @@ public class VehicleTest {
 
     @Test
     public void constructorWithConfigFile() {
-        Vehicle vehicle = new Vehicle("regular.xml");
         VehicleController controller = new VehicleController("careful.xml");
-
+        Vehicle vehicle = new Vehicle("regular.xml", controller);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(1, vehicle.getWidth());
         assertEquals(33.33, vehicle.getMaxSpeed());

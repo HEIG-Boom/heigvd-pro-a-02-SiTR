@@ -47,8 +47,8 @@ public class Simulation {
         VehicleController vehicleController2 = new VehicleController("careful.xml");
 
         Vehicle wall = new Vehicle(vehicleController, 1, 1, 0, null);
-        Vehicle v1 = new Vehicle(vehicleController, 1.7, 1, 33.33, null);
-        Vehicle v2 = new Vehicle(vehicleController2, 1.7, 1, 33.33, null);
+        Vehicle v1 = new Vehicle("regular.xml", vehicleController);
+        Vehicle v2 = new Vehicle("regular.xml", vehicleController2);
 
         v1.setPosition(40);
         v1.setFrontVehicle(wall);

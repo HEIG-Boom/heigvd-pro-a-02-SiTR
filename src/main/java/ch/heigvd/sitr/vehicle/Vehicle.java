@@ -81,9 +81,13 @@ public class Vehicle implements Renderable {
 
     /**
      * Create vehicle with configuration taken from an XML configuration file
-     * @param configPath the path to the configuration file
+     *
+     * @param configPath        the path to the configuration file
+     * @param vehicleController the vehicle controller
      */
-    public Vehicle(String configPath) {
+    public Vehicle(String configPath, VehicleController vehicleController) {
+        this.vehicleController = vehicleController;
+
         InputStream in = Vehicle.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
         SAXBuilder saxBuilder = new SAXBuilder();
 
@@ -97,7 +101,6 @@ public class Vehicle implements Renderable {
             Document document = (Document) saxBuilder.build(in);
             Element root = document.getRootElement();
 
-            this.vehicleController = new VehicleController(root.getChildText("vehicleController") + ".xml");
             length = Double.parseDouble(root.getChildText("length"));
             width = Double.parseDouble(root.getChildText("width"));
             maxSpeed = Double.parseDouble(root.getChildText("maxSpeed"));
@@ -237,6 +240,7 @@ public class Vehicle implements Renderable {
 
     /**
      * Get the current path of the vehicle
+     *
      * @return the current path
      */
     public ItineraryPath currentPath() {
@@ -245,18 +249,20 @@ public class Vehicle implements Renderable {
 
     /**
      * Add itinerary path to the itinerary
-     *
+     * <p>
      * Note: does not add it if null
      *
      * @param itineraryPath the itinerary path
      */
     public void addToItinerary(ItineraryPath itineraryPath) {
-        if(itineraryPath != null) {
+        if (itineraryPath != null) {
             this.itinerary.add(itineraryPath);
         }
     }
+
     /**
      * Get the itinerary size of the vehicle
+     *
      * @return the itinerary size
      */
     public int itinerarySize() {
@@ -265,11 +271,11 @@ public class Vehicle implements Renderable {
 
     /**
      * Move vehicle to the next path of its itinerary
-     *
+     * <p>
      * Note: if exceed max path step, path step does not change
      */
     public void nextPath() {
-        if((pathStep + 1) < this.itinerarySize()) {
+        if ((pathStep + 1) < this.itinerarySize()) {
             this.pathStep++;
         }
     }
