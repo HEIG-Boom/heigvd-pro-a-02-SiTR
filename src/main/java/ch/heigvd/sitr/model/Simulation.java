@@ -70,7 +70,7 @@ public class Simulation {
             public void run() {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.update(0.5);
-                    vehicle.draw();
+                    vehicle.draw(scale);
                     // DEBUG
                     System.out.println(vehicle);
                 }

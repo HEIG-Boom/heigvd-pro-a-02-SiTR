@@ -166,10 +166,12 @@ public class Vehicle implements Renderable {
 
     /**
      * Method that calls the renderer in order to draw the Vehicle on the simulation pane
+     *
+     * @param scale the ratio px/m
      */
     @Override
-    public void draw() {
-        VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this);
+    public void draw(double scale) {
+        VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this, scale);
     }
 
     /**

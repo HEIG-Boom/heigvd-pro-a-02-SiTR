@@ -19,6 +19,8 @@ public interface Renderable {
 
     /**
      * Method to make the object call its renderer
+     *
+     * @param scale the ratio px/m
      */
-    void draw();
+    void draw(double scale);
 }
