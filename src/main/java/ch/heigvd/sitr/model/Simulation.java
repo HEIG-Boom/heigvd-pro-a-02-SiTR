@@ -105,11 +105,31 @@ public class Simulation {
 
     /**
      * Convert m to px
+     * @param scale the ratio px/m
+     * @param m the number of m
+     * @return the number of px
+     */
+    public static int mToPx(double scale, double m) {
+        return (int)Math.round(m * scale);
+    }
+
+    /**
+     * Convert px to m
+     * @param scale the ratio px/m
+     * @param px the number of px
+     * @return the number of px
+     */
+    public static double pxToM(double scale, int px) {
+        return px / scale;
+    }
+
+    /**
+     * Convert m to px
      * @param m the number of m
      * @return the number of px
      */
     public int mToPx(double m) {
-        return (int)Math.round(m * scale);
+        return Simulation.mToPx(scale, m);
     }
 
     /**
@@ -118,6 +138,6 @@ public class Simulation {
      * @return the number of px
      */
     public double pxToM(int px) {
-        return px / scale;
+        return Simulation.pxToM(scale, px);
     }
 }
