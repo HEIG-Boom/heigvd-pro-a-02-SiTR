@@ -37,11 +37,11 @@ public class Simulation {
         VehicleController vehicleController = new VehicleController("vehicleController/timid.xml");
         VehicleController vehicleController2 = new VehicleController("vehicleController/careful.xml");
 
-        Vehicle v = new Vehicle(vehicleController, 1.7, 33.33);
+        Vehicle v = new Vehicle(vehicleController, 1.7, 33.33, null);
         v.setPosition(120);
         vehicles.add(v);
 
-        Vehicle v2 = new Vehicle(vehicleController2, 1.7, 33.33);
+        Vehicle v2 = new Vehicle(vehicleController2, 1.7, 33.33, null);
         v2.setPosition(0);
         v2.setFrontVehicle(v);
         vehicles.add(v2);
