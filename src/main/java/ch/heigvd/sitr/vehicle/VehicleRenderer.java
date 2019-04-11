@@ -39,7 +39,7 @@ public class VehicleRenderer {
         // TODO store drawing information in Vehicle (x, y, length, width, color)
 //        g.setColor(vehicle.getVehicleController().getColor());
         g.setColor(Color.BLUE);
-        g.fillRect((int) vehicle.getPosition(), 20, Simulation.mToPx(scale, vehicle.getLength()), 4);
+        g.fillRect((int) vehicle.getPosition(), 20, Simulation.mToPx(scale, vehicle.getLength()), Simulation.mToPx(scale, vehicle.getWidth()));
     }
 
     /**
