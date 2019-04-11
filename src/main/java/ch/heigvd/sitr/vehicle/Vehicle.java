@@ -9,12 +9,21 @@ import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedList;
+
 /**
  * Vehicle class represents the simulation vehicles
  *
  * @author Simon Walther
  */
 public class Vehicle implements Renderable {
+    // Itinerary of the vehicle, subdivided in multiple paths
+    private LinkedList<ItineraryPath> itinerary = new LinkedList<ItineraryPath>();
+
+    // Current path step
+    @Getter
+    private int pathStep;
+
     // Position of the vehicle relative to the lane's start [m]
     @Getter
     @Setter
@@ -47,11 +56,13 @@ public class Vehicle implements Renderable {
      * @param vehicleController controller of the vehicle
      * @param length            length [m] of the vehicle
      * @param maxSpeed          max speed [m/s] of the vehicle
+     * @param firstPath         the first itinerary path of the vehicle
      */
-    public Vehicle(VehicleController vehicleController, double length, double maxSpeed) {
+    public Vehicle(VehicleController vehicleController, double length, double maxSpeed, ItineraryPath firstPath) {
         this.vehicleController = vehicleController;
         this.length = length;
         this.maxSpeed = maxSpeed;
+        this.addToItinerary(firstPath);
     }
 
     /**
@@ -175,5 +186,44 @@ public class Vehicle implements Renderable {
         ret += " frontDistance: " + frontDistance();
 
         return ret;
+    }
+
+    /**
+     * Get the current path of the vehicle
+     * @return the current path
+     */
+    public ItineraryPath currentPath() {
+        return this.itinerary.get(pathStep);
+    }
+
+    /**
+     * Add itinerary path to the itinerary
+     *
+     * Note: does not add it if null
+     *
+     * @param itineraryPath the itinerary path
+     */
+    public void addToItinerary(ItineraryPath itineraryPath) {
+        if(itineraryPath != null) {
+            this.itinerary.add(itineraryPath);
+        }
+    }
+    /**
+     * Get the itinerary size of the vehicle
+     * @return the itinerary size
+     */
+    public int itinerarySize() {
+        return this.itinerary.size();
+    }
+
+    /**
+     * Move vehicle to the next path of its itinerary
+     *
+     * Note: if exceed max path step, path step does not change
+     */
+    public void nextPath() {
+        if((pathStep + 1) < this.itinerarySize()) {
+            this.pathStep++;
+        }
     }
 }

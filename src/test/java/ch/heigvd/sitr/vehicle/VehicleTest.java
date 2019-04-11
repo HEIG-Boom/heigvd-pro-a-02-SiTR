@@ -8,6 +8,8 @@ package ch.heigvd.sitr.vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.geom.Point2D;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -16,9 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Simon Walther
  */
 public class VehicleTest {
-    Vehicle vehicle = null;
-    Vehicle frontVehicle = null;
-    VehicleController vehicleController = null;
+    Vehicle vehicle;
+    Vehicle frontVehicle;
+    VehicleController vehicleController;
+    ItineraryPath itineraryPath;
 
     @BeforeEach
     public void createDummyVehicleController() {
@@ -27,9 +30,75 @@ public class VehicleTest {
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.7, 33.33);
-        vehicle = new Vehicle(vehicleController, 1.6, 33.33);
+        frontVehicle = new Vehicle(vehicleController, 1.7, 33.33, null);
+        vehicle = new Vehicle(vehicleController, 1.6, 33.33, null);
         vehicle.setFrontVehicle(frontVehicle);
+    }
+
+    @BeforeEach
+    public void createDummyItinerary() {
+        itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+    }
+
+    @Test
+    public void constructor() {
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 33.33, itineraryPath);
+        assertEquals(1.6, vehicle.getLength());
+        assertEquals(33.33, vehicle.getMaxSpeed());
+        assertEquals(vehicleController, vehicle.getVehicleController());
+        assertEquals(itineraryPath, vehicle.currentPath());
+    }
+
+    @Test
+    public void initialPathStepShouldBeAt0() {
+        assertEquals(0, vehicle.getPathStep());
+    }
+
+    @Test
+    public void addMultipleItineraryPaths() {
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+
+        assertEquals(5, vehicle.itinerarySize());
+    }
+
+    @Test
+    public void nextPath() {
+        ItineraryPath path1 = new ItineraryPath(new Point2D.Double(10, 10), new Point2D.Double(20, 20));
+        ItineraryPath path2 = new ItineraryPath(new Point2D.Double(20, 20), new Point2D.Double(30, 30));
+        ItineraryPath path3 = new ItineraryPath(new Point2D.Double(30, 30), new Point2D.Double(40, 40));
+
+        vehicle.addToItinerary(path1);
+        vehicle.addToItinerary(path2);
+        vehicle.addToItinerary(path3);
+
+        assertEquals(0, vehicle.getPathStep());
+        assertEquals(path1, vehicle.currentPath());
+
+        vehicle.nextPath();
+        assertEquals(1, vehicle.getPathStep());
+        assertEquals(path2, vehicle.currentPath());
+
+        vehicle.nextPath();
+        assertEquals(2, vehicle.getPathStep());
+        assertEquals(path3, vehicle.currentPath());
+    }
+
+    @Test
+    public void pathStepShouldNotExceedItinerarySize() {
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+        vehicle.addToItinerary(itineraryPath);
+
+        vehicle.nextPath();
+        vehicle.nextPath();
+
+        // move to an inexistant path
+        vehicle.nextPath();
+        assertEquals(2, vehicle.getPathStep());
     }
 
     @Test
@@ -42,16 +111,6 @@ public class VehicleTest {
     public void speed() {
         vehicle.setSpeed(25.5);
         assertEquals(25.5, vehicle.getSpeed());
-    }
-
-    @Test
-    public void length() {
-        assertEquals(1.6, vehicle.getLength());
-    }
-
-    @Test
-    public void maxSpeed() {
-        assertEquals(33.33, vehicle.getMaxSpeed());
     }
 
     @Test
@@ -83,11 +142,6 @@ public class VehicleTest {
     @Test
     public void frontDistanceShouldBeInfiniteIfThereIsntFrontVehicle() {
         assertEquals(Double.POSITIVE_INFINITY, frontVehicle.frontDistance());
-    }
-
-    @Test
-    public void vehicleController() {
-        assertEquals(vehicleController, vehicle.getVehicleController());
     }
 
     @Test
