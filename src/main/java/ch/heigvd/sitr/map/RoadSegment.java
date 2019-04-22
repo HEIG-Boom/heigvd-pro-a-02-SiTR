@@ -1,9 +1,9 @@
 package ch.heigvd.sitr.map;
 
+import ch.heigvd.sitr.vehicle.Vehicle;
 import lombok.Getter;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * This class represents a road segment that contains a number of lane segments
