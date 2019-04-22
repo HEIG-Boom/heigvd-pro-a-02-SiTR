@@ -5,7 +5,6 @@
 
 package ch.heigvd.sitr.gui.settings;
 
-import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.model.ScenarioType;
 import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.model.VehicleBehaviourType;
@@ -15,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 /**
  * Settings Panel class represents the first window's panel. Offers settings options for the simulation
@@ -22,6 +22,10 @@ import java.awt.event.ActionListener;
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 class SettingsPanel extends JPanel {
+    private final JComboBox scenarioSelector;
+    private final JComboBox behaviorSelector;
+    private HashMap<VehicleControllerType, JSpinner> controllersSpinner = new HashMap<>();
+
     /**
      * Package-Private Constructor of the panel. Constructs all components for the settings window
      */
@@ -82,7 +86,7 @@ class SettingsPanel extends JPanel {
         gbc.insets = new Insets(0, 0, 0, 30);
         add(scenarioLabel, gbc);
 
-        final JComboBox scenarioSelector = new JComboBox();
+        scenarioSelector = new JComboBox();
 
         /* Adding scenario to the scenario selector */
 
@@ -128,8 +132,10 @@ class SettingsPanel extends JPanel {
             gbc.gridwidth = 2;
             gbc.ipadx = 50;
             gbc.insets = new Insets(0, 10, 10, 0);
-            add(new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1)), gbc);
+            JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
+            add(spinner, gbc);
 
+            controllersSpinner.put(vc, spinner);
             baseY++;
         }
 
@@ -156,7 +162,7 @@ class SettingsPanel extends JPanel {
         gbc.insets = new Insets(0, 0, 10, 0);
         add(subtitle2, gbc);
 
-        final JComboBox behaviorSelector = new JComboBox();
+        behaviorSelector = new JComboBox();
 
         /* Adding behavior to the behavior selector */
 
@@ -198,5 +204,37 @@ class SettingsPanel extends JPanel {
         gbc.gridwidth = 3;
         gbc.ipadx = 50;
         add(startButton, gbc);
+    }
+
+    /**
+     * Package-private method used to get the selected scenario
+     *
+     * @return the selected scenario
+     */
+    ScenarioType getSelectedScenario() {
+        return (ScenarioType) scenarioSelector.getSelectedItem();
+    }
+
+    /**
+     * Package-private method used to get the number of vehicle to instantiate with a specific controller
+     *
+     * @param vct specific controller type
+     * @return the number of vehicle with the specific controller that will be in the simulation
+     */
+    int getNumberOfController(VehicleControllerType vct) {
+        JSpinner spinner = controllersSpinner.get(vct);
+        if (spinner != null) {
+            return (Integer) spinner.getValue();
+        }
+        return 0;
+    }
+
+    /**
+     * Package-private method used to get the selected behaviour
+     *
+     * @return the selected behaviour
+     */
+    VehicleBehaviourType getSelectedBehaviour() {
+        return (VehicleBehaviourType) behaviorSelector.getSelectedItem();
     }
 }
