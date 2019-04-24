@@ -33,6 +33,7 @@ public class LaneSegment implements Iterable<Vehicle> {
     private int yCoordinatesEnd;
     @Getter
     private final int lane; // physical lane
+    private Lane.Type type;
 
     private List<Vehicle> vehicles = new ArrayList<>();
 
@@ -56,60 +57,17 @@ public class LaneSegment implements Iterable<Vehicle> {
         this.lane = lane;
     }
 
+    /**
+     * Sets the type of the lane.
+     *
+     * @param type The type of the lane
+     */
+    public final void setType(Lane.Type type) {
+        this.type = type;
+    }
+
     @Override
     public Iterator<Vehicle> iterator() {
         return vehicles.iterator();
     }
-
-//    public boolean checkIfLaneOnLeft() {
-//        return roadSegment.checkIfLaneOnLeft(laneSegmentId);
-//    }
-//
-//    public LaneSegment getLaneOnLeft(int laneId) {
-//        return roadSegment.getLaneOnLeft(laneId);
-//    }
-//
-//    public LaneSegment getLaneOnRight(int laneId) {
-//        return roadSegment.getLaneOnRight(laneId);
-//    }
-//
-//    /*Ne fonctionne que pour une ligne droite*/
-//    public boolean checkIfChangeLaneIsSafe(double position, LaneSegment lane) {
-//        if (lane.laneSegmentId != laneSegmentId) {
-//            return roadSegment.checkIfChangeLaneIsSafe(position, lane);
-//        }
-//        Vehicle vehicle = vehicles.getFirst();
-//        for (int i = 1; position > vehicle.getPosition() && i < vehicles.size(); i++) {
-//            if ((position - vehicle.getPosition()) < 5) {
-//                return false;
-//            }
-//            vehicle = vehicles.get(i);
-//        }
-//        if ((vehicle.getPosition() - position) < 5) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    /*Ajoute un véhicule en les classant par leur position sur la voie
-//     * le premier véhicule dans la liste est le plus proche du début de la ligne, le dernier le plus éloigné
-//     * !! Ne contrôle pas si le véhicule est déjà dans cette voie*/
-//    public void addVehicle(Vehicle vehicle) {
-//        int i;
-//        for (i = 0; i < vehicles.size(); i++) {
-//            if (vehicle.getPosition() > vehicles.get(i).getPosition()) {
-//                i++;
-//                break;
-//            }
-//        }
-//        i--;
-//        vehicles.add(i, vehicle);
-//        nbVehicle++;
-//    }
-//
-//    public void removeVehicle(Vehicle vehicle) {
-//        vehicles.remove(vehicle);
-//        nbVehicle --;
-//    }
-
 }

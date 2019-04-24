@@ -21,4 +21,11 @@ public class PosTheta {
     protected double getTheta() {
         return Math.atan2(sinTheta, cosTheta);
     }
+
+    @Override
+    public String toString() {
+        return "PosTheta [x=" + String.format("%.1f", x) + ", y=" + String.format("%.1f", y) +
+                ", cosTheta=" + String.format("%.1f", cosTheta) + ", sinTheta=" +
+                String.format("%.1f", sinTheta) + "]";
+    }
 }
