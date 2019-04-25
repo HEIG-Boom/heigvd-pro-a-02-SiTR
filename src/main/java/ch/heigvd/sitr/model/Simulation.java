@@ -19,7 +19,7 @@ import java.util.TimerTask;
  * Simulation class handles all global simulation settings and values
  * The main simulation loop runs here as well
  *
- * @author Luc Wachter
+ * @author Luc Wachter, Simon Walther
  */
 public class Simulation {
     // The displayable component we need to repaint
@@ -63,7 +63,7 @@ public class Simulation {
     }
 
     /**
-     * Main display loop, runs in a fixed rate timer loop
+     * Main simulation loop, runs in a fixed rate timer loop
      */
     public void loop() {
         // Launch main window
@@ -75,7 +75,7 @@ public class Simulation {
             @Override
             public void run() {
                 for (Vehicle vehicle : vehicles) {
-                    vehicle.update(0.5);
+                    vehicle.update(0.3);
                     vehicle.draw(scale);
                     // DEBUG
                     System.out.println(vehicle);
@@ -111,18 +111,20 @@ public class Simulation {
 
     /**
      * Convert m to px
+     *
      * @param scale the ratio px/m
-     * @param m the number of m
+     * @param m     the number of m
      * @return the number of px
      */
     public static int mToPx(double scale, double m) {
-        return (int)Math.round(m * scale);
+        return (int) Math.round(m * scale);
     }
 
     /**
      * Convert px to m
+     *
      * @param scale the ratio px/m
-     * @param px the number of px
+     * @param px    the number of px
      * @return the number of px
      */
     public static double pxToM(double scale, int px) {
@@ -131,6 +133,7 @@ public class Simulation {
 
     /**
      * Convert m to px
+     *
      * @param m the number of m
      * @return the number of px
      */
@@ -140,6 +143,7 @@ public class Simulation {
 
     /**
      * Convert px to m
+     *
      * @param px the number of px
      * @return the number of px
      */
