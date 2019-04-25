@@ -13,13 +13,16 @@ import lombok.Getter;
  * @author Luc Wachter
  */
 public enum ScenarioType {
-    SIMPLE_ROAD("Route simple", "placeholder"); // TODO replace placeholder
+    SIMPLE_ROAD("Route simple", 8, "placeholder"); // TODO replace placeholder
 
     // Base folder containing data files for the scenario (map)
     private static final String BASE_PATH = "mapData/";
 
     // Name of the scenario (to display in GUI and such)
     private final String name;
+    // Scale of the scenario (how many pixels for a meter)
+    @Getter
+    private int scale;
     // Path to the scenario's data file
     @Getter
     private final String configPath;
@@ -30,8 +33,9 @@ public enum ScenarioType {
      * @param name       The name of the scenario
      * @param configFile The name of the scenario's data file (with extension)
      */
-    ScenarioType(String name, String configFile) {
+    ScenarioType(String name, int scale, String configFile) {
         this.name = name;
+        this.scale = scale;
         // Construct path to data file from base path and filename
         configPath = BASE_PATH + configFile;
     }
