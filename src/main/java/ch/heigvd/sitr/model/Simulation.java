@@ -7,10 +7,13 @@ package ch.heigvd.sitr.model;
 
 import ch.heigvd.sitr.gui.simulation.Displayer;
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.map.RoadNetwork;
+import ch.heigvd.sitr.map.input.OpenDriveHandler;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,6 +32,9 @@ public class Simulation {
 
     // Rate at which the redrawing will happen in milliseconds
     private static final int UPDATE_RATE = 40;
+
+    // Road network
+    private final RoadNetwork roadNetwork;
 
     // the ratio px/m
     @Getter
@@ -60,6 +66,11 @@ public class Simulation {
 
         wall.setPosition(100);
         vehicles.add(wall);
+
+        // Create a roadNetwork instance and then parse the OpenDRIVE XML file
+        roadNetwork = new RoadNetwork();
+        // TODO : Remove hard coded openDriveFilename
+        parseOpenDriveXml(roadNetwork, "src/main/resources/map/simulation/simple_road.xodr");
     }
 
     /**
@@ -80,6 +91,10 @@ public class Simulation {
                     // DEBUG
                     System.out.println(vehicle);
                 }
+
+                // TODO (tum) WTF we shouldn't do that
+                // Print the road network
+                roadNetwork.draw();
 
                 // Callback to paintComponent()
                 window.repaint();
@@ -145,5 +160,16 @@ public class Simulation {
      */
     public double pxToM(int px) {
         return Simulation.pxToM(scale, px);
+    }
+
+    /**
+     * Parse the OpenDrive XML file
+     * @param roadNetwork The Road network that will contains OpenDrive road network
+     * @param openDriveFilename The OpenDrive filename
+     */
+    public void parseOpenDriveXml(RoadNetwork roadNetwork, String openDriveFilename) {
+        // TODO (TUM) Add some logs here
+        File openDriveFile = new File(openDriveFilename);
+        OpenDriveHandler.loadRoadNetwork(roadNetwork, openDriveFile);
     }
 }

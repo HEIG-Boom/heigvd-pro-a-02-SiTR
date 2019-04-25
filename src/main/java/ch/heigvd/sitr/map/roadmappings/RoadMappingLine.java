@@ -31,7 +31,7 @@ public class RoadMappingLine extends RoadMapping {
     }
 
     /**
-     * This method creates the road mapping ling
+     * This method creates the road mapping line
      *
      * @param roadGeometry The road geometry
      * @return The created road mapping

@@ -59,7 +59,6 @@ public class OpenDriveHandler {
     private void create(OpenDRIVE openDriveNetwork, RoadNetwork roadNetwork) {
         createControllerMapping(openDriveNetwork, roadNetwork);
         createRoadSegments(openDriveNetwork, roadNetwork);
-        joinRoads(openDriveNetwork, roadNetwork);
     }
 
     /**
@@ -77,7 +76,7 @@ public class OpenDriveHandler {
                 }
             }
         }
-        LOG.log(Level.INFO, "registered {} traffic light signals in road network.",
+        LOG.log(Level.INFO, "registered {0} traffic light signals in road network.",
                 signalIdsToController.size());
     }
 
@@ -89,17 +88,10 @@ public class OpenDriveHandler {
      */
     private void createRoadSegments(OpenDRIVE openDriveNetwork, RoadNetwork roadNetwork) {
         for (Road road : openDriveNetwork.getRoad()) {
-            boolean hasPeer = hasPeer(road);
-
-            if (hasPeer) {
-                LOG.log(Level.INFO, "road={} consists of peers", road.getId());
-            }
-
             final RoadMapping roadMapping = createRoadMappings(road);
             for (LaneSectionType laneType : Lane.LaneSectionType.values()) {
                 if (hasLaneSectionType(road, laneType)) {
-                    RoadSegment roadSegment = createRoadSegment(laneType, road, hasPeer,
-                            roadMapping);
+                    RoadSegment roadSegment = createRoadSegment(laneType, road, roadMapping);
                     if (roadSegment == null) {
                         throw new IllegalStateException("could not create roadSegment for road="
                                 + road.getId());
@@ -109,24 +101,8 @@ public class OpenDriveHandler {
                             new Object[]{roadSegment.getUserId(), roadSegment.getLaneCount()});
                 }
             }
-            // TODO (tum) check if hasPeer
         }
-        LOG.log(Level.INFO, "created {} roadSegments.", roadNetwork.size());
-    }
-
-    /**
-     * This method checks if the road consists of peer
-     *
-     * @param road The road to check
-     * @return True if the road consists of peer, false otherwise
-     */
-    private boolean hasPeer(Road road) {
-        for (LaneSectionType laneType : LaneSectionType.values()) {
-            if (!hasLaneSectionType(road, laneType)) {
-                return false;
-            }
-        }
-        return true;
+        LOG.log(Level.INFO, "created {0} roadSegments.", roadNetwork.size());
     }
 
     /**
@@ -155,12 +131,11 @@ public class OpenDriveHandler {
      *
      * @param laneType The road's lane type
      * @param road The road generated with JAXB from OpenDRIVE xodr file
-     * @param hasPeer If the road consists of peer
      * @param roadMapping The created road mapping
      * @return The created road segment
      */
-    private RoadSegment createRoadSegment(LaneSectionType laneType, Road road, boolean hasPeer
-            , RoadMapping roadMapping) {
+    private RoadSegment createRoadSegment(LaneSectionType laneType, Road road,
+                                          RoadMapping roadMapping) {
         LaneSection laneSection = road.getLanes().getLaneSection().get(0);
         List<ch.heigvd.sitr.autogen.opendrive.Lane> lanes = (laneType == LaneSectionType.LEFT) ?
                 laneSection.getLeft().getLane() : laneSection.getRight().getLane();
@@ -170,7 +145,7 @@ public class OpenDriveHandler {
                 lanes.size(), roadMapping);
 
         // Set user id
-        String userId = hasPeer ? road.getId() + laneType.idAppender() : road.getId();
+        String userId = road.getId();
         roadSegment.setUserId(userId);
 
         // Set road name
@@ -236,22 +211,6 @@ public class OpenDriveHandler {
         return roadGeometries;
     }
 
-    /**
-     * Get the road segment id
-     *
-     * @param roadId The generated road id from OpenDRIVE
-     * @param laneType The type of the lane
-     * @param hasPeer If the the road consists of peer
-     * @return The road segment's id
-     */
-    private static String getRoadSegmentId(String roadId, LaneSectionType laneType,
-                                           boolean hasPeer) {
-        if (hasPeer) {
-            return roadId + laneType.idAppender();
-        }
-        return roadId; // backwards compatibility
-    }
-
     private static void setLaneType(int laneNumber, ch.heigvd.sitr.autogen.opendrive.Lane lane,
                                     RoadSegment roadSegment) {
         if (lane.getType().equals(Lane.Type.TRAFFIC.getOpenDriveIdentifier())) {
@@ -265,58 +224,6 @@ public class OpenDriveHandler {
         } else if (lane.getType().equals(Lane.Type.SHOULDER.getOpenDriveIdentifier())) {
             roadSegment.setLaneType(laneNumber, Lane.Type.SHOULDER);
         }
-    }
-
-    /**
-     * This method iterates through all the roads joining them up according to the links
-     *
-     * @param openDriveNetwork The generated OpenDRIVE network
-     * @param roadNetwork The road network that will be built from generated data
-     */
-    private static void joinRoads(OpenDRIVE openDriveNetwork, RoadNetwork roadNetwork) {
-        for (Road road : openDriveNetwork.getRoad()) {
-            if (!road.isSetLink()) {
-                LOG.log(Level.INFO, "road={} without links to other roads", road.getId());
-                continue;
-            }
-            joinByLanes(roadNetwork, road);
-        }
-    }
-
-    /**
-     * This method joins the road by lanes
-     *
-     * @param roadNetwork The road network that will be built from generated data
-     * @param road The road that we want to join
-     */
-    private static void joinByLanes(RoadNetwork roadNetwork, Road road) {
-        LaneSection laneSection = road.getLanes().getLaneSection().get(0);
-        if (laneSection.isSetCenter()) {
-            LOG.log(Level.WARNING, "cannot handle center lane");
-        }
-
-        if (laneSection.isSetLeft()) {
-            joinByLanes(roadNetwork, road, laneSection.getLeft().getLane(),
-                    Lane.LaneSectionType.LEFT.isReverseDirection());
-        }
-        if (laneSection.isSetRight()) {
-            joinByLanes(roadNetwork, road, laneSection.getRight().getLane(),
-                    Lane.LaneSectionType.RIGHT.isReverseDirection());
-        }
-    }
-
-    /**
-     * This method joins the road by lanes
-     *
-     * @param roadNetwork The road network that will be built from generated data
-     * @param road The road that we want to join
-     * @param lanes The lanes that are in the road
-     * @param isReverse If the road is reversible
-     */
-    private static void joinByLanes(RoadNetwork roadNetwork, Road road,
-                                    List<ch.heigvd.sitr.autogen.opendrive.Lane> lanes,
-                                    boolean isReverse) {
-        // TODO (tum) make this work
     }
 
     /**

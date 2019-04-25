@@ -1,7 +1,5 @@
 package ch.heigvd.sitr.map;
 
-import lombok.Getter;
-
 /**
  * This class represents a Lane on the road
  */

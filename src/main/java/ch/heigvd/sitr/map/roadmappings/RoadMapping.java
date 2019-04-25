@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -29,15 +28,6 @@ public abstract class RoadMapping {
     protected final PosTheta posTheta = new PosTheta();
     protected double x0;
     protected double y0;
-
-    // Clipping region properties
-    protected static final int POINT_COUNT = 4;
-    protected final PolygonFloat polygonFloat = new PolygonFloat(POINT_COUNT);
-    @Getter
-    protected ArrayList<PolygonFloat> clippingPolygons;
-    @Getter
-    protected PolygonFloat outsideClippingPolygon;
-    protected final PolygonFloat lineFloat = new PolygonFloat(2);
 
     /**
      * Constructor
@@ -92,15 +82,6 @@ public abstract class RoadMapping {
     }
 
     /**
-     * Get the road width
-     *
-     * @return The road width
-     */
-    public final double roadWidth() {
-        return laneGeometries.getTotalLaneCount() * laneWidth();
-    }
-
-    /**
      * Get the lane width
      *
      * @return The lane width
@@ -116,6 +97,15 @@ public abstract class RoadMapping {
      */
     public int laneCount() {
         return laneGeometries.getTotalLaneCount();
+    }
+
+    /**
+     * Get the road width
+     *
+     * @return The road width
+     */
+    public final double roadWidth() {
+        return laneCount() * laneWidth();
     }
 
     /**
@@ -138,65 +128,6 @@ public abstract class RoadMapping {
     protected double laneOffset(int lane) {
         return laneOffset((double) lane);
     }
-
-    /**
-     * Get the offset of the center of the lane
-     *
-     * @param lane The lane where we want to get the offset
-     * @return The offset of the center of the lane
-     */
-    protected double laneCenterOffset(double lane) {
-        return laneOffset(lane) + 0.5 * laneWidth();
-    }
-
-    /**
-     * Set a clipping region based on the road position and the length. Only one clipping
-     * region is supported
-     *
-     * @param pos    The road position
-     * @param length The road length
-     */
-    public void addClippingRegion(double pos, double length) {
-        if (clippingPolygons == null) {
-            clippingPolygons = new ArrayList<>();
-        }
-
-        if (outsideClippingPolygon == null) {
-            final float LARGE_NUMBER = 100000.0f;
-            outsideClippingPolygon = new PolygonFloat(POINT_COUNT);
-            outsideClippingPolygon.xPoints[0] = -LARGE_NUMBER;
-            outsideClippingPolygon.yPoints[0] = -LARGE_NUMBER;
-            outsideClippingPolygon.xPoints[1] = LARGE_NUMBER;
-            outsideClippingPolygon.yPoints[1] = -LARGE_NUMBER;
-            outsideClippingPolygon.xPoints[2] = LARGE_NUMBER;
-            outsideClippingPolygon.yPoints[2] = LARGE_NUMBER;
-            outsideClippingPolygon.xPoints[3] = -LARGE_NUMBER;
-            outsideClippingPolygon.yPoints[3] = LARGE_NUMBER;
-        }
-
-        final PolygonFloat clippingPolygon = new PolygonFloat(POINT_COUNT);
-        final double offset = 1.5 * laneCount() * laneWidth();
-
-        PosTheta posTheta;
-        posTheta = map(pos + length, -offset);
-        clippingPolygon.xPoints[0] = (float) posTheta.x;
-        clippingPolygon.yPoints[0] = (float) posTheta.y;
-
-        posTheta = map(pos + length, offset);
-        clippingPolygon.xPoints[1] = (float) posTheta.x;
-        clippingPolygon.yPoints[1] = (float) posTheta.y;
-
-        posTheta = map(pos, offset);
-        clippingPolygon.xPoints[2] = (float) posTheta.x;
-        clippingPolygon.yPoints[2] = (float) posTheta.y;
-
-        posTheta = map(pos, -offset);
-        clippingPolygon.xPoints[3] = (float) posTheta.x;
-        clippingPolygon.yPoints[3] = (float) posTheta.y;
-
-        clippingPolygons.add(clippingPolygon);
-    }
-
 
     /**
      * This class represents a polygon with floating point coordinates.
@@ -222,26 +153,6 @@ public abstract class RoadMapping {
             return "PolygonFloat [pointCount=" + pointCount + ", xPoints=" +
                     Arrays.toString(xPoints) + ", yPoints=" + Arrays.toString(yPoints) + "]";
         }
-
-        /**
-         * Get the x-coordinate
-         *
-         * @param i index of x-coordinate
-         * @return The x-coordinate
-         */
-        public float getXPoint(int i) {
-            return xPoints[i];
-        }
-
-        /**
-         * Get the y-coordinate
-         *
-         * @param i Index of y-coordinate
-         * @return The y-coordinate
-         */
-        public float getYPoint(int i) {
-            return -yPoints[i];
-        }
     }
 
     /**
@@ -266,25 +177,6 @@ public abstract class RoadMapping {
         return -laneGeometries.getRight().getLaneCount() * laneGeometries.getLaneWidth();
     }
 
-    /**
-     * Get the left offset
-     *
-     * @param lane The lane where we want to get the left offset
-     * @return The left offset of the lane
-     */
-    public double getOffsetLeft(int lane) {
-        return Math.min(lane, laneGeometries.getLeft().getLaneCount())
-                * laneGeometries.getLaneWidth();
-    }
-
-    /**
-     * Get number of lane in a direction
-     *
-     * @return The number of lane in a direction
-     */
-    public int getLaneCountInDirection() {
-        return laneGeometries.getRight().getLaneCount();
-    }
 
     @Override
     public String toString() {

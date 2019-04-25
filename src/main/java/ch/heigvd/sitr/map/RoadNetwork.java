@@ -1,5 +1,8 @@
 package ch.heigvd.sitr.map;
 
+import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.map.graphics.Renderable;
+import ch.heigvd.sitr.map.graphics.RoadNetworkRenderer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +12,7 @@ import java.util.Iterator;
 /**
  * This class represents an iterable collection of the road segments in the road network
  */
-public class RoadNetwork implements Iterable<RoadSegment> {
+public class RoadNetwork implements Iterable<RoadSegment>, Renderable {
     // Road segments that form the road network
     private final ArrayList<RoadSegment> roadSegments = new ArrayList<>();
 
@@ -48,5 +51,14 @@ public class RoadNetwork implements Iterable<RoadSegment> {
     @Override
     public Iterator<RoadSegment> iterator() {
         return roadSegments.iterator();
+    }
+
+    /**
+     * Method that calls the renderer in order to draw the road network on the simulation pane
+     */
+    @Override
+    public void draw() {
+        RoadNetworkRenderer.getInstance().setRoadNetwork(this);
+        RoadNetworkRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane());
     }
 }

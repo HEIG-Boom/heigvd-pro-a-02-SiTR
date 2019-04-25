@@ -12,6 +12,15 @@ public final class RoadMappingUtils {
     private RoadMappingUtils() {
     }
 
+    public static final RoadMapping create(Iterable<RoadGeometry> roadGeometries) {
+        if (Iterables.size(roadGeometries) == 1) {
+            return create(Iterables.getOnlyElement(roadGeometries));
+        }
+
+        // TODO (tum) complete with RoadMappingPoly
+        return create(Iterables.getOnlyElement(roadGeometries));
+    }
+
     /**
      * Factory for creating the road mapping
      */
@@ -29,14 +38,5 @@ public final class RoadMappingUtils {
             throw new IllegalArgumentException("Unknown geometry: " + roadGeometry.getGeometry());
         }
         return roadMapping;
-    }
-
-    public static final RoadMapping create(Iterable<RoadGeometry> roadGeometries) {
-        if (Iterables.size(roadGeometries) == 1) {
-            return create(Iterables.getOnlyElement(roadGeometries));
-        }
-
-        // TODO (tum) complete with RoadMappingPoly
-        return create(Iterables.getOnlyElement(roadGeometries));
     }
 }

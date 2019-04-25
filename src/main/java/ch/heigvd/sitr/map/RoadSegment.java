@@ -25,7 +25,8 @@ public class RoadSegment implements Iterable<Vehicle> {
     private final int laneCount;                // RoadSegment's number of lane
     private final LaneSegment laneSegments[];   // RoadSegment contains lane segments
 
-    private RoadMapping roadMapping;            // The road mapping
+    @Getter
+    private RoadMapping roadMapping;            // The road segment's road mapping
 
     /**
      * Constructor
