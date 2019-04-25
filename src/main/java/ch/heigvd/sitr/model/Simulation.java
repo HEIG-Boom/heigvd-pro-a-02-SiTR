@@ -7,10 +7,12 @@ package ch.heigvd.sitr.model;
 
 import ch.heigvd.sitr.gui.simulation.Displayer;
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,10 +52,14 @@ public class Simulation {
         Vehicle v1 = new Vehicle("regular.xml", vehicleController);
         Vehicle v2 = new Vehicle("regular.xml", vehicleController2);
 
+        ItineraryPath itineraryPath1 = new ItineraryPath(new Point2D.Double(10, 10), new Point2D.Double(120, 120));
+
+        v1.addToItinerary(itineraryPath1);
         v1.setPosition(40);
         v1.setFrontVehicle(wall);
         vehicles.add(v1);
 
+        v2.addToItinerary(itineraryPath1);
         v2.setPosition(0);
         v2.setFrontVehicle(v1);
         vehicles.add(v2);

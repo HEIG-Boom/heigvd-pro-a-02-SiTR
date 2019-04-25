@@ -23,6 +23,10 @@ public class ItineraryPath {
     @Getter
     private Point2D.Double destination;
 
+    // normed direction vector
+    @Getter
+    private Point2D.Double directionVector;
+
     /**
      * Constructor
      *
@@ -44,5 +48,14 @@ public class ItineraryPath {
         }
 
         this.destination = destination;
+        this.directionVector = new Point2D.Double((destination.x - origin.x) / norm(), (destination.y - origin.y) / norm());
+    }
+
+    /**
+     * Get the norm of the vector formed by the itinerary
+     * @return the norm
+     */
+    public double norm() {
+        return Math.sqrt(Math.pow(destination.x - origin.x, 2) + Math.pow(destination.y - origin.y, 2));
     }
 }
