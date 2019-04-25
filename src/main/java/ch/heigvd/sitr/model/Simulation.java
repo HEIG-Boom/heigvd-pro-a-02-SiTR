@@ -40,7 +40,9 @@ public class Simulation {
     /**
      * Constructor
      *
-
+     * @param scenario    The scenario the simulation must create
+     * @param behaviour   The behaviour the vehicles must adopt when arriving at their destination
+     * @param controllers The number of vehicles for each controller type
      */
     public Simulation(ScenarioType scenario, VehicleBehaviourType behaviour,
                       HashMap<VehicleControllerType, Integer> controllers) {
