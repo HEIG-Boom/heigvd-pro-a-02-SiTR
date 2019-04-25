@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +53,7 @@ public class VehicleTest {
 
     @Test
     public void constructorWithConfigFile() {
-        VehicleController controller = new VehicleController("careful.xml");
+        VehicleController controller = new VehicleController(VehicleControllerType.CAREFUL);
         Vehicle vehicle = new Vehicle("regular.xml", controller);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(1, vehicle.getWidth());

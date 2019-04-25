@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Document;
@@ -31,8 +32,6 @@ import static java.lang.Math.sqrt;
  * @author Simon Walther
  */
 public class VehicleController {
-    private static final String BASE_CONFIG_PATH = "/vehicleController/";
-
     // Delta exponent, traditionally set at 4
     private static final double delta = 4;
 
@@ -73,14 +72,15 @@ public class VehicleController {
     /**
      * Create vehicle controller with configuration taken from an XML configuration file
      *
-     * @param configPath the path to the configuration file
+     * @param vct The type of controller we want to create
      */
-    public VehicleController(String configPath) {
-        InputStream in = VehicleController.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
+    public VehicleController(VehicleControllerType vct) {
+        // Get the controller's config file
+        InputStream in = VehicleController.class.getResourceAsStream(vct.getConfigPath());
         SAXBuilder saxBuilder = new SAXBuilder();
 
         try {
-            Document document = (Document) saxBuilder.build(in);
+            Document document = saxBuilder.build(in);
             Element root = document.getRootElement();
 
             desiredVelocity = Double.parseDouble(root.getChildText("desiredVelocity"));
