@@ -64,6 +64,7 @@ public class Simulation {
         v2.setFrontVehicle(v1);
         vehicles.add(v2);
 
+        wall.addToItinerary(itineraryPath1);
         wall.setPosition(100);
         vehicles.add(wall);
     }
