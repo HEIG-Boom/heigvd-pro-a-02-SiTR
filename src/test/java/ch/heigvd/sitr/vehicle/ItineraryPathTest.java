@@ -65,4 +65,12 @@ public class ItineraryPathTest {
         ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
         assertEquals(70.710, itineraryPath.norm(), 0.001);
     }
+
+    @Test
+    public void twoIdenticItineraryPathShouldBeEquals() {
+        ItineraryPath path1 = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+        ItineraryPath path2 = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+
+        assertEquals(path1, path2);
+    }
 }

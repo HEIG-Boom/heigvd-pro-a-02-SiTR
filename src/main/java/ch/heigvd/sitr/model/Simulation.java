@@ -55,7 +55,7 @@ public class Simulation {
         Vehicle v1 = new Vehicle("regular.xml", vehicleController, path1);
         Vehicle v2 = new Vehicle("regular.xml", vehicleController2, path1);
 
-        v1.setPosition(40);
+        v1.setPosition(20);
         v1.addToItinerary(path2);
         v1.addToItinerary(path3);
         vehicles.add(v1);
@@ -63,6 +63,7 @@ public class Simulation {
         v2.setPosition(0);
         v2.addToItinerary(path2);
         v2.addToItinerary(path3);
+        v2.setFrontVehicle(v1);
         vehicles.add(v2);
     }
 

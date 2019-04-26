@@ -8,6 +8,7 @@ package ch.heigvd.sitr.vehicle;
 import lombok.Getter;
 
 import java.awt.geom.Point2D;
+import java.util.Objects;
 
 /**
  * ItineraryPath class represents the a stop in an vehicle's itinerary
@@ -57,5 +58,20 @@ public class ItineraryPath {
      */
     public double norm() {
         return Math.sqrt(Math.pow(destination.x - origin.x, 2) + Math.pow(destination.y - origin.y, 2));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItineraryPath that = (ItineraryPath) o;
+        return Objects.equals(origin, that.origin) &&
+                Objects.equals(destination, that.destination) &&
+                Objects.equals(directionVector, that.directionVector);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(origin, destination, directionVector);
     }
 }

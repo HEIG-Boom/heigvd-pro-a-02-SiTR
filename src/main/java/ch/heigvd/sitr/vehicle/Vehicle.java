@@ -176,8 +176,17 @@ public class Vehicle implements Renderable {
             return Double.POSITIVE_INFINITY;
         }
 
-        // Distance between two vehicles is the absolute value of the position difference
-        double posDistance = Math.abs(this.getPosition() - frontVehicle.getPosition());
+        double posDistance;
+
+        // If vehicles are on the same path
+        if(this.currentPath() == frontVehicle.currentPath()) {
+            // Distance between two vehicles is the absolute value of the position difference
+            posDistance = Math.abs(frontVehicle.getPosition() - this.getPosition());
+        } else {
+            // on another path, ww add the distance to the end of this vehicle path
+            // and the distance of the front vehicle on its respective path
+            posDistance = Math.abs(currentPath().norm() - this.getPosition() + frontVehicle.getPosition());
+        }
 
         // We subtract from this distance, the distance from the vehicles center and vehicles extremities
         return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
