@@ -63,7 +63,6 @@ public class Simulation {
         v2.setPosition(0);
         v2.addToItinerary(path2);
         v2.addToItinerary(path3);
-        v2.setFrontVehicle(v1);
         vehicles.add(v2);
     }
 
