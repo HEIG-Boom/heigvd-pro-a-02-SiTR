@@ -48,26 +48,23 @@ public class Simulation {
         VehicleController vehicleController = new VehicleController("timid.xml");
         VehicleController vehicleController2 = new VehicleController("careful.xml");
 
-        ItineraryPath path1 = new ItineraryPath(new Point2D.Double(0, 50), new Point2D.Double(100, 50));
-        ItineraryPath path2 = new ItineraryPath(new Point2D.Double(101, 50), new Point2D.Double(200, 50));
+        ItineraryPath path1 = new ItineraryPath(new Point2D.Double(10, 10), new Point2D.Double(100, 50));
+        ItineraryPath path2 = new ItineraryPath(new Point2D.Double(100, 50), new Point2D.Double(100, 100));
+        ItineraryPath path3 = new ItineraryPath(new Point2D.Double(100, 100), new Point2D.Double(10, 10));
 
-        //Vehicle wall = new Vehicle(vehicleController, 1, 1, 0, null);
         Vehicle v1 = new Vehicle("regular.xml", vehicleController, path1);
-        // Vehicle v2 = new Vehicle("regular.xml", vehicleController2, path1);
+        Vehicle v2 = new Vehicle("regular.xml", vehicleController2, path1);
 
         v1.setPosition(40);
         v1.addToItinerary(path2);
-        //v1.setFrontVehicle(wall);
+        v1.addToItinerary(path3);
         vehicles.add(v1);
 
-        // v2.setPosition(0);
-        // v2.addToItinerary(path2);
-        // v2.setFrontVehicle(v1);
-        // vehicles.add(v2);
-
-        //wall.addToItinerary(itineraryPath1);
-        //wall.setPosition(100);
-        //vehicles.add(wall);
+        v2.setPosition(0);
+        v2.addToItinerary(path2);
+        v2.addToItinerary(path3);
+        v2.setFrontVehicle(v1);
+        vehicles.add(v2);
     }
 
     /**
@@ -83,7 +80,7 @@ public class Simulation {
             @Override
             public void run() {
                 for (Vehicle vehicle : vehicles) {
-                    vehicle.update(0.5);
+                    vehicle.update(0.25);
                     vehicle.draw(scale);
                     // DEBUG
                     System.out.println(vehicle);

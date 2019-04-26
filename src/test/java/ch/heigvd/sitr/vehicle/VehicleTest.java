@@ -111,7 +111,9 @@ public class VehicleTest {
 
         // move to an inexistant path
         vehicle.nextPath();
-        assertEquals(2, vehicle.getPathStep());
+
+        // get back to origin
+        assertEquals(0, vehicle.getPathStep());
     }
 
     @Test

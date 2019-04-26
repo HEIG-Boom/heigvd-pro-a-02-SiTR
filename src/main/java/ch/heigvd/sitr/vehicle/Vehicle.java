@@ -115,12 +115,10 @@ public class Vehicle implements Renderable {
     }
 
     public void setPosition(double position) {
-        System.out.println("this.position : " + this.position);
-        System.out.println("position : " + position);
-        System.out.println("currentPath().norm() : " + currentPath().norm());
-
-        if(this.position + position > currentPath().norm()) {
-            position -= currentPath().norm() - this.position;
+        // if it exceed the itinerary path length,
+        // we add the excess to the position on the next itinerary path
+        if(position > currentPath().norm()) {
+            position -= currentPath().norm();
             nextPath();
         }
 
@@ -291,6 +289,8 @@ public class Vehicle implements Renderable {
     public void nextPath() {
         if ((pathStep + 1) < this.itinerarySize()) {
             this.pathStep++;
+        } else {
+            pathStep = 0; // get back to origin
         }
     }
 }
