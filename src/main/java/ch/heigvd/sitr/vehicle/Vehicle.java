@@ -179,7 +179,7 @@ public class Vehicle implements Renderable {
         double posDistance;
 
         // If vehicles are on the same path
-        if(this.currentPath() == frontVehicle.currentPath()) {
+        if(this.currentPath().equals(frontVehicle.currentPath())) {
             // Distance between two vehicles is the absolute value of the position difference
             posDistance = Math.abs(frontVehicle.getPosition() - this.getPosition());
         } else {
