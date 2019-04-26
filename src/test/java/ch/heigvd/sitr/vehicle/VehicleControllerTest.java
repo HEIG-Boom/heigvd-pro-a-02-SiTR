@@ -8,6 +8,8 @@ package ch.heigvd.sitr.vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.geom.Point2D;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,8 +29,9 @@ public class VehicleControllerTest {
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, null);
-        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, null);
+        ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(0, 0), new Point2D.Double(10000, 10000));
+        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, itineraryPath);
+        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, itineraryPath);
         vehicle.setFrontVehicle(frontVehicle);
     }
 

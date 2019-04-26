@@ -34,7 +34,6 @@ public class Vehicle implements Renderable {
 
     // Position of the vehicle relative to the lane's start [m]
     @Getter
-    @Setter
     private double position;
 
     // Speed in [m/s] of the vehicle
@@ -84,8 +83,9 @@ public class Vehicle implements Renderable {
      *
      * @param configPath        the path to the configuration file
      * @param vehicleController the vehicle controller
+     * @param firstPath         the vehicle first path
      */
-    public Vehicle(String configPath, VehicleController vehicleController) {
+    public Vehicle(String configPath, VehicleController vehicleController, ItineraryPath firstPath) {
         this.vehicleController = vehicleController;
 
         InputStream in = Vehicle.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
@@ -111,6 +111,20 @@ public class Vehicle implements Renderable {
         this.length = length;
         this.width = width;
         this.maxSpeed = maxSpeed;
+        this.addToItinerary(firstPath);
+    }
+
+    public void setPosition(double position) {
+        System.out.println("this.position : " + this.position);
+        System.out.println("position : " + position);
+        System.out.println("currentPath().norm() : " + currentPath().norm());
+
+        if(this.position + position > currentPath().norm()) {
+            position -= currentPath().norm() - this.position;
+            nextPath();
+        }
+
+        this.position = position;
     }
 
     /**

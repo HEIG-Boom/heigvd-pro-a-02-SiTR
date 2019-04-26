@@ -48,25 +48,26 @@ public class Simulation {
         VehicleController vehicleController = new VehicleController("timid.xml");
         VehicleController vehicleController2 = new VehicleController("careful.xml");
 
-        Vehicle wall = new Vehicle(vehicleController, 1, 1, 0, null);
-        Vehicle v1 = new Vehicle("regular.xml", vehicleController);
-        Vehicle v2 = new Vehicle("regular.xml", vehicleController2);
+        ItineraryPath path1 = new ItineraryPath(new Point2D.Double(0, 50), new Point2D.Double(100, 50));
+        ItineraryPath path2 = new ItineraryPath(new Point2D.Double(101, 50), new Point2D.Double(200, 50));
 
-        ItineraryPath itineraryPath1 = new ItineraryPath(new Point2D.Double(10, 10), new Point2D.Double(120, 120));
+        //Vehicle wall = new Vehicle(vehicleController, 1, 1, 0, null);
+        Vehicle v1 = new Vehicle("regular.xml", vehicleController, path1);
+        // Vehicle v2 = new Vehicle("regular.xml", vehicleController2, path1);
 
-        v1.addToItinerary(itineraryPath1);
         v1.setPosition(40);
-        v1.setFrontVehicle(wall);
+        v1.addToItinerary(path2);
+        //v1.setFrontVehicle(wall);
         vehicles.add(v1);
 
-        v2.addToItinerary(itineraryPath1);
-        v2.setPosition(0);
-        v2.setFrontVehicle(v1);
-        vehicles.add(v2);
+        // v2.setPosition(0);
+        // v2.addToItinerary(path2);
+        // v2.setFrontVehicle(v1);
+        // vehicles.add(v2);
 
-        wall.addToItinerary(itineraryPath1);
-        wall.setPosition(100);
-        vehicles.add(wall);
+        //wall.addToItinerary(itineraryPath1);
+        //wall.setPosition(100);
+        //vehicles.add(wall);
     }
 
     /**
