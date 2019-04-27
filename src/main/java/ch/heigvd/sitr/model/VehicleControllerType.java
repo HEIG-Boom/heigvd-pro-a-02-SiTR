@@ -20,7 +20,7 @@ public enum VehicleControllerType {
     AUTONOMOUS("Autonome", "autonomous.xml");
 
     // Base folder containing config files for controllers
-    private static final String BASE_PATH = "vehicleController/";
+    private static final String BASE_PATH = "/vehicleController/";
 
     // Name of the controller (to display in GUI and such)
     private final String name;

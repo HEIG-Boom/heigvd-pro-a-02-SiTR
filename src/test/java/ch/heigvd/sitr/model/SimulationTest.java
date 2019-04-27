@@ -5,7 +5,11 @@
 
 package ch.heigvd.sitr.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -14,6 +18,14 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Luc Wachter
  */
 class SimulationTest {
+    Simulation simulation;
+
+    @BeforeEach
+    public void instantiateTestSimulation() {
+        HashMap<VehicleControllerType, Integer> map = new HashMap<>();
+        simulation = new Simulation(ScenarioType.SIMPLE_ROAD, VehicleBehaviourType.STOP, map);
+    }
+
     @Test
     public void shouldReturnCorrectAmountOfKph() {
         assertEquals(3.6, Simulation.mpsToKph(1));
@@ -28,21 +40,18 @@ class SimulationTest {
 
     @Test
     public void shouldHaveScale() {
-        Simulation simulation = new Simulation(8);
         assertEquals(8, simulation.getScale());
     }
 
     @Test
     public void shouldBeAbleToConvertMToPx() {
-        Simulation simulation = new Simulation(4);
-        assertEquals(Simulation.mToPx(simulation.getScale(), 10), 40);
-        assertEquals(simulation.mToPx(10), 40);
+        assertEquals(Simulation.mToPx(simulation.getScale(), 10), 80);
+        assertEquals(simulation.mToPx(10), 80);
     }
 
     @Test
     public void shouldBeAbleToConvertPxToM() {
-        Simulation simulation = new Simulation(4);
-        assertEquals(Simulation.pxToM(simulation.getScale(), 40), 10);
-        assertEquals(simulation.pxToM(40), 10);
+        assertEquals(Simulation.pxToM(simulation.getScale(), 80), 10);
+        assertEquals(simulation.pxToM(80), 10);
     }
 }

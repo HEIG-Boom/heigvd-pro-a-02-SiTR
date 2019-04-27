@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class VehicleControllerTypeTest {
     @Test
     public void configPathGetterShouldWork() {
-        assertEquals("vehicleController/careful.xml", VehicleControllerType.CAREFUL.getConfigPath());
-        assertEquals("vehicleController/reckless.xml", VehicleControllerType.RECKLESS.getConfigPath());
+        assertEquals("/vehicleController/careful.xml", VehicleControllerType.CAREFUL.getConfigPath());
+        assertEquals("/vehicleController/reckless.xml", VehicleControllerType.RECKLESS.getConfigPath());
     }
 
     /**

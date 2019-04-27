@@ -9,6 +9,7 @@ import ch.heigvd.sitr.model.ScenarioType;
 import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.model.VehicleBehaviourType;
 import ch.heigvd.sitr.model.VehicleControllerType;
+import ch.heigvd.sitr.vehicle.VehicleController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -189,15 +190,27 @@ class SettingsPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 10, 0);
         add(separator4, gbc);
 
+        // Launch the simulation with the given parameters
         final JButton startButton = new JButton("Lancer");
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SettingsWindow.getInstance().closeWindow();
-//                SimulationWindow.getInstance();
-                new Simulation(6).loop();
+
+                // Get all specified vehicles, and their controller
+                HashMap<VehicleControllerType, Integer> map = new HashMap<>();
+
+                // For each type of controller
+                for (VehicleControllerType vct : VehicleControllerType.values()) {
+                    // Add its wanted number of vehicles to the hashmap
+                    map.put(vct, (Integer) controllersSpinner.get(vct).getValue());
+                }
+
+                // Create simulation with specified parameters
+                new Simulation(getSelectedScenario(), getSelectedBehaviour(), map).loop();
             }
         });
+
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = baseY;
