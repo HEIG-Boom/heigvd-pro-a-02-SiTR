@@ -77,7 +77,7 @@ public class Simulation {
             @Override
             public void run() {
                 for (Vehicle vehicle : vehicles) {
-                    vehicle.update(0.3);
+                    vehicle.update(0.25);
                     vehicle.draw(scale);
                     // DEBUG
                     System.out.println(vehicle);

@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Simon Walther
  */
 public class VehicleControllerTest {
-    VehicleController vehicleController;
-    Vehicle vehicle;
-    Vehicle frontVehicle;
+    private VehicleController vehicleController;
+    private Vehicle vehicle;
+    private Vehicle frontVehicle;
 
     @BeforeEach
     public void createDummyVehicleController() {

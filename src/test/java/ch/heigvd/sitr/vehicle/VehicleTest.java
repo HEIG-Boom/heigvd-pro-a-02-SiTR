@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Simon Walther
  */
 public class VehicleTest {
-    Vehicle vehicle;
-    Vehicle frontVehicle;
-    VehicleController vehicleController;
-    ItineraryPath itineraryPath;
+    private Vehicle vehicle;
+    private Vehicle frontVehicle;
+    private VehicleController vehicleController;
+    private ItineraryPath itineraryPath;
 
     @BeforeEach
     public void createDummyVehicleController() {

@@ -9,7 +9,6 @@ import ch.heigvd.sitr.model.ScenarioType;
 import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.model.VehicleBehaviourType;
 import ch.heigvd.sitr.model.VehicleControllerType;
-import ch.heigvd.sitr.vehicle.VehicleController;
 
 import javax.swing.*;
 import java.awt.*;
