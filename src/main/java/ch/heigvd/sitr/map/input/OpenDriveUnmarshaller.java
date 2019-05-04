@@ -19,8 +19,8 @@ import java.io.File;
  */
 public class OpenDriveUnmarshaller {
     private static final Class OD_CLASS = ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.class;
-    // TODO Check if the pathname can ben simplified with maven ?
-    private static final File XSDFILE = new File("src/main/resources/map/OpenDRIVE_1.3.xsd");
+    private static final String BASE_PATH = "/map/";
+    private static final String XSDFILE = "OpenDRIVE_1.3.xsd";
     private static final String W3C_XML_SCHEMA_NS_URI = "http://www.w3.org/2001/XMLSchema";
 
     /**
@@ -31,12 +31,13 @@ public class OpenDriveUnmarshaller {
      * @return Instance with values available in XML document.
      */
     public OpenDRIVE load(File xmlFile) {
-        // TODO (TUM) Add some logs here
         OpenDRIVE data = null;
 
         try {
+            File xsdFile = new File(OpenDriveUnmarshaller.class.getResource(BASE_PATH + XSDFILE).getFile());
+
             // Build XML Schema based on openDRIVE xsd file
-            Schema schema = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI).newSchema(XSDFILE);
+            Schema schema = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI).newSchema(xsdFile);
 
             // Create the unmarshaller
             JAXBContext context = JAXBContext.newInstance(OD_CLASS);
