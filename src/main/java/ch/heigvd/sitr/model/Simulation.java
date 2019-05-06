@@ -11,7 +11,6 @@ import ch.heigvd.sitr.map.RoadNetwork;
 import ch.heigvd.sitr.map.input.OpenDriveHandler;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
-import lombok.Getter;
 
 import java.io.File;
 import java.util.*;
@@ -38,10 +37,6 @@ public class Simulation {
     // Road network
     private final RoadNetwork roadNetwork;
 
-    // The ratio px/m
-    @Getter
-    private double scale;
-
     /**
      * Simulation constructor
      *
@@ -52,12 +47,11 @@ public class Simulation {
     public Simulation(ScenarioType scenario, VehicleBehaviourType behaviour,
                       HashMap<VehicleControllerType, Integer> controllers) {
         this.scenario = scenario;
-        this.scale = scenario.getScale();
         this.behaviour = behaviour;
 
         // Generate vehicles from user parameters
         vehicles = generateTraffic(controllers);
-    
+
         // Create a roadNetwork instance and then parse the OpenDRIVE XML file
         roadNetwork = new RoadNetwork();
         // TODO : Remove hard coded openDriveFilename
@@ -78,14 +72,14 @@ public class Simulation {
             public void run() {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.update(0.25);
-                    vehicle.draw(scale);
+                    vehicle.draw(scenario.getScale());
                     // DEBUG
                     System.out.println(vehicle);
                 }
 
                 // TODO (tum) WTF we shouldn't do that
                 // Print the road network
-                roadNetwork.draw();
+                roadNetwork.draw(scenario.getScale());
 
                 // Callback to paintComponent()
                 window.repaint();
@@ -175,7 +169,7 @@ public class Simulation {
      * @return the number of px
      */
     public int mToPx(double m) {
-        return Simulation.mToPx(scale, m);
+        return Simulation.mToPx(scenario.getScale(), m);
     }
 
     /**
@@ -185,12 +179,13 @@ public class Simulation {
      * @return the number of px
      */
     public double pxToM(int px) {
-        return Simulation.pxToM(scale, px);
+        return Simulation.pxToM(scenario.getScale(), px);
     }
 
     /**
      * Parse the OpenDrive XML file
-     * @param roadNetwork The Road network that will contains OpenDrive road network
+     *
+     * @param roadNetwork       The Road network that will contains OpenDrive road network
      * @param openDriveFilename The OpenDrive filename
      */
     public void parseOpenDriveXml(RoadNetwork roadNetwork, String openDriveFilename) {

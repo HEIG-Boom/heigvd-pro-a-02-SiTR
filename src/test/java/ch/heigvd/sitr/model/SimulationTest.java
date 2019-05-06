@@ -37,21 +37,4 @@ class SimulationTest {
         assertEquals(1.0, Simulation.kphToMps(3.6));
         assertEquals(20.0, Simulation.kphToMps(72));
     }
-
-    @Test
-    public void shouldHaveScale() {
-        assertEquals(8, simulation.getScale());
-    }
-
-    @Test
-    public void shouldBeAbleToConvertMToPx() {
-        assertEquals(Simulation.mToPx(simulation.getScale(), 10), 80);
-        assertEquals(simulation.mToPx(10), 80);
-    }
-
-    @Test
-    public void shouldBeAbleToConvertPxToM() {
-        assertEquals(Simulation.pxToM(simulation.getScale(), 80), 10);
-        assertEquals(simulation.pxToM(80), 10);
-    }
 }
