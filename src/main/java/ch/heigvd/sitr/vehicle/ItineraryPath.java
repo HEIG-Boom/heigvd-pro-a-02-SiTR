@@ -60,9 +60,15 @@ public class ItineraryPath {
      * @param roadSegment the road segment
      */
     public ItineraryPath(RoadSegment roadSegment) {
+        int startX = (int)roadSegment.getRoadMapping().startPos().getX();
+        int startY = (int)roadSegment.getRoadMapping().startPos().getY();
+        int endX   = (int)roadSegment.getRoadMapping().endPos().getX();
+        int endY   = (int)roadSegment.getRoadMapping().endPos().getY();
+
         // TODO: IMPORTANT SCALE SHOULD BE TAKEN FROM SCENARIO
-        this.origin = new Point2D.Double(Simulation.pxToM(6, (int)roadSegment.getRoadMapping().startPos().getX()), Simulation.pxToM(6, (int)roadSegment.getRoadMapping().startPos().getY()));
-        this.destination = new Point2D.Double(Simulation.pxToM(6, (int)roadSegment.getRoadMapping().endPos().getX()), Simulation.pxToM(6, (int)roadSegment.getRoadMapping().endPos().getY()));
+        this.origin      = new Point2D.Double(Simulation.pxToM(6, startX), Simulation.pxToM(6, startY));
+        this.destination = new Point2D.Double(Simulation.pxToM(6, endX),   Simulation.pxToM(6, endY));
+
         this.directionVector = new Point2D.Double((destination.x - origin.x) / norm(), (destination.y - origin.y) / norm());
     }
 

@@ -8,6 +8,7 @@ package ch.heigvd.sitr.vehicle;
 import ch.heigvd.sitr.model.Simulation;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 /**
  * A singleton renderer for vehicles
@@ -45,6 +46,10 @@ public class VehicleRenderer {
         int length = Simulation.mToPx(scale, vehicle.getLength());
         int width  = Simulation.mToPx(scale, vehicle.getWidth());
 
+        AffineTransform rotation = new AffineTransform();
+        rotation.rotate(Math.atan2(vehicle.currentPath().getDirectionVector().y, vehicle.currentPath().getDirectionVector().x),
+                 x + length / 2, y + width / 2);
+        g.transform(rotation);
         g.fillRect(x, y, length, width);
     }
 
