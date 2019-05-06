@@ -5,12 +5,12 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -53,7 +53,7 @@ public class VehicleTest {
 
     @Test
     public void constructorWithConfigFile() {
-        VehicleController controller = new VehicleController("careful.xml");
+        VehicleController controller = new VehicleController(VehicleControllerType.CAREFUL);
         Vehicle vehicle = new Vehicle("regular.xml", controller, itineraryPath);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(1, vehicle.getWidth());

@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ public class VehicleControllerTest {
 
     @Test
     public void constructorFromFileConfiguration() {
-        VehicleController controller = new VehicleController("careful.xml");
+        VehicleController controller = new VehicleController(VehicleControllerType.CAREFUL);
         assertEquals(33.33, controller.getDesiredVelocity());
         assertEquals(2, controller.getMinimumSpacing());
         assertEquals(1.5, controller.getDesiredTimeHeadway());
@@ -57,16 +58,16 @@ public class VehicleControllerTest {
 
     @Test
     public void twoVehicleControllersWithSameValuesShouldBeEquals() {
-        VehicleController controller = new VehicleController("careful.xml");
-        VehicleController controller2 = new VehicleController("careful.xml");
+        VehicleController controller = new VehicleController(VehicleControllerType.CAREFUL);
+        VehicleController controller2 = new VehicleController(VehicleControllerType.CAREFUL);
 
         assertTrue(controller.equals(controller2));
     }
 
     @Test
     public void twoVehicleControllersWithSameValuesShouldHaveTheSameHashCode() {
-        VehicleController controller = new VehicleController("careful.xml");
-        VehicleController controller2 = new VehicleController("careful.xml");
+        VehicleController controller = new VehicleController(VehicleControllerType.CAREFUL);
+        VehicleController controller2 = new VehicleController(VehicleControllerType.CAREFUL);
 
         assertTrue(controller.hashCode() == controller2.hashCode());
     }

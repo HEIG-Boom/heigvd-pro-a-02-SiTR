@@ -5,6 +5,10 @@
 
 package ch.heigvd.sitr.gui.settings;
 
+import ch.heigvd.sitr.model.ScenarioType;
+import ch.heigvd.sitr.model.VehicleBehaviourType;
+import ch.heigvd.sitr.model.VehicleControllerType;
+
 import javax.swing.*;
 
 /**
@@ -17,6 +21,7 @@ public class SettingsWindow {
     private static SettingsWindow instance;
 
     private JFrame frame;
+    private SettingsPanel settingsPanel;
 
     /**
      * static method of implementation as singleton
@@ -36,13 +41,12 @@ public class SettingsWindow {
      */
     private SettingsWindow() {
         frame = new JFrame("Paramétrage");
-        JPanel settingsPanel = new SettingsPanel();
+        settingsPanel = new SettingsPanel();
         frame.setContentPane(settingsPanel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.pack();
-        frame.setVisible(true);
-
+        showWindow();
     }
 
     /**
@@ -58,5 +62,25 @@ public class SettingsWindow {
      */
     public void showWindow() {
         frame.setVisible(true);
+    }
+
+    /**
+     * Method used to get the selected scenario
+     * @return the selected scenario
+     */
+    public ScenarioType getSelectedScenario() {
+        return settingsPanel.getSelectedScenario();
+    }
+
+    public int getNumberOfController(VehicleControllerType vct) {
+        return settingsPanel.getNumberOfController(vct);
+    }
+
+    /**
+     * Method used to get the selected behaviour of the simulation
+     * @return the selected behaviour
+     */
+    public VehicleBehaviourType getSelectedBehaviour() {
+        return settingsPanel.getSelectedBehaviour();
     }
 }

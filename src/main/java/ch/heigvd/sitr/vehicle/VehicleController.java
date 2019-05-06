@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Document;
@@ -19,36 +20,45 @@ import static java.lang.Math.sqrt;
 
 /**
  * Vehicle Controller represents the vehicle controller
- *
+ * <p>
  * It's based on the Intelligent Driver Model (IDM).
- *
+ * <p>
  * For more information, see :
  * - the wikipedia article : https://en.wikipedia.org/wiki/Intelligent_driver_model
  * - Congested Traffic States in Empirical Observations and Microscopic Simulations : https://arxiv.org/pdf/cond-mat/0002177.pdf
  * - Concise explanation : http://www.mtreiber.de/trafficSimulationDe_html5_2016_06_29/IDM.html
  * - Traffic Flow Dynamics : Data, Models and Simulation, by Martin Treiber and Arne Kesting, chap 11
+ *
  * @author Simon Walther
  */
 public class VehicleController {
-    private static final String BASE_CONFIG_PATH = "/vehicleController/";
-
     // Delta exponent, traditionally set at 4
-    static final double delta = 4;
+    private static final double delta = 4;
 
     // Desired velocity (v0) of the vehicle controller [m/s]
-    @Getter @Setter private double desiredVelocity;
+    @Getter
+    @Setter
+    private double desiredVelocity;
 
     // Minimum spacing (s0) of the vehicle controller [m]
-    @Getter @Setter private double minimumSpacing;
+    @Getter
+    @Setter
+    private double minimumSpacing;
 
     // Desired time headway (T) of the vehicle controller [s]
-    @Getter @Setter private double desiredTimeHeadway;
+    @Getter
+    @Setter
+    private double desiredTimeHeadway;
 
     // Max acceleration (a) of the vehicle controller [m/s^2]
-    @Getter @Setter private double maxAcceleration;
+    @Getter
+    @Setter
+    private double maxAcceleration;
 
     // Comfortable braking deceleration (b) of the vehicle controller [m/s^2]
-    @Getter @Setter private double comfortableBrakingDeceleration;
+    @Getter
+    @Setter
+    private double comfortableBrakingDeceleration;
 
     public VehicleController(double desiredVelocity, double minimumSpacing, double desiredTimeHeadway,
                              double maxAcceleration, double comfortableBrakingDeceleration) {
@@ -61,14 +71,16 @@ public class VehicleController {
 
     /**
      * Create vehicle controller with configuration taken from an XML configuration file
-     * @param configPath the path to the configuration file
+     *
+     * @param vct The type of controller we want to create
      */
-    public VehicleController(String configPath) {
-        InputStream in = VehicleController.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
+    public VehicleController(VehicleControllerType vct) {
+        // Get the controller's config file
+        InputStream in = VehicleController.class.getResourceAsStream(vct.getConfigPath());
         SAXBuilder saxBuilder = new SAXBuilder();
 
         try {
-            Document document = (Document) saxBuilder.build(in);
+            Document document = saxBuilder.build(in);
             Element root = document.getRootElement();
 
             desiredVelocity = Double.parseDouble(root.getChildText("desiredVelocity"));
@@ -84,7 +96,7 @@ public class VehicleController {
     /**
      * Calculate the safe distance
      * s0 + v*T
-     *
+     * <p>
      * Variables :
      * s0 (minimum spacing) [m]
      * v (speed) [m/s]
@@ -100,7 +112,7 @@ public class VehicleController {
     /**
      * Calculate the desired dynamical distance s*
      * s*(v, deltaV) = s0 + max(0, (v*T + (v * deltaV)/(2*sqrt(a * b)))
-     *
+     * <p>
      * Variables :
      * s0 (minimumSpacing) [m]
      * v (speed) [m/s]
@@ -108,7 +120,7 @@ public class VehicleController {
      * deltaV (relative speed) [m/s]
      * a (max acceleration) [m/s^2]
      * b (comfortable braking deceleration) [m/s^2]
-     *
+     * <p>
      * Note : s0 + v*T is the safe distance
      *
      * @param vehicle Vehicle for which to calculate the desired dynamical distance
@@ -116,9 +128,9 @@ public class VehicleController {
      */
     public double desiredDynamicalDistance(Vehicle vehicle) {
         double dynamicalTerm = (vehicle.getSpeed() * vehicle.relSpeed()) /
-                               (2 * sqrt(maxAcceleration * comfortableBrakingDeceleration));
+                (2 * sqrt(maxAcceleration * comfortableBrakingDeceleration));
 
-        if(safeDistance(vehicle) - minimumSpacing + dynamicalTerm < 0) {
+        if (safeDistance(vehicle) - minimumSpacing + dynamicalTerm < 0) {
             return minimumSpacing;
         }
 
@@ -128,7 +140,7 @@ public class VehicleController {
     /**
      * Calculate the desired acceleration
      * a * [1 - (v / v0) ^ delta]
-     *
+     * <p>
      * Variables :
      * a (max acceleration) [m/s^2]
      * v (speed) [m/s]
@@ -144,7 +156,7 @@ public class VehicleController {
     /**
      * Calculate the acceleration
      * a * [1 - (v / v0)^delta - (s*(v, deltaV) / s)^2]
-     *
+     * <p>
      * Variables :
      * a (max acceleration) [m/s^2]
      * v (speed) [m/s]
@@ -158,11 +170,12 @@ public class VehicleController {
      */
     public double acceleration(Vehicle vehicle) {
         return desiredAcceleration(vehicle) - maxAcceleration *
-               Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
+                Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
     }
 
     /**
      * Compare this with another object and determine if they're equals
+     *
      * @param o the other object
      * @return if they are equals
      */
@@ -180,6 +193,7 @@ public class VehicleController {
 
     /**
      * hash code of this object
+     *
      * @return the hash code
      */
     @Override
