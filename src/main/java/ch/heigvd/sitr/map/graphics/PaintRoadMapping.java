@@ -67,7 +67,6 @@ public final class PaintRoadMapping {
                     radius + lateralOffset * (arc.isClockwise() ? 1 : -1), Math.toDegrees(angSt),
                     Math.toDegrees(arc.getArcAngle()), Arc2D.OPEN);
             g.draw(arc2D);
-            return;
         }
 
         // TODO (tum) Handle other type of road mapping
