@@ -8,12 +8,14 @@ package ch.heigvd.sitr.model;
 import ch.heigvd.sitr.gui.simulation.Displayer;
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.map.RoadNetwork;
+import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.map.input.OpenDriveHandler;
 import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.Timer;
@@ -63,13 +65,14 @@ public class Simulation {
         this.scale = scenario.getScale();
         this.behaviour = behaviour;
 
-        // Generate vehicles from user parameters
-        vehicles = generateTraffic(controllers);
-    
         // Create a roadNetwork instance and then parse the OpenDRIVE XML file
         roadNetwork = new RoadNetwork();
+
         // TODO : Remove hard coded openDriveFilename
         parseOpenDriveXml(roadNetwork, "simple_road.xodr");
+
+        // Generate vehicles from user parameters
+        vehicles = generateTraffic(controllers);
     }
 
     /**
@@ -89,7 +92,7 @@ public class Simulation {
                 roadNetwork.draw();
 
                 for (Vehicle vehicle : vehicles) {
-                    vehicle.update(0.25);
+                    vehicle.update(0.10);
                     vehicle.draw(scale);
                     // DEBUG
                     System.out.println(vehicle);
@@ -112,7 +115,14 @@ public class Simulation {
 
         // TODO Manage positions and front vehicles
 
-        ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(7, 49), new Point2D.Double(75, 49));
+        LinkedList<ItineraryPath> defaultItinerary = new LinkedList<>();
+        Iterator<RoadSegment> roadSegmentIterator = roadNetwork.iterator();
+
+        while(roadSegmentIterator.hasNext()) {
+            defaultItinerary.add(new ItineraryPath(roadSegmentIterator.next()));
+        }
+
+        // ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(7, 49), new Point2D.Double(75, 49));
 
         // Iterate through the hash map
         for (Map.Entry<VehicleControllerType, Integer> entry : controllers.entrySet()) {
@@ -122,7 +132,7 @@ public class Simulation {
             // Generate as many vehicles as asked
             for (int i = 0; i < entry.getValue(); i++) {
                 // TODO: add last vehicle as front vehicle
-                Vehicle v = new Vehicle("regular.xml", controller, itineraryPath);
+                Vehicle v = new Vehicle("regular.xml", controller, defaultItinerary);
                 // v.setFrontVehicle(wall);
                 vehicles.add(v);
             }

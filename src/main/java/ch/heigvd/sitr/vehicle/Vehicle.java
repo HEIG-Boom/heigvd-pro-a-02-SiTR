@@ -68,14 +68,14 @@ public class Vehicle implements Renderable {
      * @param length            length [m] of the vehicle
      * @param width             width [m] of the vehicle
      * @param maxSpeed          max speed [m/s] of the vehicle
-     * @param firstPath         the first itinerary path of the vehicle
+     * @param itinerary         the vehicle itinerary
      */
-    public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed, ItineraryPath firstPath) {
+    public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed, LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
         this.width = width;
         this.length = length;
         this.maxSpeed = maxSpeed;
-        this.addToItinerary(firstPath);
+        this.itinerary = itinerary;
     }
 
     /**
@@ -83,9 +83,9 @@ public class Vehicle implements Renderable {
      *
      * @param configPath        the path to the configuration file
      * @param vehicleController the vehicle controller
-     * @param firstPath         the vehicle first path
+     * @param itinerary         the vehicle itinerary
      */
-    public Vehicle(String configPath, VehicleController vehicleController, ItineraryPath firstPath) {
+    public Vehicle(String configPath, VehicleController vehicleController, LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
 
         InputStream in = Vehicle.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
@@ -111,7 +111,7 @@ public class Vehicle implements Renderable {
         this.length = length;
         this.width = width;
         this.maxSpeed = maxSpeed;
-        this.addToItinerary(firstPath);
+        this.itinerary = itinerary;
     }
 
     public void setPosition(double position) {
