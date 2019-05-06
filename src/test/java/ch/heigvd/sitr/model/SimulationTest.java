@@ -26,13 +26,13 @@ class SimulationTest {
         map.put(VehicleControllerType.CAREFUL, 12);
         map.put(VehicleControllerType.AUTONOMOUS, 4);
 
-        simulation = new Simulation(ScenarioType.SIMPLE_ROAD, VehicleBehaviourType.STOP, map);
+        simulation = new Simulation(Scenario.SIMPLE_ROAD, VehicleBehaviour.STOP, map);
     }
 
     @Test
     public void simulationObjectShouldHaveCorrectAttributes() {
-        assertEquals(simulation.getScenario(), ScenarioType.SIMPLE_ROAD);
-        assertEquals(simulation.getBehaviour(), VehicleBehaviourType.STOP);
+        assertEquals(simulation.getScenario(), Scenario.SIMPLE_ROAD);
+        assertEquals(simulation.getBehaviour(), VehicleBehaviour.STOP);
     }
 
     @Test

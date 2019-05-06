@@ -1,11 +1,9 @@
 /*
- * Filename : VehicleBehaviourType.java
+ * Filename : VehicleBehaviour.java
  * Creation date : 08.04.2019
  */
 
 package ch.heigvd.sitr.model;
-
-import lombok.Getter;
 
 /**
  * Enum for vehicle behaviour types, provides their names
@@ -13,7 +11,7 @@ import lombok.Getter;
  *
  * @author Luc Wachter
  */
-public enum VehicleBehaviourType {
+public enum VehicleBehaviour {
     REVERSE_PATH("Aller de la destination au départ"),
     START_AGAIN("Recommencer un trajet identique"),
     STOP("S'arrêter là");
@@ -26,7 +24,7 @@ public enum VehicleBehaviourType {
      *
      * @param name The name of the vehicle behaviour
      */
-    VehicleBehaviourType(String name) {
+    VehicleBehaviour(String name) {
         this.name = name;
     }
 

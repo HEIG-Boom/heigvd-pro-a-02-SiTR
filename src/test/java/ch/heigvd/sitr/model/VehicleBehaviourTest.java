@@ -1,5 +1,5 @@
 /*
- * Filename : VehicleBehaviourTypeTest.java
+ * Filename : VehicleBehaviourTest.java
  * Creation date : 08.04.2019
  */
 
@@ -10,17 +10,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for the VehicleBehaviourType enum
+ * Unit tests for the VehicleBehaviour enum
  *
  * @author Luc Wachter
  */
-class VehicleBehaviourTypeTest {
+class VehicleBehaviourTest {
     /**
      * Test enum's toString
      */
     @Test
     public void toStringShouldEnableToGetBehaviourNames() {
-        assertEquals("Aller de la destination au départ", VehicleBehaviourType.REVERSE_PATH.toString());
-        assertEquals("S'arrêter là", VehicleBehaviourType.STOP.toString());
+        assertEquals("Aller de la destination au départ", VehicleBehaviour.REVERSE_PATH.toString());
+        assertEquals("S'arrêter là", VehicleBehaviour.STOP.toString());
     }
 }
