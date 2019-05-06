@@ -63,6 +63,8 @@ public class ItineraryPath {
      * @param roadSegment the road segment
      */
     public ItineraryPath(RoadSegment roadSegment) {
+        // TODO: change way of centering vehicles on lane, it doesn't take in account lane orientation
+        // TODO: the end of the itinerary should take in account the length of the vehicle
         int startX = (int)roadSegment.getRoadMapping().startPos().getX();
         int startY = (int)(roadSegment.getRoadMapping().startPos().getY() + LANE_PADDING - roadSegment.getRoadMapping().roadWidth());
         int endX   = (int)roadSegment.getRoadMapping().endPos().getX();
