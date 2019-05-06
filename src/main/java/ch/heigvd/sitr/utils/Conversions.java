@@ -40,7 +40,7 @@ public class Conversions {
      * @param m     the number of m
      * @return the number of px
      */
-    public static int mToPx(double scale, double m) {
+    public static int metersToPixels(double scale, double m) {
         return (int) Math.round(m * scale);
     }
 
@@ -51,7 +51,7 @@ public class Conversions {
      * @param px    the number of px
      * @return the number of px
      */
-    public static double pxToM(double scale, int px) {
+    public static double pixelsToMeters(double scale, int px) {
         return px / scale;
     }
 }

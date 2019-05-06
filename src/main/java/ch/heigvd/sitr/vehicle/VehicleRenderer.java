@@ -5,7 +5,6 @@
 
 package ch.heigvd.sitr.vehicle;
 
-import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.utils.Conversions;
 
 import java.awt.*;
@@ -40,8 +39,8 @@ public class VehicleRenderer {
         // TODO store drawing information in Vehicle (x, y, length, width, color)
 //        g.setColor(vehicle.getVehicleController().getColor());
         g.setColor(Color.BLUE);
-        g.fillRect(Conversions.mToPx(scale, vehicle.getPosition()), 20, Conversions.mToPx(scale,
-                vehicle.getLength()), Conversions.mToPx(scale, vehicle.getWidth()));
+        g.fillRect(Conversions.metersToPixels(scale, vehicle.getPosition()), 20, Conversions.metersToPixels(scale,
+                vehicle.getLength()), Conversions.metersToPixels(scale, vehicle.getWidth()));
     }
 
     /**

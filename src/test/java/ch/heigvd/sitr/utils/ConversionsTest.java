@@ -26,4 +26,16 @@ class ConversionsTest {
         assertEquals(1.0, Conversions.kphToMps(3.6));
         assertEquals(20.0, Conversions.kphToMps(72));
     }
+
+    @Test
+    public void shouldReturnCorrectAmountOfM() {
+        // 100 pixels in meters
+        assertEquals(12.5, Conversions.pixelsToMeters(8, 100));
+    }
+
+    @Test
+    public void shouldReturnCorrectAmountOfPx() {
+        // 4 meters in pixels
+        assertEquals(32, Conversions.metersToPixels(8, 4));
+    }
 }

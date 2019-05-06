@@ -5,7 +5,7 @@
 
 package ch.heigvd.sitr.model;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -18,11 +18,30 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Luc Wachter
  */
 class SimulationTest {
-    Simulation simulation;
+    private static Simulation simulation;
 
-    @BeforeEach
-    public void instantiateTestSimulation() {
+    @BeforeAll
+    public static void instantiateTestSimulation() {
         HashMap<VehicleControllerType, Integer> map = new HashMap<>();
+        map.put(VehicleControllerType.CAREFUL, 12);
+        map.put(VehicleControllerType.AUTONOMOUS, 4);
+
         simulation = new Simulation(ScenarioType.SIMPLE_ROAD, VehicleBehaviourType.STOP, map);
+    }
+
+    @Test
+    public void simulationObjectShouldHaveCorrectAttributes() {
+        assertEquals(simulation.getScenario(), ScenarioType.SIMPLE_ROAD);
+        assertEquals(simulation.getBehaviour(), VehicleBehaviourType.STOP);
+    }
+
+    @Test
+    public void simulationShouldGenerateAListOfVehicles() {
+        assertNotNull(simulation.getVehicles());
+    }
+
+    @Test
+    public void listOfVehiclesShouldHaveCorrectNbrOfVehicles() {
+        assertEquals(simulation.getVehicles().size(), 16);
     }
 }
