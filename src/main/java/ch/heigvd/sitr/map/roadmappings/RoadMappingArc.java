@@ -1,20 +1,39 @@
 package ch.heigvd.sitr.map.roadmappings;
 
 import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.Road.PlanView.Geometry;
+import lombok.Getter;
 
+/**
+ * This class is used to map a road arc
+ */
 public class RoadMappingArc extends RoadMapping {
 
     private static final double HALF_PI = 0.5 * Math.PI;
+    // Location the center of Arc
+    private double centerX;
+    private double centerY;
 
-    protected double centerX;
-    protected double centerY;
+    // atribut of Arc
+    @Getter
+    private final double radius;
+    @Getter
+    private final boolean clockwise;
+    @Getter
+    private double startAngle;
+    @Getter
+    private double arcAngle;
 
-    protected final double radius;
-
-    protected final boolean clockwise;
-    protected double startAngle;
-    protected double arcAngle;
-
+    /**
+     * Constructor
+     *
+     * @param laneGeometries Lane's geometry in the road mapping
+     * @param s              The start position of the plan view geometry (s-coordinate)
+     * @param x0             The start position of the plan view geometryy (x inertial)
+     * @param y0             The start position of the plan view geometry (y inertial)
+     * @param startAngle     The start Angle when begin the Arc
+     * @param length         The length of the line
+     * @param curvature      The curvateur of the Arc
+     */
     RoadMappingArc(LaneGeometries laneGeometries, double s, double x0, double y0, double startAngle, double length, double curvature) {
         super(laneGeometries, x0, y0);
         this.startAngle = startAngle;
@@ -24,6 +43,28 @@ public class RoadMappingArc extends RoadMapping {
         arcAngle = roadLength * curvature;
         centerX = x0 - radius * Math.cos(startAngle - HALF_PI) * (clockwise ? -1 : 1);
         centerY = y0 - radius * Math.sin(startAngle - HALF_PI) * (clockwise ? -1 : 1);
+    }
+
+    /**
+     * This methode create the road mapping Arc
+     *
+     * @param roadGeometry The road geometry
+     * @return The created road mapping
+     */
+    public static RoadMappingArc create(RoadGeometry roadGeometry) {
+        return create(roadGeometry.getLaneGeometries(), roadGeometry.getGeometry());
+    }
+
+    /**
+     * This methode private maps the road Arc
+     *
+     * @param laneGeometries The line Geometries of the road
+     * @param geometry       OpenDRIVE plan view geometry
+     * @return The created road mapping
+     */
+    private static RoadMappingArc create(LaneGeometries laneGeometries, Geometry geometry) {
+        return new RoadMappingArc(laneGeometries, geometry.getS(), geometry.getX(), geometry.getY(), geometry.getHdg(),
+                geometry.getLength(), geometry.getArc().getCurvature());
     }
 
     @Override
@@ -39,51 +80,6 @@ public class RoadMappingArc extends RoadMapping {
         posTheta.x = centerX + r * Math.cos(arcTheta) * (clockwise ? -1 : 1);
         posTheta.y = centerY + r * Math.sin(arcTheta) * (clockwise ? -1 : 1);
         return posTheta;
-    }
-
-    public static RoadMappingArc create(RoadGeometry roadGeometry) {
-        return create(roadGeometry.getLaneGeometries(), roadGeometry.getGeometry());
-    }
-
-    private static RoadMappingArc create(LaneGeometries laneGeometries, Geometry geometry) {
-        return new RoadMappingArc(laneGeometries, geometry.getS(), geometry.getX(), geometry.getY(), geometry.getHdg(),
-                geometry.getLength(), geometry.getArc().getCurvature());
-    }
-
-    /**
-     * Returns the start angle of the arc.
-     *
-     * @return the start angle of the arc, radians
-     */
-    public double startAngle() {
-        return startAngle;
-    }
-
-    /**
-     * Returns the sweep angle of the arc.
-     *
-     * @return sweep angle of the arc, radians
-     */
-    public double arcAngle() {
-        return arcAngle;
-    }
-
-    /**
-     * Returns true if the circle mapping is in a clockwise direction.
-     *
-     * @return true if the circle mapping is in a clockwise direction
-     */
-    public boolean clockwise() {
-        return clockwise;
-    }
-
-    /**
-     * Returns the radius of the circle.
-     *
-     * @return the radius of the circle
-     */
-    public double radius() {
-        return radius;
     }
 
     @Override
