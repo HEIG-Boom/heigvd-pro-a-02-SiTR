@@ -13,7 +13,13 @@ import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /**
@@ -61,7 +67,7 @@ public class Simulation {
         // Create a roadNetwork instance and then parse the OpenDRIVE XML file
         roadNetwork = new RoadNetwork();
         // TODO : Remove hard coded openDriveFilename
-        parseOpenDriveXml(roadNetwork, "src/main/resources/map/simulation/simple_road.xodr");
+        parseOpenDriveXml(roadNetwork, "simple_road.xodr");
     }
 
     /**
@@ -195,7 +201,8 @@ public class Simulation {
      */
     public void parseOpenDriveXml(RoadNetwork roadNetwork, String openDriveFilename) {
         // TODO (TUM) Add some logs here
-        File openDriveFile = new File(openDriveFilename);
-        OpenDriveHandler.loadRoadNetwork(roadNetwork, openDriveFile);
+        InputStream in = getClass().getResourceAsStream("/map/simulation/" + openDriveFilename);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        OpenDriveHandler.loadRoadNetwork(roadNetwork, new StreamSource(br));
     }
 }
