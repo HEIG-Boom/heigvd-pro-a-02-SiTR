@@ -42,6 +42,30 @@ public class Simulation {
     @Getter
     private double scale;
 
+    // The timer for the main loop
+    @Getter
+    public static Timer timer;
+
+    // The task for the timer
+    private final TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            for (Vehicle vehicle : vehicles) {
+                vehicle.update(0.3);
+                vehicle.draw(scale);
+                // DEBUG
+                System.out.println(vehicle);
+            }
+
+            // TODO (tum) WTF we shouldn't do that
+            // Print the road network
+            roadNetwork.draw();
+
+            // Callback to paintComponent()
+            window.repaint();
+        }
+    };
+
     /**
      * Simulation constructor
      *
@@ -71,26 +95,12 @@ public class Simulation {
         // Launch main window
         window = SimulationWindow.getInstance();
 
+        // Create a timer to run the main loop
+        timer = new Timer();
+
         // Schedule a task to run immediately, and then
         // every UPDATE_RATE per second
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                for (Vehicle vehicle : vehicles) {
-                    vehicle.update(0.3);
-                    vehicle.draw(scale);
-                    // DEBUG
-                    System.out.println(vehicle);
-                }
-
-                // TODO (tum) WTF we shouldn't do that
-                // Print the road network
-                roadNetwork.draw();
-
-                // Callback to paintComponent()
-                window.repaint();
-            }
-        }, 0, UPDATE_RATE);
+        timer.scheduleAtFixedRate(task, 0, UPDATE_RATE);
     }
 
     /**
