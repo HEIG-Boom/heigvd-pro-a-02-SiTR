@@ -30,6 +30,9 @@ public class ItineraryPath {
     @Getter
     private Point2D.Double directionVector;
 
+    // padding at the top of the lane [px]
+    private static final int LANE_PADDING = 2;
+
     /**
      * Constructor
      *
@@ -61,9 +64,9 @@ public class ItineraryPath {
      */
     public ItineraryPath(RoadSegment roadSegment) {
         int startX = (int)roadSegment.getRoadMapping().startPos().getX();
-        int startY = (int)roadSegment.getRoadMapping().startPos().getY();
+        int startY = (int)(roadSegment.getRoadMapping().startPos().getY() + LANE_PADDING - roadSegment.getRoadMapping().roadWidth());
         int endX   = (int)roadSegment.getRoadMapping().endPos().getX();
-        int endY   = (int)roadSegment.getRoadMapping().endPos().getY();
+        int endY   = (int)(roadSegment.getRoadMapping().endPos().getY() + LANE_PADDING - roadSegment.getRoadMapping().roadWidth());
 
         // TODO: IMPORTANT SCALE SHOULD BE TAKEN FROM SCENARIO
         this.origin      = new Point2D.Double(Simulation.pxToM(6, startX), Simulation.pxToM(6, startY));
