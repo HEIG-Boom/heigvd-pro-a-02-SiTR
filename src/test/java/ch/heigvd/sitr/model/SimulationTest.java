@@ -40,18 +40,18 @@ class SimulationTest {
 
     @Test
     public void shouldHaveScale() {
-        assertEquals(8, simulation.getScale());
+        assertEquals(6, simulation.getScale());
     }
 
     @Test
     public void shouldBeAbleToConvertMToPx() {
-        assertEquals(Simulation.mToPx(simulation.getScale(), 10), 80);
-        assertEquals(simulation.mToPx(10), 80);
+        assertEquals(6, Simulation.mToPx(simulation.getScale(), 1));
+        assertEquals(60, simulation.mToPx(10));
     }
 
     @Test
     public void shouldBeAbleToConvertPxToM() {
-        assertEquals(Simulation.pxToM(simulation.getScale(), 80), 10);
-        assertEquals(simulation.pxToM(80), 10);
+        assertEquals(10, Simulation.pxToM(simulation.getScale(), 60));
+        assertEquals(10, simulation.pxToM(60));
     }
 }

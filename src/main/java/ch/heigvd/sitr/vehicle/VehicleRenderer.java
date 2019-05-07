@@ -8,6 +8,7 @@ package ch.heigvd.sitr.vehicle;
 import ch.heigvd.sitr.model.Simulation;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 /**
  * A singleton renderer for vehicles
@@ -39,7 +40,17 @@ public class VehicleRenderer {
         // TODO store drawing information in Vehicle (x, y, length, width, color)
 //        g.setColor(vehicle.getVehicleController().getColor());
         g.setColor(Color.BLUE);
-        g.fillRect((int) Simulation.mToPx(scale, vehicle.getPosition()), 20, Simulation.mToPx(scale, vehicle.getLength()), Simulation.mToPx(scale, vehicle.getWidth()));
+
+        int x      = Simulation.mToPx(scale,vehicle.currentPath().getOrigin().getX() + vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
+        int y      = Simulation.mToPx(scale,vehicle.currentPath().getOrigin().getY() + vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
+        int length = Simulation.mToPx(scale, vehicle.getLength());
+        int width  = Simulation.mToPx(scale, vehicle.getWidth());
+
+        AffineTransform rotation = new AffineTransform();
+        rotation.rotate(Math.atan2(vehicle.currentPath().getDirectionVector().y, vehicle.currentPath().getDirectionVector().x),
+                 x + length / 2, y + width / 2);
+        g.transform(rotation);
+        g.fillRect(x, y, length, width);
     }
 
     /**
