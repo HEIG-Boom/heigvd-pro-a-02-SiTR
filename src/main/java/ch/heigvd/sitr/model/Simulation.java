@@ -14,13 +14,12 @@ import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Simulation class handles all global simulation settings and values
@@ -29,6 +28,8 @@ import java.util.*;
  * @author Luc Wachter, Simon Walther
  */
 public class Simulation {
+    private static final Logger LOG = Logger.getLogger(Simulation.class.getName());
+
     // The displayable component we need to repaint
     private Displayer window;
     // The scenario of the current simulation
@@ -67,7 +68,7 @@ public class Simulation {
         // Create a roadNetwork instance and then parse the OpenDRIVE XML file
         roadNetwork = new RoadNetwork();
         // TODO : Remove hard coded openDriveFilename
-        parseOpenDriveXml(roadNetwork, "simple_road.xodr");
+        parseOpenDriveXml(roadNetwork, scenario.getConfigPath());
     }
 
     /**
@@ -200,8 +201,8 @@ public class Simulation {
      * @param openDriveFilename The OpenDrive filename
      */
     public void parseOpenDriveXml(RoadNetwork roadNetwork, String openDriveFilename) {
-        // TODO (TUM) Add some logs here
-        InputStream in = getClass().getResourceAsStream("/map/simulation/" + openDriveFilename);
+        LOG.log(Level.INFO, "parsing {0} file", openDriveFilename);
+        InputStream in = getClass().getResourceAsStream(openDriveFilename);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         OpenDriveHandler.loadRoadNetwork(roadNetwork, new StreamSource(br));
     }
