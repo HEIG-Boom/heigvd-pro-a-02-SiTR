@@ -3,7 +3,7 @@
  * Creation date: 10.04.2019
  */
 
-package ch.heigvd.sitr.map.graphics;
+package ch.heigvd.sitr.utils;
 
 /**
  * Interface to be implemented by renderable objects
@@ -11,10 +11,16 @@ package ch.heigvd.sitr.map.graphics;
  * @author Luc Wachter
  */
 public interface Renderable {
-    // TODO (tum) Move this inteface in utils package (Right now it's a copy of
-    //  vehicule.Renderable
+//    VehicleRenderer getRenderer();
+
+//    Color getColor();
+
+//    Shape getShape();
+
     /**
      * Method to make the object call its renderer
+     *
+     * @param scale the ratio px/m
      */
-    void draw();
+    void draw(double scale);
 }

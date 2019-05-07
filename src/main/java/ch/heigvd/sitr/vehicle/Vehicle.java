@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.utils.Renderable;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Document;

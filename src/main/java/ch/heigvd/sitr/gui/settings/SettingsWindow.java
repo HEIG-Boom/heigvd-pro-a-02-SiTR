@@ -5,8 +5,8 @@
 
 package ch.heigvd.sitr.gui.settings;
 
-import ch.heigvd.sitr.model.ScenarioType;
-import ch.heigvd.sitr.model.VehicleBehaviourType;
+import ch.heigvd.sitr.model.Scenario;
+import ch.heigvd.sitr.model.VehicleBehaviour;
 import ch.heigvd.sitr.model.VehicleControllerType;
 
 import javax.swing.*;
@@ -68,7 +68,7 @@ public class SettingsWindow {
      * Method used to get the selected scenario
      * @return the selected scenario
      */
-    public ScenarioType getSelectedScenario() {
+    public Scenario getSelectedScenario() {
         return settingsPanel.getSelectedScenario();
     }
 
@@ -80,7 +80,7 @@ public class SettingsWindow {
      * Method used to get the selected behaviour of the simulation
      * @return the selected behaviour
      */
-    public VehicleBehaviourType getSelectedBehaviour() {
+    public VehicleBehaviour getSelectedBehaviour() {
         return settingsPanel.getSelectedBehaviour();
     }
 }

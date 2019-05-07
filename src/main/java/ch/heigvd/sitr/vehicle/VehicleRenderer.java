@@ -5,7 +5,7 @@
 
 package ch.heigvd.sitr.vehicle;
 
-import ch.heigvd.sitr.model.Simulation;
+import ch.heigvd.sitr.utils.Conversions;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -41,10 +41,12 @@ public class VehicleRenderer {
 //        g.setColor(vehicle.getVehicleController().getColor());
         g.setColor(Color.BLUE);
 
-        int x      = Simulation.mToPx(scale,vehicle.currentPath().getOrigin().getX() + vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
-        int y      = Simulation.mToPx(scale,vehicle.currentPath().getOrigin().getY() + vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
-        int length = Simulation.mToPx(scale, vehicle.getLength());
-        int width  = Simulation.mToPx(scale, vehicle.getWidth());
+        int x      = Conversions.metersToPixels(scale,
+                vehicle.currentPath().getOrigin().getX() + vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
+        int y      = Conversions.metersToPixels(scale,
+                vehicle.currentPath().getOrigin().getY() + vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
+        int length = Conversions.metersToPixels(scale, vehicle.getLength());
+        int width  = Conversions.metersToPixels(scale, vehicle.getWidth());
 
         AffineTransform rotation = new AffineTransform();
         rotation.rotate(Math.atan2(vehicle.currentPath().getDirectionVector().y, vehicle.currentPath().getDirectionVector().x),

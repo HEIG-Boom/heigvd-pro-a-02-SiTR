@@ -5,11 +5,10 @@
 
 package ch.heigvd.sitr.gui.settings;
 
-import ch.heigvd.sitr.model.ScenarioType;
+import ch.heigvd.sitr.model.Scenario;
 import ch.heigvd.sitr.model.Simulation;
-import ch.heigvd.sitr.model.VehicleBehaviourType;
+import ch.heigvd.sitr.model.VehicleBehaviour;
 import ch.heigvd.sitr.model.VehicleControllerType;
-import ch.heigvd.sitr.vehicle.VehicleController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,7 +90,7 @@ class SettingsPanel extends JPanel {
 
         /* Adding scenario to the scenario selector */
 
-        for (ScenarioType st : ScenarioType.values()) {
+        for (Scenario st : Scenario.values()) {
             // call toString for each object
             scenarioSelector.addItem(st);
         }
@@ -167,7 +166,7 @@ class SettingsPanel extends JPanel {
 
         /* Adding behavior to the behavior selector */
 
-        for (VehicleBehaviourType vb : VehicleBehaviourType.values()) {
+        for (VehicleBehaviour vb : VehicleBehaviour.values()) {
             // call toString for each object
             behaviorSelector.addItem(vb);
         }
@@ -224,8 +223,8 @@ class SettingsPanel extends JPanel {
      *
      * @return the selected scenario
      */
-    ScenarioType getSelectedScenario() {
-        return (ScenarioType) scenarioSelector.getSelectedItem();
+    Scenario getSelectedScenario() {
+        return (Scenario) scenarioSelector.getSelectedItem();
     }
 
     /**
@@ -247,7 +246,7 @@ class SettingsPanel extends JPanel {
      *
      * @return the selected behaviour
      */
-    VehicleBehaviourType getSelectedBehaviour() {
-        return (VehicleBehaviourType) behaviorSelector.getSelectedItem();
+    VehicleBehaviour getSelectedBehaviour() {
+        return (VehicleBehaviour) behaviorSelector.getSelectedItem();
     }
 }
