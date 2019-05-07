@@ -9,6 +9,9 @@ import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.geom.Point2D;
+import java.util.LinkedList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,6 +23,12 @@ public class VehicleControllerTest {
     private VehicleController vehicleController;
     private Vehicle vehicle;
     private Vehicle frontVehicle;
+    private LinkedList<ItineraryPath> defaultItinerary = new LinkedList<>();
+
+    @BeforeEach
+    public void createDummyItinerary() {
+        defaultItinerary.add(new ItineraryPath(new Point2D.Double(0, 0), new Point2D.Double(10000, 0)));
+    }
 
     @BeforeEach
     public void createDummyVehicleController() {
@@ -28,8 +37,8 @@ public class VehicleControllerTest {
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, null);
-        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, null);
+        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
+        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
         vehicle.setFrontVehicle(frontVehicle);
     }
 

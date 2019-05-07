@@ -8,12 +8,20 @@ package ch.heigvd.sitr.model;
 import ch.heigvd.sitr.gui.simulation.Displayer;
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.map.RoadNetwork;
+import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.map.input.OpenDriveHandler;
+import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 
-import java.io.File;
+import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.xml.transform.stream.StreamSource;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /**
@@ -63,7 +71,7 @@ public class Simulation {
         roadNetwork = new RoadNetwork();
 
         // TODO : Remove hard coded openDriveFilename
-        parseOpenDriveXml(roadNetwork, "src/main/resources/map/simulation/simple_road.xodr");
+        parseOpenDriveXml(roadNetwork, "simple_road.xodr");
     }
 
     /**
@@ -78,16 +86,16 @@ public class Simulation {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                // TODO (tum) WTF we shouldn't do that
+                // Print the road network
+                roadNetwork.draw(scenario.getScale());
+
                 for (Vehicle vehicle : vehicles) {
-                    vehicle.update(0.25);
+                    vehicle.update(0.10);
                     vehicle.draw(scenario.getScale());
                     // DEBUG
                     System.out.println(vehicle);
                 }
-
-                // TODO (tum) WTF we shouldn't do that
-                // Print the road network
-                roadNetwork.draw(scenario.getScale());
 
                 // Callback to paintComponent()
                 window.repaint();
@@ -106,9 +114,14 @@ public class Simulation {
 
         // TODO Manage positions and front vehicles
 
-        // Hard coded, to test
-        Vehicle wall = new Vehicle("regular.xml", new VehicleController(VehicleControllerType.AUTONOMOUS));
-        wall.setPosition(100);
+        LinkedList<ItineraryPath> defaultItinerary = new LinkedList<>();
+        Iterator<RoadSegment> roadSegmentIterator = roadNetwork.iterator();
+
+        while (roadSegmentIterator.hasNext()) {
+            defaultItinerary.add(new ItineraryPath(roadSegmentIterator.next(), scenario.getScale()));
+        }
+
+        // ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(7, 49), new Point2D.Double(75, 49));
 
         // Iterate through the hash map
         for (Map.Entry<VehicleControllerType, Integer> entry : controllers.entrySet()) {
@@ -117,8 +130,9 @@ public class Simulation {
 
             // Generate as many vehicles as asked
             for (int i = 0; i < entry.getValue(); i++) {
-                Vehicle v = new Vehicle("regular.xml", controller);
-                v.setFrontVehicle(wall);
+                // TODO: add last vehicle as front vehicle
+                Vehicle v = new Vehicle("regular.xml", controller, defaultItinerary);
+                // v.setFrontVehicle(wall);
                 vehicles.add(v);
             }
         }
@@ -134,7 +148,8 @@ public class Simulation {
      */
     public void parseOpenDriveXml(RoadNetwork roadNetwork, String openDriveFilename) {
         // TODO (TUM) Add some logs here
-        File openDriveFile = new File(openDriveFilename);
-        OpenDriveHandler.loadRoadNetwork(roadNetwork, openDriveFile);
+        InputStream in = getClass().getResourceAsStream("/map/simulation/" + openDriveFilename);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        OpenDriveHandler.loadRoadNetwork(roadNetwork, new StreamSource(br));
     }
 }

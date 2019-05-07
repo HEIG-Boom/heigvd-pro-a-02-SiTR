@@ -29,7 +29,7 @@ public final class RoadMappingUtils {
         if (roadGeometry.getGeometry().isSetLine()) {
             roadMapping = RoadMappingLine.create(roadGeometry);
         } else if (roadGeometry.getGeometry().isSetArc()) {
-            throw new IllegalArgumentException("ARC geometry not yet supported.");
+            roadMapping = RoadMappingArc.create((roadGeometry));
         } else if (roadGeometry.getGeometry().isSetPoly3()) {
             throw new IllegalArgumentException("POLY3 geometry not yet supported. ");
         } else if (roadGeometry.getGeometry().isSetSpiral()) {
