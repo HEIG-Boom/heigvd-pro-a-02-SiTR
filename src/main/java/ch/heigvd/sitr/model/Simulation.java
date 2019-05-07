@@ -64,14 +64,14 @@ public class Simulation {
         this.scenario = scenario;
         this.behaviour = behaviour;
 
-        // Generate vehicles from user parameters
-        vehicles = generateTraffic(controllers);
-
         // Create a roadNetwork instance and then parse the OpenDRIVE XML file
         roadNetwork = new RoadNetwork();
 
         // TODO : Remove hard coded openDriveFilename
         parseOpenDriveXml(roadNetwork, "simple_road.xodr");
+
+        // Generate vehicles from user parameters
+        vehicles = generateTraffic(controllers);
     }
 
     /**

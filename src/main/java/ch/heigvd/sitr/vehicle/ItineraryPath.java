@@ -6,7 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.map.RoadSegment;
-import ch.heigvd.sitr.model.Simulation;
+import ch.heigvd.sitr.utils.Conversions;
 import lombok.Getter;
 
 import java.awt.geom.Point2D;
@@ -71,8 +71,8 @@ public class ItineraryPath {
         int endY   = (int)(roadSegment.getRoadMapping().endPos().getY() + LANE_PADDING - roadSegment.getRoadMapping().roadWidth());
 
         // TODO: IMPORTANT SCALE SHOULD BE TAKEN FROM SCENARIO
-        this.origin      = new Point2D.Double(Simulation.pxToM(scale, startX), Simulation.pxToM(scale, startY));
-        this.destination = new Point2D.Double(Simulation.pxToM(scale, endX),   Simulation.pxToM(scale, endY));
+        this.origin      = new Point2D.Double(Conversions.pixelsToMeters(scale, startX), Conversions.pixelsToMeters(scale, startY));
+        this.destination = new Point2D.Double(Conversions.pixelsToMeters(scale, endX),   Conversions.pixelsToMeters(scale, endY));
 
         this.directionVector = new Point2D.Double((destination.x - origin.x) / norm(), (destination.y - origin.y) / norm());
     }
