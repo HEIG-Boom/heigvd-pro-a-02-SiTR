@@ -10,6 +10,7 @@ import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.model.VehicleBehaviourType;
 import ch.heigvd.sitr.model.VehicleControllerType;
 import ch.heigvd.sitr.vehicle.VehicleController;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +23,13 @@ import java.util.HashMap;
  *
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
-class SettingsPanel extends JPanel {
+public class SettingsPanel extends JPanel {
     private final JComboBox scenarioSelector;
     private final JComboBox behaviorSelector;
     private HashMap<VehicleControllerType, JSpinner> controllersSpinner = new HashMap<>();
+
+    @Getter
+    private Simulation currentSim;
 
     /**
      * Package-Private Constructor of the panel. Constructs all components for the settings window
@@ -207,7 +211,8 @@ class SettingsPanel extends JPanel {
                 }
 
                 // Create simulation with specified parameters
-                new Simulation(getSelectedScenario(), getSelectedBehaviour(), map).loop();
+                currentSim = new Simulation(getSelectedScenario(), getSelectedBehaviour(), map);
+                currentSim.loop();
             }
         });
 

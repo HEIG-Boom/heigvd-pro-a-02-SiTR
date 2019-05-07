@@ -12,6 +12,7 @@ import ch.heigvd.sitr.map.input.OpenDriveHandler;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.File;
 import java.util.*;
@@ -43,15 +44,23 @@ public class Simulation {
     private double scale;
 
     // The timer for the main loop
+    private Timer timer;
+
     @Getter
-    public static Timer timer;
+    private final double defaultDelta = 0.3;
+
+    @Getter
+    private double delta = defaultDelta;
+
+    @Getter
+    private double prevDelta = defaultDelta;
 
     // The task for the timer
     private final TimerTask task = new TimerTask() {
         @Override
         public void run() {
             for (Vehicle vehicle : vehicles) {
-                vehicle.update(0.3);
+                vehicle.update(delta);
                 vehicle.draw(scale);
                 // DEBUG
                 System.out.println(vehicle);
@@ -207,5 +216,21 @@ public class Simulation {
         // TODO (TUM) Add some logs here
         File openDriveFile = new File(openDriveFilename);
         OpenDriveHandler.loadRoadNetwork(roadNetwork, openDriveFile);
+    }
+
+    /**
+     * Method used to stop the timer. it is used when we close the current simulation
+     */
+    public void stopLoop() {
+        timer.cancel();
+    }
+
+    /**
+     * Method used to set the current delta. This method save the value before to change it
+     * @param delta new value of delta
+     */
+    public void setDelta(double delta) {
+        prevDelta = this.delta;
+        this.delta = delta;
     }
 }

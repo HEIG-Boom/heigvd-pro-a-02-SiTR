@@ -8,6 +8,7 @@ package ch.heigvd.sitr.gui.settings;
 import ch.heigvd.sitr.model.ScenarioType;
 import ch.heigvd.sitr.model.VehicleBehaviourType;
 import ch.heigvd.sitr.model.VehicleControllerType;
+import lombok.Getter;
 
 import javax.swing.*;
 
@@ -21,6 +22,8 @@ public class SettingsWindow {
     private static SettingsWindow instance;
 
     private JFrame frame;
+
+    @Getter
     private SettingsPanel settingsPanel;
 
     /**
