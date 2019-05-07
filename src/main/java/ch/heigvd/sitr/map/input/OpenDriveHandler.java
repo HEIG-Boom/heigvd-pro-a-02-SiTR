@@ -18,7 +18,6 @@ import ch.heigvd.sitr.map.roadmappings.RoadMapping;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingUtils;
 
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

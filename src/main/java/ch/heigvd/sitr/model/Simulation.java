@@ -23,6 +23,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Simulation class handles all global simulation settings and values
@@ -31,6 +33,8 @@ import java.util.*;
  * @author Luc Wachter, Simon Walther
  */
 public class Simulation {
+    private static final Logger LOG = Logger.getLogger(Simulation.class.getName());
+
     // Rate at which the redrawing will happen in milliseconds
     private static final int UPDATE_RATE = 40;
 
@@ -68,7 +72,7 @@ public class Simulation {
         roadNetwork = new RoadNetwork();
 
         // TODO : Remove hard coded openDriveFilename
-        parseOpenDriveXml(roadNetwork, "simple_road.xodr");
+        parseOpenDriveXml(roadNetwork, scenario.getConfigPath());
 
         // Generate vehicles from user parameters
         vehicles = generateTraffic(controllers);
@@ -147,8 +151,8 @@ public class Simulation {
      * @param openDriveFilename The OpenDrive filename
      */
     public void parseOpenDriveXml(RoadNetwork roadNetwork, String openDriveFilename) {
-        // TODO (TUM) Add some logs here
-        InputStream in = getClass().getResourceAsStream("/map/simulation/" + openDriveFilename);
+        LOG.log(Level.INFO, "parsing {0} file", openDriveFilename);
+        InputStream in = getClass().getResourceAsStream(openDriveFilename);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         OpenDriveHandler.loadRoadNetwork(roadNetwork, new StreamSource(br));
     }
