@@ -62,7 +62,7 @@ public class ItineraryPath {
      *
      * @param roadSegment the road segment
      */
-    public ItineraryPath(RoadSegment roadSegment) {
+    public ItineraryPath(RoadSegment roadSegment, double scale) {
         // TODO: change way of centering vehicles on lane, it doesn't take in account lane orientation
         // TODO: the end of the itinerary should take in account the length of the vehicle
         int startX = (int)roadSegment.getRoadMapping().startPos().getX();
@@ -71,8 +71,8 @@ public class ItineraryPath {
         int endY   = (int)(roadSegment.getRoadMapping().endPos().getY() + LANE_PADDING - roadSegment.getRoadMapping().roadWidth());
 
         // TODO: IMPORTANT SCALE SHOULD BE TAKEN FROM SCENARIO
-        this.origin      = new Point2D.Double(Simulation.pxToM(6, startX), Simulation.pxToM(6, startY));
-        this.destination = new Point2D.Double(Simulation.pxToM(6, endX),   Simulation.pxToM(6, endY));
+        this.origin      = new Point2D.Double(Simulation.pxToM(scale, startX), Simulation.pxToM(scale, startY));
+        this.destination = new Point2D.Double(Simulation.pxToM(scale, endX),   Simulation.pxToM(scale, endY));
 
         this.directionVector = new Point2D.Double((destination.x - origin.x) / norm(), (destination.y - origin.y) / norm());
     }

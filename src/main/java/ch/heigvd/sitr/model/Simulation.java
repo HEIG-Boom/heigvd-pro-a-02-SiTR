@@ -119,7 +119,7 @@ public class Simulation {
         Iterator<RoadSegment> roadSegmentIterator = roadNetwork.iterator();
 
         while(roadSegmentIterator.hasNext()) {
-            defaultItinerary.add(new ItineraryPath(roadSegmentIterator.next()));
+            defaultItinerary.add(new ItineraryPath(roadSegmentIterator.next(), scale));
         }
 
         // ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(7, 49), new Point2D.Double(75, 49));
