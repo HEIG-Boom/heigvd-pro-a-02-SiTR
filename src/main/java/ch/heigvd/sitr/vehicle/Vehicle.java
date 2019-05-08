@@ -205,12 +205,21 @@ public class Vehicle implements Renderable {
     }
 
     /**
+     * Acceleration of the vehicle
+     *
+     * @return acceleration of the vehicle
+     */
+    public double acceleration() {
+        return getVehicleController().acceleration(this);
+    }
+
+    /**
      * Change speed [m/s] of the vehicle according to its acceleration and a time difference
      *
      * @param deltaT time difference [s]
      */
     void updateSpeed(double deltaT) {
-        setSpeed(getSpeed() + speedDifference(getVehicleController().acceleration(this), deltaT));
+        setSpeed(getSpeed() + speedDifference(acceleration(), deltaT));
     }
 
     /**
