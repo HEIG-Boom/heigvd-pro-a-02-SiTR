@@ -10,6 +10,7 @@ import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.map.RoadNetwork;
 import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.map.input.OpenDriveHandler;
+import ch.heigvd.sitr.statistics.Statistics;
 import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
@@ -56,6 +57,9 @@ public class Simulation {
     // The timer for the main loop
     private Timer timer;
 
+    // object for making statistics
+    private final Statistics stats;
+
     @Getter
     private final double defaultDelta = 0.15;
     @Getter
@@ -83,6 +87,9 @@ public class Simulation {
 
         // Generate vehicles from user parameters
         vehicles = generateTraffic(controllers);
+
+        // Create the statistic for this simulation
+        stats = new Statistics(vehicles, 1);
     }
 
     /**
@@ -114,6 +121,9 @@ public class Simulation {
                 window.repaint();
             }
         }, 0, UPDATE_RATE);
+
+        // Start the statistics
+        stats.start();
     }
 
     /**
@@ -187,6 +197,8 @@ public class Simulation {
      */
     public void stopLoop() {
         timer.cancel();
+        // Stop the Thread of statistics
+        stats.terminate();
     }
 
     /**
