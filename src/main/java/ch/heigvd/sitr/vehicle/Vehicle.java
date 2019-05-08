@@ -93,6 +93,9 @@ public class Vehicle extends Observable implements Renderable {
     // is this vehicle in an accident
     @Getter
     private boolean inAccident;
+    // Number of accidents
+    @Getter
+    private int nbAccidents;
 
     // Is the vehicle painted with a custom color
     @Getter

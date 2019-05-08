@@ -10,6 +10,7 @@ import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.map.RoadNetwork;
 import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.map.input.OpenDriveHandler;
+import ch.heigvd.sitr.statistics.Statistics;
 import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
@@ -65,6 +66,9 @@ public class Simulation {
     @Setter
     private double deltaT = defaultDeltaT;
 
+    // object for making statistics
+    private final Statistics stats;
+
     /**
      * Simulation constructor
      *
@@ -85,6 +89,9 @@ public class Simulation {
 
         // Generate vehicles from user parameters
         vehicles = generateTraffic(controllers);
+
+        // Create the statistic for this simulation
+        stats = new Statistics(vehicles, 1);
     }
 
     /**
@@ -127,6 +134,9 @@ public class Simulation {
                 window.repaint();
             }
         }, 0, UPDATE_RATE);
+
+        // Start the statistics
+        stats.start();
     }
 
     /**
@@ -201,4 +211,26 @@ public class Simulation {
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         OpenDriveHandler.loadRoadNetwork(roadNetwork, new StreamSource(br));
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Method used to stop the timer. it is used when we close the current simulation
+     */
+    public void stopLoop() {
+        timer.cancel();
+        // Stop the Thread of statistics
+        stats.terminate();
+    }
+
+    /**
+     * Method used to set the current delta. This method save the value before to change it
+     *
+     * @param delta new value of delta
+     */
+    public void setDelta(double delta) {
+        prevDelta = this.delta;
+        this.delta = delta;
+    }
+>>>>>>> Implement the statistics class, Setting up a thread for statistics, sends information to the GUI
 }
