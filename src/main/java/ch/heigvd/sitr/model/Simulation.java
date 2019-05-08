@@ -98,9 +98,6 @@ public class Simulation {
 
         // Generate vehicles from user parameters
         vehicles = generateTraffic(controllers);
-
-        // Print the road network
-        roadNetwork.draw(scenario.getScale());
     }
 
     /**
@@ -109,6 +106,9 @@ public class Simulation {
     public void loop() {
         // Launch main window
         window = SimulationWindow.getInstance();
+
+        // Print the road network
+        roadNetwork.draw(scenario.getScale());
 
         // Create a timer to run the main loop
         timer = new Timer();
