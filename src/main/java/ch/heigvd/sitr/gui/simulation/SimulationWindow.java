@@ -5,6 +5,8 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
+import ch.heigvd.sitr.gui.settings.*;
+import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.vehicle.Vehicle;
 
 import javax.swing.*;
@@ -96,7 +98,13 @@ public class SimulationWindow implements Displayer {
      * Method to close the simulation window
      */
     public void closeWindow() {
+        // stop the main loop timer
+        SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().stopLoop();
+
+        // kill the simulation window
         frame.dispose();
+
+        // reset the reference to the simulation window
         instance = null;
     }
 }

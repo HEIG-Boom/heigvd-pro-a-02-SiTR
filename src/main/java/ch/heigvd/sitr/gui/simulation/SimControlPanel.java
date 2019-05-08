@@ -20,8 +20,10 @@ import java.awt.event.ActionListener;
 class SimControlPanel extends JPanel {
 
     // minimal and maximal speed of the simulation
-    private final int MIN_SPEED = 25;
+    private final int MIN_SPEED = 50;
     private final int MAX_SPEED = 150;
+
+    private final int DEC_INC_PERCENT = 10;
 
     // actual speed of the simulation. Initially 100%
     private int speedPercent = 100;
@@ -63,28 +65,17 @@ class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(speedValue, gbc);
 
-        final JButton pause = new JButton("Pause");
-        pause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("PAUSE !!!");
-            }
-        });
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 0, 0, 0);
-        this.add(pause, gbc);
-
         final JButton decrease = new JButton("Décélérer");
         decrease.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (speedPercent > MIN_SPEED) {
-                    speedPercent -= 5;
+                    speedPercent -= DEC_INC_PERCENT;
                     speedValue.setText(speedPercent + "%");
+                    double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDelta();
+                    double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDelta();
+                    delta -= (defaultDelta * DEC_INC_PERCENT/100);
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(delta);
                 }
             }
         });
@@ -101,8 +92,12 @@ class SimControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (speedPercent < MAX_SPEED) {
-                    speedPercent += 5;
+                    speedPercent += DEC_INC_PERCENT;
                     speedValue.setText(speedPercent + "%");
+                    double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDelta();
+                    double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDelta();
+                    delta += (defaultDelta * DEC_INC_PERCENT/100);
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(delta);
                 }
             }
         });
@@ -113,6 +108,33 @@ class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 0, 0);
         this.add(increase, gbc);
+
+        final JButton pause = new JButton("Pause");
+        pause.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDelta();
+                if (delta != 0) {
+                    pause.setText("Reprendre");
+                    decrease.setEnabled(false);
+                    increase.setEnabled(false);
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(0);
+                } else {
+                    pause.setText("Pause");
+                    decrease.setEnabled(true);
+                    increase.setEnabled(true);
+                    double prevDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getPrevDelta();
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(prevDelta);
+                }
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 0, 0);
+        this.add(pause, gbc);
 
         final JLabel subtitle = new JLabel("Statistiques globales");
         subtitle.setFont(new Font(null, Font.BOLD, 14));
