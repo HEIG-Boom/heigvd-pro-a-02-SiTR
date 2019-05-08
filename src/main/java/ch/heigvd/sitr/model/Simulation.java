@@ -53,12 +53,12 @@ public class Simulation {
     private LinkedList<Vehicle> vehicles;
     // Road network
     private final RoadNetwork roadNetwork;
-  
+
     // The timer for the main loop
     private Timer timer;
 
     @Getter
-    private final double defaultDelta = 0.3;
+    private final double defaultDelta = 0.2;
     @Getter
     private double delta = defaultDelta;
     @Getter
@@ -73,7 +73,7 @@ public class Simulation {
             roadNetwork.draw(scenario.getScale());
 
             for (Vehicle vehicle : vehicles) {
-                vehicle.update(0.10);
+                vehicle.update(delta);
                 vehicle.draw(scenario.getScale());
                 // DEBUG
                 System.out.println(vehicle);
@@ -81,7 +81,7 @@ public class Simulation {
 
             // Callback to paintComponent()
             window.repaint();
-    };
+    }};
 
     /**
      * Simulation constructor
@@ -186,3 +186,4 @@ public class Simulation {
         this.delta = delta;
     }
 }
+
