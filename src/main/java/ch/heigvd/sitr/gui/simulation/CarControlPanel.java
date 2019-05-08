@@ -5,8 +5,6 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
-import ch.heigvd.sitr.vehicle.Vehicle;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
@@ -199,6 +197,12 @@ public class CarControlPanel extends JPanel implements Observer {
         this.add(accidentCounterValue, gbc);
     }
 
+    /**
+     * Method used to update the observer. In this case, refresh the statistics of the
+     * selected car.
+     * @param o the selected car
+     * @param arg param used to notify all observers of o (never used in this app)
+     */
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("Je me met a jour");

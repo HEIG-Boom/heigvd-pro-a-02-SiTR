@@ -27,9 +27,17 @@ public class VehicleRenderer {
     /**
      * Rendering method for vehicles
      *
+     * @param g
+     * @param vehicle
+     * @param scale
+     */
+    /**
+     * Rendering method for vehicles.
+     *
      * @param g       The Graphics on which to draw the vehicle
      * @param vehicle The vehicle to draw on the image
      * @param scale   The ratio px/m
+     * @return the rectangle object of the car drawn
      */
     public Rectangle display(Graphics2D g, Vehicle vehicle, double scale) {
         // Add some antialiasing for our eyes

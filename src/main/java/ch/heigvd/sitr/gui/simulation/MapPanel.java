@@ -39,11 +39,17 @@ class MapPanel extends JPanel implements MouseListener {
         addMouseListener(this);
     }
 
+    /**
+     * This method detect click on the map. If the click is on a vehicle,
+     * set the CarControlPanel to observe this car.
+     *
+     * @param e mouse event used to get the position of the click
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         Point point = e.getPoint();
         for (Vehicle v : SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getVehicles()) {
-            if(v.getRectangle().contains(point)) {
+            if (v.getRectangle().contains(point)) {
                 System.out.println("Sur la voiture");
                 v.deleteObservers();
                 v.addObserver(SimulationWindow.getInstance().getCarControlPanel());
@@ -52,15 +58,35 @@ class MapPanel extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * Not Implemented
+     * @param e mouse event
+     */
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
 
+    /**
+     * Not Implemented
+     * @param e mouse event
+     */
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
 
+    /**
+     * Not Implemented
+     * @param e mouse event
+     */
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
+    /**
+     * Not Implemented
+     * @param e mouse event
+     */
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 }
