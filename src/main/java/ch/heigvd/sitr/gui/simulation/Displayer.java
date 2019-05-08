@@ -28,11 +28,18 @@ public interface Displayer {
     int getMapHeight();
 
     /**
-     * Gets an image object (as a Graphics2D) representing the panel's drawing area
+     * Gets an image object (as a Graphics2D) representing the foreground panel's drawing area
      *
      * @return a graphics area on which to draw, of the panel's size
      */
     Graphics2D getSimulationPane();
+
+    /**
+     * Gets an image object (as a Graphics2D) representing the background panel's drawing area
+     *
+     * @return a graphics area on which to draw, of the panel's size
+     */
+    Graphics2D getBackgroundSimulationPane();
 
     /**
      * Draw the image with the shapes on the panel, and create a new image object

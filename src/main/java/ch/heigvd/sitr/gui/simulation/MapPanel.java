@@ -5,6 +5,8 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +17,8 @@ import java.awt.*;
  */
 class MapPanel extends JPanel {
     // color of the background
-    private static final String backgroundColor = "0x006400";
+    @Getter
+    private final String backgroundColor = "0x008000";
 
     // dimensions of the map
     static final int WIDTH = 800;
@@ -29,6 +32,5 @@ class MapPanel extends JPanel {
         this.setMinimumSize(d);
         this.setMaximumSize(d);
         this.setPreferredSize(d);
-        this.setBackground(Color.decode(backgroundColor));
     }
 }

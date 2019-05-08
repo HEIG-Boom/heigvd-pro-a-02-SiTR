@@ -68,10 +68,6 @@ public class Simulation {
     private final TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            // TODO (tum) WTF we shouldn't do that
-            // Print the road network
-            roadNetwork.draw(scenario.getScale());
-
             for (Vehicle vehicle : vehicles) {
                 vehicle.update(delta);
                 vehicle.draw(scenario.getScale());
@@ -81,7 +77,8 @@ public class Simulation {
 
             // Callback to paintComponent()
             window.repaint();
-    }};
+        }
+    };
 
     /**
      * Simulation constructor
@@ -97,12 +94,13 @@ public class Simulation {
 
         // Create a roadNetwork instance and then parse the OpenDRIVE XML file
         roadNetwork = new RoadNetwork();
-
-        // TODO : Remove hard coded openDriveFilename
         parseOpenDriveXml(roadNetwork, scenario.getConfigPath());
 
         // Generate vehicles from user parameters
         vehicles = generateTraffic(controllers);
+
+        // Print the road network
+        roadNetwork.draw(scenario.getScale());
     }
 
     /**
