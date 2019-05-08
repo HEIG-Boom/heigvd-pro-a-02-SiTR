@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.utils.AccelerationNoise;
 import ch.heigvd.sitr.utils.Renderable;
 import lombok.Getter;
 import lombok.Setter;
@@ -61,6 +62,9 @@ public class Vehicle implements Renderable {
     // Vehicle controller of this vehicle
     @Getter
     private VehicleController vehicleController;
+
+    // Accleration noise
+    private AccelerationNoise accelerationNoise = new AccelerationNoise();
 
     /**
      * Constructor
@@ -144,6 +148,27 @@ public class Vehicle implements Renderable {
     }
 
     /**
+     * update the acceleration white noise
+     *
+     * @param deltaT time difference [s]
+     */
+    public void updateAccelerationNoise(double deltaT) {
+        accelerationNoise.updateAccelerationWhiteNoise(deltaT);
+    }
+
+    /**
+     * Calculate the speed difference with acceleration, noise and time difference
+     *
+     * @param acceleration acceleration [m/s^2]
+     * @param deltaT       time difference [s]
+     * @param accelerationNoise acceleration noise
+     * @return speed difference [m/s]
+     */
+    public static double speedDifference(double acceleration, double deltaT, double accelerationNoise) {
+        return acceleration * deltaT + accelerationNoise;
+    }
+
+    /**
      * Calculate the speed difference with acceleration and time difference
      *
      * @param acceleration acceleration [m/s^2]
@@ -190,7 +215,9 @@ public class Vehicle implements Renderable {
         }
 
         // We subtract from this distance, the distance from the vehicles center and vehicles extremities
-        return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
+        posDistance -=(this.getLength() / 2 + frontVehicle.getLength() / 2);
+
+        return posDistance;
     }
 
     /**
@@ -219,7 +246,7 @@ public class Vehicle implements Renderable {
      * @param deltaT time difference [s]
      */
     void updateSpeed(double deltaT) {
-        setSpeed(getSpeed() + speedDifference(acceleration(), deltaT));
+        setSpeed(getSpeed() + speedDifference(acceleration(), deltaT, accelerationNoise.getAccelerationNoise()));
     }
 
     /**
@@ -237,6 +264,8 @@ public class Vehicle implements Renderable {
      * @param deltaT the time difference [s]
      */
     public void update(double deltaT) {
+        // update the acceleration noise
+        updateAccelerationNoise(deltaT);
         // First update speed according to the vehicle acceleration
         updateSpeed(deltaT);
         // Then update position, taking into account the new speed

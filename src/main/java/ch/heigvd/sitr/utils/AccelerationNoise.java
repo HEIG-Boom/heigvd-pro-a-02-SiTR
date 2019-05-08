@@ -19,11 +19,11 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
  */
 public class AccelerationNoise {
     static private final double TAU_RELAXATION_TIME = 0.4; // tau relaxation time in [s]
-    static private final double FLUCTUATION_STRENGTH = 0.1;
+    static private final double FLUCTUATION_STRENGTH = 1;
     static private UniformRealDistribution uniformRealDistribution = new UniformRealDistribution();
 
     @Getter
-    public double accelerationNoise = 0;
+    private double accelerationNoise = 0;
 
     /**
      * Use Wiener process to determines the new acceleration white noise
