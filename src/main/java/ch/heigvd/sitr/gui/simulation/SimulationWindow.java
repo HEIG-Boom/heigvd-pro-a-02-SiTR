@@ -26,7 +26,7 @@ public class SimulationWindow implements Displayer {
 
     private JFrame frame;
     private boolean backgroundChanged = false;
-    private BufferedImage backgroundMapImage;
+    private final BufferedImage backgroundMapImage;
     private BufferedImage foregroundMapImage;
 
     private MapPanel mapPanel;
