@@ -31,7 +31,7 @@ public class VehicleRenderer {
      * @param vehicle The vehicle to draw on the image
      * @param scale   The ratio px/m
      */
-    public void display(Graphics2D g, Vehicle vehicle, double scale) {
+    public Rectangle display(Graphics2D g, Vehicle vehicle, double scale) {
         // Add some antialiasing for our eyes
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
@@ -53,6 +53,7 @@ public class VehicleRenderer {
                  x + length / 2, y + width / 2);
         g.transform(rotation);
         g.fillRect(x, y, length, width);
+        return new Rectangle(x,y,length,width);
     }
 
     /**

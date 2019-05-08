@@ -9,20 +9,20 @@ import ch.heigvd.sitr.vehicle.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Car control panel class represents a car with his stats and his available action.
  *
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
-class CarControlPanel extends JPanel {
+public class CarControlPanel extends JPanel implements Observer {
 
     /**
      * Package-private constructor of the panel
-     *
-     * @param vehicle vehicle observed by the panel
      */
-    CarControlPanel(Vehicle vehicle) {
+    CarControlPanel() {
         GridBagConstraints gbc;
 
         this.setLayout(new GridBagLayout());
@@ -197,5 +197,10 @@ class CarControlPanel extends JPanel {
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(accidentCounterValue, gbc);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("Je me met a jour");
     }
 }
