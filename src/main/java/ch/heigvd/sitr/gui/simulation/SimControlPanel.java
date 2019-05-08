@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  *
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
-class SimControlPanel extends JPanel {
+public class SimControlPanel extends JPanel {
 
     // minimal and maximal speed of the simulation
     private final int MIN_SPEED = 50;
@@ -27,6 +27,10 @@ class SimControlPanel extends JPanel {
 
     // actual speed of the simulation. Initially 100%
     private int speedPercent = 100;
+
+    private JLabel waitingTimeValue;
+    private JLabel accidentCounterValue;
+    private JLabel occupationValue;
 
     /**
      * Package-private constructor of the panel
@@ -155,7 +159,7 @@ class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(waitingTimeLabel, gbc);
 
-        final JLabel waitingTimeValue = new JLabel("abc");
+        waitingTimeValue = new JLabel("NaN");
         waitingTimeValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -174,7 +178,7 @@ class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(accidentCounterLabel, gbc);
 
-        final JLabel accidentCounterValue = new JLabel("abc");
+        accidentCounterValue = new JLabel("0");
         accidentCounterValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -193,7 +197,7 @@ class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(occupationLabel, gbc);
 
-        final JLabel occupationValue = new JLabel("abc");
+        occupationValue = new JLabel("NaN");
         occupationValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -232,5 +236,29 @@ class SimControlPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 0, 0, 0);
         this.add(quit, gbc);
+    }
+
+    /**
+     * Method used to set the global waiting time
+     * @param value new value of waiting time
+     */
+    public void setWaitingTimeValue(String value) {
+        this.waitingTimeValue.setText(value);
+    }
+
+    /**
+     * Method used to set the global accident counter
+     * @param value new value of accident counter
+     */
+    public void setAccidentCounterValue(String value) {
+        this.accidentCounterValue.setText(value);
+    }
+
+    /**
+     * Method used to set the global network occupation percent
+     * @param value new value of the network occupation
+     */
+    public void setOccupationValue(String value) {
+        this.occupationValue.setText(value);
     }
 }

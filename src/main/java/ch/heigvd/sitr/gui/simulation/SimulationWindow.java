@@ -6,8 +6,8 @@
 package ch.heigvd.sitr.gui.simulation;
 
 import ch.heigvd.sitr.gui.settings.*;
-import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.vehicle.Vehicle;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +27,9 @@ public class SimulationWindow implements Displayer {
     private BufferedImage mapImage;
 
     private MapPanel mapPanel;
+
+    @Getter
+    private final SimControlPanel controlPanel;
 
     /**
      * static method of implementation as singleton
@@ -58,7 +61,8 @@ public class SimulationWindow implements Displayer {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
-        panel.add(new SimControlPanel(), gbc);
+        controlPanel = new SimControlPanel();
+        panel.add(controlPanel, gbc);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
