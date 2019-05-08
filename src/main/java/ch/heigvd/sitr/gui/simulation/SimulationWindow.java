@@ -8,7 +8,6 @@ package ch.heigvd.sitr.gui.simulation;
 import ch.heigvd.sitr.gui.settings.*;
 import ch.heigvd.sitr.model.Simulation;
 import ch.heigvd.sitr.vehicle.Vehicle;
-import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
