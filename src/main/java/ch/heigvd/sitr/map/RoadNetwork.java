@@ -59,6 +59,6 @@ public class RoadNetwork implements Iterable<RoadSegment>, Renderable {
     @Override
     public void draw(double scale) {
         RoadNetworkRenderer.getInstance().setRoadNetwork(this);
-        RoadNetworkRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane());
+        RoadNetworkRenderer.getInstance().display(SimulationWindow.getInstance().getBackgroundSimulationPane());
     }
 }

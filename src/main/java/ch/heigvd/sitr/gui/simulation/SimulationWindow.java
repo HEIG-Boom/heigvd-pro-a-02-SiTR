@@ -24,7 +24,9 @@ public class SimulationWindow implements Displayer {
     private static SimulationWindow instance;
 
     private JFrame frame;
-    private BufferedImage mapImage;
+    private boolean backgroundChanged = false;
+    private final BufferedImage backgroundMapImage;
+    private BufferedImage foregroundMapImage;
 
     private MapPanel mapPanel;
 
@@ -74,7 +76,13 @@ public class SimulationWindow implements Displayer {
         frame.pack();
         frame.setVisible(true);
 
-        mapImage = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
+        // Create background image
+        backgroundMapImage = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
+        Graphics2D g = backgroundMapImage.createGraphics();
+        g.setPaint(Color.decode(mapPanel.getBackgroundColor()));
+        g.fillRect(0, 0, backgroundMapImage.getWidth(), backgroundMapImage.getHeight());
+
+        foregroundMapImage = createFgMapImage();
     }
 
     @Override
@@ -89,13 +97,25 @@ public class SimulationWindow implements Displayer {
 
     @Override
     public Graphics2D getSimulationPane() {
-        return (Graphics2D) mapImage.getGraphics();
+        return (Graphics2D) foregroundMapImage.getGraphics();
+    }
+
+    @Override
+    public Graphics2D getBackgroundSimulationPane() {
+        // We assume that if we get background simulation pane, it's to draw something. So we
+        // have to repaint the background.
+        backgroundChanged = true;
+        return (Graphics2D) backgroundMapImage.getGraphics();
     }
 
     @Override
     public void repaint() {
-        mapPanel.getGraphics().drawImage(mapImage, 0, 0, null);
-        mapImage = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
+        if (backgroundChanged) {
+            mapPanel.getGraphics().drawImage(backgroundMapImage, 0, 0, null);
+            backgroundChanged = false;
+        }
+        mapPanel.getGraphics().drawImage(foregroundMapImage, 0, 0, null);
+        foregroundMapImage = createFgMapImage();
     }
 
     /**
@@ -110,5 +130,18 @@ public class SimulationWindow implements Displayer {
 
         // reset the reference to the simulation window
         instance = null;
+    }
+
+    /**
+     * This method creates the foreground image on which to draw vehicles
+     *
+     * @return The created foreground image.
+     */
+    private BufferedImage createFgMapImage() {
+        BufferedImage tmp = (BufferedImage) mapPanel.createImage(getMapWidth(), getMapHeight());
+        Graphics2D g = tmp.createGraphics();
+        g.setComposite(AlphaComposite.SrcOver);
+        g.drawImage(backgroundMapImage, 0, 0, null);
+        return tmp;
     }
 }
