@@ -17,7 +17,7 @@ import ch.heigvd.sitr.map.roadmappings.RoadGeometry;
 import ch.heigvd.sitr.map.roadmappings.RoadMapping;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingUtils;
 
-import java.io.File;
+import javax.xml.transform.stream.StreamSource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +40,7 @@ public class OpenDriveHandler {
      * @param roadNetwork   The road network that will be built from the OpenDrive file
      * @param openDriveFile The OpenDrive file with .xodr extension
      */
-    public static void loadRoadNetwork(RoadNetwork roadNetwork, File openDriveFile) {
+    public static void loadRoadNetwork(RoadNetwork roadNetwork, StreamSource openDriveFile) {
         // Generate data from openDRIVE xml file
         OpenDriveUnmarshaller openDriveUnmarshaller = new OpenDriveUnmarshaller();
         OpenDRIVE openDriveNetwork = openDriveUnmarshaller.load(openDriveFile);

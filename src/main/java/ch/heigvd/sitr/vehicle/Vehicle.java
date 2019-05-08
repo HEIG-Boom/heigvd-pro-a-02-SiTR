@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.utils.Renderable;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Document;
@@ -34,7 +35,6 @@ public class Vehicle implements Renderable {
 
     // Position of the vehicle relative to the lane's start [m]
     @Getter
-    @Setter
     private double position;
 
     // Speed in [m/s] of the vehicle
@@ -69,14 +69,14 @@ public class Vehicle implements Renderable {
      * @param length            length [m] of the vehicle
      * @param width             width [m] of the vehicle
      * @param maxSpeed          max speed [m/s] of the vehicle
-     * @param firstPath         the first itinerary path of the vehicle
+     * @param itinerary         the vehicle itinerary
      */
-    public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed, ItineraryPath firstPath) {
+    public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed, LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
         this.width = width;
         this.length = length;
         this.maxSpeed = maxSpeed;
-        this.addToItinerary(firstPath);
+        this.itinerary = itinerary;
     }
 
     /**
@@ -84,8 +84,9 @@ public class Vehicle implements Renderable {
      *
      * @param configPath        the path to the configuration file
      * @param vehicleController the vehicle controller
+     * @param itinerary         the vehicle itinerary
      */
-    public Vehicle(String configPath, VehicleController vehicleController) {
+    public Vehicle(String configPath, VehicleController vehicleController, LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
 
         InputStream in = Vehicle.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
@@ -111,6 +112,18 @@ public class Vehicle implements Renderable {
         this.length = length;
         this.width = width;
         this.maxSpeed = maxSpeed;
+        this.itinerary = itinerary;
+    }
+
+    public void setPosition(double position) {
+        // if it exceed the itinerary path length,
+        // we add the excess to the position on the next itinerary path
+        if(position > currentPath().norm()) {
+            position -= currentPath().norm();
+            nextPath();
+        }
+
+        this.position = position;
     }
 
     /**
@@ -164,8 +177,17 @@ public class Vehicle implements Renderable {
             return Double.POSITIVE_INFINITY;
         }
 
-        // Distance between two vehicles is the absolute value of the position difference
-        double posDistance = Math.abs(this.getPosition() - frontVehicle.getPosition());
+        double posDistance;
+
+        // If vehicles are on the same path
+        if(this.currentPath().equals(frontVehicle.currentPath())) {
+            // Distance between two vehicles is the absolute value of the position difference
+            posDistance = Math.abs(frontVehicle.getPosition() - this.getPosition());
+        } else {
+            // on another path, ww add the distance to the end of this vehicle path
+            // and the distance of the front vehicle on its respective path
+            posDistance = Math.abs(currentPath().norm() - this.getPosition() + frontVehicle.getPosition());
+        }
 
         // We subtract from this distance, the distance from the vehicles center and vehicles extremities
         return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
@@ -277,6 +299,8 @@ public class Vehicle implements Renderable {
     public void nextPath() {
         if ((pathStep + 1) < this.itinerarySize()) {
             this.pathStep++;
+        } else {
+            pathStep = 0; // get back to origin
         }
     }
 }

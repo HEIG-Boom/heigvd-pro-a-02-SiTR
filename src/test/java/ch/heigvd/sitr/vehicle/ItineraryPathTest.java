@@ -45,4 +45,32 @@ public class ItineraryPathTest {
             ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
         });
     }
+
+    /**
+     * return the normalized direction vector
+     *
+     * it's vector / the vector's norm
+     */
+    @Test
+    public void directionVector() {
+        ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+        assertEquals(new Point2D.Double(0.7071067811865475, 0.7071067811865475), itineraryPath.getDirectionVector());
+    }
+
+    /**
+     * norm of the vector formed by the path
+     */
+    @Test
+    public void norm() {
+        ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+        assertEquals(70.710, itineraryPath.norm(), 0.001);
+    }
+
+    @Test
+    public void twoIdenticItineraryPathShouldBeEquals() {
+        ItineraryPath path1 = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+        ItineraryPath path2 = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+
+        assertEquals(path1, path2);
+    }
 }

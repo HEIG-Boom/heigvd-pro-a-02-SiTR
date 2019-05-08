@@ -1,7 +1,7 @@
 package ch.heigvd.sitr.map;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
-import ch.heigvd.sitr.map.graphics.Renderable;
+import ch.heigvd.sitr.utils.Renderable;
 import ch.heigvd.sitr.map.graphics.RoadNetworkRenderer;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,7 +57,7 @@ public class RoadNetwork implements Iterable<RoadSegment>, Renderable {
      * Method that calls the renderer in order to draw the road network on the simulation pane
      */
     @Override
-    public void draw() {
+    public void draw(double scale) {
         RoadNetworkRenderer.getInstance().setRoadNetwork(this);
         RoadNetworkRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane());
     }

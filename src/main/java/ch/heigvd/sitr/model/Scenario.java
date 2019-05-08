@@ -1,5 +1,5 @@
 /*
- * Filename : ScenarioType.java
+ * Filename : Scenario.java
  * Creation date : 08.04.2019
  */
 
@@ -12,11 +12,13 @@ import lombok.Getter;
  *
  * @author Luc Wachter
  */
-public enum ScenarioType {
-    SIMPLE_ROAD("Route simple", 8, "placeholder"); // TODO replace placeholder
+public enum Scenario {
+    SIMPLE_ROAD("Route simple", 8, "simple_road.xodr"),
+    RING_ROAD("Route anneau (1 voie)", 8, "ring_road.xodr"),
+    OFFRAMP("Bretelle de sortie", 8, "offramp_v2.xodr");
 
     // Base folder containing data files for the scenario (map)
-    private static final String BASE_PATH = "mapData/";
+    private static final String BASE_PATH = "/map/simulation/";
 
     // Name of the scenario (to display in GUI and such)
     private final String name;
@@ -33,7 +35,7 @@ public enum ScenarioType {
      * @param name       The name of the scenario
      * @param configFile The name of the scenario's data file (with extension)
      */
-    ScenarioType(String name, int scale, String configFile) {
+    Scenario(String name, int scale, String configFile) {
         this.name = name;
         this.scale = scale;
         // Construct path to data file from base path and filename

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -19,10 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Simon Walther
  */
 public class VehicleTest {
-    Vehicle vehicle;
-    Vehicle frontVehicle;
-    VehicleController vehicleController;
-    ItineraryPath itineraryPath;
+    private Vehicle vehicle;
+    private Vehicle frontVehicle;
+    private VehicleController vehicleController;
+    private ItineraryPath itineraryPath;
+    private LinkedList<ItineraryPath> defaultItinerary = new LinkedList<>();
 
     @BeforeEach
     public void createDummyVehicleController() {
@@ -30,20 +32,21 @@ public class VehicleTest {
     }
 
     @BeforeEach
-    public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, null);
-        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, null);
-        vehicle.setFrontVehicle(frontVehicle);
+    public void createDummyItinerary() {
+        itineraryPath = new ItineraryPath(new Point2D.Double(0, 0), new Point2D.Double(10000, 0));
+        defaultItinerary.add(itineraryPath);
     }
 
     @BeforeEach
-    public void createDummyItinerary() {
-        itineraryPath = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(100, 100));
+    public void createDummyVehicle() {
+        frontVehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, defaultItinerary);
+        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
+        vehicle.setFrontVehicle(frontVehicle);
     }
 
     @Test
     public void constructor() {
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, itineraryPath);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(33.33, vehicle.getMaxSpeed());
         assertEquals(vehicleController, vehicle.getVehicleController());
@@ -53,11 +56,12 @@ public class VehicleTest {
     @Test
     public void constructorWithConfigFile() {
         VehicleController controller = new VehicleController(VehicleControllerType.CAREFUL);
-        Vehicle vehicle = new Vehicle("regular.xml", controller);
+        Vehicle vehicle = new Vehicle("regular.xml", controller, defaultItinerary);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(1, vehicle.getWidth());
         assertEquals(33.33, vehicle.getMaxSpeed());
         assertEquals(controller, vehicle.getVehicleController());
+        assertEquals(itineraryPath, vehicle.currentPath());
     }
 
     @Test
@@ -67,13 +71,15 @@ public class VehicleTest {
 
     @Test
     public void addMultipleItineraryPaths() {
+        assertEquals(1, vehicle.itinerarySize());
+
         vehicle.addToItinerary(itineraryPath);
         vehicle.addToItinerary(itineraryPath);
         vehicle.addToItinerary(itineraryPath);
         vehicle.addToItinerary(itineraryPath);
         vehicle.addToItinerary(itineraryPath);
 
-        assertEquals(5, vehicle.itinerarySize());
+        assertEquals(6, vehicle.itinerarySize());
     }
 
     @Test
@@ -81,10 +87,12 @@ public class VehicleTest {
         ItineraryPath path1 = new ItineraryPath(new Point2D.Double(10, 10), new Point2D.Double(20, 20));
         ItineraryPath path2 = new ItineraryPath(new Point2D.Double(20, 20), new Point2D.Double(30, 30));
         ItineraryPath path3 = new ItineraryPath(new Point2D.Double(30, 30), new Point2D.Double(40, 40));
+        LinkedList<ItineraryPath> itinerary = new LinkedList<>();
+        itinerary.add(path1);
+        itinerary.add(path2);
+        itinerary.add(path3);
 
-        vehicle.addToItinerary(path1);
-        vehicle.addToItinerary(path2);
-        vehicle.addToItinerary(path3);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, itinerary);
 
         assertEquals(0, vehicle.getPathStep());
         assertEquals(path1, vehicle.currentPath());
@@ -102,20 +110,42 @@ public class VehicleTest {
     public void pathStepShouldNotExceedItinerarySize() {
         vehicle.addToItinerary(itineraryPath);
         vehicle.addToItinerary(itineraryPath);
-        vehicle.addToItinerary(itineraryPath);
-
         vehicle.nextPath();
         vehicle.nextPath();
 
         // move to an inexistant path
         vehicle.nextPath();
-        assertEquals(2, vehicle.getPathStep());
+
+        // get back to origin
+        assertEquals(0, vehicle.getPathStep());
     }
 
     @Test
     public void position() {
         vehicle.setPosition(10.5);
         assertEquals(10.5, vehicle.getPosition());
+    }
+
+    /**
+     * if vehicle get to the end of an itinerary path, change of itinerary path
+     */
+    @Test
+    public void positionShouldSwitchOfItineraryIfItExceedstheItineraryLength() {
+        ItineraryPath itineraryPath1 = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(50, 59));
+        ItineraryPath itineraryPath2 = new ItineraryPath(new Point2D.Double(50, 60), new Point2D.Double(60, 60));
+        LinkedList<ItineraryPath> itineraryPaths = new LinkedList<>();
+        itineraryPaths.add(itineraryPath1);
+        itineraryPaths.add(itineraryPath2);
+
+        Vehicle vehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, itineraryPaths);
+
+        assertEquals(0, vehicle.getPosition());
+        assertEquals(0, vehicle.getPathStep());
+
+        vehicle.setPosition(10);
+
+        assertEquals(1, vehicle.getPosition());
+        assertEquals(1, vehicle.getPathStep());
     }
 
     @Test

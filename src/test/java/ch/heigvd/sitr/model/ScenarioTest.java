@@ -1,5 +1,5 @@
 /*
- * Filename : ScenarioTypeTest.java
+ * Filename : ScenarioTest.java
  * Creation date : 08.04.2019
  */
 
@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for the ScenarioType enum
+ * Unit tests for the Scenario enum
  *
  * @author Luc Wachter
  */
-class ScenarioTypeTest {
+class ScenarioTest {
     @Test
     public void configPathGetterShouldWork() {
-        assertEquals("mapData/placeholder", ScenarioType.SIMPLE_ROAD.getConfigPath());
+        assertEquals("/map/simulation/simple_road.xodr", Scenario.SIMPLE_ROAD.getConfigPath());
     }
 
     /**
@@ -25,6 +25,6 @@ class ScenarioTypeTest {
      */
     @Test
     public void toStringShouldEnableToGetScenarioNames() {
-        assertEquals("Route simple", ScenarioType.SIMPLE_ROAD.toString());
+        assertEquals("Route simple", Scenario.SIMPLE_ROAD.toString());
     }
 }
