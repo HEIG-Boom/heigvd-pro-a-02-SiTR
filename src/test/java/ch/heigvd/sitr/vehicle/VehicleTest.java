@@ -97,11 +97,11 @@ public class VehicleTest {
         assertEquals(0, vehicle.getPathStep());
         assertEquals(path1, vehicle.currentPath());
 
-        vehicle.nextPath();
+        vehicle.moveToNextPath();
         assertEquals(1, vehicle.getPathStep());
         assertEquals(path2, vehicle.currentPath());
 
-        vehicle.nextPath();
+        vehicle.moveToNextPath();
         assertEquals(2, vehicle.getPathStep());
         assertEquals(path3, vehicle.currentPath());
     }
@@ -110,11 +110,11 @@ public class VehicleTest {
     public void pathStepShouldNotExceedItinerarySize() {
         vehicle.addToItinerary(itineraryPath);
         vehicle.addToItinerary(itineraryPath);
-        vehicle.nextPath();
-        vehicle.nextPath();
+        vehicle.moveToNextPath();
+        vehicle.moveToNextPath();
 
         // move to an inexistant path
-        vehicle.nextPath();
+        vehicle.moveToNextPath();
 
         // get back to origin
         assertEquals(0, vehicle.getPathStep());

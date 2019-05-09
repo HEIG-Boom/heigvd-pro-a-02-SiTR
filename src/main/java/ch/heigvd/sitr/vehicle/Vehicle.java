@@ -135,7 +135,7 @@ public class Vehicle implements Renderable {
         // we add the excess to the position on the next itinerary path
         if(position > currentPath().norm()) {
             position -= currentPath().norm();
-            nextPath();
+            moveToNextPath();
         }
 
         this.position = position;
@@ -212,24 +212,30 @@ public class Vehicle implements Renderable {
      * @return front distance
      */
     public double frontDistance() {
-        if (frontVehicle == null) {
+        if (frontVehicle == null || frontVehicle == this) {
             return Double.POSITIVE_INFINITY;
         }
 
-        double posDistance;
+        // this vehicle position should be subtracted to the distance
+        double posDistance = -position;
 
-        // If vehicles are on the same path
-        if(this.currentPath().equals(frontVehicle.currentPath())) {
-            // Distance between two vehicles is the absolute value of the position difference
-            posDistance = Math.abs(frontVehicle.getPosition() - this.getPosition());
-        } else {
-            // on another path, ww add the distance to the end of this vehicle path
-            // and the distance of the front vehicle on its respective path
-            posDistance = Math.abs(currentPath().norm() - this.getPosition() + frontVehicle.getPosition());
+        int path = getPathStep();
+
+        if(position > frontVehicle.position && itinerary.get(path).equals(frontVehicle.currentPath())) {
+            posDistance += itinerary.get(path).norm(); // add the whole path distance
+            path = (path + 1) % itinerarySize();
         }
 
+        // add all itinerary path distance in between
+        while(!itinerary.get(path).equals(frontVehicle.currentPath())) {
+            posDistance += itinerary.get(path).norm(); // add the whole path distance
+            path = (path + 1) % itinerarySize();
+        }
+
+        posDistance += frontVehicle.getPosition();
+
         // We subtract from this distance, the distance from the vehicles center and vehicles extremities
-        posDistance -=(this.getLength() / 2 + frontVehicle.getLength() / 2);
+        posDistance -= (this.getLength() / 2 + frontVehicle.getLength() / 2);
 
         return posDistance;
     }
@@ -355,15 +361,28 @@ public class Vehicle implements Renderable {
     }
 
     /**
+     * get the next step
+     * @return the next step
+     */
+    public int nextStep() {
+        return (pathStep + 1) % itinerarySize();
+    }
+
+    /**
+     * get the next itinerary path
+     *
+     * @return the next itinerary path
+     */
+    public ItineraryPath nextPath() {
+        return itinerary.get(nextStep());
+    }
+
+    /**
      * Move vehicle to the next path of its itinerary
      * <p>
      * Note: if exceed max path step, path step does not change
      */
-    public void nextPath() {
-        if ((pathStep + 1) < this.itinerarySize()) {
-            this.pathStep++;
-        } else {
-            pathStep = 0; // get back to origin
-        }
+    public void moveToNextPath() {
+        pathStep = nextStep();
     }
 }
