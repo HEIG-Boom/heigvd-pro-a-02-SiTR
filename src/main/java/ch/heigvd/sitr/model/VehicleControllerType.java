@@ -15,8 +15,8 @@ import java.awt.*;
  * @author Luc Wachter
  */
 public enum VehicleControllerType {
-    TIMID("Timide", Color.GRAY, "timid.xml"),
-    CAREFUL("Prudent", Color.BLUE, "careful.xml"),
+    TIMID("Timide", Color.BLUE, "timid.xml"),
+    CAREFUL("Prudent", Color.ORANGE, "careful.xml"),
     RECKLESS("Téméraire", Color.RED, "reckless.xml"),
     // Autonomous vehicles can alter the properties afterwards
     AUTONOMOUS("Autonome", Color.BLACK, "autonomous.xml");
