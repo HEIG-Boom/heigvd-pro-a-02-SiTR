@@ -6,7 +6,11 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.model.VehicleControllerType;
+<<<<<<< HEAD
 import com.sun.org.apache.xpath.internal.operations.Bool;
+=======
+import lombok.EqualsAndHashCode;
+>>>>>>> Replace equals and hashcode with lombok
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Document;
@@ -15,7 +19,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import java.io.*;
-import java.util.Objects;
 
 import static java.lang.Math.sqrt;
 
@@ -32,6 +35,8 @@ import static java.lang.Math.sqrt;
  *
  * @author Simon Walther
  */
+@EqualsAndHashCode(of = {"desiredVelocity", "minimumSpacing", "desiredTimeHeadway",
+        "maxAcceleration", "comfortableBrakingDeceleration"})
 public class VehicleController {
     // Delta exponent, traditionally set at 4
     private static final double delta = 4;
@@ -61,16 +66,14 @@ public class VehicleController {
     @Setter
     private double comfortableBrakingDeceleration;
 
-<<<<<<< HEAD
     // If this vehicle is human driven
     @Getter
     @Setter
     private boolean humanDriven;
-=======
+
     // The type of controller represented by this controller
     @Getter
     private VehicleControllerType controllerType;
->>>>>>> Added controller type information in VehicleController
 
     public VehicleController(double desiredVelocity, double minimumSpacing, double desiredTimeHeadway,
                              double maxAcceleration, double comfortableBrakingDeceleration, boolean humanDriven) {
@@ -187,33 +190,5 @@ public class VehicleController {
     public double acceleration(Vehicle vehicle) {
         return desiredAcceleration(vehicle) - maxAcceleration *
                 Math.pow((desiredDynamicalDistance(vehicle) / vehicle.frontDistance()), 2);
-    }
-
-    /**
-     * Compare this with another object and determine if they're equals
-     *
-     * @param o the other object
-     * @return if they are equals
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        VehicleController that = (VehicleController) o;
-        return Double.compare(that.desiredVelocity, desiredVelocity) == 0 &&
-                Double.compare(that.minimumSpacing, minimumSpacing) == 0 &&
-                Double.compare(that.desiredTimeHeadway, desiredTimeHeadway) == 0 &&
-                Double.compare(that.maxAcceleration, maxAcceleration) == 0 &&
-                Double.compare(that.comfortableBrakingDeceleration, comfortableBrakingDeceleration) == 0;
-    }
-
-    /**
-     * hash code of this object
-     *
-     * @return the hash code
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(desiredVelocity, minimumSpacing, desiredTimeHeadway, maxAcceleration, comfortableBrakingDeceleration);
     }
 }
