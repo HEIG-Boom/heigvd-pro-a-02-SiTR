@@ -50,7 +50,6 @@ public class Vehicle extends Observable implements Renderable {
 
     // Max acceleration in [m/s^2] of the vehicle
     @Getter
-    @Setter
     private final double maxAcceleration;
 
     // Length of the vehicle in [m]
