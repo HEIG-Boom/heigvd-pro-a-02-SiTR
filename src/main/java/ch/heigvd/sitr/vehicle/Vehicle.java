@@ -141,8 +141,11 @@ public class Vehicle implements Renderable {
     public void setSpeed(double speed) {
         if (speed > maxSpeed) {
             speed = maxSpeed;
-        } else if (speed < -maxSpeed) {
-            speed = -maxSpeed;
+        }
+
+        // speed shouldn't be negative
+        if (speed < 0) {
+            speed = 0;
         }
 
         this.speed = speed;

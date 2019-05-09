@@ -161,9 +161,9 @@ public class VehicleTest {
     }
 
     @Test
-    public void negativeSpeedShouldNotExceedMaxSpeed() {
+    public void speedShouldNotGoUnder0() {
         vehicle.setSpeed(-50);
-        assertEquals(-33.33, vehicle.getSpeed());
+        assertEquals(0, vehicle.getSpeed());
     }
 
     @Test
