@@ -46,7 +46,7 @@ public class Vehicle extends Observable implements Renderable {
 
     // Max speed in [m/s] of the vehicle
     @Getter
-    private final double maxSpeed;
+    private double maxSpeed;
 
     // Max acceleration in [m/s^2] of the vehicle
     @Getter
@@ -76,6 +76,11 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     private Rectangle rectangle;
 
+    // Color of the vehicle
+    @Getter
+    @Setter
+    private Color color;
+
     /**
      * Constructor
      *
@@ -88,12 +93,10 @@ public class Vehicle extends Observable implements Renderable {
      */
     public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed,
                    double maxAcceleration, LinkedList<ItineraryPath> itinerary) {
-        this.vehicleController = vehicleController;
         this.width = width;
         this.length = length;
-        this.maxSpeed = maxSpeed;
         this.maxAcceleration = maxAcceleration;
-        this.itinerary = itinerary;
+        setAttributes(vehicleController, maxSpeed, itinerary);
     }
 
     /**
@@ -128,17 +131,41 @@ public class Vehicle extends Observable implements Renderable {
             System.out.println(io.getMessage());
         }
 
-        this.length = length;
         this.width = width;
-        this.maxSpeed = maxSpeed;
+        this.length = length;
         this.maxAcceleration = maxAcceleration;
-        this.itinerary = itinerary;
+        setAttributes(vehicleController, maxSpeed, itinerary);
     }
 
+    /**
+     * Set some of the vehicle's attribute to minimize duplication
+     *
+     * @param vehicleController controller of the vehicle
+     * @param maxSpeed          max speed [m/s] of the vehicle
+     * @param itinerary         the vehicle itinerary
+     */
+    private void setAttributes(VehicleController vehicleController, double maxSpeed,
+                              LinkedList<ItineraryPath> itinerary) {
+        this.vehicleController = vehicleController;
+        this.maxSpeed = maxSpeed;
+        this.itinerary = itinerary;
+
+        if (vehicleController.getControllerType() != null) {
+            this.color = vehicleController.getControllerType().getColor();
+        } else {
+            this.color = Color.CYAN;
+        }
+    }
+
+    /**
+     * Setter for the position of the vehicle, checking for itinerary length
+     *
+     * @param position The vehicle's position
+     */
     public void setPosition(double position) {
         // if it exceed the itinerary path length,
         // we add the excess to the position on the next itinerary path
-        if(position > currentPath().norm()) {
+        if (position > currentPath().norm()) {
             position -= currentPath().norm();
             moveToNextPath();
         }

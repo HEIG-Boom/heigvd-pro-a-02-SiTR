@@ -61,10 +61,16 @@ public class VehicleController {
     @Setter
     private double comfortableBrakingDeceleration;
 
+<<<<<<< HEAD
     // If this vehicle is human driven
     @Getter
     @Setter
     private boolean humanDriven;
+=======
+    // The type of controller represented by this controller
+    @Getter
+    private VehicleControllerType controllerType;
+>>>>>>> Added controller type information in VehicleController
 
     public VehicleController(double desiredVelocity, double minimumSpacing, double desiredTimeHeadway,
                              double maxAcceleration, double comfortableBrakingDeceleration, boolean humanDriven) {
@@ -85,6 +91,8 @@ public class VehicleController {
         // Get the controller's config file
         InputStream in = VehicleController.class.getResourceAsStream(vct.getConfigPath());
         SAXBuilder saxBuilder = new SAXBuilder();
+
+        controllerType = vct;
 
         try {
             Document document = saxBuilder.build(in);
