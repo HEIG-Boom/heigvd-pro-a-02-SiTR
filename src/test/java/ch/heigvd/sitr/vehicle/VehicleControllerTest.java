@@ -37,8 +37,8 @@ public class VehicleControllerTest {
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
-        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
+        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, 2.5, defaultItinerary);
+        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, 2.5, defaultItinerary);
         vehicle.setFrontVehicle(frontVehicle);
     }
 

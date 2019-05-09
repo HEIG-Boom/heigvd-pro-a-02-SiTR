@@ -68,7 +68,7 @@ public class SimulationWindow implements Displayer {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        panel.add(new CarControlPanel(new Vehicle(null, 2.0, 1, 2.0, null)), gbc);
+        panel.add(new CarControlPanel(new Vehicle(null, 2.0, 1, 2.0, 0, null)), gbc);
 
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

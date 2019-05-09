@@ -46,6 +46,11 @@ public class Vehicle implements Renderable {
     @Getter
     private final double maxSpeed;
 
+    // Max acceleration in [m/s^2] of the vehicle
+    @Getter
+    @Setter
+    private final double maxAcceleration;
+
     // Length of the vehicle in [m]
     @Getter
     private final double length;
@@ -73,14 +78,16 @@ public class Vehicle implements Renderable {
      * @param length            length [m] of the vehicle
      * @param width             width [m] of the vehicle
      * @param maxSpeed          max speed [m/s] of the vehicle
+     * @param maxAcceleration   max acceleration [m/s^2] of the vehicle
      * @param itinerary         the vehicle itinerary
      */
     public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed,
-                   LinkedList<ItineraryPath> itinerary) {
+                   double maxAcceleration, LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
         this.width = width;
         this.length = length;
         this.maxSpeed = maxSpeed;
+        this.maxAcceleration = maxAcceleration;
         this.itinerary = itinerary;
     }
 
@@ -102,6 +109,7 @@ public class Vehicle implements Renderable {
         double length = 0;
         double width = 0;
         double maxSpeed = 0;
+        double maxAcceleration = 0;
 
         try {
             Document document = saxBuilder.build(in);
@@ -110,6 +118,7 @@ public class Vehicle implements Renderable {
             length = Double.parseDouble(root.getChildText("length"));
             width = Double.parseDouble(root.getChildText("width"));
             maxSpeed = Double.parseDouble(root.getChildText("maxSpeed"));
+            maxAcceleration = Double.parseDouble(root.getChildText("maxAcceleration"));
         } catch (IOException | JDOMException io) {
             System.out.println(io.getMessage());
         }
@@ -117,6 +126,7 @@ public class Vehicle implements Renderable {
         this.length = length;
         this.width = width;
         this.maxSpeed = maxSpeed;
+        this.maxAcceleration = maxAcceleration;
         this.itinerary = itinerary;
     }
 
@@ -238,10 +248,20 @@ public class Vehicle implements Renderable {
     /**
      * Acceleration of the vehicle
      *
+     * Note: max acceleration is returned if accleration exceed max
+     *
      * @return acceleration of the vehicle
      */
     public double acceleration() {
-        return getVehicleController().acceleration(this);
+        double acceleration = getVehicleController().acceleration(this);
+
+        if(acceleration > maxAcceleration) {
+            acceleration = maxAcceleration;
+        } else if(acceleration < -maxAcceleration) {
+            acceleration = -maxAcceleration;
+        }
+
+        return acceleration;
     }
 
     /**
@@ -295,7 +315,7 @@ public class Vehicle implements Renderable {
     public String toString() {
         String ret = "";
         ret += "Pos: " + position;
-        ret += " a: " + ((vehicleController != null) ? vehicleController.acceleration(this) : "");
+        ret += " a: " + ((vehicleController != null) ? acceleration() : "");
         ret += " v: " + speed;
         ret += " frontDistance: " + frontDistance();
 

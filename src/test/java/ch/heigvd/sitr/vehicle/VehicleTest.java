@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for Vehicle.
@@ -39,14 +38,14 @@ public class VehicleTest {
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, defaultItinerary);
-        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
+        frontVehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, 2.5, defaultItinerary);
+        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, 2.5, defaultItinerary);
         vehicle.setFrontVehicle(frontVehicle);
     }
 
     @Test
     public void constructor() {
-        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, 2.5, defaultItinerary);
         assertEquals(1.6, vehicle.getLength());
         assertEquals(33.33, vehicle.getMaxSpeed());
         assertEquals(vehicleController, vehicle.getVehicleController());
@@ -60,6 +59,7 @@ public class VehicleTest {
         assertEquals(1.6, vehicle.getLength());
         assertEquals(1, vehicle.getWidth());
         assertEquals(33.33, vehicle.getMaxSpeed());
+        assertEquals(2.5, vehicle.getMaxAcceleration());
         assertEquals(controller, vehicle.getVehicleController());
         assertEquals(itineraryPath, vehicle.currentPath());
     }
@@ -92,7 +92,7 @@ public class VehicleTest {
         itinerary.add(path2);
         itinerary.add(path3);
 
-        Vehicle vehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, itinerary);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, 2.5, itinerary);
 
         assertEquals(0, vehicle.getPathStep());
         assertEquals(path1, vehicle.currentPath());
@@ -137,7 +137,7 @@ public class VehicleTest {
         itineraryPaths.add(itineraryPath1);
         itineraryPaths.add(itineraryPath2);
 
-        Vehicle vehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, itineraryPaths);
+        Vehicle vehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, 2.5, itineraryPaths);
 
         assertEquals(0, vehicle.getPosition());
         assertEquals(0, vehicle.getPathStep());
@@ -146,6 +146,17 @@ public class VehicleTest {
 
         assertEquals(1, vehicle.getPosition());
         assertEquals(1, vehicle.getPathStep());
+    }
+
+    @Test
+    public void accelerationShouldNotExceedMax() {
+        frontVehicle.setPosition(1);
+        frontVehicle.setSpeed(0);
+        vehicle.setSpeed(33.33);
+        vehicle.setPosition(0);
+        vehicle.setFrontVehicle(frontVehicle);
+        assertFalse(Math.abs(vehicle.acceleration()) > vehicle.getMaxAcceleration());
+        assertEquals(vehicle.getMaxAcceleration(), -vehicle.acceleration());
     }
 
     @Test
