@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for Vehicle controller.
@@ -32,24 +31,25 @@ public class VehicleControllerTest {
 
     @BeforeEach
     public void createDummyVehicleController() {
-        vehicleController = new VehicleController(33.33, 2, 1.5, 0.3, 3);
+        vehicleController = new VehicleController(33.33, 2, 1.5, 0.3, 3, false);
     }
 
     @BeforeEach
     public void createDummyVehicle() {
-        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
-        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, defaultItinerary);
+        frontVehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, 2.5, defaultItinerary);
+        vehicle = new Vehicle(vehicleController, 1.6, 1, 33.33, 2.5, defaultItinerary);
         vehicle.setFrontVehicle(frontVehicle);
     }
 
     @Test
     public void constructor() {
-        VehicleController controller = new VehicleController(33.33, 2, 1.5, 0.3, 3);
+        VehicleController controller = new VehicleController(33.33, 2, 1.5, 0.3, 3, false);
         assertEquals(33.33, controller.getDesiredVelocity());
         assertEquals(2, controller.getMinimumSpacing());
         assertEquals(1.5, controller.getDesiredTimeHeadway());
         assertEquals(0.3, controller.getMaxAcceleration());
         assertEquals(3, controller.getComfortableBrakingDeceleration());
+        assertFalse(controller.isHumanDriven());
     }
 
     @Test
@@ -60,6 +60,10 @@ public class VehicleControllerTest {
         assertEquals(1.5, controller.getDesiredTimeHeadway());
         assertEquals(1, controller.getMaxAcceleration());
         assertEquals(2.2, controller.getComfortableBrakingDeceleration());
+        assertTrue(controller.isHumanDriven());
+
+        controller = new VehicleController(VehicleControllerType.AUTONOMOUS);
+        assertFalse(controller.isHumanDriven());
     }
 
     @Test

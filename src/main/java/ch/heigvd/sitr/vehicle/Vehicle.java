@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.utils.AccelerationNoise;
 import ch.heigvd.sitr.utils.Renderable;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,6 +48,10 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     private final double maxSpeed;
 
+    // Max acceleration in [m/s^2] of the vehicle
+    @Getter
+    private final double maxAcceleration;
+
     // Length of the vehicle in [m]
     @Getter
     private final double length;
@@ -64,6 +69,9 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     private VehicleController vehicleController;
 
+    // Accleration noise
+    private AccelerationNoise accelerationNoise = new AccelerationNoise();
+  
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
@@ -75,14 +83,16 @@ public class Vehicle extends Observable implements Renderable {
      * @param length            length [m] of the vehicle
      * @param width             width [m] of the vehicle
      * @param maxSpeed          max speed [m/s] of the vehicle
+     * @param maxAcceleration   max acceleration [m/s^2] of the vehicle
      * @param itinerary         the vehicle itinerary
      */
     public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed,
-                   LinkedList<ItineraryPath> itinerary) {
+                   double maxAcceleration, LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
         this.width = width;
         this.length = length;
         this.maxSpeed = maxSpeed;
+        this.maxAcceleration = maxAcceleration;
         this.itinerary = itinerary;
     }
 
@@ -104,6 +114,7 @@ public class Vehicle extends Observable implements Renderable {
         double length = 0;
         double width = 0;
         double maxSpeed = 0;
+        double maxAcceleration = 0;
 
         try {
             Document document = saxBuilder.build(in);
@@ -112,6 +123,7 @@ public class Vehicle extends Observable implements Renderable {
             length = Double.parseDouble(root.getChildText("length"));
             width = Double.parseDouble(root.getChildText("width"));
             maxSpeed = Double.parseDouble(root.getChildText("maxSpeed"));
+            maxAcceleration = Double.parseDouble(root.getChildText("maxAcceleration"));
         } catch (IOException | JDOMException io) {
             System.out.println(io.getMessage());
         }
@@ -119,6 +131,7 @@ public class Vehicle extends Observable implements Renderable {
         this.length = length;
         this.width = width;
         this.maxSpeed = maxSpeed;
+        this.maxAcceleration = maxAcceleration;
         this.itinerary = itinerary;
     }
 
@@ -127,7 +140,7 @@ public class Vehicle extends Observable implements Renderable {
         // we add the excess to the position on the next itinerary path
         if(position > currentPath().norm()) {
             position -= currentPath().norm();
-            nextPath();
+            moveToNextPath();
         }
 
         this.position = position;
@@ -143,11 +156,35 @@ public class Vehicle extends Observable implements Renderable {
     public void setSpeed(double speed) {
         if (speed > maxSpeed) {
             speed = maxSpeed;
-        } else if (speed < -maxSpeed) {
-            speed = -maxSpeed;
+        }
+
+        // speed shouldn't be negative
+        if (speed < 0) {
+            speed = 0;
         }
 
         this.speed = speed;
+    }
+
+    /**
+     * update the acceleration white noise
+     *
+     * @param deltaT time difference [s]
+     */
+    public void updateAccelerationNoise(double deltaT) {
+        accelerationNoise.updateAccelerationWhiteNoise(deltaT);
+    }
+
+    /**
+     * Calculate the speed difference with acceleration, noise and time difference
+     *
+     * @param acceleration acceleration [m/s^2]
+     * @param deltaT       time difference [s]
+     * @param accelerationNoise acceleration noise
+     * @return speed difference [m/s]
+     */
+    public static double speedDifference(double acceleration, double deltaT, double accelerationNoise) {
+        return speedDifference(acceleration, deltaT) + accelerationNoise;
     }
 
     /**
@@ -180,24 +217,32 @@ public class Vehicle extends Observable implements Renderable {
      * @return front distance
      */
     public double frontDistance() {
-        if (frontVehicle == null) {
+        if (frontVehicle == null || frontVehicle == this) {
             return Double.POSITIVE_INFINITY;
         }
 
-        double posDistance;
+        // this vehicle position should be subtracted to the distance
+        double posDistance = -position;
 
-        // If vehicles are on the same path
-        if(this.currentPath().equals(frontVehicle.currentPath())) {
-            // Distance between two vehicles is the absolute value of the position difference
-            posDistance = Math.abs(frontVehicle.getPosition() - this.getPosition());
-        } else {
-            // on another path, ww add the distance to the end of this vehicle path
-            // and the distance of the front vehicle on its respective path
-            posDistance = Math.abs(currentPath().norm() - this.getPosition() + frontVehicle.getPosition());
+        int path = getPathStep();
+
+        if(position > frontVehicle.position && itinerary.get(path).equals(frontVehicle.currentPath())) {
+            posDistance += itinerary.get(path).norm(); // add the whole path distance
+            path = (path + 1) % itinerarySize();
         }
 
+        // add all itinerary path distance in between
+        while(!itinerary.get(path).equals(frontVehicle.currentPath())) {
+            posDistance += itinerary.get(path).norm(); // add the whole path distance
+            path = (path + 1) % itinerarySize();
+        }
+
+        posDistance += frontVehicle.getPosition();
+
         // We subtract from this distance, the distance from the vehicles center and vehicles extremities
-        return posDistance - (this.getLength() / 2 + frontVehicle.getLength() / 2);
+        posDistance -= (this.getLength() / 2 + frontVehicle.getLength() / 2);
+
+        return posDistance;
     }
 
     /**
@@ -212,12 +257,36 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
+     * Acceleration of the vehicle
+     *
+     * Note: max acceleration is returned if accleration exceed max
+     *
+     * @return acceleration of the vehicle
+     */
+    public double acceleration() {
+        double acceleration = getVehicleController().acceleration(this);
+
+        if(acceleration > maxAcceleration) {
+            acceleration = maxAcceleration;
+        } else if(acceleration < -maxAcceleration) {
+            acceleration = -maxAcceleration;
+        }
+
+        return acceleration;
+    }
+
+    /**
      * Change speed [m/s] of the vehicle according to its acceleration and a time difference
      *
      * @param deltaT time difference [s]
      */
     void updateSpeed(double deltaT) {
-        setSpeed(getSpeed() + speedDifference(getVehicleController().acceleration(this), deltaT));
+        if(vehicleController.isHumanDriven()) {
+            // set speed taking noise in account
+            setSpeed(getSpeed() + speedDifference(acceleration(), deltaT, accelerationNoise.getAccelerationNoise()));
+        } else {
+            setSpeed(getSpeed() + speedDifference(acceleration(), deltaT));
+        }
     }
 
     /**
@@ -235,6 +304,12 @@ public class Vehicle extends Observable implements Renderable {
      * @param deltaT the time difference [s]
      */
     public void update(double deltaT) {
+        // update noise if it's an human driven vehicle
+        if(vehicleController.isHumanDriven()) {
+            // update the acceleration noise
+            updateAccelerationNoise(deltaT);
+        }
+
         // First update speed according to the vehicle acceleration
         updateSpeed(deltaT);
         // Then update position, taking into account the new speed
@@ -260,9 +335,10 @@ public class Vehicle extends Observable implements Renderable {
     public String toString() {
         String ret = "";
         ret += "Pos: " + position;
-        ret += " a: " + ((vehicleController != null) ? vehicleController.acceleration(this) : "");
+        ret += " a: " + ((vehicleController != null) ? acceleration() : "");
         ret += " v: " + speed;
         ret += " frontDistance: " + frontDistance();
+        ret += " noise: " + ((accelerationNoise != null) ? accelerationNoise.getAccelerationNoise() : "0");
 
         return ret;
     }
@@ -299,15 +375,28 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
+     * get the next step
+     * @return the next step
+     */
+    public int nextStep() {
+        return (pathStep + 1) % itinerarySize();
+    }
+
+    /**
+     * get the next itinerary path
+     *
+     * @return the next itinerary path
+     */
+    public ItineraryPath nextPath() {
+        return itinerary.get(nextStep());
+    }
+
+    /**
      * Move vehicle to the next path of its itinerary
      * <p>
      * Note: if exceed max path step, path step does not change
      */
-    public void nextPath() {
-        if ((pathStep + 1) < this.itinerarySize()) {
-            this.pathStep++;
-        } else {
-            pathStep = 0; // get back to origin
-        }
+    public void moveToNextPath() {
+        pathStep = nextStep();
     }
 }

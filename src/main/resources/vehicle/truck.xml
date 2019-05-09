@@ -3,4 +3,5 @@
     <length>3.9</length>
     <width>1.2</width>
     <maxSpeed>22.22</maxSpeed>
+    <maxAcceleration>2.5</maxAcceleration>
 </vehicle>

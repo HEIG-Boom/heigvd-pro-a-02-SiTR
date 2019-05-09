@@ -5,4 +5,5 @@
     <desiredTimeHeadway>1.5</desiredTimeHeadway>
     <maxAcceleration>1</maxAcceleration>
     <comfortableBrakingDeceleration>2.2</comfortableBrakingDeceleration>
+    <humanDriven>true</humanDriven>
 </controller>
