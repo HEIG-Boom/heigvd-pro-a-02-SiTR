@@ -27,7 +27,7 @@ public class VehicleTest {
 
     @BeforeEach
     public void createDummyVehicleController() {
-        vehicleController = new VehicleController(33.33, 2, 1.5, 0.3, 3);
+        vehicleController = new VehicleController(33.33, 2, 1.5, 0.3, 3, false);
     }
 
     @BeforeEach

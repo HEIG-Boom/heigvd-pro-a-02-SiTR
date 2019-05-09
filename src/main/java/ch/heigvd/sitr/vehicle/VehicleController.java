@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.model.VehicleControllerType;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Document;
@@ -60,13 +61,19 @@ public class VehicleController {
     @Setter
     private double comfortableBrakingDeceleration;
 
+    // If this vehicle is human driven
+    @Getter
+    @Setter
+    private boolean humanDriven;
+
     public VehicleController(double desiredVelocity, double minimumSpacing, double desiredTimeHeadway,
-                             double maxAcceleration, double comfortableBrakingDeceleration) {
+                             double maxAcceleration, double comfortableBrakingDeceleration, boolean humanDriven) {
         this.desiredVelocity = desiredVelocity;
         this.minimumSpacing = minimumSpacing;
         this.desiredTimeHeadway = desiredTimeHeadway;
         this.maxAcceleration = maxAcceleration;
         this.comfortableBrakingDeceleration = comfortableBrakingDeceleration;
+        this.humanDriven = humanDriven;
     }
 
     /**
@@ -88,6 +95,7 @@ public class VehicleController {
             desiredTimeHeadway = Double.parseDouble(root.getChildText("desiredTimeHeadway"));
             maxAcceleration = Double.parseDouble(root.getChildText("maxAcceleration"));
             comfortableBrakingDeceleration = Double.parseDouble(root.getChildText("comfortableBrakingDeceleration"));
+            humanDriven = Boolean.parseBoolean(root.getChildText("humanDriven"));
         } catch (IOException | JDOMException io) {
             System.out.println(io.getMessage());
         }

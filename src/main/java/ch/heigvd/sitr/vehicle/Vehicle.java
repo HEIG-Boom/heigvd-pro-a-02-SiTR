@@ -185,7 +185,7 @@ public class Vehicle extends Observable implements Renderable {
      * @return speed difference [m/s]
      */
     public static double speedDifference(double acceleration, double deltaT, double accelerationNoise) {
-        return acceleration * deltaT + accelerationNoise;
+        return speedDifference(acceleration, deltaT) + accelerationNoise;
     }
 
     /**
@@ -282,7 +282,12 @@ public class Vehicle extends Observable implements Renderable {
      * @param deltaT time difference [s]
      */
     void updateSpeed(double deltaT) {
-        setSpeed(getSpeed() + speedDifference(acceleration(), deltaT, accelerationNoise.getAccelerationNoise()));
+        if(vehicleController.isHumanDriven()) {
+            // set speed taking noise in account
+            setSpeed(getSpeed() + speedDifference(acceleration(), deltaT, accelerationNoise.getAccelerationNoise()));
+        } else {
+            setSpeed(getSpeed() + speedDifference(acceleration(), deltaT));
+        }
     }
 
     /**
@@ -300,8 +305,12 @@ public class Vehicle extends Observable implements Renderable {
      * @param deltaT the time difference [s]
      */
     public void update(double deltaT) {
-        // update the acceleration noise
-        updateAccelerationNoise(deltaT);
+        // update noise if it's an human driven vehicle
+        if(vehicleController.isHumanDriven()) {
+            // update the acceleration noise
+            updateAccelerationNoise(deltaT);
+        }
+
         // First update speed according to the vehicle acceleration
         updateSpeed(deltaT);
         // Then update position, taking into account the new speed
