@@ -71,7 +71,7 @@ public class Vehicle extends Observable implements Renderable {
 
     // Acceleration noise
     private AccelerationNoise accelerationNoise = new AccelerationNoise();
-  
+
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
@@ -144,7 +144,7 @@ public class Vehicle extends Observable implements Renderable {
      * @param itinerary         the vehicle itinerary
      */
     private void setAttributes(VehicleController vehicleController, double maxSpeed,
-                              LinkedList<ItineraryPath> itinerary) {
+                               LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
         this.maxSpeed = maxSpeed;
         this.itinerary = itinerary;
@@ -162,7 +162,7 @@ public class Vehicle extends Observable implements Renderable {
      * @param position The vehicle's position
      */
     public void setPosition(double position) {
-        // if it exceed the itinerary path length,
+        // If it exceed the itinerary path length,
         // we add the excess to the position on the next itinerary path
         if (position > currentPath().norm()) {
             position -= currentPath().norm();
@@ -184,7 +184,7 @@ public class Vehicle extends Observable implements Renderable {
             speed = maxSpeed;
         }
 
-        // speed shouldn't be negative
+        // Speed shouldn't be negative
         if (speed < 0) {
             speed = 0;
         }
@@ -193,7 +193,7 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
-     * update the acceleration white noise
+     * Update the acceleration white noise
      *
      * @param deltaT time difference [s]
      */
@@ -204,8 +204,8 @@ public class Vehicle extends Observable implements Renderable {
     /**
      * Calculate the speed difference with acceleration, noise and time difference
      *
-     * @param acceleration acceleration [m/s^2]
-     * @param deltaT       time difference [s]
+     * @param acceleration      acceleration [m/s^2]
+     * @param deltaT            time difference [s]
      * @param accelerationNoise acceleration noise
      * @return speed difference [m/s]
      */
@@ -247,19 +247,19 @@ public class Vehicle extends Observable implements Renderable {
             return Double.POSITIVE_INFINITY;
         }
 
-        // this vehicle position should be subtracted to the distance
+        // This vehicle position should be subtracted to the distance
         double posDistance = -position;
 
         int path = getPathStep();
 
-        if(position > frontVehicle.position && itinerary.get(path).equals(frontVehicle.currentPath())) {
-            posDistance += itinerary.get(path).norm(); // add the whole path distance
+        if (position > frontVehicle.position && itinerary.get(path).equals(frontVehicle.currentPath())) {
+            posDistance += itinerary.get(path).norm(); // Add the whole path distance
             path = (path + 1) % itinerarySize();
         }
 
-        // add all itinerary path distance in between
-        while(!itinerary.get(path).equals(frontVehicle.currentPath())) {
-            posDistance += itinerary.get(path).norm(); // add the whole path distance
+        // Add all itinerary path distance in between
+        while (!itinerary.get(path).equals(frontVehicle.currentPath())) {
+            posDistance += itinerary.get(path).norm(); // Add the whole path distance
             path = (path + 1) % itinerarySize();
         }
 
@@ -284,7 +284,7 @@ public class Vehicle extends Observable implements Renderable {
 
     /**
      * Acceleration of the vehicle
-     *
+     * <p>
      * Note: max acceleration is returned if accleration exceed max
      *
      * @return acceleration of the vehicle
@@ -292,9 +292,9 @@ public class Vehicle extends Observable implements Renderable {
     public double acceleration() {
         double acceleration = getVehicleController().acceleration(this);
 
-        if(acceleration > maxAcceleration) {
+        if (acceleration > maxAcceleration) {
             acceleration = maxAcceleration;
-        } else if(acceleration < -maxAcceleration) {
+        } else if (acceleration < -maxAcceleration) {
             acceleration = -maxAcceleration;
         }
 
@@ -307,8 +307,8 @@ public class Vehicle extends Observable implements Renderable {
      * @param deltaT time difference [s]
      */
     void updateSpeed(double deltaT) {
-        if(vehicleController.isHumanDriven()) {
-            // set speed taking noise in account
+        if (vehicleController.isHumanDriven()) {
+            // Set speed taking noise in account
             setSpeed(getSpeed() + speedDifference(acceleration(), deltaT, accelerationNoise.getAccelerationNoise()));
         } else {
             setSpeed(getSpeed() + speedDifference(acceleration(), deltaT));
@@ -330,9 +330,9 @@ public class Vehicle extends Observable implements Renderable {
      * @param deltaT the time difference [s]
      */
     public void update(double deltaT) {
-        // update noise if it's an human driven vehicle
-        if(vehicleController.isHumanDriven()) {
-            // update the acceleration noise
+        // Update noise if it's an human driven vehicle
+        if (vehicleController.isHumanDriven()) {
+            // Update the acceleration noise
             updateAccelerationNoise(deltaT);
         }
 
@@ -384,7 +384,8 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
-     * get the next step
+     * Get the next step
+     *
      * @return the next step
      */
     public int nextStep() {
@@ -392,7 +393,7 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
-     * get the next itinerary path
+     * Get the next itinerary path
      *
      * @return the next itinerary path
      */
