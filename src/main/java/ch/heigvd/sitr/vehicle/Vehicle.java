@@ -14,16 +14,18 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.Observable;
 
 /**
  * Vehicle class represents the simulation vehicles
  *
  * @author Simon Walther
  */
-public class Vehicle implements Renderable {
+public class Vehicle extends Observable implements Renderable {
     private static final String BASE_CONFIG_PATH = "/vehicle/";
 
     // Itinerary of the vehicle, subdivided in multiple paths
@@ -61,6 +63,10 @@ public class Vehicle implements Renderable {
     // Vehicle controller of this vehicle
     @Getter
     private VehicleController vehicleController;
+
+    // Rectangle of the car on the map
+    @Getter
+    private Rectangle rectangle;
 
     /**
      * Constructor
@@ -242,7 +248,7 @@ public class Vehicle implements Renderable {
      */
     @Override
     public void draw(double scale) {
-        VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this, scale);
+        rectangle = VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this, scale);
     }
 
     /**
