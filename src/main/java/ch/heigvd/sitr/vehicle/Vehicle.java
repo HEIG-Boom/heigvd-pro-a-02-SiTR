@@ -318,6 +318,7 @@ public class Vehicle implements Renderable {
         ret += " a: " + ((vehicleController != null) ? acceleration() : "");
         ret += " v: " + speed;
         ret += " frontDistance: " + frontDistance();
+        ret += " noise: " + ((accelerationNoise != null) ? accelerationNoise.getAccelerationNoise() : "0");
 
         return ret;
     }
