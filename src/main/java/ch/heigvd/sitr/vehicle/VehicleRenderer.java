@@ -25,13 +25,6 @@ public class VehicleRenderer {
     private VehicleRenderer() {}
 
     /**
-     * Rendering method for vehicles
-     *
-     * @param g
-     * @param vehicle
-     * @param scale
-     */
-    /**
      * Rendering method for vehicles.
      *
      * @param g       The Graphics on which to draw the vehicle
