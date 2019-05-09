@@ -14,7 +14,6 @@ import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.Timer;
@@ -64,22 +63,6 @@ public class Simulation {
     @Getter
     private double prevDelta = defaultDelta;
 
-    // The task for the timer
-    private final TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-            for (Vehicle vehicle : vehicles) {
-                vehicle.update(delta);
-                vehicle.draw(scenario.getScale());
-                // DEBUG
-                System.out.println(vehicle);
-            }
-
-            // Callback to paintComponent()
-            window.repaint();
-        }
-    };
-
     /**
      * Simulation constructor
      *
@@ -94,6 +77,8 @@ public class Simulation {
 
         // Create a roadNetwork instance and then parse the OpenDRIVE XML file
         roadNetwork = new RoadNetwork();
+
+        // Load road network
         parseOpenDriveXml(roadNetwork, scenario.getConfigPath());
 
         // Generate vehicles from user parameters
@@ -115,7 +100,20 @@ public class Simulation {
 
         // Schedule a task to run immediately, and then
         // every UPDATE_RATE per second
-        timer.scheduleAtFixedRate(task, 0, UPDATE_RATE);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                for (Vehicle vehicle : vehicles) {
+                    vehicle.update(delta);
+                    vehicle.draw(scenario.getScale());
+                    // DEBUG
+                    System.out.println(vehicle);
+                }
+
+                // Callback to paintComponent()
+                window.repaint();
+            }
+        }, 0, UPDATE_RATE);
     }
 
     /**
@@ -127,16 +125,11 @@ public class Simulation {
     private LinkedList<Vehicle> generateTraffic(HashMap<VehicleControllerType, Integer> controllers) {
         LinkedList<Vehicle> vehicles = new LinkedList<>();
 
-        // TODO Manage positions and front vehicles
-
         LinkedList<ItineraryPath> defaultItinerary = new LinkedList<>();
-        Iterator<RoadSegment> roadSegmentIterator = roadNetwork.iterator();
 
-        while (roadSegmentIterator.hasNext()) {
-            defaultItinerary.add(new ItineraryPath(roadSegmentIterator.next(), scenario.getScale()));
+        for (RoadSegment roadSegment : roadNetwork) {
+            defaultItinerary.add(new ItineraryPath(roadSegment, scenario.getScale()));
         }
-
-        // ItineraryPath itineraryPath = new ItineraryPath(new Point2D.Double(7, 49), new Point2D.Double(75, 49));
 
         // Iterate through the hash map
         for (Map.Entry<VehicleControllerType, Integer> entry : controllers.entrySet()) {
@@ -145,11 +138,32 @@ public class Simulation {
 
             // Generate as many vehicles as asked
             for (int i = 0; i < entry.getValue(); i++) {
-                // TODO: add last vehicle as front vehicle
                 Vehicle v = new Vehicle("regular.xml", controller, defaultItinerary);
-                // v.setFrontVehicle(wall);
                 vehicles.add(v);
             }
+        }
+
+        // Randomize vehicles order
+        Collections.shuffle(vehicles);
+
+        // Set vehicles positions and front vehicles
+        int c = 0;
+        Vehicle previousVehicle = null;
+        for (Vehicle vehicle : vehicles) {
+            // Place vehicles at a good distance from each other
+            vehicle.setPosition(vehicle.getPosition() + (vehicle.getLength() * 3 * c++));
+
+            // Set front vehicle (if there is one)
+            if (previousVehicle != null) {
+                previousVehicle.setFrontVehicle(vehicle);
+            }
+
+            previousVehicle = vehicle;
+        }
+
+        // [TEMPORARY] Set last vehicle's front vehicle
+        if (previousVehicle != null) {
+            previousVehicle.setFrontVehicle(vehicles.getFirst());
         }
 
         return vehicles;
@@ -177,6 +191,7 @@ public class Simulation {
 
     /**
      * Method used to set the current delta. This method save the value before to change it
+     *
      * @param delta new value of delta
      */
     public void setDelta(double delta) {
