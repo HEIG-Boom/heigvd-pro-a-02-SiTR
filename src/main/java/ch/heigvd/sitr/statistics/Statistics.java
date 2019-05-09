@@ -38,20 +38,15 @@ public class Statistics extends Thread{
      */
     public void run(){
         while(running) {
-
-            SimulationWindow.getInstance().getControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
-            SimulationWindow.getInstance().getControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
-            SimulationWindow.getInstance().getControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
+            SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
+            SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
+            SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
 
             try {
                 sleep(coolingTime * 1000);
             } catch(InterruptedException e){
                 e.printStackTrace();
             }
-            
-            SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
-            SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
-            SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
         }
     }
 
