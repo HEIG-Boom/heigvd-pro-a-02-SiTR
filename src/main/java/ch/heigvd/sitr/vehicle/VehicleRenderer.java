@@ -39,6 +39,7 @@ public class VehicleRenderer {
 
         g.setColor(vehicle.getColor());
 
+        // Get positional information, using correct conversions
         int x = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getX() +
                 vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
         int y = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getY() +
@@ -46,11 +47,15 @@ public class VehicleRenderer {
         int length = Conversions.metersToPixels(scale, vehicle.getLength());
         int width = Conversions.metersToPixels(scale, vehicle.getWidth());
 
+        // Calculate correct rotation
         AffineTransform rotation = new AffineTransform();
         rotation.rotate(Math.atan2(vehicle.currentPath().getDirectionVector().y,
                 vehicle.currentPath().getDirectionVector().x), x + length / 2, y + width / 2);
         g.transform(rotation);
+
+        // Draw rectangle
         g.fillRect(x, y, length, width);
+
         return new Rectangle(x, y, length, width);
     }
 
