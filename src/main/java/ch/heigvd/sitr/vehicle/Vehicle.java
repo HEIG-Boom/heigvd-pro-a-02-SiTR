@@ -27,7 +27,7 @@ public class Vehicle implements Renderable {
     private static final String BASE_CONFIG_PATH = "/vehicle/";
 
     // Itinerary of the vehicle, subdivided in multiple paths
-    private LinkedList<ItineraryPath> itinerary = new LinkedList<ItineraryPath>();
+    private LinkedList<ItineraryPath> itinerary;
 
     // Current path step
     @Getter
@@ -71,7 +71,8 @@ public class Vehicle implements Renderable {
      * @param maxSpeed          max speed [m/s] of the vehicle
      * @param itinerary         the vehicle itinerary
      */
-    public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed, LinkedList<ItineraryPath> itinerary) {
+    public Vehicle(VehicleController vehicleController, double length, double width, double maxSpeed,
+                   LinkedList<ItineraryPath> itinerary) {
         this.vehicleController = vehicleController;
         this.width = width;
         this.length = length;
@@ -99,7 +100,7 @@ public class Vehicle implements Renderable {
         double maxSpeed = 0;
 
         try {
-            Document document = (Document) saxBuilder.build(in);
+            Document document = saxBuilder.build(in);
             Element root = document.getRootElement();
 
             length = Double.parseDouble(root.getChildText("length"));
