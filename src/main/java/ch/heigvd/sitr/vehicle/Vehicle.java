@@ -69,7 +69,7 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     private VehicleController vehicleController;
 
-    // Accleration noise
+    // Acceleration noise
     private AccelerationNoise accelerationNoise = new AccelerationNoise();
   
     // Rectangle of the car on the map
@@ -112,8 +112,7 @@ public class Vehicle extends Observable implements Renderable {
         InputStream in = Vehicle.class.getResourceAsStream(BASE_CONFIG_PATH + configPath);
         SAXBuilder saxBuilder = new SAXBuilder();
 
-        // non-final temporary variables to ensure final
-        // variables are initialized
+        // Non-final temporary variables to ensure final variables are initialized
         double length = 0;
         double width = 0;
         double maxSpeed = 0;
@@ -354,23 +353,6 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
-     * Debug toString
-     *
-     * @return A debug representation of a Vehicle
-     */
-    @Override
-    public String toString() {
-        String ret = "";
-        ret += "Pos: " + position;
-        ret += " a: " + ((vehicleController != null) ? acceleration() : "");
-        ret += " v: " + speed;
-        ret += " frontDistance: " + frontDistance();
-        ret += " noise: " + ((accelerationNoise != null) ? accelerationNoise.getAccelerationNoise() : "0");
-
-        return ret;
-    }
-
-    /**
      * Get the current path of the vehicle
      *
      * @return the current path
@@ -425,5 +407,22 @@ public class Vehicle extends Observable implements Renderable {
      */
     public void moveToNextPath() {
         pathStep = nextStep();
+    }
+
+    /**
+     * Debug toString
+     *
+     * @return A debug representation of a Vehicle
+     */
+    @Override
+    public String toString() {
+        String ret = "";
+        ret += "pos: " + position;
+        ret += " || a: " + ((vehicleController != null) ? vehicleController.acceleration(this) : "");
+        ret += " || v: " + speed;
+        ret += " || frontDistance: " + frontDistance();
+        ret += " || noise: " + ((accelerationNoise != null) ? accelerationNoise.getAccelerationNoise() : "0");
+
+        return ret;
     }
 }

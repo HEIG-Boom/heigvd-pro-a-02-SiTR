@@ -6,11 +6,8 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.model.VehicleControllerType;
-<<<<<<< HEAD
-import com.sun.org.apache.xpath.internal.operations.Bool;
-=======
+
 import lombok.EqualsAndHashCode;
->>>>>>> Replace equals and hashcode with lombok
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Document;
