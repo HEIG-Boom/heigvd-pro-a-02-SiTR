@@ -31,7 +31,10 @@ public class SimulationWindow implements Displayer {
     private MapPanel mapPanel;
 
     @Getter
-    private final SimControlPanel controlPanel;
+    private final SimControlPanel simControlPanel;
+
+    @Getter
+    private final CarControlPanel carControlPanel;
 
     /**
      * static method of implementation as singleton
@@ -63,12 +66,13 @@ public class SimulationWindow implements Displayer {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
-        controlPanel = new SimControlPanel();
-        panel.add(controlPanel, gbc);
+        simControlPanel = new SimControlPanel();
+        panel.add(simControlPanel, gbc);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        panel.add(new CarControlPanel(new Vehicle(null, 2.0, 1, 2.0, 0, null)), gbc);
+        carControlPanel =new CarControlPanel();
+        panel.add(carControlPanel, gbc);
 
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
