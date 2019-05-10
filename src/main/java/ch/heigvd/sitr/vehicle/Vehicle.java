@@ -152,7 +152,7 @@ public class Vehicle extends Observable implements Renderable {
         if (vehicleController.getControllerType() != null) {
             this.color = vehicleController.getControllerType().getColor();
         } else {
-            this.color = Color.CYAN;
+            this.color = Color.ORANGE;
         }
     }
 
