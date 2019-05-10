@@ -57,7 +57,7 @@ public class Simulation {
     private Timer timer;
 
     @Getter
-    private final double defaultDelta = 0.2;
+    private final double defaultDelta = 0.15;
     @Getter
     private double delta = defaultDelta;
     @Getter
