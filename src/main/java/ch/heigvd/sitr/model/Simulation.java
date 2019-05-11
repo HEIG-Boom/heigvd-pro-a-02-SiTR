@@ -144,6 +144,10 @@ public class Simulation {
      */
     public void stopLoop() {
         timer.cancel();
+
+        // TODO DONT DO THAT HERE
+        // Stop the Thread of statistics
+        stats.terminate();
     }
 
     /**
@@ -211,26 +215,4 @@ public class Simulation {
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         OpenDriveHandler.loadRoadNetwork(roadNetwork, new StreamSource(br));
     }
-<<<<<<< HEAD
-=======
-
-    /**
-     * Method used to stop the timer. it is used when we close the current simulation
-     */
-    public void stopLoop() {
-        timer.cancel();
-        // Stop the Thread of statistics
-        stats.terminate();
-    }
-
-    /**
-     * Method used to set the current delta. This method save the value before to change it
-     *
-     * @param delta new value of delta
-     */
-    public void setDelta(double delta) {
-        prevDelta = this.delta;
-        this.delta = delta;
-    }
->>>>>>> Implement the statistics class, Setting up a thread for statistics, sends information to the GUI
 }
