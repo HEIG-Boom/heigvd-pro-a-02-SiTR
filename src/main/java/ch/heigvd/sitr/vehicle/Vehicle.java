@@ -81,6 +81,9 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private Color color;
 
+    // Color when in accident
+    private final Color accidentColor = Color.white;
+
     // nb of accidents
     @Getter
     private int accidents;
@@ -365,12 +368,21 @@ public class Vehicle extends Observable implements Renderable {
             inAccident = true;
 
             // stop this vehicle
-            setSpeed(0);
+            speed = 0;
+
+            // set the vehicle back
+            position += frontDistance - 0.1;
+
+            // set vehicle to accident color
+            color = accidentColor;
         }
 
         // change accident status if the vehicle is no more in accident
         if(frontDistance >= 0 && inAccident) {
             inAccident = false;
+
+            // set back color
+            color = vehicleController.getControllerType().getColor();
         }
     }
 
@@ -451,7 +463,7 @@ public class Vehicle extends Observable implements Renderable {
     public String toString() {
         String ret = "";
         ret += "pos: " + position;
-        ret += " || a: " + ((vehicleController != null) ? vehicleController.acceleration(this) : "");
+        ret += " || a: " + ((vehicleController != null) ? acceleration() : "");
         ret += " || v: " + speed;
         ret += " || frontDistance: " + frontDistance();
         ret += " || noise: " + ((accelerationNoise != null) ? accelerationNoise.getAccelerationNoise() : "0");
