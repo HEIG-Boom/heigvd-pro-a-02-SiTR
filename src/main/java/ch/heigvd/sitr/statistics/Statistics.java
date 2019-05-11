@@ -47,9 +47,14 @@ public class Statistics extends Thread {
      */
     public void run() {
         while (running) {
-            SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
-            SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
-            SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
+            //check if the window is still open because it was implemented in singleton
+            // and the thread could create an instance if the window does not exist
+            if(running)
+                SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
+            if(running)
+                SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
+            if(running)
+                SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
 
             try {
                 sleep(coolingTime * 1000);
