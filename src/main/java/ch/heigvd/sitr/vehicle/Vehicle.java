@@ -75,12 +75,12 @@ public class Vehicle extends Observable implements Renderable {
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
-
+    
     // Color of the vehicle
     @Getter
     @Setter
     private Color color;
-
+    
     // Color when in accident
     private final Color accidentColor = Color.white;
 
@@ -91,10 +91,14 @@ public class Vehicle extends Observable implements Renderable {
     // is this vehicle in an accident
     @Getter
     private boolean inAccident;
+
     // Number of accidents
     @Getter
     private int nbAccidents;
 
+    // vehicle wait time
+    @Getter
+    private double waitingTime;
     /**
      * Constructor
      *
