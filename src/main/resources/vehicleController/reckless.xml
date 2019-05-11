@@ -2,7 +2,7 @@
 <controller>
     <desiredVelocity>33.33</desiredVelocity>
     <minimumSpacing>1.5</minimumSpacing>
-    <desiredTimeHeadway>0.6</desiredTimeHeadway>
+    <desiredTimeHeadway>0.7</desiredTimeHeadway>
     <maxAcceleration>2.5</maxAcceleration>
     <comfortableBrakingDeceleration>3</comfortableBrakingDeceleration>
     <humanDriven>true</humanDriven>

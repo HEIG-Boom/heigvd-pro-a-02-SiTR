@@ -81,6 +81,17 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private Color color;
 
+    // Color when in accident
+    private final Color accidentColor = Color.white;
+
+    // nb of accidents
+    @Getter
+    private int accidents;
+
+    // is this vehicle in an accident
+    @Getter
+    private boolean inAccident;
+
     /**
      * Constructor
      *
@@ -248,27 +259,27 @@ public class Vehicle extends Observable implements Renderable {
         }
 
         // This vehicle position should be subtracted to the distance
-        double posDistance = -position;
+        double frontDistance = -position;
 
         int path = getPathStep();
 
         if (position > frontVehicle.position && itinerary.get(path).equals(frontVehicle.currentPath())) {
-            posDistance += itinerary.get(path).norm(); // Add the whole path distance
+            frontDistance += itinerary.get(path).norm(); // Add the whole path distance
             path = (path + 1) % itinerarySize();
         }
 
         // Add all itinerary path distance in between
         while (!itinerary.get(path).equals(frontVehicle.currentPath())) {
-            posDistance += itinerary.get(path).norm(); // Add the whole path distance
+            frontDistance += itinerary.get(path).norm(); // Add the whole path distance
             path = (path + 1) % itinerarySize();
         }
 
-        posDistance += frontVehicle.getPosition();
+        frontDistance += frontVehicle.getPosition();
 
         // We subtract from this distance, the distance from the vehicles center and vehicles extremities
-        posDistance -= (this.getLength() / 2 + frontVehicle.getLength() / 2);
+        frontDistance -= (this.getLength() / 2 + frontVehicle.getLength() / 2);
 
-        return posDistance;
+        return frontDistance;
     }
 
     /**
@@ -338,8 +349,41 @@ public class Vehicle extends Observable implements Renderable {
 
         // First update speed according to the vehicle acceleration
         updateSpeed(deltaT);
+        // handle what happens in case of accident
+        handleAccidents();
         // Then update position, taking into account the new speed
         updatePosition(deltaT);
+    }
+
+    /**
+     * Handle what happens in case of accident
+     */
+    public void handleAccidents() {
+        // TODO : optimize this, we call frontDistance() even though it has already been calculated in acceleration()
+        double frontDistance = frontDistance();
+
+        // if frontDistance is <= 0, an accident occurred, if not already in accident
+        if(frontDistance <= 0 && !inAccident) {
+            accidents++;
+            inAccident = true;
+
+            // stop this vehicle
+            speed = 0;
+
+            // set the vehicle back
+            position += frontDistance - 0.1;
+
+            // set vehicle to accident color
+            color = accidentColor;
+        }
+
+        // change accident status if the vehicle is no more in accident
+        if(frontDistance >= 0 && inAccident) {
+            inAccident = false;
+
+            // set back color
+            color = vehicleController.getControllerType().getColor();
+        }
     }
 
     /**
@@ -419,10 +463,11 @@ public class Vehicle extends Observable implements Renderable {
     public String toString() {
         String ret = "";
         ret += "pos: " + position;
-        ret += " || a: " + ((vehicleController != null) ? vehicleController.acceleration(this) : "");
+        ret += " || a: " + ((vehicleController != null) ? acceleration() : "");
         ret += " || v: " + speed;
         ret += " || frontDistance: " + frontDistance();
         ret += " || noise: " + ((accelerationNoise != null) ? accelerationNoise.getAccelerationNoise() : "0");
+        ret += " || accident " + accidents;
 
         return ret;
     }
