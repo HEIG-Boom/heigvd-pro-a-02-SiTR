@@ -82,7 +82,7 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     @Setter
     private Color color;
-    
+
     // Color when in accident
     private final Color accidentColor = Color.white;
 
