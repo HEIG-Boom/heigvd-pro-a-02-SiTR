@@ -89,7 +89,7 @@ public class Simulation {
         vehicles = generateTraffic(controllers);
 
         // Create the statistic for this simulation
-        stats = new Statistics(vehicles, 1);
+        stats = new Statistics(vehicles, roadNetwork, 1);
     }
 
     /**

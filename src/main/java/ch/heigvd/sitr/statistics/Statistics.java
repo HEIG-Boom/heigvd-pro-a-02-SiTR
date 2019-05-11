@@ -6,8 +6,15 @@
 package ch.heigvd.sitr.statistics;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.map.RoadNetwork;
+import ch.heigvd.sitr.map.RoadSegment;
+import ch.heigvd.sitr.utils.Conversions;
 import ch.heigvd.sitr.vehicle.Vehicle;
+import lombok.Getter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -17,7 +24,8 @@ import java.util.LinkedList;
  */
 public class Statistics extends Thread {
 
-    private LinkedList<Integer> networkOccupancy;
+    @Getter
+    private double networkOccupancy;
     private LinkedList<Vehicle> vehicles;
     private int coolingTime; // time to refresh
     private boolean running; // thread is in progress
@@ -28,11 +36,21 @@ public class Statistics extends Thread {
      * @param v           List of vehicule
      * @param coolingTime Time to refresh statistics in seconds
      */
-    public Statistics(LinkedList<Vehicle> v, int coolingTime) {
-        networkOccupancy = new LinkedList<>();
+    public Statistics(LinkedList<Vehicle> v, RoadNetwork rn, int coolingTime) {
         vehicles = v;
         this.coolingTime = coolingTime;
         running = true;
+
+        double distanceNetwork = 0;
+        Iterator<RoadSegment> it = rn.iterator();
+        while(it.hasNext()) {
+            distanceNetwork += it.next().getRoadLength();
+        }
+
+        BigDecimal bd = new BigDecimal( (getSizeAllCar() / distanceNetwork) * 100);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+        networkOccupancy = bd.doubleValue();
     }
 
     /**
@@ -47,9 +65,14 @@ public class Statistics extends Thread {
      */
     public void run() {
         while (running) {
-            SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
-            SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
-            SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
+            //check if the window is still open because it was implemented in singleton
+            // and the thread could create an instance if the window does not exist
+            if(running)
+                SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
+            if(running)
+                SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
+            if(running)
+                SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
 
             try {
                 sleep(coolingTime * 1000);
@@ -57,17 +80,6 @@ public class Statistics extends Thread {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * Adds the percentage of network occupancy between 0 and 100
-     *
-     * @param occupancy The percentage
-     */
-    public void addNetworkOccupancy(int occupancy) {
-        // checking the user's input
-        if (occupancy >= 0 && occupancy <= 100)
-            networkOccupancy.add(occupancy);
     }
 
     /**
@@ -98,27 +110,21 @@ public class Statistics extends Thread {
         // Adds the number of accidents in each vehicle
         int nbAccident = 0;
         for (Vehicle v : vehicles) {
-            nbAccident += v.getNbAccidents();
+            nbAccident += v.getAccidents();
         }
         return nbAccident;
     }
 
-    /**
-     * calculating the average network occupancy
-     *
-     * @return The percentage of network occupancy
-     */
-    public int getNetworkOccupancy() {
-        // checks if there is any data
-        if (networkOccupancy.size() == 0)
+    private double getSizeAllCar(){
+        if (vehicles.size() == 0)
             return 0;
 
-        // calculating the average network occupancy
-        int average = 0;
-        for (int i : networkOccupancy) {
-            average += i;
+        double sizeAllCar = 0;
+        for (Vehicle v : vehicles) {
+            sizeAllCar += Conversions.metersToPixels(8, v.getLength());
         }
-        return average / networkOccupancy.size();
+
+        return sizeAllCar;
     }
 
     /**
