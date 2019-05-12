@@ -52,7 +52,6 @@ class MapPanel extends JPanel implements MouseListener {
         for (Vehicle v : SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getVehicles()) {
             if (v.getRectangle().contains(point)) {
                 hitCar = true;
-                System.out.println("Sur la voiture");
                 v.deleteObservers();
                 v.addObserver(SimulationWindow.getInstance().getCarControlPanel());
                 SimulationWindow.getInstance().getCarControlPanel().setVehicle(v);
