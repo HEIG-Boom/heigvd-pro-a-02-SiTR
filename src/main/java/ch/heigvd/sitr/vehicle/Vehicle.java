@@ -67,6 +67,7 @@ public class Vehicle extends Observable implements Renderable {
 
     // Vehicle controller of this vehicle
     @Getter
+    @Setter
     private VehicleController vehicleController;
 
     // Acceleration noise

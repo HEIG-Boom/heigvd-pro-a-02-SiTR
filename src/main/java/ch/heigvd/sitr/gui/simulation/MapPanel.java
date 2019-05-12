@@ -55,6 +55,7 @@ class MapPanel extends JPanel implements MouseListener {
                 System.out.println("Sur la voiture");
                 v.deleteObservers();
                 v.addObserver(SimulationWindow.getInstance().getCarControlPanel());
+                SimulationWindow.getInstance().getCarControlPanel().setVehicle(v);
                 SimulationWindow.getInstance().getCarControlPanel().update(v, null);
             }
         }

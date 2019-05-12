@@ -5,8 +5,15 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
+import ch.heigvd.sitr.vehicle.Vehicle;
+import ch.heigvd.sitr.vehicle.VehicleController;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,6 +23,11 @@ import java.util.Observer;
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 public class CarControlPanel extends JPanel implements Observer {
+    private JComboBox controllerChangeBox;
+
+    // Vehicle observed by the panel
+    @Setter
+    private Vehicle vehicle;
 
     /**
      * Package-private constructor of the panel
@@ -45,23 +57,25 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.insets = new Insets(0, 0, 10, 0);
         this.add(title, gbc);
 
-        final JLabel controlerChangeLabel = new JLabel("Changement du contôleur :");
+        final JLabel controllerChangeLabel = new JLabel("Changement du contôleur :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(controlerChangeLabel, gbc);
+        this.add(controllerChangeLabel, gbc);
 
-        final JComboBox controlerChangeBox = new JComboBox();
-        /* AJOUT DES CONTROLEURS */
+        controllerChangeBox = new JComboBox();
+        for (VehicleControllerType vct : VehicleControllerType.values()) {
+            controllerChangeBox.addItem(vct);
+        }
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 10, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(controlerChangeBox, gbc);
+        this.add(controllerChangeBox, gbc);
 
         final JLabel colorChangeLabel = new JLabel("Changement de couleur :");
         gbc = new GridBagConstraints();
@@ -86,10 +100,25 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.gridwidth = 5;
+        gbc.gridwidth = 3;
         gbc.insets = new Insets(10, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(showRoute, gbc);
+
+        final JButton validate = new JButton("Valider");
+        validate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modifyObservableValues();
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        this.add(validate, gbc);
 
         final JLabel subtitle = new JLabel("Statistiques du véhicule");
         subtitle.setFont(new Font(null, Font.BOLD, 14));
@@ -207,6 +236,18 @@ public class CarControlPanel extends JPanel implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("Je me met a jour");
+        Vehicle v = (Vehicle) o;
+        VehicleControllerType vct = v.getVehicleController().getControllerType();
+        controllerChangeBox.setSelectedIndex(VehicleControllerType.valueOf(vct.name()).ordinal());
+    }
+
+    /**
+     * Method used to update the vehicle observed.
+     * Set the vehicle with the selected controller
+     */
+    private void modifyObservableValues() {
+        VehicleControllerType vct = (VehicleControllerType) controllerChangeBox.getSelectedItem();
+        vehicle.setVehicleController(new VehicleController(vct));
+        vehicle.setColor(vct.getColor());
     }
 }
