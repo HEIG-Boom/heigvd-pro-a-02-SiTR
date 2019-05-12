@@ -57,9 +57,10 @@ public class Simulation {
     // The timer for the main loop
     private Timer timer;
 
+    // Default rate of calculation for the simulation
     @Getter
     private final double defaultDeltaT = 0.15;
-
+    // Effective rate of calculation for the simulation
     @Getter
     @Setter
     private double deltaT = defaultDeltaT;
