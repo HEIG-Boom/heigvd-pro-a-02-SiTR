@@ -132,16 +132,16 @@ public class Simulation {
         }
 
         // Iterate through the hash map
-        for (Map.Entry<VehicleControllerType, Integer> entry : controllers.entrySet()) {
+        controllers.forEach((key, value) -> {
             // One controller for all vehicles of a given type
-            VehicleController controller = new VehicleController(entry.getKey());
+            VehicleController controller = new VehicleController(key);
 
             // Generate as many vehicles as asked
-            for (int i = 0; i < entry.getValue(); i++) {
+            for (int i = 0; i < value; i++) {
                 Vehicle v = new Vehicle("regular.xml", controller, defaultItinerary);
                 vehicles.add(v);
             }
-        }
+        });
 
         // Randomize vehicles order
         Collections.shuffle(vehicles);
@@ -199,4 +199,3 @@ public class Simulation {
         this.delta = delta;
     }
 }
-
