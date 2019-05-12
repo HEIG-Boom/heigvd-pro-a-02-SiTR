@@ -195,6 +195,8 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(accidentCounterValue, gbc);
+
+        setVisible(false);
     }
 
     /**
