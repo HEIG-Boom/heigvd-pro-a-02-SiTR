@@ -58,6 +58,7 @@ class MapPanel extends JPanel implements MouseListener {
                 SimulationWindow.getInstance().getCarControlPanel().setVehicle(v);
                 VehicleControllerType vct = v.getVehicleController().getControllerType();
                 SimulationWindow.getInstance().getCarControlPanel().getControllerChangeBox().setSelectedIndex(VehicleControllerType.valueOf(vct.name()).ordinal());
+                v.initiateObservable();
             }
         }
         SimulationWindow.getInstance().getCarControlPanel().setVisible(hitCar);
