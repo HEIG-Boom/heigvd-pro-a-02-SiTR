@@ -17,9 +17,6 @@ import java.awt.*;
  */
 public class App {
     public static void main(String[] args) {
-        // fix the font for each Button
-        UIManager.put("Button.font", new Font("Helvetica", Font.BOLD, 11));
-
         SettingsWindow.getInstance();
     }
 }
