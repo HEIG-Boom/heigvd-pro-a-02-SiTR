@@ -65,7 +65,7 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.insets = new Insets(0, 0, 10, 0);
         this.add(title, gbc);
 
-        final JLabel controllerChangeLabel = new JLabel("Changement du contôleur :");
+        final JLabel controllerChangeLabel = new JLabel("Changement du contrôleur :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
