@@ -19,13 +19,13 @@ import java.awt.event.ActionListener;
  */
 public class SimControlPanel extends JPanel {
 
-    // minimal and maximal speed of the simulation
+    // Minimal and maximal speed of the simulation
     private final int MIN_SPEED = 50;
     private final int MAX_SPEED = 150;
 
     private final int DEC_INC_PERCENT = 10;
 
-    // actual speed of the simulation. Initially 100%
+    // Actual speed of the simulation. Initially 100%
     private int speedPercent = 100;
 
     private JLabel waitingTimeValue;
@@ -78,7 +78,7 @@ public class SimControlPanel extends JPanel {
                     speedValue.setText(speedPercent + "%");
                     double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDeltaT();
                     double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDeltaT();
-                    delta -= (defaultDelta * DEC_INC_PERCENT/100);
+                    delta -= (defaultDelta * DEC_INC_PERCENT / 100);
                     SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDeltaT(delta);
                 }
             }
@@ -88,7 +88,7 @@ public class SimControlPanel extends JPanel {
         gbc.gridy = 2;
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 10, 0, 10);
+        gbc.insets = new Insets(10, 5, 0, 5);
         this.add(decrease, gbc);
 
         final JButton increase = new JButton("Accélérer");
@@ -100,7 +100,7 @@ public class SimControlPanel extends JPanel {
                     speedValue.setText(speedPercent + "%");
                     double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDeltaT();
                     double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDeltaT();
-                    delta += (defaultDelta * DEC_INC_PERCENT/100);
+                    delta += (defaultDelta * DEC_INC_PERCENT / 100);
                     SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDeltaT(delta);
                 }
             }
@@ -121,7 +121,7 @@ public class SimControlPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (isRunning) {
-                    pause.setText("Reprendre");
+                    pause.setText("Lancer");
                     decrease.setEnabled(false);
                     increase.setEnabled(false);
                     SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().stopLoop();
@@ -135,6 +135,8 @@ public class SimControlPanel extends JPanel {
                 }
             }
         });
+        pause.setPreferredSize(new Dimension(100, 26));
+        pause.setMinimumSize(new Dimension(100, 26));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -240,11 +242,12 @@ public class SimControlPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0);
         this.add(quit, gbc);
 
-        setPreferredSize(new Dimension(320, 250));
+        setPreferredSize(new Dimension(360, 240));
     }
 
     /**
      * Method used to set the global waiting time
+     *
      * @param value new value of waiting time
      */
     public void setWaitingTimeValue(String value) {
@@ -253,6 +256,7 @@ public class SimControlPanel extends JPanel {
 
     /**
      * Method used to set the global accident counter
+     *
      * @param value new value of accident counter
      */
     public void setAccidentCounterValue(String value) {
@@ -261,6 +265,7 @@ public class SimControlPanel extends JPanel {
 
     /**
      * Method used to set the global network occupation percent
+     *
      * @param value new value of the network occupation
      */
     public void setOccupationValue(String value) {

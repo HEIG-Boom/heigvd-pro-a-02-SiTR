@@ -474,4 +474,12 @@ public class Vehicle extends Observable implements Renderable {
 
         return ret;
     }
+
+    /**
+     * Method used to initiate the observable and allow observer to set its values
+     */
+    public void initiateObservable() {
+        setChanged();
+        notifyObservers();
+    }
 }

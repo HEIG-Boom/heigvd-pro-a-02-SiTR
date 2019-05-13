@@ -7,6 +7,9 @@ package ch.heigvd.sitr;
 
 import ch.heigvd.sitr.gui.settings.SettingsWindow;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Main entry point for SiTR
  *
