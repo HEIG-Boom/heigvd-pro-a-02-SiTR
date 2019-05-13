@@ -118,6 +118,9 @@ public class Simulation {
                     vehicle.draw(scenario.getScale());
                     // DEBUG
                     System.out.println(vehicle);
+
+                    // notify observers that the vehicle parameters have changed
+                    vehicle.notifyObservers();
                 }
 
                 // Callback to paintComponent()

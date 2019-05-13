@@ -67,6 +67,7 @@ public class Vehicle extends Observable implements Renderable {
 
     // Vehicle controller of this vehicle
     @Getter
+    @Setter
     private VehicleController vehicleController;
 
     // Acceleration noise
@@ -353,6 +354,8 @@ public class Vehicle extends Observable implements Renderable {
         handleAccidents();
         // Then update position, taking into account the new speed
         updatePosition(deltaT);
+
+        setChanged();
     }
 
     /**

@@ -239,6 +239,8 @@ public class SimControlPanel extends JPanel {
         gbc.gridwidth = 2;
         gbc.insets = new Insets(10, 0, 0, 0);
         this.add(quit, gbc);
+
+        setPreferredSize(new Dimension(320, 250));
     }
 
     /**

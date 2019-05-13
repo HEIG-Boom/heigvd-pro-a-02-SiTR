@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
 import lombok.Getter;
 import ch.heigvd.sitr.gui.settings.SettingsWindow;
 import ch.heigvd.sitr.vehicle.Vehicle;
@@ -48,14 +49,18 @@ class MapPanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Point point = e.getPoint();
+        boolean hitCar = false;
         for (Vehicle v : SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getVehicles()) {
             if (v.getRectangle().contains(point)) {
-                System.out.println("Sur la voiture");
+                hitCar = true;
                 v.deleteObservers();
                 v.addObserver(SimulationWindow.getInstance().getCarControlPanel());
-                SimulationWindow.getInstance().getCarControlPanel().update(v, null);
+                SimulationWindow.getInstance().getCarControlPanel().setVehicle(v);
+                VehicleControllerType vct = v.getVehicleController().getControllerType();
+                SimulationWindow.getInstance().getCarControlPanel().getControllerChangeBox().setSelectedIndex(VehicleControllerType.valueOf(vct.name()).ordinal());
             }
         }
+        SimulationWindow.getInstance().getCarControlPanel().setVisible(hitCar);
     }
 
     /**
