@@ -115,6 +115,11 @@ public class Statistics extends Thread {
         return nbAccident;
     }
 
+    /**
+     * calculating the size of all vehicles
+     *
+     * @return The size of all vehicles
+     */
     private double getSizeAllCar(){
         if (vehicles.size() == 0)
             return 0;
