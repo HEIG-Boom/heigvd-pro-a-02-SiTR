@@ -372,7 +372,7 @@ public class Vehicle extends Observable implements Renderable {
         double frontDistance = frontDistance();
 
         // if frontDistance is <= 0, an accident occurred, if not already in accident
-        if(frontDistance <= 0 && !inAccident) {
+        if (frontDistance <= 0 && !inAccident) {
             accidents++;
             inAccident = true;
 
@@ -387,7 +387,7 @@ public class Vehicle extends Observable implements Renderable {
         }
 
         // change accident status if the vehicle is no more in accident
-        if(frontDistance >= 0 && inAccident) {
+        if (frontDistance >= 0 && inAccident) {
             inAccident = false;
 
             // set back color
@@ -489,10 +489,16 @@ public class Vehicle extends Observable implements Renderable {
         notifyObservers();
     }
 
+    /**
+     * Method used to know where is the vehicle on the map.
+     * This position can be caluclate with the rectangle that we draw on screen.
+     *
+     * @return a 2D Point of the center of the vehicle
+     */
     public Point2D.Double getGlobalPosition() {
         Point point = rectangle.getLocation();
-        int centerX = point.x + rectangle.width/2;
-        int centerY = point.y + rectangle.height/2;
-        return new Point2D.Double(centerX,centerY);
+        int centerX = point.x + rectangle.width / 2;
+        int centerY = point.y + rectangle.height / 2;
+        return new Point2D.Double(centerX, centerY);
     }
 }
