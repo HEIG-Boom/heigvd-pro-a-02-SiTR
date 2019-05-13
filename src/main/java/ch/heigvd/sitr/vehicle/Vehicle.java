@@ -354,6 +354,8 @@ public class Vehicle extends Observable implements Renderable {
         handleAccidents();
         // Then update position, taking into account the new speed
         updatePosition(deltaT);
+
+        setChanged();
     }
 
     /**

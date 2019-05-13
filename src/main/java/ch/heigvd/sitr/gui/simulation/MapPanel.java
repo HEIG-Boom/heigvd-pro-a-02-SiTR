@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
+import ch.heigvd.sitr.model.VehicleControllerType;
 import lombok.Getter;
 import ch.heigvd.sitr.gui.settings.SettingsWindow;
 import ch.heigvd.sitr.vehicle.Vehicle;
@@ -55,7 +56,8 @@ class MapPanel extends JPanel implements MouseListener {
                 v.deleteObservers();
                 v.addObserver(SimulationWindow.getInstance().getCarControlPanel());
                 SimulationWindow.getInstance().getCarControlPanel().setVehicle(v);
-                SimulationWindow.getInstance().getCarControlPanel().update(v, null);
+                VehicleControllerType vct = v.getVehicleController().getControllerType();
+                SimulationWindow.getInstance().getCarControlPanel().getControllerChangeBox().setSelectedIndex(VehicleControllerType.valueOf(vct.name()).ordinal());
             }
         }
         SimulationWindow.getInstance().getCarControlPanel().setVisible(hitCar);
