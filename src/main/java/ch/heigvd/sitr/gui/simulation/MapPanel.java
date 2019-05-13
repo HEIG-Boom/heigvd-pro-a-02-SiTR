@@ -47,7 +47,7 @@ class MapPanel extends JPanel implements MouseListener {
      * @param e mouse event used to get the position of the click
      */
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         Point point = e.getPoint();
         boolean hitCar = false;
         for (Vehicle v : SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getVehicles()) {
@@ -69,7 +69,7 @@ class MapPanel extends JPanel implements MouseListener {
      * @param e mouse event
      */
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
     }
 
     /**
