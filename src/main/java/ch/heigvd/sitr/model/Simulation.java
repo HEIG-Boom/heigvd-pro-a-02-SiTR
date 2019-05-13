@@ -14,6 +14,7 @@ import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.Timer;
@@ -56,12 +57,13 @@ public class Simulation {
     // The timer for the main loop
     private Timer timer;
 
+    // Default rate of calculation for the simulation
     @Getter
-    private final double defaultDelta = 0.15;
+    private final double defaultDeltaT = 0.15;
+    // Effective rate of calculation for the simulation
     @Getter
-    private double delta = defaultDelta;
-    @Getter
-    private double prevDelta = defaultDelta;
+    @Setter
+    private double deltaT = defaultDeltaT;
 
     /**
      * Simulation constructor
@@ -86,7 +88,7 @@ public class Simulation {
     }
 
     /**
-     * Main simulation loop, runs in a fixed rate timer loop
+     * Sets up simulation, then launches main loop
      */
     public void loop() {
         // Launch main window
@@ -95,6 +97,14 @@ public class Simulation {
         // Print the road network
         roadNetwork.draw(scenario.getScale());
 
+        // Start main simulation loop
+        startLoop();
+    }
+
+    /**
+     * Main simulation loop, runs in a fixed rate timer loop
+     */
+    public void startLoop() {
         // Create a timer to run the main loop
         timer = new Timer();
 
@@ -104,7 +114,7 @@ public class Simulation {
             @Override
             public void run() {
                 for (Vehicle vehicle : vehicles) {
-                    vehicle.update(delta);
+                    vehicle.update(deltaT);
                     vehicle.draw(scenario.getScale());
                     // DEBUG
                     System.out.println(vehicle);
@@ -114,6 +124,13 @@ public class Simulation {
                 window.repaint();
             }
         }, 0, UPDATE_RATE);
+    }
+
+    /**
+     * Method used to stop the timer. it is used when we close the current simulation
+     */
+    public void stopLoop() {
+        timer.cancel();
     }
 
     /**
@@ -132,16 +149,16 @@ public class Simulation {
         }
 
         // Iterate through the hash map
-        for (Map.Entry<VehicleControllerType, Integer> entry : controllers.entrySet()) {
+        controllers.forEach((key, value) -> {
             // One controller for all vehicles of a given type
-            VehicleController controller = new VehicleController(entry.getKey());
+            VehicleController controller = new VehicleController(key);
 
             // Generate as many vehicles as asked
-            for (int i = 0; i < entry.getValue(); i++) {
+            for (int i = 0; i < value; i++) {
                 Vehicle v = new Vehicle("regular.xml", controller, defaultItinerary);
                 vehicles.add(v);
             }
-        }
+        });
 
         // Randomize vehicles order
         Collections.shuffle(vehicles);
@@ -181,22 +198,4 @@ public class Simulation {
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         OpenDriveHandler.loadRoadNetwork(roadNetwork, new StreamSource(br));
     }
-
-    /**
-     * Method used to stop the timer. it is used when we close the current simulation
-     */
-    public void stopLoop() {
-        timer.cancel();
-    }
-
-    /**
-     * Method used to set the current delta. This method save the value before to change it
-     *
-     * @param delta new value of delta
-     */
-    public void setDelta(double delta) {
-        prevDelta = this.delta;
-        this.delta = delta;
-    }
 }
-

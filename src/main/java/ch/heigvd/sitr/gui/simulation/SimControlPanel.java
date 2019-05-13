@@ -76,10 +76,10 @@ public class SimControlPanel extends JPanel {
                 if (speedPercent > MIN_SPEED) {
                     speedPercent -= DEC_INC_PERCENT;
                     speedValue.setText(speedPercent + "%");
-                    double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDelta();
-                    double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDelta();
+                    double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDeltaT();
+                    double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDeltaT();
                     delta -= (defaultDelta * DEC_INC_PERCENT/100);
-                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(delta);
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDeltaT(delta);
                 }
             }
         });
@@ -98,10 +98,10 @@ public class SimControlPanel extends JPanel {
                 if (speedPercent < MAX_SPEED) {
                     speedPercent += DEC_INC_PERCENT;
                     speedValue.setText(speedPercent + "%");
-                    double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDelta();
-                    double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDelta();
+                    double defaultDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDefaultDeltaT();
+                    double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDeltaT();
                     delta += (defaultDelta * DEC_INC_PERCENT/100);
-                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(delta);
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDeltaT(delta);
                 }
             }
         });
@@ -115,20 +115,23 @@ public class SimControlPanel extends JPanel {
 
         final JButton pause = new JButton("Pause");
         pause.addActionListener(new ActionListener() {
+            // Is the simulation's main loop running?
+            boolean isRunning = true;
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                double delta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getDelta();
-                if (delta != 0) {
+                if (isRunning) {
                     pause.setText("Reprendre");
                     decrease.setEnabled(false);
                     increase.setEnabled(false);
-                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(0);
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().stopLoop();
+                    isRunning = false;
                 } else {
                     pause.setText("Pause");
                     decrease.setEnabled(true);
                     increase.setEnabled(true);
-                    double prevDelta = SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getPrevDelta();
-                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().setDelta(prevDelta);
+                    SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().startLoop();
+                    isRunning = true;
                 }
             }
         });
