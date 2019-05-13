@@ -16,6 +16,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -92,6 +93,11 @@ public class Vehicle extends Observable implements Renderable {
     // is this vehicle in an accident
     @Getter
     private boolean inAccident;
+
+    // is the vehicle paint with a custom color
+    @Getter
+    @Setter
+    private boolean customizeColor;
 
     /**
      * Constructor
@@ -481,5 +487,12 @@ public class Vehicle extends Observable implements Renderable {
     public void initiateObservable() {
         setChanged();
         notifyObservers();
+    }
+
+    public Point2D.Double getGlobalPosition() {
+        Point point = rectangle.getLocation();
+        int centerX = point.x + rectangle.width/2;
+        int centerY = point.y + rectangle.height/2;
+        return new Point2D.Double(centerX,centerY);
     }
 }
