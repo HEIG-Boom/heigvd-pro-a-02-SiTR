@@ -17,7 +17,8 @@ public enum Scenario {
     RING_ROAD("Route anneau (1 voie)", 8, "ring_road.xodr"),
     OFFRAMP("Bretelle de sortie", 8, "offramp_v2.xodr"),
     HIGHWAY_EXCHANGE("Highway exchange", 8, "highway_exchange.xodr"),
-    EIGHT("Eight", 8, "eight.xodr");
+    EIGHT("Eight", 8, "eight.xodr"),
+    OFFRAMP_LOW("Bretelle de sortie bas", 8, "offramp_low.xodr");
 
     // Base folder containing data files for the scenario (map)
     private static final String BASE_PATH = "/map/simulation/";
