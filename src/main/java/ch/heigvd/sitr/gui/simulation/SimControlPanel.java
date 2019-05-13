@@ -135,7 +135,8 @@ public class SimControlPanel extends JPanel {
                 }
             }
         });
-        pause.setPreferredSize(new Dimension(75, 27));
+        pause.setPreferredSize(new Dimension(100, 27));
+        pause.setMinimumSize(new Dimension(100, 27));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -241,7 +242,7 @@ public class SimControlPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0);
         this.add(quit, gbc);
 
-        setPreferredSize(new Dimension(320, 250));
+        setPreferredSize(new Dimension(360, 240));
     }
 
     /**
