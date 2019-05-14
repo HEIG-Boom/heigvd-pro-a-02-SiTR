@@ -16,6 +16,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -92,6 +93,11 @@ public class Vehicle extends Observable implements Renderable {
     // is this vehicle in an accident
     @Getter
     private boolean inAccident;
+
+    // Is the vehicle painted with a custom color
+    @Getter
+    @Setter
+    private boolean customColor;
 
     /**
      * Constructor
@@ -366,7 +372,7 @@ public class Vehicle extends Observable implements Renderable {
         double frontDistance = frontDistance();
 
         // if frontDistance is <= 0, an accident occurred, if not already in accident
-        if(frontDistance <= 0 && !inAccident) {
+        if (frontDistance <= 0 && !inAccident) {
             accidents++;
             inAccident = true;
 
@@ -381,7 +387,7 @@ public class Vehicle extends Observable implements Renderable {
         }
 
         // change accident status if the vehicle is no more in accident
-        if(frontDistance >= 0 && inAccident) {
+        if (frontDistance >= 0 && inAccident) {
             inAccident = false;
 
             // set back color
@@ -481,5 +487,18 @@ public class Vehicle extends Observable implements Renderable {
     public void initiateObservable() {
         setChanged();
         notifyObservers();
+    }
+
+    /**
+     * Method used to know where is the vehicle on the map.
+     * This position can be caluclate with the rectangle that we draw on screen.
+     *
+     * @return a 2D Point of the center of the vehicle
+     */
+    public Point2D.Double getGlobalPosition() {
+        Point point = rectangle.getLocation();
+        int centerX = point.x + rectangle.width / 2;
+        int centerY = point.y + rectangle.height / 2;
+        return new Point2D.Double(centerX, centerY);
     }
 }

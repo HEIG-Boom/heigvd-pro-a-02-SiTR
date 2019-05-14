@@ -28,6 +28,10 @@ import java.util.Observer;
 public class CarControlPanel extends JPanel implements Observer {
     private JLabel accidentCounterValue;
     private  JLabel speedValue;
+    private JLabel locationValue;
+    private JButton colorChangeButton;
+
+    private Color selectedColor;
 
     // selector of controller
     @Getter
@@ -77,6 +81,17 @@ public class CarControlPanel extends JPanel implements Observer {
         for (VehicleControllerType vct : VehicleControllerType.values()) {
             controllerChangeBox.addItem(vct);
         }
+        controllerChangeBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VehicleControllerType vct = (VehicleControllerType) controllerChangeBox.getSelectedItem();
+                vehicle.setVehicleController(new VehicleController(vct));
+
+                if (!vehicle.isCustomColor()) {
+                    vehicle.setColor(vct.getColor());
+                }
+            }
+        });
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
@@ -93,16 +108,26 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(colorChangeLabel, gbc);
 
-        final JComboBox colorChangeBox = new JComboBox();
-        /* AJOUT DES CONTROLEURS */
-        colorChangeBox.addItem("1234567890");
+        colorChangeButton = new JButton();
+        colorChangeButton.setPreferredSize(new Dimension(25,25));
+        colorChangeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedColor = JColorChooser.showDialog(colorChangeButton, "Sélectionner la couleur", vehicle.getColor());
+                if (selectedColor != null) {
+                    vehicle.setColor(selectedColor);
+                    vehicle.setCustomColor(true);
+                    colorChangeButton.setBackground(selectedColor);
+                }
+            }
+        });
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 10, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(colorChangeBox, gbc);
+        this.add(colorChangeButton, gbc);
 
         final JCheckBox showRoute = new JCheckBox("Afficher l'itinéraire");
         gbc = new GridBagConstraints();
@@ -112,21 +137,6 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.insets = new Insets(10, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(showRoute, gbc);
-
-        final JButton validate = new JButton("Valider");
-        validate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                modifyObservableValues();
-            }
-        });
-        gbc = new GridBagConstraints();
-        gbc.gridx = 4;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(10, 0, 10, 0);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(validate, gbc);
 
         final JLabel subtitle = new JLabel("Statistiques du véhicule");
         subtitle.setFont(new Font(null, Font.BOLD, 14));
@@ -157,48 +167,29 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(speedValue, gbc);
 
-        final JLabel startingPointLabel = new JLabel("Coordonées de départ :");
+        final JLabel locationLabel = new JLabel("Coordonnées du véhicule :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(startingPointLabel, gbc);
+        this.add(locationLabel, gbc);
 
-        final JLabel startingPointValue = new JLabel("abc");
-        startingPointValue.setHorizontalAlignment(JLabel.RIGHT);
+        locationValue = new JLabel("abc");
+        locationValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(startingPointValue, gbc);
-
-        final JLabel destinationPointLabel = new JLabel("Coordonées de destination :");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 8;
-        gbc.gridwidth = 3;
-        gbc.insets = new Insets(0, 0, 10, 0);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(destinationPointLabel, gbc);
-
-        final JLabel destinationPointValue = new JLabel("abc");
-        destinationPointValue.setHorizontalAlignment(JLabel.RIGHT);
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 8;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(0, 0, 10, 0);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        this.add(destinationPointValue, gbc);
+        this.add(locationValue, gbc);
 
         final JLabel waitingTimeLabel = new JLabel("Temps d'attente :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 9;
+        gbc.gridy = 8;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -208,7 +199,7 @@ public class CarControlPanel extends JPanel implements Observer {
         waitingTimeValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 9;
+        gbc.gridy = 8;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -217,7 +208,7 @@ public class CarControlPanel extends JPanel implements Observer {
         final JLabel accidentCounterLabel = new JLabel("Compteur d'accidents :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 10;
+        gbc.gridy = 9;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -227,7 +218,7 @@ public class CarControlPanel extends JPanel implements Observer {
         accidentCounterValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 10;
+        gbc.gridy = 9;
         gbc.gridwidth = 2;
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -247,23 +238,19 @@ public class CarControlPanel extends JPanel implements Observer {
         // convert received object into vehicle
         Vehicle v = (Vehicle) o;
 
-        // update accident counter
-        accidentCounterValue.setText(Integer.toString(v.getAccidents()));
+        // Set the color of the color selection button
+        colorChangeButton.setBackground(vehicle.getColor());
 
         // update speed according to the pattern "123.45 Km/H"
         String pattern = "###.##";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         String speed = decimalFormat.format(Conversions.mpsToKph(vehicle.getSpeed()));
         speedValue.setText(speed + " Km/h");
-    }
 
-    /**
-     * Method used to update the vehicle observed.
-     * Set the vehicle with the selected controller
-     */
-    private void modifyObservableValues() {
-        VehicleControllerType vct = (VehicleControllerType) controllerChangeBox.getSelectedItem();
-        vehicle.setVehicleController(new VehicleController(vct));
-        vehicle.setColor(vct.getColor());
+        // update the location of the vehicle
+        locationValue.setText("[" + v.getGlobalPosition().x + ", " + v.getGlobalPosition().y + "]");
+
+        // update accident counter
+        accidentCounterValue.setText(Integer.toString(v.getAccidents()));
     }
 }
