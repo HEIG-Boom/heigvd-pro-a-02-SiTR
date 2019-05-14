@@ -94,10 +94,10 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     private boolean inAccident;
 
-    // is the vehicle paint with a custom color
+    // Is the vehicle painted with a custom color
     @Getter
     @Setter
-    private boolean customizeColor;
+    private boolean customColor;
 
     /**
      * Constructor

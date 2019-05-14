@@ -87,7 +87,7 @@ public class CarControlPanel extends JPanel implements Observer {
                 VehicleControllerType vct = (VehicleControllerType) controllerChangeBox.getSelectedItem();
                 vehicle.setVehicleController(new VehicleController(vct));
 
-                if (!vehicle.isCustomizeColor()) {
+                if (!vehicle.isCustomColor()) {
                     vehicle.setColor(vct.getColor());
                 }
             }
@@ -116,7 +116,7 @@ public class CarControlPanel extends JPanel implements Observer {
                 selectedColor = JColorChooser.showDialog(colorChangeButton, "Sélectionner la couleur", vehicle.getColor());
                 if (selectedColor != null) {
                     vehicle.setColor(selectedColor);
-                    vehicle.setCustomizeColor(true);
+                    vehicle.setCustomColor(true);
                     colorChangeButton.setBackground(selectedColor);
                 }
             }
@@ -167,7 +167,7 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(speedValue, gbc);
 
-        final JLabel locationLabel = new JLabel("Coordonées du véhicule :");
+        final JLabel locationLabel = new JLabel("Coordonnées du véhicule :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 7;
