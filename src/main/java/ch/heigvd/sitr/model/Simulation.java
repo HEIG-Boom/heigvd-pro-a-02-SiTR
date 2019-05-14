@@ -145,6 +145,7 @@ public class Simulation {
     private LinkedList<Vehicle> generateTraffic(HashMap<VehicleControllerType, Integer> controllers) {
         LinkedList<Vehicle> vehicles = new LinkedList<>();
 
+        // Create itineraries
         LinkedList<ItineraryPath> defaultItinerary = new LinkedList<>();
 
         for (RoadSegment roadSegment : roadNetwork) {
