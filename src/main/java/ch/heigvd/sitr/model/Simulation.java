@@ -139,9 +139,6 @@ public class Simulation {
                 window.repaint();
             }
         }, 0, UPDATE_RATE);
-
-        // Start the statistics
-        stats.start();
     }
 
     /**
