@@ -174,7 +174,7 @@ public class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(waitingTimeValue, gbc);
 
-        final JLabel accidentCounterLabel = new JLabel("Compteur d'accidents potentiels :");
+        final JLabel accidentCounterLabel = new JLabel("Compteur global d'accidents :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -242,7 +242,21 @@ public class SimControlPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0);
         this.add(quit, gbc);
 
-        setPreferredSize(new Dimension(360, 240));
+        final JButton getStats = new JButton("Générer statistiques");
+        getStats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /* WRITE HERE YOURS STATS GENERATION */
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(40, 0, 0, 30);
+        this.add(getStats, gbc);
+
+        setPreferredSize(new Dimension(360, 300));
     }
 
     /**
