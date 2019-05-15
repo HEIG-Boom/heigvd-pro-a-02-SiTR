@@ -13,6 +13,8 @@ public class RoadMappingArc extends RoadMapping {
     private static final double HALF_PI = 0.5 * Math.PI;
     private double centerX;
     private double centerY;
+    private double x0;
+    private double y0;
 
     @Getter
     private final double radius;
@@ -40,6 +42,8 @@ public class RoadMappingArc extends RoadMapping {
         this.radius = 1.0 / Math.abs(curvature);
         this.clockwise = curvature < 0;
         this.arcAngle = roadLength * curvature;
+        this.x0 = x0;
+        this.y0 = y0;
         this.centerX = x0 - radius * Math.cos(startAngle - HALF_PI) * (clockwise ? -1 : 1);
         this.centerY = y0 - radius * Math.sin(startAngle - HALF_PI) * (clockwise ? -1 : 1);
     }
@@ -85,13 +89,13 @@ public class RoadMappingArc extends RoadMapping {
      * @return the angle and position
      */
     public PosTheta posAt(double vehiclePosFromStart) {
-        PosTheta posTheta = startPos();
+        // PosTheta posTheta = startPos();
 
         double angSt = getStartAngle() + (isClockwise() ? 0.5 * Math.PI : -0.5 * Math.PI);
         double angle = vehiclePosFromStart / radius;
         double totalAngle = angSt + angle;
-        double centerX = posTheta.getX() - radius * Math.cos(angSt);
-        double centerY = posTheta.getY() + radius * Math.sin(angSt);
+        double centerX = x0 - radius * Math.cos(angSt);
+        double centerY = y0 + radius * Math.sin(angSt);
         double x = centerX + radius * Math.cos(totalAngle);
         double y = centerY + radius * Math.sin(totalAngle);
 
