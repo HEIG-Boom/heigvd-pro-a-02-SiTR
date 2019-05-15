@@ -5,7 +5,10 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.map.roadmappings.AngleAndPos;
+import ch.heigvd.sitr.map.roadmappings.RoadMapping;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingArc;
+import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
 import ch.heigvd.sitr.utils.Conversions;
 
 import java.awt.*;
@@ -40,25 +43,15 @@ public class VehicleRenderer {
 
         g.setColor(vehicle.getColor());
 
-        int x = 0;
-        int y = 0;
-        double vehicleRotationAngle = 0;
         int length = Conversions.metersToPixels(scale, vehicle.getLength());
         int width = Conversions.metersToPixels(scale, vehicle.getWidth());
-
-        if(vehicle.currentPath().getRoadSegment().getRoadMapping() instanceof RoadMappingArc) {
-            x = (int)((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getX();
-            y = (int)((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getY();
-            vehicleRotationAngle = ((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getTheta();
-        } else {
-            // Get positional information, using correct conversions
-            x = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getX() +
-                    vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
-            y = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getY() +
-                    vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
-            vehicleRotationAngle = Math.atan2(vehicle.currentPath().getDirectionVector().y,
-                    vehicle.currentPath().getDirectionVector().x);
-        }
+        int vehiclePosition = Conversions.metersToPixels(scale, vehicle.getPosition());
+        double lateralOffset = -vehicle.currentPath().getRoadSegment().getRoadMapping().laneWidth();
+        RoadMapping roadMapping = vehicle.currentPath().getRoadSegment().getRoadMapping();
+        AngleAndPos angleAndPos = roadMapping.posAt(vehiclePosition, lateralOffset);
+        int x = (int)angleAndPos.getX();
+        int y = (int)angleAndPos.getY();
+        double vehicleRotationAngle = angleAndPos.getTheta();
 
         // Calculate correct rotation
         AffineTransform rotation = new AffineTransform();

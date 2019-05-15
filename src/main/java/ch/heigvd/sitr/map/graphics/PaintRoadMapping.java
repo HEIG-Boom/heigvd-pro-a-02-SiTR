@@ -1,6 +1,6 @@
 package ch.heigvd.sitr.map.graphics;
 
-import ch.heigvd.sitr.map.roadmappings.PosTheta;
+import ch.heigvd.sitr.map.roadmappings.AngleAndPos;
 import ch.heigvd.sitr.map.roadmappings.RoadMapping;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingArc;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
@@ -44,7 +44,7 @@ public final class PaintRoadMapping {
         final Point2D from = new Point2D.Double();
         final Point2D to = new Point2D.Double();
         final double roadLength = roadMapping.getRoadLength();
-        PosTheta posTheta;
+        AngleAndPos posTheta;
 
         final Class<? extends RoadMapping> roadMappingClass = roadMapping.getClass();
         if (roadMappingClass == RoadMappingLine.class) {

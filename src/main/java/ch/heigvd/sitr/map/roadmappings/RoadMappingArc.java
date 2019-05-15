@@ -72,28 +72,27 @@ public class RoadMappingArc extends RoadMapping {
     }
 
     /**
-     * @param vehiclePosFromStart The road position
-     * @param lateralOffset       The lateral offset
-     * @return
+     * Position at a certain arc length
+     *
+     * @param posFromStart  Position from the arc start
+     * @param lateralOffset The lateral offset
+     * @return the angle and position
      */
     @Override
-    public PosTheta posAt(double vehiclePosFromStart, double lateralOffset) {
-        double angle = vehiclePosFromStart / radius * (clockwise ? -1 : 1);
+    public AngleAndPos posAt(double posFromStart, double lateralOffset) {
+        // TODO: use lateral offset
+        double angle = posFromStart / radius * (clockwise ? -1 : 1);
         double totalAngle = startAngle + angle;
         double x = centerX + radius * Math.cos(totalAngle) * (clockwise ? -1 : 1);
         double y = centerY + radius * Math.sin(totalAngle) * (clockwise ? -1 : 1);
 
-        PosTheta vehiclePos = new PosTheta();
+        AngleAndPos vehiclePos = new AngleAndPos();
         vehiclePos.x = x;
         vehiclePos.y = y;
         vehiclePos.sinTheta = Math.sin(angle);
         vehiclePos.cosTheta = Math.cos(angle);
 
         return vehiclePos;
-    }
-
-    public PosTheta posAt(double vehiclePosFromStart) {
-        return this.posAt(vehiclePosFromStart, 0);
     }
 
     @Override
