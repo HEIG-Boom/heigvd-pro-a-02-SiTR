@@ -31,7 +31,7 @@ public class DrawnPath extends JComponent implements Observer {
     private Vehicle vehicle;
 
     /**
-     * static method of implementation as singleton
+     * Static method to get the singleton's instance
      *
      * @return the only one instance of the class
      */

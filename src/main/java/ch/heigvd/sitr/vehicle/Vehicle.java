@@ -99,7 +99,7 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private boolean customColor;
 
-    // Is the vehicle drawing its paht
+    // Is the vehicle drawing its path
     @Getter
     @Setter
     private boolean drawingPath;
