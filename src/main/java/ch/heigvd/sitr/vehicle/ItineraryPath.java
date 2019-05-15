@@ -18,6 +18,10 @@ import java.util.Objects;
  * @author Simon Walther
  */
 public class ItineraryPath {
+    // Itinerary road segment
+    @Getter
+    RoadSegment roadSegment;
+
     // the point of origin of the itinerary [px]
     @Getter
     private Point2D.Double origin;
@@ -75,6 +79,9 @@ public class ItineraryPath {
         this.destination = new Point2D.Double(Conversions.pixelsToMeters(scale, endX),   Conversions.pixelsToMeters(scale, endY));
 
         this.directionVector = new Point2D.Double((destination.x - origin.x) / norm(), (destination.y - origin.y) / norm());
+
+        // TODO: keep just that
+        this.roadSegment = roadSegment;
     }
 
     /**

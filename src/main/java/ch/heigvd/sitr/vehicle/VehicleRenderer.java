@@ -5,6 +5,7 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.map.roadmappings.RoadMappingArc;
 import ch.heigvd.sitr.utils.Conversions;
 
 import java.awt.*;
@@ -39,11 +40,20 @@ public class VehicleRenderer {
 
         g.setColor(vehicle.getColor());
 
-        // Get positional information, using correct conversions
-        int x = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getX() +
-                vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
-        int y = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getY() +
-                vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
+        int x = 0;
+        int y = 0;
+
+        if(vehicle.currentPath().getRoadSegment().getRoadMapping() instanceof RoadMappingArc) {
+            x = (int)((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getX();
+            y = (int)((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getY();
+        } else {
+            // Get positional information, using correct conversions
+            x = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getX() +
+                    vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
+            y = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getY() +
+                    vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
+        }
+
         int length = Conversions.metersToPixels(scale, vehicle.getLength());
         int width = Conversions.metersToPixels(scale, vehicle.getWidth());
 

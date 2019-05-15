@@ -3,6 +3,8 @@ package ch.heigvd.sitr.map.roadmappings;
 import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.Road.PlanView.Geometry;
 import lombok.Getter;
 
+import java.awt.geom.Point2D;
+
 /**
  * This class is used to map a road arc
  */
@@ -74,6 +76,20 @@ public class RoadMappingArc extends RoadMapping {
         posTheta.x = centerX + r * Math.cos(arcTheta) * (clockwise ? -1 : 1);
         posTheta.y = centerY + r * Math.sin(arcTheta) * (clockwise ? -1 : 1);
         return posTheta;
+    }
+
+    public Point2D.Double posAt(double vehiclePosFromStart) {
+        PosTheta posTheta = startPos();
+
+        double angSt = getStartAngle() + (isClockwise() ? 0.5 * Math.PI : -0.5 * Math.PI);
+        double angle = vehiclePosFromStart / radius;
+        double totalAngle = angSt + angle;
+        double centerX = posTheta.getX() - radius * Math.cos(angSt);
+        double centerY = posTheta.getY() + radius * Math.sin(angSt);
+        double x = centerX + radius * Math.cos(totalAngle);
+        double y = centerY + radius * Math.sin(totalAngle);
+
+        return new Point2D.Double(x, y);
     }
 
     @Override
