@@ -303,7 +303,7 @@ public class Vehicle extends Observable implements Renderable {
     /**
      * Acceleration of the vehicle
      * <p>
-     * Note: max acceleration is returned if accleration exceed max
+     * Note: max acceleration is returned if acceleration exceed max
      *
      * @return acceleration of the vehicle
      */
@@ -402,7 +402,8 @@ public class Vehicle extends Observable implements Renderable {
      */
     @Override
     public void draw(double scale) {
-        rectangle = VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this, scale);
+        rectangle = VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(),
+                this, scale);
     }
 
     /**
@@ -491,7 +492,7 @@ public class Vehicle extends Observable implements Renderable {
 
     /**
      * Method used to know where is the vehicle on the map.
-     * This position can be caluclate with the rectangle that we draw on screen.
+     * This position can be calculate with the rectangle that we draw on screen.
      *
      * @return a 2D Point of the center of the vehicle
      */

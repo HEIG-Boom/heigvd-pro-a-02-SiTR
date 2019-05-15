@@ -117,9 +117,9 @@ public class Simulation {
                     vehicle.update(deltaT);
                     vehicle.draw(scenario.getScale());
                     // DEBUG
-//                    System.out.println(vehicle);
+                    System.out.println(vehicle);
 
-                    // notify observers that the vehicle parameters have changed
+                    // Notify observers that the vehicle parameters have changed
                     vehicle.notifyObservers();
                 }
 
