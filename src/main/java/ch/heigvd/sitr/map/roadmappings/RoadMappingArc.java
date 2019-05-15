@@ -78,6 +78,12 @@ public class RoadMappingArc extends RoadMapping {
         return posTheta;
     }
 
+    /**
+     * Computes the position on screen and the angle where is the arc at a given vehicle position
+     *
+     * @param vehiclePosFromStart the vehicle position
+     * @return the angle and position
+     */
     public PosTheta posAt(double vehiclePosFromStart) {
         PosTheta posTheta = startPos();
 
