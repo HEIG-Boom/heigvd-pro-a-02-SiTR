@@ -19,7 +19,6 @@ import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
@@ -29,25 +28,24 @@ import java.util.concurrent.TimeUnit;
  * @author Alexandre Monteiro Marques
  */
 public class Statistics extends Thread {
-
-    // directory where the General statistics file is located
+    // Directory where the General statistics file is located
     private final String pathFileStats = "./Statistics/";
-    // directory where the Vehicle statistics file is located
-    private final String pathFileVehicleStats = pathFileStats + "vehicles/";
-    // separator for CSV file
+    // Separator for CSV file
     private final String separator = ";";
 
     @Getter
     private double networkOccupancy;
     private LinkedList<Vehicle> vehicles;
-    private int coolingTime; // time to refresh
-    private boolean running; // thread is in progress
+    // Time to refresh
+    private int coolingTime;
+    // Thread is in progress
+    private boolean running;
     private long simulationStartTime;
 
     /**
      * Constructor
      *
-     * @param v           List of vehicule
+     * @param v           List of vehicle
      * @param coolingTime Time to refresh statistics in seconds
      */
     public Statistics(LinkedList<Vehicle> v, RoadNetwork rn, int coolingTime) {
@@ -57,9 +55,8 @@ public class Statistics extends Thread {
 
         // Calculating the network occupancy rate
         double distanceNetwork = 0;
-        Iterator<RoadSegment> it = rn.iterator();
-        while (it.hasNext()) {
-            distanceNetwork += it.next().getRoadLength();
+        for (RoadSegment roadSegment : rn) {
+            distanceNetwork += roadSegment.getRoadLength();
         }
         networkOccupancy = rounded((getSizeAllCar() / distanceNetwork) * 100, 2);
 
@@ -79,14 +76,14 @@ public class Statistics extends Thread {
      */
     public void run() {
         while (running) {
-            //check if the window is still open because it was implemented in singleton
+            // Check if the window is still open because it was implemented in singleton
             // and the thread could create an instance if the window does not exist
             if (running)
                 SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
             if (running)
-                SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(getAccident()));
+                SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(nbrOfAccidents()));
             if (running)
-                SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(String.valueOf(getNetworkOccupancy()));
+                SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(getNetworkOccupancy() + "%");
 
             try {
                 sleep(coolingTime * 1000);
@@ -97,7 +94,7 @@ public class Statistics extends Thread {
     }
 
     /**
-     * calculating the average waiting time of all vehicles
+     * Calculating the average waiting time of all vehicles
      *
      * @return The average waiting time of all vehicles
      */
@@ -116,21 +113,21 @@ public class Statistics extends Thread {
     }
 
     /**
-     * calculating the total accident number
+     * Calculating the total accident number
      *
      * @return The number of accidents in all vehicles
      */
-    public int getAccident() {
+    public int nbrOfAccidents() {
         // Adds the number of accidents in each vehicle
         int nbAccident = 0;
         for (Vehicle v : vehicles) {
-            nbAccident += v.getAccidents();
+            nbAccident += v.getNbOfAccidents();
         }
         return nbAccident;
     }
 
     /**
-     * calculating the size of all vehicles
+     * Calculating the size of all vehicles
      *
      * @return The size of all vehicles
      */
@@ -147,11 +144,11 @@ public class Statistics extends Thread {
     }
 
     /**
-     * rounding the number
+     * Rounding the number
      *
-     * @param value The value
+     * @param value        The value
      * @param nbAfterComma Number of digits after the decimal point
-     * @return The value with the decimal pointe
+     * @return The value with the decimal point
      */
     private double rounded(double value, int nbAfterComma) {
         BigDecimal bd = new BigDecimal(value);
@@ -160,9 +157,9 @@ public class Statistics extends Thread {
     }
 
     /**
-     * duration of the current simulation
+     * Duration of the current simulation
      *
-     * @return duration of the current simulation
+     * @return Duration of the current simulation
      */
     private long elapsedTime() {
         return System.currentTimeMillis() - simulationStartTime;
@@ -171,8 +168,8 @@ public class Statistics extends Thread {
     /**
      * Convert time to millisecond in character string time
      *
-     * @param time time in millisecond
-     * @return character string time
+     * @param time Time in millisecond
+     * @return Character string time
      */
     private String convertMsToHour(long time) {
         String duration = "";
@@ -182,7 +179,7 @@ public class Statistics extends Thread {
         long s = TimeUnit.MILLISECONDS.toSeconds(time) % 60;
         long ms = TimeUnit.MILLISECONDS.toMillis(time) % 1000;
 
-        //Used to set the date format (X day hh:mm:ss.SSS)
+        // Used to set the date format (X day hh:mm:ss.SSS)
         duration += d == 0 ? "0 Day" : d == 1 ? "1 Day" : d + " Days";
         duration += " ";
 
@@ -204,13 +201,13 @@ public class Statistics extends Thread {
     /**
      * Exports the statistics to a file
      */
-    public void exportStatistical(Scenario scenario) {
+    public void exportStatistics(Scenario scenario) {
         writeGeneralStatistics(scenario);
         writeVehicleStatistics();
     }
 
     /**
-     * allows you to export General statistics to a CSV file
+     * Allows you to export General statistics to a CSV file
      *
      * @param scenario The scenario used for the simulation
      */
@@ -226,10 +223,10 @@ public class Statistics extends Thread {
                 // Add header to CSV file
                 String head = "Date" + separator;
                 head += "Duration" + separator;
-                head += "Scenario" + separator;
-                head += "Vehicle Number" + separator;
+                head += "Scenario name" + separator;
+                head += "Number of vehicles" + separator;
                 head += "Waiting time" + separator;
-                head += "Number accident" + separator;
+                head += "Number of accidents" + separator;
                 head += "Network occupancy\n";
                 writer.append(head);
             }
@@ -250,7 +247,7 @@ public class Statistics extends Thread {
             writer.append(Double.toString(getWaitingTime()));
             writer.append(separator);
             // adding number accident
-            writer.append(Integer.toString(getAccident()));
+            writer.append(Integer.toString(nbrOfAccidents()));
             writer.append(separator);
             // adding network occupancy
             writer.append(networkOccupancy + "%");
@@ -265,21 +262,23 @@ public class Statistics extends Thread {
     }
 
     /**
-     * allows you to export vehicles statistics to a CSV file
+     * Allows you to export vehicles statistics to a CSV file
      */
     private void writeVehicleStatistics() {
-        //creates a file name with the date
+        // Creates a file name with the date
         String date = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
 
         try {
+            // Directory where the Vehicle statistics file is located
+            String pathFileVehicleStats = pathFileStats + "vehicles/";
             File file = new File(pathFileVehicleStats + date + ".csv");
             Writer writer = getWriter(file);
 
             // Add header to CSV file
             String head = "Vehicle number" + separator;
-            head += "Controler Type" + separator;
+            head += "Controller Type" + separator;
             head += "Waiting time" + separator;
-            head += "Accident number\n";
+            head += "Number of accidents\n";
             writer.append(head);
 
             // Adds the information of each vehicle to the file
@@ -288,7 +287,7 @@ public class Statistics extends Thread {
                 writer.append(counter++ + separator);
                 writer.append(v.getVehicleController().getControllerType().toString() + separator);
                 writer.append(v.getWaitingTime() + separator);
-                writer.append(v.getAccidents() + "\n");
+                writer.append(v.getNbOfAccidents() + "\n");
             }
 
             writer.flush();
@@ -303,7 +302,7 @@ public class Statistics extends Thread {
      * Allows you to create the file as needed and give write access
      *
      * @param file The desired file
-     * @return Writer object to write to the file
+     * @return Writer Object to write to the file
      */
     private Writer getWriter(File file) {
         try {

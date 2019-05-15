@@ -86,17 +86,13 @@ public class Vehicle extends Observable implements Renderable {
     // Color when in accident
     private final Color accidentColor = Color.white;
 
-    // nb of accidents
+    // Nb of accidents
     @Getter
-    private int accidents;
+    private int nbOfAccidents;
 
-    // is this vehicle in an accident
+    // Is this vehicle in an accident
     @Getter
     private boolean inAccident;
-
-    // Number of accidents
-    @Getter
-    private int nbAccidents;
 
     // Is the vehicle painted with a custom color
     @Getter
@@ -381,7 +377,7 @@ public class Vehicle extends Observable implements Renderable {
 
         // if frontDistance is <= 0, an accident occurred, if not already in accident
         if (frontDistance <= 0 && !inAccident) {
-            accidents++;
+            nbOfAccidents++;
             inAccident = true;
 
             // stop this vehicle
@@ -484,7 +480,7 @@ public class Vehicle extends Observable implements Renderable {
         ret += " || v: " + speed;
         ret += " || frontDistance: " + frontDistance();
         ret += " || noise: " + ((accelerationNoise != null) ? accelerationNoise.getAccelerationNoise() : "0");
-        ret += " || accident " + accidents;
+        ret += " || accident " + nbOfAccidents;
 
         return ret;
     }

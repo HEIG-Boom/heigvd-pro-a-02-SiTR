@@ -66,7 +66,8 @@ public class Simulation {
     @Setter
     private double deltaT = defaultDeltaT;
 
-    // object for making statistics
+    // Object for making statistics
+    @Getter
     private final Statistics stats;
 
     /**
@@ -104,6 +105,9 @@ public class Simulation {
         // Print the road network
         roadNetwork.draw(scenario.getScale());
 
+        // Start the statistics
+        stats.start();
+
         // Start main simulation loop
         startLoop();
     }
@@ -123,10 +127,11 @@ public class Simulation {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.update(deltaT);
                     vehicle.draw(scenario.getScale());
-                    // DEBUG
-//                    System.out.println(vehicle);
 
-                    // notify observers that the vehicle parameters have changed
+                    // DEBUG
+                    System.out.println(vehicle);
+
+                    // Notify observers that the vehicle parameters have changed
                     vehicle.notifyObservers();
                 }
 
@@ -134,9 +139,6 @@ public class Simulation {
                 window.repaint();
             }
         }, 0, UPDATE_RATE);
-
-        // Start the statistics
-        stats.start();
     }
 
     /**
@@ -144,10 +146,6 @@ public class Simulation {
      */
     public void stopLoop() {
         timer.cancel();
-
-        // TODO DONT DO THAT HERE
-        // Stop the Thread of statistics
-        stats.terminate();
     }
 
     /**
