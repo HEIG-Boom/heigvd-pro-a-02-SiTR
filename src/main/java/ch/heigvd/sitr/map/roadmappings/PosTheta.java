@@ -18,7 +18,7 @@ public class PosTheta {
      *
      * @return Angle, in radians, measure counter-clockwise from x-axis
      */
-    protected double getTheta() {
+    public double getTheta() {
         return Math.atan2(sinTheta, cosTheta);
     }
 

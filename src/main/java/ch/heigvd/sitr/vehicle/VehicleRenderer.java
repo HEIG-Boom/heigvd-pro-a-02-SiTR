@@ -42,25 +42,27 @@ public class VehicleRenderer {
 
         int x = 0;
         int y = 0;
+        double vehicleRotationAngle = 0;
+        int length = Conversions.metersToPixels(scale, vehicle.getLength());
+        int width = Conversions.metersToPixels(scale, vehicle.getWidth());
 
         if(vehicle.currentPath().getRoadSegment().getRoadMapping() instanceof RoadMappingArc) {
             x = (int)((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getX();
             y = (int)((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getY();
+            vehicleRotationAngle = ((RoadMappingArc) vehicle.currentPath().getRoadSegment().getRoadMapping()).posAt(Conversions.metersToPixels(scale, vehicle.getPosition())).getTheta();
         } else {
             // Get positional information, using correct conversions
             x = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getX() +
                     vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
             y = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getY() +
                     vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
+            vehicleRotationAngle = Math.atan2(vehicle.currentPath().getDirectionVector().y,
+                    vehicle.currentPath().getDirectionVector().x);
         }
-
-        int length = Conversions.metersToPixels(scale, vehicle.getLength());
-        int width = Conversions.metersToPixels(scale, vehicle.getWidth());
 
         // Calculate correct rotation
         AffineTransform rotation = new AffineTransform();
-        rotation.rotate(Math.atan2(vehicle.currentPath().getDirectionVector().y,
-                vehicle.currentPath().getDirectionVector().x), x + length / 2, y + width / 2);
+        rotation.rotate(vehicleRotationAngle, x + length / 2, y + width / 2);
         g.transform(rotation);
 
         // Draw rectangle

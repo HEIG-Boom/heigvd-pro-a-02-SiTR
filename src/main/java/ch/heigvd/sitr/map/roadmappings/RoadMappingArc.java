@@ -78,7 +78,7 @@ public class RoadMappingArc extends RoadMapping {
         return posTheta;
     }
 
-    public Point2D.Double posAt(double vehiclePosFromStart) {
+    public PosTheta posAt(double vehiclePosFromStart) {
         PosTheta posTheta = startPos();
 
         double angSt = getStartAngle() + (isClockwise() ? 0.5 * Math.PI : -0.5 * Math.PI);
@@ -89,7 +89,13 @@ public class RoadMappingArc extends RoadMapping {
         double x = centerX + radius * Math.cos(totalAngle);
         double y = centerY + radius * Math.sin(totalAngle);
 
-        return new Point2D.Double(x, y);
+        PosTheta vehiclePos = new PosTheta();
+        vehiclePos.x = x;
+        vehiclePos.y = y;
+        vehiclePos.sinTheta = Math.sin(angle);
+        vehiclePos.cosTheta = Math.cos(angle);
+
+        return vehiclePos;
     }
 
     @Override
