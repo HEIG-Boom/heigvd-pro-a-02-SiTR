@@ -10,6 +10,7 @@ import ch.heigvd.sitr.gui.simulation.SimulationWindow;
 import ch.heigvd.sitr.map.RoadNetwork;
 import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.map.input.OpenDriveHandler;
+import ch.heigvd.sitr.statistics.Statistics;
 import ch.heigvd.sitr.vehicle.ItineraryPath;
 import ch.heigvd.sitr.vehicle.Vehicle;
 import ch.heigvd.sitr.vehicle.VehicleController;
@@ -65,6 +66,10 @@ public class Simulation {
     @Setter
     private double deltaT = defaultDeltaT;
 
+    // Object for making statistics
+    @Getter
+    private final Statistics stats;
+
     /**
      * Simulation constructor
      *
@@ -85,6 +90,9 @@ public class Simulation {
 
         // Generate vehicles from user parameters
         vehicles = generateTraffic(controllers);
+
+        // Create the statistic for this simulation
+        stats = new Statistics(vehicles, roadNetwork, 1);
     }
 
     /**
@@ -96,6 +104,9 @@ public class Simulation {
 
         // Print the road network
         roadNetwork.draw(scenario.getScale());
+
+        // Start the statistics
+        stats.start();
 
         // Start main simulation loop
         startLoop();
@@ -116,10 +127,11 @@ public class Simulation {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.update(deltaT);
                     vehicle.draw(scenario.getScale());
-                    // DEBUG
-//                    System.out.println(vehicle);
 
-                    // notify observers that the vehicle parameters have changed
+                    // DEBUG
+                    System.out.println(vehicle);
+
+                    // Notify observers that the vehicle parameters have changed
                     vehicle.notifyObservers();
                 }
 
@@ -127,6 +139,9 @@ public class Simulation {
                 window.repaint();
             }
         }, 0, UPDATE_RATE);
+
+        // Start the statistics
+        stats.start();
     }
 
     /**

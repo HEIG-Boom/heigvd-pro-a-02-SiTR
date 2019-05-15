@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 public class SimControlPanel extends JPanel {
-
     // Minimal and maximal speed of the simulation
     private final int MIN_SPEED = 50;
     private final int MAX_SPEED = 150;
@@ -216,6 +215,8 @@ public class SimControlPanel extends JPanel {
         newSim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Stop the Thread of statistics
+                SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getStats().terminate();
                 SimulationWindow.getInstance().closeWindow();
                 SettingsWindow.getInstance().showWindow();
             }
@@ -246,7 +247,9 @@ public class SimControlPanel extends JPanel {
         getStats.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /* WRITE HERE YOURS STATS GENERATION */
+                SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getStats().exportStatistics(
+                        SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getScenario()
+                );
             }
         });
         gbc = new GridBagConstraints();
