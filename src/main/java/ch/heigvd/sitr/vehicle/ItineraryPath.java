@@ -34,6 +34,9 @@ public class ItineraryPath {
     @Getter
     private Point2D.Double directionVector;
 
+    // scale to be applied
+    private double scale;
+
     // padding at the top of the lane [px]
     private static final int LANE_PADDING = 2;
 
@@ -43,6 +46,11 @@ public class ItineraryPath {
      * @param roadSegment the road segment
      */
     public ItineraryPath(RoadSegment roadSegment, double scale) {
+        // TODO: keep just that
+        this.roadSegment = roadSegment;
+
+        this.scale = scale;
+
         // TODO: change way of centering vehicles on lane, it doesn't take in account lane orientation
         // TODO: the end of the itinerary should take in account the length of the vehicle
         int startX = (int)roadSegment.getRoadMapping().startPos().getX();
@@ -54,18 +62,15 @@ public class ItineraryPath {
         this.origin      = new Point2D.Double(Conversions.pixelsToMeters(scale, startX), Conversions.pixelsToMeters(scale, startY));
         this.destination = new Point2D.Double(Conversions.pixelsToMeters(scale, endX),   Conversions.pixelsToMeters(scale, endY));
 
-        this.directionVector = new Point2D.Double((destination.x - origin.x) / norm(), (destination.y - origin.y) / norm());
-
-        // TODO: keep just that
-        this.roadSegment = roadSegment;
+        this.directionVector = new Point2D.Double((destination.x - origin.x) / length(), (destination.y - origin.y) / length());
     }
 
     /**
-     * Get the norm of the vector formed by the itinerary
-     * @return the norm
+     * Get the length of the vector formed by the itinerary
+     * @return the length
      */
-    public double norm() {
-        return Math.sqrt(Math.pow(destination.x - origin.x, 2) + Math.pow(destination.y - origin.y, 2));
+    public double length() {
+        return Conversions.pixelsToMeters(scale, (int)roadSegment.getRoadMapping().getRoadLength());
     }
 
     @Override

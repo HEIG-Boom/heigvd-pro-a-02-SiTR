@@ -182,8 +182,8 @@ public class Vehicle extends Observable implements Renderable {
     public void setPosition(double position) {
         // If it exceed the itinerary path length,
         // we add the excess to the position on the next itinerary path
-        if (position > currentPath().norm()) {
-            position -= currentPath().norm();
+        if (position > currentPath().length()) {
+            position -= currentPath().length();
             moveToNextPath();
         }
 
@@ -271,13 +271,13 @@ public class Vehicle extends Observable implements Renderable {
         int path = getPathStep();
 
         if (position > frontVehicle.position && itinerary.get(path).equals(frontVehicle.currentPath())) {
-            frontDistance += itinerary.get(path).norm(); // Add the whole path distance
+            frontDistance += itinerary.get(path).length(); // Add the whole path distance
             path = (path + 1) % itinerarySize();
         }
 
         // Add all itinerary path distance in between
         while (!itinerary.get(path).equals(frontVehicle.currentPath())) {
-            frontDistance += itinerary.get(path).norm(); // Add the whole path distance
+            frontDistance += itinerary.get(path).length(); // Add the whole path distance
             path = (path + 1) % itinerarySize();
         }
 
