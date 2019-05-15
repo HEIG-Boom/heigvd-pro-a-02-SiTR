@@ -5,6 +5,9 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.map.RoadSegment;
+import ch.heigvd.sitr.map.roadmappings.LaneGeometries;
+import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
 import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +35,8 @@ public class VehicleTest {
 
     @BeforeEach
     public void createDummyItinerary() {
-        itineraryPath = new ItineraryPath(new Point2D.Double(0, 0), new Point2D.Double(10000, 0));
+        RoadSegment roadSegment = new RoadSegment(10000, 1, new RoadMappingLine(new LaneGeometries(), 0, 0, 0, 0, 10000));
+        itineraryPath = new ItineraryPath(roadSegment, 1);
         defaultItinerary.add(itineraryPath);
     }
 
@@ -84,9 +88,12 @@ public class VehicleTest {
 
     @Test
     public void nextPath() {
-        ItineraryPath path1 = new ItineraryPath(new Point2D.Double(10, 10), new Point2D.Double(20, 20));
-        ItineraryPath path2 = new ItineraryPath(new Point2D.Double(20, 20), new Point2D.Double(30, 30));
-        ItineraryPath path3 = new ItineraryPath(new Point2D.Double(30, 30), new Point2D.Double(40, 40));
+        RoadSegment roadSegment = new RoadSegment(10, 1, new RoadMappingLine(new LaneGeometries(), 0, 0, 0, 0, 10000));
+        ItineraryPath path1 = new ItineraryPath(roadSegment, 1);
+        RoadSegment roadSegment2 = new RoadSegment(15, 1, new RoadMappingLine(new LaneGeometries(), 0, 0, 0, 0, 10000));
+        ItineraryPath path2 = new ItineraryPath(roadSegment2, 1);
+        RoadSegment roadSegment3 = new RoadSegment(20, 1, new RoadMappingLine(new LaneGeometries(), 0, 0, 0, 0, 10000));
+        ItineraryPath path3 = new ItineraryPath(roadSegment3, 1);
         LinkedList<ItineraryPath> itinerary = new LinkedList<>();
         itinerary.add(path1);
         itinerary.add(path2);
@@ -131,18 +138,20 @@ public class VehicleTest {
      */
     @Test
     public void positionShouldSwitchOfItineraryIfItExceedstheItineraryLength() {
-        ItineraryPath itineraryPath1 = new ItineraryPath(new Point2D.Double(50, 50), new Point2D.Double(50, 59));
-        ItineraryPath itineraryPath2 = new ItineraryPath(new Point2D.Double(50, 60), new Point2D.Double(60, 60));
+        RoadSegment roadSegment = new RoadSegment(10, 1, new RoadMappingLine(new LaneGeometries(), 0, 0, 0, 0, 10));
+        ItineraryPath path1 = new ItineraryPath(roadSegment, 1);
+        RoadSegment roadSegment2 = new RoadSegment(10, 1, new RoadMappingLine(new LaneGeometries(), 0, 0, 0, 0, 10));
+        ItineraryPath path2 = new ItineraryPath(roadSegment2, 1);
         LinkedList<ItineraryPath> itineraryPaths = new LinkedList<>();
-        itineraryPaths.add(itineraryPath1);
-        itineraryPaths.add(itineraryPath2);
+        itineraryPaths.add(path1);
+        itineraryPaths.add(path2);
 
         Vehicle vehicle = new Vehicle(vehicleController, 1.7, 1, 33.33, 2.5, itineraryPaths);
 
         assertEquals(0, vehicle.getPosition());
         assertEquals(0, vehicle.getPathStep());
 
-        vehicle.setPosition(10);
+        vehicle.setPosition(11);
 
         assertEquals(1, vehicle.getPosition());
         assertEquals(1, vehicle.getPathStep());

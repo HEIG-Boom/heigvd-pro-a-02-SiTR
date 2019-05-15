@@ -40,30 +40,6 @@ public class ItineraryPath {
     /**
      * Constructor
      *
-     * @param origin      the point of origin
-     * @param destination the point of destination
-     * @throws IllegalArgumentException if we specify a null destination or origin
-     */
-    public ItineraryPath(Point2D.Double origin, Point2D.Double destination) throws IllegalArgumentException {
-        // ensure that origin is not empty
-        if (origin == null) {
-            throw new IllegalArgumentException("Itinerary stop must have an origin");
-        }
-
-        this.origin = origin;
-
-        // ensure that destination is not empty
-        if (destination == null) {
-            throw new IllegalArgumentException("Itinerary stop must have a destination");
-        }
-
-        this.destination = destination;
-        this.directionVector = new Point2D.Double((destination.x - origin.x) / norm(), (destination.y - origin.y) / norm());
-    }
-
-    /**
-     * Constructor
-     *
      * @param roadSegment the road segment
      */
     public ItineraryPath(RoadSegment roadSegment, double scale) {
@@ -99,11 +75,12 @@ public class ItineraryPath {
         ItineraryPath that = (ItineraryPath) o;
         return Objects.equals(origin, that.origin) &&
                 Objects.equals(destination, that.destination) &&
-                Objects.equals(directionVector, that.directionVector);
+                Objects.equals(directionVector, that.directionVector) &&
+                Objects.equals(roadSegment, that.roadSegment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(origin, destination, directionVector);
+        return Objects.hash(origin, destination, directionVector, roadSegment);
     }
 }
