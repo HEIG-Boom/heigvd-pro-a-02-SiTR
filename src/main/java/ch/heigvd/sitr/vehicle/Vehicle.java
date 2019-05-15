@@ -77,7 +77,7 @@ public class Vehicle extends Observable implements Renderable {
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
-
+    
     // Color of the vehicle
     @Getter
     @Setter
