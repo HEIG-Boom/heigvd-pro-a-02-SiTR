@@ -3,7 +3,7 @@ package ch.heigvd.sitr.map.roadmappings;
 import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.Road.PlanView.Geometry;
 
 /**
- * This class is used to map a road segment onto straight line
+ * This class is used to posAt a road segment onto straight line
  */
 public class RoadMappingLine extends RoadMapping {
     // Line coordinates
@@ -53,7 +53,7 @@ public class RoadMappingLine extends RoadMapping {
     }
 
     @Override
-    public PosTheta map(double roadPos, double lateralOffset) {
+    public PosTheta posAt(double roadPos, double lateralOffset) {
         posTheta.x = x0 + roadPos * posTheta.cosTheta - lateralOffset * posTheta.sinTheta;
         posTheta.y = y0 + roadPos * posTheta.sinTheta + lateralOffset * posTheta.cosTheta;
         return posTheta;

@@ -20,7 +20,7 @@ public enum Scenario {
     EIGHT("Eight", 8, "eight.xodr"),
     OFFRAMP_LOW("Bretelle de sortie bas", 8, "offramp_low.xodr");
 
-    // Base folder containing data files for the scenario (map)
+    // Base folder containing data files for the scenario (posAt)
     private static final String BASE_PATH = "/map/simulation/";
 
     // Name of the scenario (to display in GUI and such)

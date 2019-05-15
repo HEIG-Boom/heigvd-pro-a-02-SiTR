@@ -139,7 +139,7 @@ public class Simulation {
     /**
      * Generate correct number of vehicle for each specified controller
      *
-     * @param controllers The hash map containing the specified number of vehicles for each controller
+     * @param controllers The hash posAt containing the specified number of vehicles for each controller
      * @return a list of all vehicles in the simulation
      */
     private LinkedList<Vehicle> generateTraffic(HashMap<VehicleControllerType, Integer> controllers) {
@@ -151,7 +151,7 @@ public class Simulation {
             defaultItinerary.add(new ItineraryPath(roadSegment, scenario.getScale()));
         }
 
-        // Iterate through the hash map
+        // Iterate through the hash posAt
         controllers.forEach((key, value) -> {
             // One controller for all vehicles of a given type
             VehicleController controller = new VehicleController(key);

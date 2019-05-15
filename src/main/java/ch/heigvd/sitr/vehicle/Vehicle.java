@@ -74,7 +74,7 @@ public class Vehicle extends Observable implements Renderable {
     // Acceleration noise
     private AccelerationNoise accelerationNoise = new AccelerationNoise();
 
-    // Rectangle of the car on the map
+    // Rectangle of the car on the posAt
     @Getter
     private Rectangle rectangle;
 
@@ -490,7 +490,7 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
-     * Method used to know where is the vehicle on the map.
+     * Method used to know where is the vehicle on the posAt.
      * This position can be caluclate with the rectangle that we draw on screen.
      *
      * @return a 2D Point of the center of the vehicle

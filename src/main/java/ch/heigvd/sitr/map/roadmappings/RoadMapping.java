@@ -59,7 +59,7 @@ public abstract class RoadMapping {
      * @return The start position of the road
      */
     public PosTheta startPos(double lateralOffset) {
-        return map(0.0, lateralOffset);
+        return posAt(0.0, lateralOffset);
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class RoadMapping {
      * @return The end position of the road
      */
     public PosTheta endPos(double lateralOffset) {
-        return map(roadLength, lateralOffset);
+        return posAt(roadLength, lateralOffset);
     }
 
     /**
@@ -191,5 +191,5 @@ public abstract class RoadMapping {
      * @param lateralOffset The lateral offset
      * @return The position in space and the direction
      */
-    public abstract PosTheta map(double roadPos, double lateralOffset);
+    public abstract PosTheta posAt(double roadPos, double lateralOffset);
 }
