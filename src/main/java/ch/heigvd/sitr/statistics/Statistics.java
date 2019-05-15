@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Statistics extends Thread {
     // Directory where the General statistics file is located
-    private final String pathFileStats = "./Statistics/";
+    private final String pathFileStats = "./statistics/";
     // Separator for CSV file
     private final String separator = ";";
 
