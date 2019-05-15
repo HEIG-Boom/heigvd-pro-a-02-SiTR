@@ -22,23 +22,8 @@ public class ItineraryPath {
     @Getter
     RoadSegment roadSegment;
 
-    // the point of origin of the itinerary [px]
-    @Getter
-    private Point2D.Double origin;
-
-    // the point of destination of the itinerary [px]
-    @Getter
-    private Point2D.Double destination;
-
-    // normed direction vector
-    @Getter
-    private Point2D.Double directionVector;
-
     // scale to be applied
     private double scale;
-
-    // padding at the top of the lane [px]
-    private static final int LANE_PADDING = 2;
 
     /**
      * Constructor
@@ -46,23 +31,8 @@ public class ItineraryPath {
      * @param roadSegment the road segment
      */
     public ItineraryPath(RoadSegment roadSegment, double scale) {
-        // TODO: keep just that
         this.roadSegment = roadSegment;
-
         this.scale = scale;
-
-        // TODO: change way of centering vehicles on lane, it doesn't take in account lane orientation
-        // TODO: the end of the itinerary should take in account the length of the vehicle
-        int startX = (int)roadSegment.getRoadMapping().startPos().getX();
-        int startY = (int)(roadSegment.getRoadMapping().startPos().getY() + LANE_PADDING - roadSegment.getRoadMapping().roadWidth());
-        int endX   = (int)roadSegment.getRoadMapping().endPos().getX();
-        int endY   = (int)(roadSegment.getRoadMapping().endPos().getY() + LANE_PADDING - roadSegment.getRoadMapping().roadWidth());
-
-        // TODO: IMPORTANT SCALE SHOULD BE TAKEN FROM SCENARIO
-        this.origin      = new Point2D.Double(Conversions.pixelsToMeters(scale, startX), Conversions.pixelsToMeters(scale, startY));
-        this.destination = new Point2D.Double(Conversions.pixelsToMeters(scale, endX),   Conversions.pixelsToMeters(scale, endY));
-
-        this.directionVector = new Point2D.Double((destination.x - origin.x) / length(), (destination.y - origin.y) / length());
     }
 
     /**
@@ -78,14 +48,11 @@ public class ItineraryPath {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItineraryPath that = (ItineraryPath) o;
-        return Objects.equals(origin, that.origin) &&
-                Objects.equals(destination, that.destination) &&
-                Objects.equals(directionVector, that.directionVector) &&
-                Objects.equals(roadSegment, that.roadSegment);
+        return Objects.equals(roadSegment, that.roadSegment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(origin, destination, directionVector, roadSegment);
+        return Objects.hash(roadSegment);
     }
 }

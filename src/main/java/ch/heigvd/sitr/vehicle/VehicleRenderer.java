@@ -49,8 +49,8 @@ public class VehicleRenderer {
         double lateralOffset = -vehicle.currentPath().getRoadSegment().getRoadMapping().laneWidth();
         RoadMapping roadMapping = vehicle.currentPath().getRoadSegment().getRoadMapping();
         AngleAndPos angleAndPos = roadMapping.posAt(vehiclePosition, lateralOffset);
-        int x = (int)angleAndPos.getX();
-        int y = (int)angleAndPos.getY();
+        int x = (int) angleAndPos.getX();
+        int y = (int) angleAndPos.getY();
         double vehicleRotationAngle = angleAndPos.getTheta();
 
         // Calculate correct rotation
