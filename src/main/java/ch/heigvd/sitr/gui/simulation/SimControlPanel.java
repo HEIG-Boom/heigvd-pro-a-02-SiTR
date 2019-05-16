@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 public class SimControlPanel extends JPanel {
-
     // Minimal and maximal speed of the simulation
     private final int MIN_SPEED = 50;
     private final int MAX_SPEED = 150;
@@ -174,7 +173,7 @@ public class SimControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(waitingTimeValue, gbc);
 
-        final JLabel accidentCounterLabel = new JLabel("Compteur d'accidents potentiels :");
+        final JLabel accidentCounterLabel = new JLabel("Compteur global d'accidents :");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -216,6 +215,8 @@ public class SimControlPanel extends JPanel {
         newSim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Stop the Thread of statistics
+                SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getStats().terminate();
                 SimulationWindow.getInstance().closeWindow();
                 SettingsWindow.getInstance().showWindow();
             }
@@ -242,7 +243,23 @@ public class SimControlPanel extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0);
         this.add(quit, gbc);
 
-        setPreferredSize(new Dimension(360, 240));
+        final JButton getStats = new JButton("Générer statistiques");
+        getStats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getStats().exportStatistics(
+                        SettingsWindow.getInstance().getSettingsPanel().getCurrentSim().getScenario()
+                );
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(40, 0, 0, 30);
+        this.add(getStats, gbc);
+
+        setPreferredSize(new Dimension(360, 300));
     }
 
     /**
