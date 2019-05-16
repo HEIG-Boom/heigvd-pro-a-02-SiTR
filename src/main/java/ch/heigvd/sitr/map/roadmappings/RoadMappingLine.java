@@ -53,7 +53,7 @@ public class RoadMappingLine extends RoadMapping {
     }
 
     @Override
-    public PosTheta map(double roadPos, double lateralOffset) {
+    public AngleAndPos posAt(double roadPos, double lateralOffset) {
         posTheta.x = x0 + roadPos * posTheta.cosTheta - lateralOffset * posTheta.sinTheta;
         posTheta.y = y0 + roadPos * posTheta.sinTheta + lateralOffset * posTheta.cosTheta;
         return posTheta;

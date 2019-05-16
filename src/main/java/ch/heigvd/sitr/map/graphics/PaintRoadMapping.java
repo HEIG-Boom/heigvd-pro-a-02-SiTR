@@ -1,6 +1,6 @@
 package ch.heigvd.sitr.map.graphics;
 
-import ch.heigvd.sitr.map.roadmappings.PosTheta;
+import ch.heigvd.sitr.map.roadmappings.AngleAndPos;
 import ch.heigvd.sitr.map.roadmappings.RoadMapping;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingArc;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
@@ -44,28 +44,26 @@ public final class PaintRoadMapping {
         final Point2D from = new Point2D.Double();
         final Point2D to = new Point2D.Double();
         final double roadLength = roadMapping.getRoadLength();
-        PosTheta posTheta;
+        AngleAndPos angleAndPos;
 
         final Class<? extends RoadMapping> roadMappingClass = roadMapping.getClass();
         if (roadMappingClass == RoadMappingLine.class) {
-            posTheta = roadMapping.startPos(lateralOffset);
-            from.setLocation(posTheta.getX(), posTheta.getY());
-            posTheta = roadMapping.endPos(lateralOffset);
-            to.setLocation(posTheta.getX(), posTheta.getY());
+            angleAndPos = roadMapping.startPos(lateralOffset);
+            from.setLocation(angleAndPos.getX(), angleAndPos.getY());
+            angleAndPos = roadMapping.endPos(lateralOffset);
+            to.setLocation(angleAndPos.getX(), angleAndPos.getY());
             line.setLine(from, to);
             g.draw(line);
         } else if (roadMappingClass == RoadMappingArc.class) {
             final RoadMappingArc arc = (RoadMappingArc) roadMapping;
-            posTheta = roadMapping.startPos();
-            final double angSt = arc.getStartAngle() + (arc.isClockwise() ? 0.5 * Math.PI : -0.5 * Math.PI);
-            final double radius = arc.getRadius();
-            final double dx = radius * Math.cos(angSt);
-            final double dy = radius * Math.sin(angSt);
+            double arcAngle = Math.toDegrees(arc.getArcAngle());
+            double startAngle = Math.toDegrees(arc.getStartAngle());
+            double radius = arc.getRadius();
+            double centerX = arc.getCenterX();
+            double centerY = arc.getCenterY();
             final Arc2D.Double arc2D = new Arc2D.Double();
 
-            arc2D.setArcByCenter(posTheta.getX() - dx, posTheta.getY() + dy,
-                    radius + lateralOffset * (arc.isClockwise() ? 1 : -1), Math.toDegrees(angSt),
-                    Math.toDegrees(arc.getArcAngle()), Arc2D.OPEN);
+            arc2D.setArcByCenter(centerX, centerY, radius + lateralOffset * (arc.isClockwise() ? 1 : -1), startAngle, arcAngle, Arc2D.OPEN);
             g.draw(arc2D);
         }
 

@@ -5,6 +5,9 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.map.RoadSegment;
+import ch.heigvd.sitr.map.roadmappings.LaneGeometries;
+import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
 import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +29,9 @@ public class VehicleControllerTest {
 
     @BeforeEach
     public void createDummyItinerary() {
-        defaultItinerary.add(new ItineraryPath(new Point2D.Double(0, 0), new Point2D.Double(10000, 0)));
+        RoadSegment roadSegment = new RoadSegment(10000, 1, new RoadMappingLine(new LaneGeometries(), 0, 0, 0, 0, 10000));
+        ItineraryPath itineraryPath = new ItineraryPath(roadSegment, 1);
+        defaultItinerary.add(itineraryPath);
     }
 
     @BeforeEach
