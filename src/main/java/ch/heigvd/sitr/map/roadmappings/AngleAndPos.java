@@ -18,7 +18,7 @@ public class AngleAndPos {
      *
      * @return Angle, in radians, measure counter-clockwise from x-axis
      */
-    public double getTheta() {
+    public double getAngle() {
         return Math.atan2(sinTheta, cosTheta);
     }
 

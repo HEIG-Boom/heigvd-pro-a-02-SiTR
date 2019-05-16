@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Simulation window class represent the main frame of the simulation. It contains a posAt panel, a simulation control
+ * Simulation window class represent the main frame of the simulation. It contains a map panel, a simulation control
  * panel and a car control panel.
  *
  * @author Alexandre Monteiro Marques, Loris Gilliand
@@ -50,7 +50,7 @@ public class SimulationWindow implements Displayer {
 
     /**
      * private constructor of the window
-     * Create a frame and add a posAt panel, a simulation control panel and a car control panel
+     * Create a frame and add a map panel, a simulation control panel and a car control panel
      */
     private SimulationWindow() {
         frame = new JFrame("SiTR");

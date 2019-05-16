@@ -44,14 +44,14 @@ public final class PaintRoadMapping {
         final Point2D from = new Point2D.Double();
         final Point2D to = new Point2D.Double();
         final double roadLength = roadMapping.getRoadLength();
-        AngleAndPos posTheta;
+        AngleAndPos angleAndPos;
 
         final Class<? extends RoadMapping> roadMappingClass = roadMapping.getClass();
         if (roadMappingClass == RoadMappingLine.class) {
-            posTheta = roadMapping.startPos(lateralOffset);
-            from.setLocation(posTheta.getX(), posTheta.getY());
-            posTheta = roadMapping.endPos(lateralOffset);
-            to.setLocation(posTheta.getX(), posTheta.getY());
+            angleAndPos = roadMapping.startPos(lateralOffset);
+            from.setLocation(angleAndPos.getX(), angleAndPos.getY());
+            angleAndPos = roadMapping.endPos(lateralOffset);
+            to.setLocation(angleAndPos.getX(), angleAndPos.getY());
             line.setLine(from, to);
             g.draw(line);
         } else if (roadMappingClass == RoadMappingArc.class) {

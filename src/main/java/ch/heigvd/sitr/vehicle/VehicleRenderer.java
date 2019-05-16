@@ -7,8 +7,6 @@ package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.map.roadmappings.AngleAndPos;
 import ch.heigvd.sitr.map.roadmappings.RoadMapping;
-import ch.heigvd.sitr.map.roadmappings.RoadMappingArc;
-import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
 import ch.heigvd.sitr.utils.Conversions;
 
 import java.awt.*;
@@ -51,7 +49,7 @@ public class VehicleRenderer {
         AngleAndPos angleAndPos = roadMapping.posAt(vehiclePosition, lateralOffset);
         int x = (int) angleAndPos.getX();
         int y = (int) angleAndPos.getY();
-        double vehicleRotationAngle = angleAndPos.getTheta();
+        double vehicleRotationAngle = angleAndPos.getAngle();
 
         // Calculate correct rotation
         AffineTransform rotation = new AffineTransform();

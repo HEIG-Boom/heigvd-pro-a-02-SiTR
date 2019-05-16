@@ -4,7 +4,7 @@ import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.Road.PlanView.Geometry;
 import lombok.Getter;
 
 /**
- * This class is used to posAt a road arc
+ * This class is used to map a road arc
  */
 public class RoadMappingArc extends RoadMapping {
 
@@ -30,7 +30,7 @@ public class RoadMappingArc extends RoadMapping {
      * Constructor
      *
      * @param laneGeometries Lane's geometry in the road mapping
-     * @param startX         The start position of the plan view geometryy (x inertial)
+     * @param startX         The start position of the plan view geometry (x inertial)
      * @param startY         The start position of the plan view geometry (y inertial)
      * @param startAngle     The start Angle when begin the Arc
      * @param length         The length of the line

@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * Map panel represent the drawing area for the posAt of the simulation
+ * Map panel represent the drawing area for the map of the simulation
  *
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
@@ -25,12 +25,12 @@ class MapPanel extends JPanel implements MouseListener {
     @Getter
     private final String backgroundColor = "0x008000";
 
-    // dimensions of the posAt
+    // dimensions of the map
     static final int WIDTH = 800;
     static final int HEIGHT = 800;
 
     /**
-     * Package-private constructor of the posAt panel
+     * Package-private constructor of the map panel
      */
     MapPanel() {
         Dimension d = new Dimension(WIDTH, HEIGHT);
@@ -41,7 +41,7 @@ class MapPanel extends JPanel implements MouseListener {
     }
 
     /**
-     * This method detect click on the posAt. If the click is on a vehicle,
+     * This method detect click on the map. If the click is on a vehicle,
      * set the CarControlPanel to observe this car.
      *
      * @param e mouse event used to get the position of the click

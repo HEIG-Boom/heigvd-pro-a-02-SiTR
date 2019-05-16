@@ -165,7 +165,7 @@ public class OpenDriveHandler {
     /**
      * This method creates the road mappings
      *
-     * @param road The road to posAt
+     * @param road The road to map
      * @return The created road mapping
      */
     private RoadMapping createRoadMappings(Road road) {

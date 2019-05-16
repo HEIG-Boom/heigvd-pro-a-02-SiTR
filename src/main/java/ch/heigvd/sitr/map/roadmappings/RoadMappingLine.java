@@ -3,7 +3,7 @@ package ch.heigvd.sitr.map.roadmappings;
 import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.Road.PlanView.Geometry;
 
 /**
- * This class is used to posAt a road segment onto straight line
+ * This class is used to map a road segment onto straight line
  */
 public class RoadMappingLine extends RoadMapping {
     // Line coordinates
