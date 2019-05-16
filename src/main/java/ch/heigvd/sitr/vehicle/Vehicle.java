@@ -99,6 +99,11 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private boolean customColor;
 
+    // Is the vehicle drawing its path
+    @Getter
+    @Setter
+    private boolean drawingPath;
+
     // Vehicle wait time
     @Getter
     private double waitingTime;
