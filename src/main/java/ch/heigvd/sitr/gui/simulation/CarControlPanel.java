@@ -268,6 +268,6 @@ public class CarControlPanel extends JPanel implements Observer {
         locationValue.setText("[" + v.getGlobalPosition().x + ", " + v.getGlobalPosition().y + "]");
 
         // update accident counter
-        accidentCounterValue.setText(Integer.toString(v.getAccidents()));
+        accidentCounterValue.setText(Integer.toString(v.getNbOfAccidents()));
     }
 }
