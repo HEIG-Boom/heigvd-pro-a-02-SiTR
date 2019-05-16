@@ -16,9 +16,6 @@ import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.xml.transform.stream.StreamSource;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -29,6 +26,7 @@ import java.util.logging.Logger;
 
 /**
  * Simulation class handles all global simulation settings and values
+ * <p>
  * The main simulation loop runs here as well
  *
  * @author Luc Wachter, Simon Walther
