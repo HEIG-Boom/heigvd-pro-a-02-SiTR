@@ -274,7 +274,7 @@ public class Statistics extends Thread {
             writer.append(Integer.toString(vehicles.size()));
             writer.append(separator);
             // adding waiting time
-            writer.append(Double.toString(getWaitingTime()));
+            writer.append(getWaitingTime() + "%");
             writer.append(separator);
             // adding number accident
             writer.append(Integer.toString(nbrOfAccidents()));
