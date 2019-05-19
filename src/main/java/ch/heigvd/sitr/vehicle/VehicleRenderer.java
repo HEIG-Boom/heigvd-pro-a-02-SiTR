@@ -5,6 +5,8 @@
 
 package ch.heigvd.sitr.vehicle;
 
+import ch.heigvd.sitr.map.roadmappings.AngleAndPos;
+import ch.heigvd.sitr.map.roadmappings.RoadMapping;
 import ch.heigvd.sitr.utils.Conversions;
 
 import java.awt.*;
@@ -39,18 +41,19 @@ public class VehicleRenderer {
 
         g.setColor(vehicle.getColor());
 
-        // Get positional information, using correct conversions
-        int x = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getX() +
-                vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getX());
-        int y = Conversions.metersToPixels(scale, vehicle.currentPath().getOrigin().getY() +
-                vehicle.getPosition() * vehicle.currentPath().getDirectionVector().getY());
         int length = Conversions.metersToPixels(scale, vehicle.getLength());
         int width = Conversions.metersToPixels(scale, vehicle.getWidth());
+        int vehiclePosition = Conversions.metersToPixels(scale, vehicle.getPosition());
+        double lateralOffset = -vehicle.currentPath().getRoadSegment().getRoadMapping().laneWidth();
+        RoadMapping roadMapping = vehicle.currentPath().getRoadSegment().getRoadMapping();
+        AngleAndPos angleAndPos = roadMapping.posAt(vehiclePosition, lateralOffset);
+        int x = (int) angleAndPos.getX();
+        int y = (int) angleAndPos.getY();
+        double vehicleRotationAngle = angleAndPos.getAngle();
 
         // Calculate correct rotation
         AffineTransform rotation = new AffineTransform();
-        rotation.rotate(Math.atan2(vehicle.currentPath().getDirectionVector().y,
-                vehicle.currentPath().getDirectionVector().x), x + length / 2, y + width / 2);
+        rotation.rotate(vehicleRotationAngle, x + length / 2, y + width / 2);
         g.transform(rotation);
 
         // Draw rectangle

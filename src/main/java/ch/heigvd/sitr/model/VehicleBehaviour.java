@@ -7,7 +7,8 @@ package ch.heigvd.sitr.model;
 
 /**
  * Enum for vehicle behaviour types, provides their names
- * It describes what a vehicle should do when
+ * <p>
+ * It describes what a vehicle should do when it arrives at its destination
  *
  * @author Luc Wachter
  */

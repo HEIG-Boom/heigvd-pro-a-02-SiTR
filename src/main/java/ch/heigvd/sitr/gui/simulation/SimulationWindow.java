@@ -70,7 +70,7 @@ public class SimulationWindow implements Displayer {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
-        carControlPanel =new CarControlPanel();
+        carControlPanel = new CarControlPanel();
         panel.add(carControlPanel, gbc);
 
         frame.setContentPane(panel);

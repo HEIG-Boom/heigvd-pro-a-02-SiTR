@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * This class represents a position in space plus a direction
  */
-public class PosTheta {
+public class AngleAndPos {
     @Getter
     protected double x;         // x-coordinate
     @Getter
@@ -18,13 +18,13 @@ public class PosTheta {
      *
      * @return Angle, in radians, measure counter-clockwise from x-axis
      */
-    protected double getTheta() {
+    public double getAngle() {
         return Math.atan2(sinTheta, cosTheta);
     }
 
     @Override
     public String toString() {
-        return "PosTheta [x=" + String.format("%.1f", x) + ", y=" + String.format("%.1f", y) +
+        return "AngleAndPos [x=" + String.format("%.1f", x) + ", y=" + String.format("%.1f", y) +
                 ", cosTheta=" + String.format("%.1f", cosTheta) + ", sinTheta=" +
                 String.format("%.1f", sinTheta) + "]";
     }

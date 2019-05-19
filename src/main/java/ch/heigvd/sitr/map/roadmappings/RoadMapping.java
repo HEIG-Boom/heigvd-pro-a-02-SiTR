@@ -25,7 +25,7 @@ public abstract class RoadMapping {
     protected static Color defaultRoadColor = new Color(129, 128, 128);
 
     // Positioning properties
-    protected final PosTheta posTheta = new PosTheta();
+    protected final AngleAndPos posTheta = new AngleAndPos();
     protected double x0;
     protected double y0;
 
@@ -48,7 +48,7 @@ public abstract class RoadMapping {
      *
      * @return The start position of the road
      */
-    public PosTheta startPos() {
+    public AngleAndPos startPos() {
         return startPos(0.0);
     }
 
@@ -58,8 +58,8 @@ public abstract class RoadMapping {
      * @param lateralOffset The lateral offset of the road
      * @return The start position of the road
      */
-    public PosTheta startPos(double lateralOffset) {
-        return map(0.0, lateralOffset);
+    public AngleAndPos startPos(double lateralOffset) {
+        return posAt(0.0, lateralOffset);
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class RoadMapping {
      *
      * @return The end position of the road
      */
-    public PosTheta endPos() {
+    public AngleAndPos endPos() {
         return endPos(0.0);
     }
 
@@ -77,8 +77,8 @@ public abstract class RoadMapping {
      * @param lateralOffset The lateral offset of the road
      * @return The end position of the road
      */
-    public PosTheta endPos(double lateralOffset) {
-        return map(roadLength, lateralOffset);
+    public AngleAndPos endPos(double lateralOffset) {
+        return posAt(roadLength, lateralOffset);
     }
 
     /**
@@ -191,5 +191,5 @@ public abstract class RoadMapping {
      * @param lateralOffset The lateral offset
      * @return The position in space and the direction
      */
-    public abstract PosTheta map(double roadPos, double lateralOffset);
+    public abstract AngleAndPos posAt(double roadPos, double lateralOffset);
 }

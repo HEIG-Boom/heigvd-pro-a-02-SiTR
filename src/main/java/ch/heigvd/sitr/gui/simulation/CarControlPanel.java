@@ -26,16 +26,19 @@ import java.util.Observer;
  * @author Alexandre Monteiro Marques, Loris Gilliand
  */
 public class CarControlPanel extends JPanel implements Observer {
-    private JLabel accidentCounterValue;
-    private  JLabel speedValue;
-    private JLabel locationValue;
-    private JButton colorChangeButton;
-
+    private final JLabel accidentCounterValue;
+    private final JLabel speedValue;
+    private final JLabel locationValue;
+    private final JButton colorChangeButton;
     private Color selectedColor;
+
+    // Give access to the check box
+    @Getter
+    private JCheckBox showRoute;
 
     // selector of controller
     @Getter
-    private JComboBox controllerChangeBox;
+    private final JComboBox controllerChangeBox;
 
     // Vehicle observed by the panel
     @Setter
@@ -129,7 +132,21 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(colorChangeButton, gbc);
 
-        final JCheckBox showRoute = new JCheckBox("Afficher l'itinéraire");
+        showRoute = new JCheckBox("Afficher l'itinéraire");
+        showRoute.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DrawnPath drawnPath = DrawnPath.getInstance();
+                if (showRoute.isSelected()) {
+                    drawnPath.setVehicle(vehicle);
+                    vehicle.addObserver(drawnPath);
+                    vehicle.setDrawingPath(true);
+                } else {
+                    vehicle.deleteObserver(drawnPath);
+                    drawnPath.kill();
+                }
+            }
+        });
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -251,6 +268,6 @@ public class CarControlPanel extends JPanel implements Observer {
         locationValue.setText("[" + v.getGlobalPosition().x + ", " + v.getGlobalPosition().y + "]");
 
         // update accident counter
-        accidentCounterValue.setText(Integer.toString(v.getAccidents()));
+        accidentCounterValue.setText(Integer.toString(v.getNbOfAccidents()));
     }
 }
