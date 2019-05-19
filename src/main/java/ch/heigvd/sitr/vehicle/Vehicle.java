@@ -104,9 +104,16 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private boolean drawingPath;
 
-    // Vehicle wait time
+    // vehicle wait time in millisecond
     @Getter
-    private double waitingTime;
+    private long waitingTime;
+
+    // beginning of the time when the vehicle is waiting
+    private long startTimeWaiting;
+    // is the vehicle waiting
+    private boolean isWaiting;
+    // the maximum speed at which the vehicle is waiting
+    private final int maximumWaitingSpeed = 1;
 
     /**
      * Constructor
@@ -175,6 +182,7 @@ public class Vehicle extends Observable implements Renderable {
         this.vehicleController = vehicleController;
         this.maxSpeed = maxSpeed;
         this.itinerary = itinerary;
+        this.waitingTime = 0;
 
         if (vehicleController.getControllerType() != null) {
             this.color = vehicleController.getControllerType().getColor();
@@ -339,6 +347,28 @@ public class Vehicle extends Observable implements Renderable {
             setSpeed(getSpeed() + speedDifference(acceleration(), deltaT, accelerationNoise.getAccelerationNoise()));
         } else {
             setSpeed(getSpeed() + speedDifference(acceleration(), deltaT));
+        }
+
+        checkWaiting();
+    }
+
+    /**
+     * increments the vehicle wait time if the speed is low
+     */
+    private void checkWaiting(){
+        if(isWaiting && getSpeed() < maximumWaitingSpeed){
+            long current = System.currentTimeMillis();
+            waitingTime += current - startTimeWaiting;
+            // updates the start of the wait time because already calculate
+            startTimeWaiting = current;
+        }
+        else if(isWaiting && getSpeed() >= maximumWaitingSpeed) {
+            isWaiting = false;
+            waitingTime += System.currentTimeMillis() - startTimeWaiting;
+        }
+        else if(!isWaiting && getSpeed() < maximumWaitingSpeed){
+            isWaiting = true;
+            startTimeWaiting = System.currentTimeMillis();
         }
     }
 

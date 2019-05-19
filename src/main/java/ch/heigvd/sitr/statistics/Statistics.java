@@ -40,6 +40,7 @@ public class Statistics extends Thread {
     private int coolingTime;
     // Thread is in progress
     private boolean running;
+    // Time in ms
     private long simulationStartTime;
 
     /**
@@ -79,7 +80,7 @@ public class Statistics extends Thread {
             // Check if the window is still open because it was implemented in singleton
             // and the thread could create an instance if the window does not exist
             if (running)
-                SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(String.valueOf(getWaitingTime()));
+                SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(getWaitingTime() + "%");
             if (running)
                 SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(nbrOfAccidents()));
             if (running)
@@ -104,12 +105,13 @@ public class Statistics extends Thread {
             return 0;
 
         // adds up all the waiting times for each vehicle
-        double average = 0;
+        long average = 0;
         for (Vehicle v : vehicles) {
             average += v.getWaitingTime();
         }
+
         // achieves the average
-        return rounded(average / vehicles.size(), 3);
+        return rounded((double)average / (vehicles.size() * elapsedTime()) * 100, 3);
     }
 
     /**
