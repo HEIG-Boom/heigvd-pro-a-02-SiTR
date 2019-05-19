@@ -232,16 +232,21 @@ public class Statistics extends Thread {
      * Exports the statistics to a file
      */
     public void exportStatistics(Scenario scenario) {
-        writeGeneralStatistics(scenario);
-        writeVehicleStatistics();
+        // Creates a file name with the date
+        String date = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+        String fileName = date + ".csv";
+
+        writeGeneralStatistics(scenario, fileName);
+        writeVehicleStatistics(fileName);
     }
 
     /**
      * Allows you to export General statistics to a CSV file
      *
-     * @param scenario The scenario used for the simulation
+     * @param scenario         The scenario used for the simulation
+     * @param fileNameVehicule The name of the vehicle statistics file
      */
-    private void writeGeneralStatistics(Scenario scenario) {
+    private void writeGeneralStatistics(Scenario scenario, String fileNameVehicule) {
         // Know the date of the export of statistics
         String date = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date());
 
@@ -257,7 +262,8 @@ public class Statistics extends Thread {
                 head += "Number of vehicles" + separator;
                 head += "Waiting time" + separator;
                 head += "Number of accidents" + separator;
-                head += "Network occupancy\n";
+                head += "Network occupancy" + separator;
+                head += "Link to vehicle statistics\n";
                 writer.append(head);
             }
 
@@ -281,6 +287,9 @@ public class Statistics extends Thread {
             writer.append(separator);
             // adding network occupancy
             writer.append(networkOccupancy + "%");
+            writer.append(separator);
+            // link to vehicle statistics
+            writer.append(fileNameVehicule);
             writer.append("\n");
 
             writer.flush();
@@ -293,15 +302,15 @@ public class Statistics extends Thread {
 
     /**
      * Allows you to export vehicles statistics to a CSV file
+     *
+     * @param fileName the name of the vehicle statistics file
      */
-    private void writeVehicleStatistics() {
-        // Creates a file name with the date
-        String date = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
-
+    private void writeVehicleStatistics(String fileName) {
         try {
             // Directory where the Vehicle statistics file is located
-            String pathFileVehicleStats = pathFileStats + "vehicles/";
-            File file = new File(pathFileVehicleStats + date + ".csv");
+            String pathFileVehicleStats = pathFileStats + "vehicles/" + fileName;
+
+            File file = new File(pathFileVehicleStats);
             Writer writer = getWriter(file);
 
             // Add header to CSV file
