@@ -1,9 +1,0 @@
-Date;Duration;Scenario name;Number of vehicles;Waiting time;Number of accidents;Network occupancy
-15.05.2019 23:03:25;0 Day 00:03:16.867;Bretelle de sortie;16;0.0;0;26.0%
-15.05.2019 23:22:22;0 Day 00:00:27.609;Route simple;2;0.0;0;3.71%
-15.05.2019 23:23:24;0 Day 00:00:33.620;Route simple;18;0.0;1;33.43%
-19.05.2019 15:01:57;0 Day 00:00:09.770;Route simple;0;0.0;0;14.86%
-19.05.2019 15:13:55;0 Day 00:00:18.305;Route simple;18;0.0;0;33.43%
-19.05.2019 15:18:55;0 Day 00:00:07.789;Route simple;5;0.0;1;9.29%
-19.05.2019 15:20:08;0 Day 00:00:09.269;Route simple;6;0.0;0;11.14%
-19.05.2019 15:43:42;0 Day 00:00:08.760;Route simple;8;0.0;0;14.86%
