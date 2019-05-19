@@ -316,7 +316,7 @@ public class Statistics extends Thread {
             for (Vehicle v : vehicles) {
                 writer.append(counter++ + separator);
                 writer.append(v.getVehicleController().getControllerType().toString() + separator);
-                writer.append(v.getWaitingTime() + separator);
+                writer.append((v.getWaitingTime() / 1000) + "s" + separator);
                 writer.append(v.getNbOfAccidents() + "\n");
             }
 
