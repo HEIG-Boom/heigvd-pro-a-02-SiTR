@@ -123,14 +123,24 @@ public class Simulation {
             @Override
             public void run() {
                 for (Vehicle vehicle : vehicles) {
-                    vehicle.update(deltaT);
-                    vehicle.draw(scenario.getScale());
+                    if (!vehicle.isFinished()) {
+                        vehicle.update(deltaT);
 
-                    // DEBUG
-                    System.out.println(vehicle);
+                        if (!vehicle.isFinished()) {
+                            vehicle.draw(scenario.getScale());
 
-                    // Notify observers that the vehicle parameters have changed
-                    vehicle.notifyObservers();
+                            // Notify observers that the vehicle parameters have changed
+                            vehicle.notifyObservers();
+                        }
+                    }
+                    else {
+                        if (behaviour == VehicleBehaviour.START_AGAIN) {
+                            vehicle.setPathStep(0);
+                            vehicle.setPosition(0);
+                            vehicle.setSpeed(0);
+                            vehicle.setFinished(false);
+                        }
+                    }
                 }
 
                 // Callback to paintComponent()

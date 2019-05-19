@@ -35,6 +35,7 @@ public class Vehicle extends Observable implements Renderable {
 
     // Current path step
     @Getter
+    @Setter
     private int pathStep;
 
     // Position of the vehicle relative to the lane's start [m]
@@ -101,6 +102,7 @@ public class Vehicle extends Observable implements Renderable {
 
     // Has the vehicle finished its itinerary
     @Getter
+    @Setter
     private boolean finished;
 
     // Is the vehicle drawing its path
@@ -196,8 +198,15 @@ public class Vehicle extends Observable implements Renderable {
         // If it exceed the itinerary path length,
         // we add the excess to the position on the next itinerary path
         if (position > currentPath().length()) {
-            position -= currentPath().length();
-            moveToNextPath();
+            // [TEMPORARY] Check if vehicle finished its itinerary
+            if (pathStep != itinerarySize() - 1) {
+                position -= currentPath().length();
+                pathStep++;
+            }
+            else {
+                position = Double.MAX_VALUE;
+                finished = true;
+            }
         }
 
         this.position = position;
@@ -430,7 +439,7 @@ public class Vehicle extends Observable implements Renderable {
      * @return the current path
      */
     public ItineraryPath currentPath() {
-        return this.itinerary.get(pathStep);
+        return itinerary.get(pathStep);
     }
 
     /**
@@ -442,7 +451,7 @@ public class Vehicle extends Observable implements Renderable {
      */
     public void addToItinerary(ItineraryPath itineraryPath) {
         if (itineraryPath != null) {
-            this.itinerary.add(itineraryPath);
+            itinerary.add(itineraryPath);
         }
     }
 
@@ -452,26 +461,8 @@ public class Vehicle extends Observable implements Renderable {
      * @return the itinerary size
      */
     public int itinerarySize() {
-        return this.itinerary.size();
+        return itinerary.size();
     }
-
-    /**
-     * Get the next step
-     *
-     * @return the next step
-     */
-//    public int nextStep() {
-//        return (pathStep + 1) % itinerarySize();
-//    }
-
-    /**
-     * Get the next itinerary path
-     *
-     * @return the next itinerary path
-     */
-//    public ItineraryPath nextPath() {
-//        return itinerary.get(nextStep());
-//    }
 
     /**
      * Move vehicle to the next path of its itinerary
