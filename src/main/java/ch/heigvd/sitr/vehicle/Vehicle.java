@@ -102,7 +102,6 @@ public class Vehicle extends Observable implements Renderable {
 
     // Has the vehicle finished its itinerary
     @Getter
-    @Setter
     private boolean finished;
 
     // Is the vehicle drawing its path
@@ -470,12 +469,17 @@ public class Vehicle extends Observable implements Renderable {
      * Note: if exceed max path step, path step does not change
      */
     public void moveToNextPath() {
-        if (pathStep != itinerarySize() - 1) {
-            pathStep++;
-        }
-        else {
-            finished = true;
-        }
+        pathStep = (pathStep + 1) % itinerarySize();
+    }
+
+    /**
+     * Reset vehicle to the first position in the itinerary
+     */
+    public void reset() {
+        setPathStep(0);
+        setPosition(0);
+        setSpeed(0);
+        finished = false;
     }
 
     /**
