@@ -112,6 +112,11 @@ public class Simulation {
             @Override
             public void run() {
                 for (Vehicle vehicle : vehicles) {
+                    // [TEMPORARY] Remove vehicle when its itinerary
+                    if (vehicle.isFinished()) {
+                        vehicles.remove(vehicle);
+                    }
+
                     vehicle.update(deltaT);
                     vehicle.draw(scenario.getScale());
                     // DEBUG

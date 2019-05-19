@@ -99,6 +99,10 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private boolean customColor;
 
+    // Has the vehicle finished its itinerary
+    @Getter
+    private boolean finished;
+
     /**
      * Constructor
      *
@@ -348,7 +352,7 @@ public class Vehicle extends Observable implements Renderable {
      * @param deltaT the time difference [s]
      */
     public void update(double deltaT) {
-        // Update noise if it's an human driven vehicle
+        // Update noise if it's a human driven vehicle
         if (vehicleController.isHumanDriven()) {
             // Update the acceleration noise
             updateAccelerationNoise(deltaT);
@@ -361,6 +365,7 @@ public class Vehicle extends Observable implements Renderable {
         // Then update position, taking into account the new speed
         updatePosition(deltaT);
 
+        // Observer pattern changes
         setChanged();
     }
 
@@ -442,18 +447,18 @@ public class Vehicle extends Observable implements Renderable {
      *
      * @return the next step
      */
-    public int nextStep() {
-        return (pathStep + 1) % itinerarySize();
-    }
+//    public int nextStep() {
+//        return (pathStep + 1) % itinerarySize();
+//    }
 
     /**
      * Get the next itinerary path
      *
      * @return the next itinerary path
      */
-    public ItineraryPath nextPath() {
-        return itinerary.get(nextStep());
-    }
+//    public ItineraryPath nextPath() {
+//        return itinerary.get(nextStep());
+//    }
 
     /**
      * Move vehicle to the next path of its itinerary
@@ -461,7 +466,12 @@ public class Vehicle extends Observable implements Renderable {
      * Note: if exceed max path step, path step does not change
      */
     public void moveToNextPath() {
-        pathStep = nextStep();
+        if (pathStep != itinerarySize() - 1) {
+            pathStep++;
+        }
+        else {
+            finished = true;
+        }
     }
 
     /**
