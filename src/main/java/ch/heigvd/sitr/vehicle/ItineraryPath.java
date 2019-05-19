@@ -9,7 +9,6 @@ import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.utils.Conversions;
 import lombok.Getter;
 
-import java.awt.geom.Point2D;
 import java.util.Objects;
 
 /**

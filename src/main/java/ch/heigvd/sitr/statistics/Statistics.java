@@ -19,7 +19,7 @@ import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,7 +35,7 @@ public class Statistics extends Thread {
 
     @Getter
     private double networkOccupancy;
-    private LinkedList<Vehicle> vehicles;
+    private ArrayList<Vehicle> vehicles;
     // Time to refresh
     private int coolingTime;
     // Thread is in progress
@@ -48,7 +48,7 @@ public class Statistics extends Thread {
      * @param v           List of vehicle
      * @param coolingTime Time to refresh statistics in seconds
      */
-    public Statistics(LinkedList<Vehicle> v, RoadNetwork rn, int coolingTime) {
+    public Statistics(ArrayList<Vehicle> v, RoadNetwork rn, int coolingTime) {
         vehicles = v;
         this.coolingTime = coolingTime;
         running = true;
