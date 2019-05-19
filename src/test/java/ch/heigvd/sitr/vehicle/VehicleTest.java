@@ -356,4 +356,13 @@ public class VehicleTest {
 
         assertEquals(296.223, vehicle.getPosition(), 0.001);
     }
+
+    @Test
+    public void resetShouldResetVehicleAttributes() {
+        vehicle.reset();
+        assertEquals(vehicle.getSpeed(), 0);
+        assertEquals(vehicle.getPosition(), 0);
+        assertEquals(vehicle.getPathStep(), 0);
+        assertFalse(vehicle.isFinished());
+    }
 }
