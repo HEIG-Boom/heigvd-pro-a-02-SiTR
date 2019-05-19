@@ -42,6 +42,10 @@ public class Statistics extends Thread {
     private boolean running;
     // Time in ms
     private long simulationStartTime;
+    // Lets you know if the statistics are paused
+    private boolean pause;
+    //time when the statistics was paused
+    private long beginSimulationTimePause;
 
     /**
      * Constructor
@@ -53,6 +57,8 @@ public class Statistics extends Thread {
         vehicles = v;
         this.coolingTime = coolingTime;
         running = true;
+        pause = false;
+        beginSimulationTimePause = 0;
 
         // Calculating the network occupancy rate
         double distanceNetwork = 0;
@@ -63,6 +69,26 @@ public class Statistics extends Thread {
 
         // keep the current time
         simulationStartTime = System.currentTimeMillis();
+    }
+
+    /**
+     * Allows you to pause the data collection of statistics
+     */
+    public void pause() {
+        if (running && !pause) {
+            beginSimulationTimePause = System.currentTimeMillis();
+            pause = true;
+        }
+    }
+
+    /**
+     * Allows to restart the data collection of statistics
+     */
+    public void restart() {
+        if (running && pause) {
+            pause = false;
+            simulationStartTime += (System.currentTimeMillis() - beginSimulationTimePause);
+        }
     }
 
     /**
@@ -77,15 +103,17 @@ public class Statistics extends Thread {
      */
     public void run() {
         while (running) {
-            // Check if the window is still open because it was implemented in singleton
-            // and the thread could create an instance if the window does not exist
-            if (running)
-                SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(getWaitingTime() + "%");
-            if (running)
-                SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(nbrOfAccidents()));
-            if (running)
-                SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(getNetworkOccupancy() + "%");
+            if (!pause) {
+                // Check if the window is still open because it was implemented in singleton
+                // and the thread could create an instance if the window does not exist
+                if (running)
+                    SimulationWindow.getInstance().getSimControlPanel().setWaitingTimeValue(getWaitingTime() + "%");
+                if (running)
+                    SimulationWindow.getInstance().getSimControlPanel().setAccidentCounterValue(String.valueOf(nbrOfAccidents()));
+                if (running)
+                    SimulationWindow.getInstance().getSimControlPanel().setOccupationValue(getNetworkOccupancy() + "%");
 
+            }
             try {
                 sleep(coolingTime * 1000);
             } catch (InterruptedException e) {
@@ -111,7 +139,7 @@ public class Statistics extends Thread {
         }
 
         // achieves the average
-        return rounded((double)average / (vehicles.size() * elapsedTime()) * 100, 3);
+        return rounded((double) average / (vehicles.size() * elapsedTime()) * 100, 3);
     }
 
     /**
