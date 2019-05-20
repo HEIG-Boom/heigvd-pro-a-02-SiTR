@@ -29,6 +29,7 @@ public class CarControlPanel extends JPanel implements Observer {
     private final JLabel accidentCounterValue;
     private final JLabel speedValue;
     private final JLabel locationValue;
+    private final JLabel waitingTimeValue;
     private final JButton colorChangeButton;
     private Color selectedColor;
 
@@ -193,7 +194,7 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(locationLabel, gbc);
 
-        locationValue = new JLabel("abc");
+        locationValue = new JLabel("N/A");
         locationValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -212,7 +213,7 @@ public class CarControlPanel extends JPanel implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         this.add(waitingTimeLabel, gbc);
 
-        final JLabel waitingTimeValue = new JLabel("abc");
+        waitingTimeValue = new JLabel("N/A");
         waitingTimeValue.setHorizontalAlignment(JLabel.RIGHT);
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -266,6 +267,9 @@ public class CarControlPanel extends JPanel implements Observer {
 
         // update the location of the vehicle
         locationValue.setText("[" + v.getGlobalPosition().x + ", " + v.getGlobalPosition().y + "]");
+
+        // update the waiting time in second
+        waitingTimeValue.setText((v.getWaitingTime() / 1000) + "s");
 
         // update accident counter
         accidentCounterValue.setText(Integer.toString(v.getNbOfAccidents()));

@@ -33,6 +33,21 @@ public class Vehicle extends Observable implements Renderable {
     // Color when in accident
     private static final Color ACCIDENT_COLOR = Color.white;
 
+    // Max acceleration in [m/s^2] of the vehicle
+    @Getter
+    private final double maxAcceleration;
+
+    // Length of the vehicle in [m]
+    @Getter
+    private final double length;
+
+    // Width of the vehicle in [m]
+    @Getter
+    private final double width;
+
+    // the maximum speed at which the vehicle is waiting
+    private final int maximumWaitingSpeed = 1;
+
     // Itinerary of the vehicle, subdivided in multiple paths
     private LinkedList<ItineraryPath> itinerary;
 
@@ -52,18 +67,6 @@ public class Vehicle extends Observable implements Renderable {
     // Max speed in [m/s] of the vehicle
     @Getter
     private double maxSpeed;
-
-    // Max acceleration in [m/s^2] of the vehicle
-    @Getter
-    private final double maxAcceleration;
-
-    // Length of the vehicle in [m]
-    @Getter
-    private final double length;
-
-    // Width of the vehicle in [m]
-    @Getter
-    private final double width;
 
     // Vehicle in front of this vehicle
     @Getter
@@ -86,6 +89,12 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     private double waitingTime;
 
+    // beginning of the time when the vehicle is waiting
+    private long startTimeWaiting;
+
+    // is the vehicle waiting
+    private boolean isWaiting;
+
     // Has the vehicle finished its itinerary
     @Getter
     @Setter
@@ -98,7 +107,7 @@ public class Vehicle extends Observable implements Renderable {
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
-    
+
     // Color of the vehicle
     @Getter
     @Setter
@@ -173,6 +182,40 @@ public class Vehicle extends Observable implements Renderable {
     }
 
     /**
+     * Calculate the speed difference with acceleration, noise and time difference
+     *
+     * @param acceleration      acceleration [m/s^2]
+     * @param deltaT            time difference [s]
+     * @param accelerationNoise acceleration noise
+     * @return speed difference [m/s]
+     */
+    public static double speedDifference(double acceleration, double deltaT, double accelerationNoise) {
+        return speedDifference(acceleration, deltaT) + accelerationNoise;
+    }
+
+    /**
+     * Calculate the speed difference with acceleration and time difference
+     *
+     * @param acceleration acceleration [m/s^2]
+     * @param deltaT       time difference [s]
+     * @return speed difference [m/s]
+     */
+    public static double speedDifference(double acceleration, double deltaT) {
+        return acceleration * deltaT;
+    }
+
+    /**
+     * Calculate the position difference with speed and time difference
+     *
+     * @param speed  speed [m/s]
+     * @param deltaT time difference [s]
+     * @return position difference [m]
+     */
+    public static double positionDifference(double speed, double deltaT) {
+        return speed * deltaT;
+    }
+
+    /**
      * Set some of the vehicle's attribute to minimize duplication
      *
      * @param vehicleController controller of the vehicle
@@ -184,6 +227,7 @@ public class Vehicle extends Observable implements Renderable {
         this.vehicleController = vehicleController;
         this.maxSpeed = maxSpeed;
         this.itinerary = itinerary;
+        this.waitingTime = 0;
 
         if (vehicleController.getControllerType() != null) {
             this.color = vehicleController.getControllerType().getColor();
@@ -205,8 +249,7 @@ public class Vehicle extends Observable implements Renderable {
             if (pathStep != itinerarySize() - 1) {
                 position -= currentPath().length();
                 pathStep++;
-            }
-            else {
+            } else {
                 position = Double.MAX_VALUE;
                 finished = true;
             }
@@ -242,40 +285,6 @@ public class Vehicle extends Observable implements Renderable {
      */
     public void updateAccelerationNoise(double deltaT) {
         accelerationNoise.updateAccelerationWhiteNoise(deltaT);
-    }
-
-    /**
-     * Calculate the speed difference with acceleration, noise and time difference
-     *
-     * @param acceleration      acceleration [m/s^2]
-     * @param deltaT            time difference [s]
-     * @param accelerationNoise acceleration noise
-     * @return speed difference [m/s]
-     */
-    public static double speedDifference(double acceleration, double deltaT, double accelerationNoise) {
-        return speedDifference(acceleration, deltaT) + accelerationNoise;
-    }
-
-    /**
-     * Calculate the speed difference with acceleration and time difference
-     *
-     * @param acceleration acceleration [m/s^2]
-     * @param deltaT       time difference [s]
-     * @return speed difference [m/s]
-     */
-    public static double speedDifference(double acceleration, double deltaT) {
-        return acceleration * deltaT;
-    }
-
-    /**
-     * Calculate the position difference with speed and time difference
-     *
-     * @param speed  speed [m/s]
-     * @param deltaT time difference [s]
-     * @return position difference [m]
-     */
-    public static double positionDifference(double speed, double deltaT) {
-        return speed * deltaT;
     }
 
     /**
@@ -355,6 +364,26 @@ public class Vehicle extends Observable implements Renderable {
             setSpeed(getSpeed() + speedDifference(acceleration(), deltaT, accelerationNoise.getAccelerationNoise()));
         } else {
             setSpeed(getSpeed() + speedDifference(acceleration(), deltaT));
+        }
+
+        checkWaiting();
+    }
+
+    /**
+     * increments the vehicle wait time if the speed is low
+     */
+    private void checkWaiting() {
+        if (isWaiting && getSpeed() < maximumWaitingSpeed) {
+            long current = System.currentTimeMillis();
+            waitingTime += current - startTimeWaiting;
+            // updates the start of the wait time because already calculate
+            startTimeWaiting = current;
+        } else if (isWaiting && getSpeed() >= maximumWaitingSpeed) {
+            isWaiting = false;
+            waitingTime += System.currentTimeMillis() - startTimeWaiting;
+        } else if (!isWaiting && getSpeed() < maximumWaitingSpeed) {
+            isWaiting = true;
+            startTimeWaiting = System.currentTimeMillis();
         }
     }
 

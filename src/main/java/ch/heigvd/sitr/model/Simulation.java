@@ -116,6 +116,7 @@ public class Simulation {
     public void startLoop() {
         // Create a timer to run the main loop
         timer = new Timer();
+        stats.restart();
 
         // Schedule a task to run immediately, and then
         // every UPDATE_RATE per second
@@ -156,6 +157,7 @@ public class Simulation {
      */
     public void stopLoop() {
         timer.cancel();
+        stats.pause();
     }
 
     /**
