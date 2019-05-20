@@ -29,69 +29,91 @@ import java.util.Observable;
  */
 public class Vehicle extends Observable implements Renderable {
     private static final String BASE_CONFIG_PATH = "/vehicle/";
+
     // Max acceleration in [m/s^2] of the vehicle
     @Getter
     private final double maxAcceleration;
+
     // Length of the vehicle in [m]
     @Getter
     private final double length;
+
     // Width of the vehicle in [m]
     @Getter
     private final double width;
+
     // Color when in accident
     private final Color accidentColor = Color.white;
+
     // the maximum speed at which the vehicle is waiting
     private final int maximumWaitingSpeed = 1;
+
     // Itinerary of the vehicle, subdivided in multiple paths
     private LinkedList<ItineraryPath> itinerary;
+
     // Current path step
     @Getter
     private int pathStep;
+
     // Position of the vehicle relative to the lane's start [m]
     @Getter
     private double position;
+
     // Speed in [m/s] of the vehicle
     @Getter
     private double speed;
+
     // Max speed in [m/s] of the vehicle
     @Getter
     private double maxSpeed;
+
     // Vehicle in front of this vehicle
     @Getter
     @Setter
     private Vehicle frontVehicle;
+
     // Vehicle controller of this vehicle
     @Getter
     @Setter
     private VehicleController vehicleController;
+
     // Acceleration noise
     private AccelerationNoise accelerationNoise = new AccelerationNoise();
+
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
+
     // Color of the vehicle
     @Getter
     @Setter
     private Color color;
+
     // Nb of accidents
     @Getter
     private int nbOfAccidents;
+
     // Is this vehicle in an accident
     @Getter
     private boolean inAccident;
+
     // Is the vehicle painted with a custom color
     @Getter
     @Setter
     private boolean customColor;
+
     // Is the vehicle drawing its path
     @Getter
     @Setter
     private boolean drawingPath;
+
     // vehicle wait time in millisecond
     @Getter
     private long waitingTime;
+
     // beginning of the time when the vehicle is waiting
     private long startTimeWaiting;
+
     // is the vehicle waiting
     private boolean isWaiting;
 

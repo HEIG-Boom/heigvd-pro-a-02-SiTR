@@ -30,20 +30,27 @@ import java.util.concurrent.TimeUnit;
 public class Statistics extends Thread {
     // Directory where the General statistics file is located
     private final String pathFileStats = "./statistics/";
+
     // Separator for CSV file
     private final String separator = ";";
 
     @Getter
     private double networkOccupancy;
+
     private LinkedList<Vehicle> vehicles;
+
     // Time to refresh
     private int coolingTime;
+
     // Thread is in progress
     private boolean running;
+
     // Time in ms
     private long simulationStartTime;
+
     // Lets you know if the statistics are paused
     private boolean pause;
+
     //time when the statistics was paused
     private long beginSimulationTimePause;
 
