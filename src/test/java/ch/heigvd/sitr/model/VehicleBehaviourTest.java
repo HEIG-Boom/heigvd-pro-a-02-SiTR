@@ -20,7 +20,7 @@ class VehicleBehaviourTest {
      */
     @Test
     public void toStringShouldEnableToGetBehaviourNames() {
-        assertEquals("Effectuer un autre trajet", VehicleBehaviour.OTHER_PATH.toString());
+        assertEquals("Continuer dans une boucle", VehicleBehaviour.LOOP.toString());
         assertEquals("S'arrêter là", VehicleBehaviour.STOP.toString());
     }
 }

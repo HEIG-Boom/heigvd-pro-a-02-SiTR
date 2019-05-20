@@ -129,13 +129,18 @@ public class Simulation {
                         if (!vehicle.isFinished()) {
                             vehicle.draw(scenario.getScale());
 
-                            // Notify observers that the vehicle parameters have changed
+                            // Notify observers that the vehicle's parameters have changed
                             vehicle.notifyObservers();
                         }
                     }
                     else {
                         if (behaviour == VehicleBehaviour.START_AGAIN) {
                             vehicle.reset();
+                        }
+                        else if (behaviour == VehicleBehaviour.LOOP) {
+                            vehicle.setFinished(false);
+                            vehicle.setPathStep(0);
+                            vehicle.setPosition(0);
                         }
                     }
                 }
