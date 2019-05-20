@@ -30,6 +30,9 @@ import java.util.Observable;
 public class Vehicle extends Observable implements Renderable {
     private static final String BASE_CONFIG_PATH = "/vehicle/";
 
+    // Color when in accident
+    private static final Color ACCIDENT_COLOR = Color.white;
+
     // Itinerary of the vehicle, subdivided in multiple paths
     private LinkedList<ItineraryPath> itinerary;
 
@@ -75,6 +78,23 @@ public class Vehicle extends Observable implements Renderable {
     // Acceleration noise
     private AccelerationNoise accelerationNoise = new AccelerationNoise();
 
+    // Nb of accidents
+    @Getter
+    private int nbOfAccidents;
+
+    // Vehicle wait time
+    @Getter
+    private double waitingTime;
+
+    // Has the vehicle finished its itinerary
+    @Getter
+    @Setter
+    private boolean finished;
+
+    // Is this vehicle in an accident
+    @Getter
+    private boolean inAccident;
+
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
@@ -84,34 +104,18 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private Color color;
 
-    // Color when in accident
-    private final Color accidentColor = Color.white;
-
-    // Nb of accidents
-    @Getter
-    private int nbOfAccidents;
-
-    // Is this vehicle in an accident
-    @Getter
-    private boolean inAccident;
+    // Save color when changing it temporarily
+    private Color oldColor;
 
     // Is the vehicle painted with a custom color
     @Getter
     @Setter
     private boolean customColor;
 
-    // Has the vehicle finished its itinerary
-    @Getter
-    private boolean finished;
-
     // Is the vehicle drawing its path
     @Getter
     @Setter
     private boolean drawingPath;
-
-    // Vehicle wait time
-    @Getter
-    private double waitingTime;
 
     /**
      * Constructor
@@ -409,7 +413,8 @@ public class Vehicle extends Observable implements Renderable {
             position += frontDistance - 0.1;
 
             // set vehicle to accident color
-            color = accidentColor;
+            oldColor = color;
+            color = ACCIDENT_COLOR;
         }
 
         // change accident status if the vehicle is no more in accident
@@ -417,7 +422,7 @@ public class Vehicle extends Observable implements Renderable {
             inAccident = false;
 
             // set back color
-            color = vehicleController.getControllerType().getColor();
+            color = oldColor;
         }
     }
 
