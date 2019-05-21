@@ -137,11 +137,10 @@ public class Simulation {
                     else {
                         if (behaviour == VehicleBehaviour.START_AGAIN) {
                             vehicle.reset();
+                            vehicle.setSpeed(0);
                         }
                         else if (behaviour == VehicleBehaviour.LOOP) {
-                            vehicle.setFinished(false);
-                            vehicle.setPathStep(0);
-                            vehicle.setPosition(0);
+                            vehicle.reset();
                         }
                     }
                 }

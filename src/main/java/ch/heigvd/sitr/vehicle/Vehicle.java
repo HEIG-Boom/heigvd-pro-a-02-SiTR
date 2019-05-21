@@ -97,7 +97,6 @@ public class Vehicle extends Observable implements Renderable {
 
     // Has the vehicle finished its itinerary
     @Getter
-    @Setter
     private boolean finished;
 
     // Is this vehicle in an accident
@@ -512,7 +511,6 @@ public class Vehicle extends Observable implements Renderable {
     public void reset() {
         setPathStep(0);
         setPosition(0);
-        setSpeed(0);
         finished = false;
     }
 
