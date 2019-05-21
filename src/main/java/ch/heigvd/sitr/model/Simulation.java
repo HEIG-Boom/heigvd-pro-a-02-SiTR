@@ -135,8 +135,7 @@ public class Simulation {
 
                             // Notify observers that the vehicle's parameters have changed
                             vehicle.notifyObservers();
-                        }
-                        else {
+                        } else {
                             vehicle.reset(behaviour);
                         }
                     }

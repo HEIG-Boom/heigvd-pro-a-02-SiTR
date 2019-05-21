@@ -333,15 +333,15 @@ public class VehicleTest {
 
     /**
      * Update position with speed, acceleration and time difference
-     *
+     * <p>
      * new position = position + new speed * time difference
-     *
+     * <p>
      * Variables :
      * position        : 50 [m]
      * speed           : 22.22 [s]
      * new speed       : 24.59196317300287 [m/s]
      * time difference : 10 [s]
-     *
+     * <p>
      * => new position = 50 + 24.59196317300287 * 10 = 295,91963173 [m]
      */
     @Test
