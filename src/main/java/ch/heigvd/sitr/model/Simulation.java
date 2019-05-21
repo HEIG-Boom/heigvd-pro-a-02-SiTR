@@ -36,7 +36,7 @@ public class Simulation {
     private static final Logger LOG = Logger.getLogger(Simulation.class.getName());
 
     // Rate at which the redrawing will happen in milliseconds
-    private static final int UPDATE_RATE = 40;
+    private static final int UPDATE_RATE = 30;
 
     // The displayable component we need to repaint
     private Displayer window;
@@ -58,7 +58,7 @@ public class Simulation {
 
     // Default rate of calculation for the simulation
     @Getter
-    private final double defaultDeltaT = 0.15;
+    private final double defaultDeltaT = 0.12;
     // Effective rate of calculation for the simulation
     @Getter
     @Setter
@@ -136,15 +136,15 @@ public class Simulation {
                             // Notify observers that the vehicle's parameters have changed
                             vehicle.notifyObservers();
                         }
-                    }
-                    else {
-                        // Different behaviours when vehicle has finished its itinerary
-                        if (behaviour == VehicleBehaviour.START_AGAIN) {
-                            vehicle.reset();
-                            vehicle.setSpeed(0);
-                        }
-                        else if (behaviour == VehicleBehaviour.LOOP) {
-                            vehicle.reset();
+                        else {
+                            // Different behaviours when vehicle has finished its itinerary
+                            if (behaviour == VehicleBehaviour.START_AGAIN) {
+                                vehicle.reset();
+                                vehicle.setSpeed(0);
+                            }
+                            else if (behaviour == VehicleBehaviour.LOOP) {
+                                vehicle.reset();
+                            }
                         }
                     }
                 }
