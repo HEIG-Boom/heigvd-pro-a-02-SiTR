@@ -244,7 +244,7 @@ public class Vehicle extends Observable implements Renderable {
         // If it exceed the itinerary path length,
         // we add the excess to the position on the next itinerary path
         if (position > currentPath().length()) {
-            // [TEMPORARY] Check if vehicle finished its itinerary
+            // Check if vehicle finished its itinerary
             if (pathStep != itinerarySize() - 1) {
                 position -= currentPath().length();
                 pathStep++;

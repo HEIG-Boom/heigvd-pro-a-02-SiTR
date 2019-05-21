@@ -124,10 +124,13 @@ public class Simulation {
             @Override
             public void run() {
                 for (Vehicle vehicle : vehicles) {
+                    // If the vehicle hasn't finished its itinerary
                     if (!vehicle.isFinished()) {
+                        // Update vehicle's speed and position
                         vehicle.update(deltaT);
 
                         if (!vehicle.isFinished()) {
+                            // And draw vehicle on screen
                             vehicle.draw(scenario.getScale());
 
                             // Notify observers that the vehicle's parameters have changed
@@ -135,6 +138,7 @@ public class Simulation {
                         }
                     }
                     else {
+                        // Different behaviours when vehicle has finished its itinerary
                         if (behaviour == VehicleBehaviour.START_AGAIN) {
                             vehicle.reset();
                             vehicle.setSpeed(0);
