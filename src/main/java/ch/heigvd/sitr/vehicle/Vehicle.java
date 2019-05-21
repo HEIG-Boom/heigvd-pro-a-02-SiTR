@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.model.VehicleBehaviour;
 import ch.heigvd.sitr.utils.AccelerationNoise;
 import ch.heigvd.sitr.utils.Renderable;
 import lombok.Getter;
@@ -508,10 +509,19 @@ public class Vehicle extends Observable implements Renderable {
     /**
      * Reset vehicle to the first position in the itinerary
      */
-    public void reset() {
-        setPathStep(0);
-        setPosition(0);
-        finished = false;
+    public void reset(VehicleBehaviour behaviour) {
+        // Different behaviours when vehicle has finished its itinerary
+        switch (behaviour) {
+            case STOP:
+                break;
+            case START_AGAIN:
+                setSpeed(0);
+            case LOOP:
+                setPathStep(0);
+                setPosition(0);
+                finished = false;
+                break;
+        }
     }
 
     /**

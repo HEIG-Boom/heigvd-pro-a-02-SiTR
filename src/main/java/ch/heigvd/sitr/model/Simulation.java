@@ -137,14 +137,7 @@ public class Simulation {
                             vehicle.notifyObservers();
                         }
                         else {
-                            // Different behaviours when vehicle has finished its itinerary
-                            if (behaviour == VehicleBehaviour.START_AGAIN) {
-                                vehicle.reset();
-                                vehicle.setSpeed(0);
-                            }
-                            else if (behaviour == VehicleBehaviour.LOOP) {
-                                vehicle.reset();
-                            }
+                            vehicle.reset(behaviour);
                         }
                     }
                 }

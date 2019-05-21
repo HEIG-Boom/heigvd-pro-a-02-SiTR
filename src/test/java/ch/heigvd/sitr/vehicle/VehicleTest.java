@@ -8,6 +8,7 @@ package ch.heigvd.sitr.vehicle;
 import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.map.roadmappings.LaneGeometries;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
+import ch.heigvd.sitr.model.VehicleBehaviour;
 import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -359,7 +360,7 @@ public class VehicleTest {
 
     @Test
     public void resetShouldResetVehicleAttributes() {
-        vehicle.reset();
+        vehicle.reset(VehicleBehaviour.START_AGAIN);
         assertEquals(vehicle.getSpeed(), 0);
         assertEquals(vehicle.getPosition(), 0);
         assertEquals(vehicle.getPathStep(), 0);
