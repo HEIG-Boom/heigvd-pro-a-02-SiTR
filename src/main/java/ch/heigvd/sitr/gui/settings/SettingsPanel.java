@@ -250,7 +250,7 @@ public class SettingsPanel extends JPanel {
                     currentSim = new Simulation(getSelectedScenario(), getSelectedBehaviour(), map);
                     currentSim.loop();
                 } else {
-                    tooManyVehicle.setText("Trop de véhicule! (Max. " + getSelectedScenario().getMaxVehicle() + ")");
+                    tooManyVehicle.setText("Trop de véhicules ! (Max. " + getSelectedScenario().getMaxVehicle() + ")");
                 }
             }
         });
