@@ -1,3 +1,8 @@
+/*
+ * Filename : OpenDriveUnmarshaller.java
+ * Creation date : 22.04.2019
+ */
+
 package ch.heigvd.sitr.map.input;
 
 import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE;
@@ -31,7 +36,6 @@ public class OpenDriveUnmarshaller {
      * @return Instance with values available in XML document.
      */
     public OpenDRIVE load(StreamSource xmlFile) {
-        // TODO (TUM) Add some logs here
         OpenDRIVE data = null;
 
         try {
