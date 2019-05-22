@@ -1,3 +1,8 @@
+/*
+ * Filename : RoadMappingLine.java
+ * Creation date : 22.04.2019
+ */
+
 package ch.heigvd.sitr.map.roadmappings;
 
 import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.Road.PlanView.Geometry;
@@ -14,11 +19,11 @@ public class RoadMappingLine extends RoadMapping {
      * Constructor
      *
      * @param laneGeometries Lane's geometry in the road mapping
-     * @param s The start position of the plan view geometry (s-coordinate)
-     * @param x0 The start position of the plan view geometryy (x inertial)
-     * @param y0 The start position of the plan view geometry (y inertial)
-     * @param theta The direction of the line
-     * @param length The length of the line
+     * @param s              The start position of the plan view geometry (s-coordinate)
+     * @param x0             The start position of the plan view geometryy (x inertial)
+     * @param y0             The start position of the plan view geometry (y inertial)
+     * @param theta          The direction of the line
+     * @param length         The length of the line
      */
     public RoadMappingLine(LaneGeometries laneGeometries, double s, double x0, double y0,
                            double theta, double length) {
@@ -44,7 +49,7 @@ public class RoadMappingLine extends RoadMapping {
      * This private method maps the road segment onto straight line
      *
      * @param laneGeometries The lane geometries of the road
-     * @param geometry OpenDRIVE plan view geometry
+     * @param geometry       OpenDRIVE plan view geometry
      * @return The created road mapping
      */
     private static RoadMapping create(LaneGeometries laneGeometries, Geometry geometry) {

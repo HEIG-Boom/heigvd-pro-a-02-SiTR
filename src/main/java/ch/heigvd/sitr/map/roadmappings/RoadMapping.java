@@ -1,3 +1,8 @@
+/*
+ * Filename : RoadMapping.java
+ * Creation date : 22.04.2019
+ */
+
 package ch.heigvd.sitr.map.roadmappings;
 
 import ch.heigvd.sitr.map.Lane;
@@ -5,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * This class represents a road mapping that maps a logical road position (given by a lane and
@@ -44,15 +48,6 @@ public abstract class RoadMapping {
     }
 
     /**
-     * Convenience function, get the start position of the road
-     *
-     * @return The start position of the road
-     */
-    public AngleAndPos startPos() {
-        return startPos(0.0);
-    }
-
-    /**
      * Convenience function, get the start position of the road for a given lateral offset
      *
      * @param lateralOffset The lateral offset of the road
@@ -62,14 +57,6 @@ public abstract class RoadMapping {
         return posAt(0.0, lateralOffset);
     }
 
-    /**
-     * Convenience function, get the end position of the road
-     *
-     * @return The end position of the road
-     */
-    public AngleAndPos endPos() {
-        return endPos(0.0);
-    }
 
     /**
      * Convenience function, get the end position of the road for a given lateral offset
@@ -127,32 +114,6 @@ public abstract class RoadMapping {
      */
     protected double laneOffset(int lane) {
         return laneOffset((double) lane);
-    }
-
-    /**
-     * This class represents a polygon with floating point coordinates.
-     */
-    public static class PolygonFloat {
-        public int pointCount;  // Number of points in the polygon
-        float[] xPoints;        // Array of x-coordinates of the polygon
-        float[] yPoints;        // Array of y-coordinates of the polygon
-
-        /**
-         * Constructor
-         *
-         * @param pointCount number of points in the polygon.
-         */
-        PolygonFloat(int pointCount) {
-            this.pointCount = pointCount;
-            xPoints = new float[pointCount];
-            yPoints = new float[pointCount];
-        }
-
-        @Override
-        public String toString() {
-            return "PolygonFloat [pointCount=" + pointCount + ", xPoints=" +
-                    Arrays.toString(xPoints) + ", yPoints=" + Arrays.toString(yPoints) + "]";
-        }
     }
 
     /**

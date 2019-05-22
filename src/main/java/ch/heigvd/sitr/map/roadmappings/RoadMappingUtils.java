@@ -1,3 +1,8 @@
+/*
+ * Filename : RoadMappingUtils.java
+ * Creation date : 22.04.2019
+ */
+
 package ch.heigvd.sitr.map.roadmappings;
 
 import com.google.common.collect.Iterables;
@@ -12,6 +17,12 @@ public final class RoadMappingUtils {
     private RoadMappingUtils() {
     }
 
+    /**
+     * Factory for creating the road mapping
+     *
+     * @param roadGeometries All road geometries of the road network
+     * @return The created road mapping
+     */
     public static final RoadMapping create(Iterable<RoadGeometry> roadGeometries) {
         if (Iterables.size(roadGeometries) == 1) {
             return create(Iterables.getOnlyElement(roadGeometries));
@@ -23,6 +34,9 @@ public final class RoadMappingUtils {
 
     /**
      * Factory for creating the road mapping
+     *
+     * @param roadGeometry The road geometry of the road segment
+     * @return The created road mapping
      */
     private static final RoadMapping create(RoadGeometry roadGeometry) {
         RoadMapping roadMapping;

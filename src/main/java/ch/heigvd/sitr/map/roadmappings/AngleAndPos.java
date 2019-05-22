@@ -1,3 +1,8 @@
+/*
+ * Filename : AngleAndPos.java
+ * Creation date : 22.04.2019
+ */
+
 package ch.heigvd.sitr.map.roadmappings;
 
 import lombok.Getter;
