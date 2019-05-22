@@ -13,6 +13,8 @@ import ch.heigvd.sitr.vehicle.VehicleController;
 import lombok.Getter;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +28,7 @@ import java.util.HashMap;
 public class SettingsPanel extends JPanel {
     private final JComboBox scenarioSelector;
     private final JComboBox behaviorSelector;
+    private final JLabel tooManyVehicle;
     private HashMap<VehicleControllerType, JSpinner> controllersSpinner = new HashMap<>();
 
     @Getter
@@ -100,6 +103,14 @@ public class SettingsPanel extends JPanel {
             scenarioSelector.addItem(st);
         }
 
+        // Used to hide a previous error message
+        scenarioSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tooManyVehicle.setText(" ");
+            }
+        });
+
         /*--------------------------------------*/
 
         gbc = new GridBagConstraints();
@@ -130,14 +141,23 @@ public class SettingsPanel extends JPanel {
             gbc.anchor = GridBagConstraints.EAST;
             add(new JLabel(vc.toString()), gbc);
 
-            // adding spinner (0 to 1000)
+            // adding spinner (0 to 100)
             gbc = new GridBagConstraints();
             gbc.gridx = 1;
             gbc.gridy = baseY;
             gbc.gridwidth = 2;
             gbc.ipadx = 50;
-            gbc.insets = new Insets(0, 10, 10, 0);
-            JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
+            gbc.insets = new Insets(0, 0, 10, 0);
+            JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+            spinner.setPreferredSize(new Dimension(100, 20));
+
+            // Used to hide a previous error message
+            spinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    tooManyVehicle.setText(" ");
+                }
+            });
             add(spinner, gbc);
 
             controllersSpinner.put(vc, spinner);
@@ -145,6 +165,14 @@ public class SettingsPanel extends JPanel {
         }
 
         /*--------------------------------------------------------------*/
+
+        tooManyVehicle = new JLabel(" ");
+        tooManyVehicle.setForeground(Color.RED);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = baseY++;
+        gbc.gridwidth = 1;
+        add(tooManyVehicle, gbc);
 
         final JSeparator separator3 = new JSeparator();
         gbc = new GridBagConstraints();
@@ -199,8 +227,6 @@ public class SettingsPanel extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SettingsWindow.getInstance().closeWindow();
-
                 // Get all specified vehicles, and their controller
                 HashMap<VehicleControllerType, Integer> map = new HashMap<>();
 
@@ -210,9 +236,22 @@ public class SettingsPanel extends JPanel {
                     map.put(vct, (Integer) controllersSpinner.get(vct).getValue());
                 }
 
-                // Create simulation with specified parameters
-                currentSim = new Simulation(getSelectedScenario(), getSelectedBehaviour(), map);
-                currentSim.loop();
+                // Count how many car are included
+                int totalVehicle = 0;
+                for (VehicleControllerType vct : VehicleControllerType.values()) {
+                    totalVehicle += map.get(vct);
+                }
+
+                // If the number of vehicle respect the max for the selected scenario
+                if (totalVehicle <= getSelectedScenario().getMaxVehicle()) {
+                    SettingsWindow.getInstance().closeWindow();
+
+                    // Create simulation with specified parameters
+                    currentSim = new Simulation(getSelectedScenario(), getSelectedBehaviour(), map);
+                    currentSim.loop();
+                } else {
+                    tooManyVehicle.setText("Trop de véhicule! (Max. " + getSelectedScenario().getMaxVehicle() + ")");
+                }
             }
         });
 
