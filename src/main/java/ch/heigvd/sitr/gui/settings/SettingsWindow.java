@@ -69,6 +69,7 @@ public class SettingsWindow {
 
     /**
      * Method used to get the selected scenario
+     *
      * @return the selected scenario
      */
     public Scenario getSelectedScenario() {
@@ -81,6 +82,7 @@ public class SettingsWindow {
 
     /**
      * Method used to get the selected behaviour of the simulation
+     *
      * @return the selected behaviour
      */
     public VehicleBehaviour getSelectedBehaviour() {

@@ -113,7 +113,7 @@ public class CarControlPanel extends JPanel implements Observer {
         this.add(colorChangeLabel, gbc);
 
         colorChangeButton = new JButton();
-        colorChangeButton.setPreferredSize(new Dimension(25,25));
+        colorChangeButton.setPreferredSize(new Dimension(25, 25));
         colorChangeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -248,7 +248,8 @@ public class CarControlPanel extends JPanel implements Observer {
     /**
      * Method used to update the observer. In this case, refresh the statistics of the
      * selected car.
-     * @param o the selected car
+     *
+     * @param o   the selected car
      * @param arg param used to notify all observers of o (never used in this app)
      */
     @Override
