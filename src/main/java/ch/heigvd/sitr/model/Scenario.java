@@ -13,12 +13,8 @@ import lombok.Getter;
  * @author Luc Wachter
  */
 public enum Scenario {
-    SIMPLE_ROAD("Route simple", 8, "simple_road.xodr"),
-    RING_ROAD("Route anneau (1 voie)", 8, "ring_road.xodr"),
-    OFFRAMP("Bretelle de sortie", 8, "offramp_v2.xodr"),
-    HIGHWAY_EXCHANGE("Échangeur autoroutier", 8, "highway_exchange.xodr"),
-    EIGHT("Huit", 8, "eight.xodr"),
-    OFFRAMP_LOW("Bretelle de sortie bas", 8, "offramp_low.xodr");
+    SIMPLE_ROAD("Route simple", 8, 18, "simple_road.xodr"),
+    RING_ROAD("Route anneau (1 voie)", 8, 40,  "ring_road.xodr");
 
     // Base folder containing data files for the scenario (map)
     private static final String BASE_PATH = "/map/simulation/";
@@ -28,6 +24,11 @@ public enum Scenario {
     // Scale of the scenario (how many pixels for a meter)
     @Getter
     private int scale;
+
+    // number of vehicle allowed on this scenario
+    @Getter
+    private int maxVehicle;
+
     // Path to the scenario's data file
     @Getter
     private final String configPath;
@@ -38,9 +39,10 @@ public enum Scenario {
      * @param name       The name of the scenario
      * @param configFile The name of the scenario's data file (with extension)
      */
-    Scenario(String name, int scale, String configFile) {
+    Scenario(String name, int scale, int maxVehicle, String configFile) {
         this.name = name;
         this.scale = scale;
+        this.maxVehicle = maxVehicle;
         // Construct path to data file from base path and filename
         configPath = BASE_PATH + configFile;
     }
