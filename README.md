@@ -8,7 +8,10 @@ In this sense, SiTR has a microscopic approach to simulation, but it will also b
 from the simulation. Its analyses will be run on predefined, small-scale scenarios. These will simulate a small
 and interesting part of a road network.
 
-Development team:
+## Illustration
+![Running simulation](https://raw.githubusercontent.com/wiki/HEIG-Boom/heigvd-pro-a-02-SiTR/img/RunningSim.png)
+
+## Development team
 
 | Name                                 | Email                                | Github      |
 |--------------------------------------|--------------------------------------|-------------|
@@ -20,25 +23,34 @@ Development team:
 | Simon Walther                        | simon.walther@heig-vd.ch             | Waltharnack |
 
 ## Dependencies
-This software requires Java 8 or above and the following tools and libraries:
+Used through the `.jar` file, this application needs nothing more than Java 8 or above to run.
 
-- Apache Maven v. 3.5.4
+In order to compile and run this project yourself, you'll need Apache Maven (v. 3.5.4).
+
+Maven will take care of the following dependencies for you:
+
 - jUnit v. 5.4
 - Lombok v. 1.18.2
+- jDOM2 v. 2.0.6
+- jaxb v. 2.3.0
+- Commons math 3 v. 3.6.1
 
 ## Build and install
 Thanks to Apache Maven, running `mvn package` should suffice to run tests and create the jar file in `target/sitr-1
 .0-SNAPSHOT-launcher.jar`.
 
+You can also use the most recent `.jar` file in the "releases" section of our GitHub repository.
+
 ## Run
 - The program can be run using the previously mentioned jar file using `java -jar sitr-1
-.0-SNAPSHOT-launcher.jar`.
-- It can also be run through an IDE (or the `java` command), by running the `main` entry point situated in `ch.heigvd
-.sitr.App` after compilation.
+.0-SNAPSHOT-launcher.jar` (or another name if you downloaded it from the "releases" section).
 
 ## Documentation
-Class diagrams, mock-ups, design decisions and style guidelines in the wiki.
+Class diagrams, mock-ups, design decisions and style guidelines can be found the wiki (in french).
 
-User manual: to do.
+We also provide a user manual and an installation guide at the end of our project report, which can also be 
+found in the
+ "releases" section on our GitHub repository.
 
-API documentation: to generate.
+The API documentation can be generated using an IDE with support for JavaDoc, but a generated version is available in 
+the "releases" section.
