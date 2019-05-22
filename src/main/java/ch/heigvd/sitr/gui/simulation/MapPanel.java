@@ -67,6 +67,7 @@ class MapPanel extends JPanel implements MouseListener {
 
     /**
      * Not Implemented
+     *
      * @param e mouse event
      */
     @Override
@@ -75,6 +76,7 @@ class MapPanel extends JPanel implements MouseListener {
 
     /**
      * Not Implemented
+     *
      * @param e mouse event
      */
     @Override
@@ -83,6 +85,7 @@ class MapPanel extends JPanel implements MouseListener {
 
     /**
      * Not Implemented
+     *
      * @param e mouse event
      */
     @Override
@@ -91,6 +94,7 @@ class MapPanel extends JPanel implements MouseListener {
 
     /**
      * Not Implemented
+     *
      * @param e mouse event
      */
     @Override
