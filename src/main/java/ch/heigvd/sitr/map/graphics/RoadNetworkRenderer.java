@@ -1,3 +1,8 @@
+/*
+ * Filename : RoadNetworkRenderer.java
+ * Creation date : 24.04.2019
+ */
+
 package ch.heigvd.sitr.map.graphics;
 
 import ch.heigvd.sitr.map.RoadNetwork;
@@ -6,6 +11,7 @@ import ch.heigvd.sitr.map.roadmappings.RoadMapping;
 import lombok.Setter;
 
 import java.awt.*;
+
 /**
  * A singleton renderer for road networks
  */
@@ -52,6 +58,7 @@ public class RoadNetworkRenderer {
 
     /**
      * This method draws each road segment in the road network
+     *
      * @param g The Graphics on which to draw the road segment
      */
     private void drawRoadSegmentsAndLines(Graphics2D g) {

@@ -1,3 +1,8 @@
+/*
+ * Filename : PaintRoadMapping.java
+ * Creation date : 24.04.2019
+ */
+
 package ch.heigvd.sitr.map.graphics;
 
 import ch.heigvd.sitr.map.roadmappings.AngleAndPos;
@@ -21,9 +26,9 @@ public final class PaintRoadMapping {
     }
 
     /**
-     * This method paint the road segment based on the type of their road mapping
+     * This method paints the road segment based on the type of their road mapping
      *
-     * @param g The Graphics on which to draw the road segment
+     * @param g           The Graphics on which to draw the road segment
      * @param roadMapping The road mapping of the road segment
      */
     public static void paintRoadMapping(Graphics2D g, RoadMapping roadMapping) {
@@ -34,16 +39,15 @@ public final class PaintRoadMapping {
     /**
      * This method paints the road segment based on the type of their road mapping
      *
-     * @param g The Graphics on which to draw the road segment
-     * @param roadMapping The road mapping of the road segment
+     * @param g             The Graphics on which to draw the road segment
+     * @param roadMapping   The road mapping of the road segment
      * @param lateralOffset The road's lateral offset
      */
     public static void paintRoadMapping(Graphics2D g, RoadMapping roadMapping,
-                                    double lateralOffset) {
+                                        double lateralOffset) {
         final Line2D.Double line = new Line2D.Double();
         final Point2D from = new Point2D.Double();
         final Point2D to = new Point2D.Double();
-        final double roadLength = roadMapping.getRoadLength();
         AngleAndPos angleAndPos;
 
         final Class<? extends RoadMapping> roadMappingClass = roadMapping.getClass();

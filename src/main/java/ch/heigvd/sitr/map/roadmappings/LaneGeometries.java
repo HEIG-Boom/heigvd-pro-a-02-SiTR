@@ -1,3 +1,9 @@
+/*
+ * Filename : LaneGeometries.java
+ * Creation date : 22.04.2019
+ */
+
+
 package ch.heigvd.sitr.map.roadmappings;
 
 import lombok.Getter;
@@ -53,16 +59,6 @@ public class LaneGeometries {
          */
         public LaneGeometry() {
             this.laneCount = 0;
-            this.laneWidth = DEFAULT_LANE_WIDTH;
-        }
-
-        /**
-         * Constructor
-         *
-         * @param laneCount The number of lanes
-         */
-        public LaneGeometry(int laneCount) {
-            this.laneCount = laneCount;
             this.laneWidth = DEFAULT_LANE_WIDTH;
         }
 

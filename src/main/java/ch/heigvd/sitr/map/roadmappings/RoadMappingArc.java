@@ -1,3 +1,8 @@
+/*
+ * Filename : RoadMappingArc.java
+ * Creation date : 22.04.2019
+ */
+
 package ch.heigvd.sitr.map.roadmappings;
 
 import ch.heigvd.sitr.autogen.opendrive.OpenDRIVE.Road.PlanView.Geometry;
