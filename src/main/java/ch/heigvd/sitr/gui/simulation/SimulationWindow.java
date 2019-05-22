@@ -5,7 +5,7 @@
 
 package ch.heigvd.sitr.gui.simulation;
 
-import ch.heigvd.sitr.gui.settings.*;
+import ch.heigvd.sitr.gui.settings.SettingsWindow;
 import lombok.Getter;
 
 import javax.swing.*;

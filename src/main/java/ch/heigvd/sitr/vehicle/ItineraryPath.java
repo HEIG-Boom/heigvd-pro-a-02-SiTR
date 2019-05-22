@@ -9,7 +9,6 @@ import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.utils.Conversions;
 import lombok.Getter;
 
-import java.awt.geom.Point2D;
 import java.util.Objects;
 
 /**
@@ -37,16 +36,21 @@ public class ItineraryPath {
 
     /**
      * Get the length of the vector formed by the itinerary
+     *
      * @return the length
      */
     public double length() {
-        return Conversions.pixelsToMeters(scale, (int)roadSegment.getRoadMapping().getRoadLength());
+        return Conversions.pixelsToMeters(scale, (int) roadSegment.getRoadMapping().getRoadLength());
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ItineraryPath that = (ItineraryPath) o;
         return Objects.equals(roadSegment, that.roadSegment);
     }

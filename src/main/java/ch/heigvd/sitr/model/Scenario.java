@@ -16,8 +16,8 @@ public enum Scenario {
     SIMPLE_ROAD("Route simple", 8, "simple_road.xodr"),
     RING_ROAD("Route anneau (1 voie)", 8, "ring_road.xodr"),
     OFFRAMP("Bretelle de sortie", 8, "offramp_v2.xodr"),
-    HIGHWAY_EXCHANGE("Highway exchange", 8, "highway_exchange.xodr"),
-    EIGHT("Eight", 8, "eight.xodr"),
+    HIGHWAY_EXCHANGE("Échangeur autoroutier", 8, "highway_exchange.xodr"),
+    EIGHT("Huit", 8, "eight.xodr"),
     OFFRAMP_LOW("Bretelle de sortie bas", 8, "offramp_low.xodr");
 
     // Base folder containing data files for the scenario (map)

@@ -13,9 +13,9 @@ package ch.heigvd.sitr.model;
  * @author Luc Wachter
  */
 public enum VehicleBehaviour {
-    REVERSE_PATH("Aller de la destination au départ"),
+    STOP("S'arrêter là"),
     START_AGAIN("Recommencer un trajet identique"),
-    STOP("S'arrêter là");
+    LOOP("Continuer dans une boucle");
 
     // Name of the behaviour (to display in GUI and such)
     private final String name;

@@ -6,6 +6,7 @@
 package ch.heigvd.sitr.vehicle;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
+import ch.heigvd.sitr.model.VehicleBehaviour;
 import ch.heigvd.sitr.utils.AccelerationNoise;
 import ch.heigvd.sitr.utils.Renderable;
 import lombok.Getter;
@@ -30,6 +31,9 @@ import java.util.Observable;
 public class Vehicle extends Observable implements Renderable {
     private static final String BASE_CONFIG_PATH = "/vehicle/";
 
+    // Color when in accident
+    private static final Color ACCIDENT_COLOR = Color.white;
+
     // Max acceleration in [m/s^2] of the vehicle
     @Getter
     private final double maxAcceleration;
@@ -42,9 +46,6 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     private final double width;
 
-    // Color when in accident
-    private final Color accidentColor = Color.white;
-
     // the maximum speed at which the vehicle is waiting
     private final int maximumWaitingSpeed = 1;
 
@@ -53,6 +54,7 @@ public class Vehicle extends Observable implements Renderable {
 
     // Current path step
     @Getter
+    @Setter
     private int pathStep;
 
     // Position of the vehicle relative to the lane's start [m]
@@ -80,6 +82,28 @@ public class Vehicle extends Observable implements Renderable {
     // Acceleration noise
     private AccelerationNoise accelerationNoise = new AccelerationNoise();
 
+    // Nb of accidents
+    @Getter
+    private int nbOfAccidents;
+
+    // Vehicle wait time
+    @Getter
+    private double waitingTime;
+
+    // beginning of the time when the vehicle is waiting
+    private long startTimeWaiting;
+
+    // is the vehicle waiting
+    private boolean isWaiting;
+
+    // Has the vehicle finished its itinerary
+    @Getter
+    private boolean finished;
+
+    // Is this vehicle in an accident
+    @Getter
+    private boolean inAccident;
+
     // Rectangle of the car on the map
     @Getter
     private Rectangle rectangle;
@@ -89,13 +113,8 @@ public class Vehicle extends Observable implements Renderable {
     @Setter
     private Color color;
 
-    // Nb of accidents
-    @Getter
-    private int nbOfAccidents;
-
-    // Is this vehicle in an accident
-    @Getter
-    private boolean inAccident;
+    // Save color when changing it temporarily
+    private Color oldColor;
 
     // Is the vehicle painted with a custom color
     @Getter
@@ -106,16 +125,6 @@ public class Vehicle extends Observable implements Renderable {
     @Getter
     @Setter
     private boolean drawingPath;
-
-    // vehicle wait time in millisecond
-    @Getter
-    private long waitingTime;
-
-    // beginning of the time when the vehicle is waiting
-    private long startTimeWaiting;
-
-    // is the vehicle waiting
-    private boolean isWaiting;
 
     /**
      * Constructor
@@ -236,8 +245,14 @@ public class Vehicle extends Observable implements Renderable {
         // If it exceed the itinerary path length,
         // we add the excess to the position on the next itinerary path
         if (position > currentPath().length()) {
-            position -= currentPath().length();
-            moveToNextPath();
+            // Check if vehicle finished its itinerary
+            if (pathStep != itinerarySize() - 1) {
+                position -= currentPath().length();
+                pathStep++;
+            } else {
+                position = Double.MAX_VALUE;
+                finished = true;
+            }
         }
 
         this.position = position;
@@ -322,7 +337,7 @@ public class Vehicle extends Observable implements Renderable {
     /**
      * Acceleration of the vehicle
      * <p>
-     * Note: max acceleration is returned if accleration exceed max
+     * Note: max acceleration is returned if acceleration exceed max
      *
      * @return acceleration of the vehicle
      */
@@ -387,7 +402,11 @@ public class Vehicle extends Observable implements Renderable {
      * @param deltaT the time difference [s]
      */
     public void update(double deltaT) {
-        // Update noise if it's an human driven vehicle
+        if (finished) {
+            return;
+        }
+
+        // Update noise if it's a human driven vehicle
         if (vehicleController.isHumanDriven()) {
             // Update the acceleration noise
             updateAccelerationNoise(deltaT);
@@ -400,6 +419,7 @@ public class Vehicle extends Observable implements Renderable {
         // Then update position, taking into account the new speed
         updatePosition(deltaT);
 
+        // Observer pattern changes
         setChanged();
     }
 
@@ -422,7 +442,8 @@ public class Vehicle extends Observable implements Renderable {
             position += frontDistance - 0.1;
 
             // set vehicle to accident color
-            color = accidentColor;
+            oldColor = color;
+            color = ACCIDENT_COLOR;
         }
 
         // change accident status if the vehicle is no more in accident
@@ -430,7 +451,7 @@ public class Vehicle extends Observable implements Renderable {
             inAccident = false;
 
             // set back color
-            color = vehicleController.getControllerType().getColor();
+            color = oldColor;
         }
     }
 
@@ -441,7 +462,8 @@ public class Vehicle extends Observable implements Renderable {
      */
     @Override
     public void draw(double scale) {
-        rectangle = VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(), this, scale);
+        rectangle = VehicleRenderer.getInstance().display(SimulationWindow.getInstance().getSimulationPane(),
+                this, scale);
     }
 
     /**
@@ -450,7 +472,7 @@ public class Vehicle extends Observable implements Renderable {
      * @return the current path
      */
     public ItineraryPath currentPath() {
-        return this.itinerary.get(pathStep);
+        return itinerary.get(pathStep);
     }
 
     /**
@@ -462,7 +484,7 @@ public class Vehicle extends Observable implements Renderable {
      */
     public void addToItinerary(ItineraryPath itineraryPath) {
         if (itineraryPath != null) {
-            this.itinerary.add(itineraryPath);
+            itinerary.add(itineraryPath);
         }
     }
 
@@ -472,25 +494,7 @@ public class Vehicle extends Observable implements Renderable {
      * @return the itinerary size
      */
     public int itinerarySize() {
-        return this.itinerary.size();
-    }
-
-    /**
-     * Get the next step
-     *
-     * @return the next step
-     */
-    public int nextStep() {
-        return (pathStep + 1) % itinerarySize();
-    }
-
-    /**
-     * Get the next itinerary path
-     *
-     * @return the next itinerary path
-     */
-    public ItineraryPath nextPath() {
-        return itinerary.get(nextStep());
+        return itinerary.size();
     }
 
     /**
@@ -499,7 +503,25 @@ public class Vehicle extends Observable implements Renderable {
      * Note: if exceed max path step, path step does not change
      */
     public void moveToNextPath() {
-        pathStep = nextStep();
+        pathStep = (pathStep + 1) % itinerarySize();
+    }
+
+    /**
+     * Reset vehicle to the first position in the itinerary
+     */
+    public void reset(VehicleBehaviour behaviour) {
+        // Different behaviours when vehicle has finished its itinerary
+        switch (behaviour) {
+            case STOP:
+                break;
+            case START_AGAIN:
+                setSpeed(0);
+            case LOOP:
+                setPathStep(0);
+                setPosition(0);
+                finished = false;
+                break;
+        }
     }
 
     /**
@@ -530,7 +552,7 @@ public class Vehicle extends Observable implements Renderable {
 
     /**
      * Method used to know where is the vehicle on the map.
-     * This position can be caluclate with the rectangle that we draw on screen.
+     * This position can be calculate with the rectangle that we draw on screen.
      *
      * @return a 2D Point of the center of the vehicle
      */

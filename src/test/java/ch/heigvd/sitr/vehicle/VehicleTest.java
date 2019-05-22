@@ -8,6 +8,7 @@ package ch.heigvd.sitr.vehicle;
 import ch.heigvd.sitr.map.RoadSegment;
 import ch.heigvd.sitr.map.roadmappings.LaneGeometries;
 import ch.heigvd.sitr.map.roadmappings.RoadMappingLine;
+import ch.heigvd.sitr.model.VehicleBehaviour;
 import ch.heigvd.sitr.model.VehicleControllerType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for Vehicle.
+ *
  * @author Simon Walther
  */
 public class VehicleTest {
@@ -220,13 +222,13 @@ public class VehicleTest {
 
     /**
      * Calculate speed difference with acceleration and time difference
-     *
+     * <p>
      * deltaV = a * deltaT
-     *
+     * <p>
      * Variables :
      * a (acceleration)         : 0.15 [m/s^2]
      * deltaT (time difference) : 60 [s]
-     *
+     * <p>
      * => deltaV = 0.15 * 60 = 9 [m/s]
      */
     @Test
@@ -236,14 +238,14 @@ public class VehicleTest {
 
     /**
      * Update speed with acceleration and time difference
-     *
+     * <p>
      * new speed = speed + acceleration * time difference
-     *
+     * <p>
      * Variables :
      * speed           : 22.22 [m/s]
      * acceleration    : 0.23719631730028704 [m/s^2]
      * time difference : 10 [s]
-     *
+     * <p>
      * => new speed = 22.22 + 0.23719631730028704 * 10 = 24.59196317300287 [m/s]
      */
     @Test
@@ -262,16 +264,16 @@ public class VehicleTest {
 
     /**
      * Update speed with acceleration and time difference
-     *
+     * <p>
      * new speed = speed + acceleration * time difference
-     *
+     * <p>
      * Variables :
      * speed           : 22.22 [m/s]
      * acceleration    : 0.23719631730028704 [m/s^2]
      * time difference : 60 [s]
-     *
+     * <p>
      * => new speed = 22.22 + 0.23719631730028704 * 60 = 36.451779038 [m/s],
-     *    max speed = 33.33
+     * max speed = 33.33
      * => new speed = 33.33
      */
     @Test
@@ -289,13 +291,13 @@ public class VehicleTest {
 
     /**
      * Calculate position difference
-     *
+     * <p>
      * position difference [m] = speed [m/s] * time difference [s]
-     *
+     * <p>
      * Variables :
      * speed            : 22.22 [m/s]
      * time difference  : 30 [s]
-     *
+     * <p>
      * => position difference = 22.22 * 20 = 444.4 [m]
      */
     @Test
@@ -305,14 +307,14 @@ public class VehicleTest {
 
     /**
      * Update position with speed, acceleration and time difference
-     *
+     * <p>
      * new position = position + speed * time difference
-     *
+     * <p>
      * Variables :
      * position        : 50 [m]
      * speed           : 22.22 [s]
      * time difference : 10 [s]
-     *
+     * <p>
      * => new position = 50 + 22.22 * 10 = 272.2 [m]
      */
     @Test
@@ -331,15 +333,15 @@ public class VehicleTest {
 
     /**
      * Update position with speed, acceleration and time difference
-     *
+     * <p>
      * new position = position + new speed * time difference
-     *
+     * <p>
      * Variables :
      * position        : 50 [m]
      * speed           : 22.22 [s]
      * new speed       : 24.59196317300287 [m/s]
      * time difference : 10 [s]
-     *
+     * <p>
      * => new position = 50 + 24.59196317300287 * 10 = 295,91963173 [m]
      */
     @Test
@@ -354,5 +356,14 @@ public class VehicleTest {
         vehicle.update(10);
 
         assertEquals(296.223, vehicle.getPosition(), 0.001);
+    }
+
+    @Test
+    public void resetShouldResetVehicleAttributes() {
+        vehicle.reset(VehicleBehaviour.START_AGAIN);
+        assertEquals(vehicle.getSpeed(), 0);
+        assertEquals(vehicle.getPosition(), 0);
+        assertEquals(vehicle.getPathStep(), 0);
+        assertFalse(vehicle.isFinished());
     }
 }
