@@ -1,3 +1,8 @@
+/*
+ * Filename : RoadNetwork.java
+ * Creation date : 22.04.2019
+ */
+
 package ch.heigvd.sitr.map;
 
 import ch.heigvd.sitr.gui.simulation.SimulationWindow;
@@ -19,14 +24,6 @@ public class RoadNetwork implements Iterable<RoadSegment>, Renderable {
     @Getter
     @Setter
     private String name;    // Road network's name
-
-    /**
-     * Clear the road network so that it's empty and ready to accept new road segments
-     */
-    public void clear() {
-        name = null;
-        roadSegments.clear();
-    }
 
     /**
      * Returns the number of road segments in the road network

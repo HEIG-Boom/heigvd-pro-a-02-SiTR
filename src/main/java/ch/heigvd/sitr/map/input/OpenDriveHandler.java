@@ -153,9 +153,6 @@ public class OpenDriveHandler {
         String userId = road.getId();
         roadSegment.setUserId(userId);
 
-        // Set road name
-        roadSegment.setRoadName(road.getName());
-
         // Create lanes type
         for (ch.heigvd.sitr.autogen.opendrive.Lane lane : lanes) {
             int laneIndex = laneIdToLaneIndex(lane.getId());
