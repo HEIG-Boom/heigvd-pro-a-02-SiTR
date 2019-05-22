@@ -63,7 +63,7 @@ public final class PaintRoadMapping {
             double centerY = arc.getCenterY();
             final Arc2D.Double arc2D = new Arc2D.Double();
 
-            arc2D.setArcByCenter(centerX, centerY, radius + lateralOffset * (arc.isClockwise() ? 1 : -1), startAngle, arcAngle, Arc2D.OPEN);
+            arc2D.setArcByCenter(centerX, centerY, radius, startAngle, arcAngle, Arc2D.OPEN);
             g.draw(arc2D);
         }
 
