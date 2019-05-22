@@ -11,12 +11,6 @@ package ch.heigvd.sitr.utils;
  * @author Luc Wachter
  */
 public interface Renderable {
-//    VehicleRenderer getRenderer();
-
-//    Color getColor();
-
-//    Shape getShape();
-
     /**
      * Method to make the object call its renderer
      *

@@ -24,7 +24,8 @@ public class VehicleRenderer {
     /**
      * Private constructor to avoid instantiation
      */
-    private VehicleRenderer() {}
+    private VehicleRenderer() {
+    }
 
     /**
      * Rendering method for vehicles.

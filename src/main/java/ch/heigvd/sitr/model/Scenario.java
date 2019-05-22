@@ -14,7 +14,7 @@ import lombok.Getter;
  */
 public enum Scenario {
     SIMPLE_ROAD("Route simple", 8, 18, "simple_road.xodr"),
-    RING_ROAD("Route anneau (1 voie)", 8, 40,  "ring_road.xodr");
+    RING_ROAD("Route anneau (1 voie)", 4, 80, "ring_road.xodr");
 
     // Base folder containing data files for the scenario (map)
     private static final String BASE_PATH = "/map/simulation/";
