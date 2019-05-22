@@ -263,14 +263,14 @@ public class Statistics extends Thread {
 
             if (file.length() == 0) {
                 // Add header to CSV file
-                String head = "Date" + separator;
-                head += "Duration" + separator;
-                head += "Scenario name" + separator;
-                head += "Number of vehicles" + separator;
-                head += "Waiting time" + separator;
-                head += "Number of accidents" + separator;
-                head += "Network occupancy" + separator;
-                head += "Link to vehicle statistics\n";
+                String head = "Date de création des statistiques" + separator;
+                head += "Durée de la simulation" + separator;
+                head += "Nom du scénario" + separator;
+                head += "Nombre de véhicules" + separator;
+                head += "Temps d'attente" + separator;
+                head += "Nombre d'accidents" + separator;
+                head += "Taux d'occupation du réseau" + separator;
+                head += "Nom du fichier de statistiques des véhicules\n";
                 writer.append(head);
             }
 
@@ -321,10 +321,10 @@ public class Statistics extends Thread {
             Writer writer = getWriter(file);
 
             // Add header to CSV file
-            String head = "Vehicle number" + separator;
-            head += "Controller Type" + separator;
-            head += "Waiting time" + separator;
-            head += "Number of accidents\n";
+            String head = "Numéro du véhicule" + separator;
+            head += "Type du contrôleur" + separator;
+            head += "Temps d'attente" + separator;
+            head += "Nombre d'accidents\n";
             writer.append(head);
 
             // Adds the information of each vehicle to the file
